@@ -1,0 +1,51 @@
+{
+    "name": "bmichalski/arlecchino-dbal",
+    "license": "MIT",
+    "description": "A non-agnostic database abstraction layer.",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Benjamin Michalski",
+            "email": "benjamin.michalski@gmail.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/bmichalski/arlecchino-core.git"
+        }
+    ],
+    "require": {
+        "php": ">= 5.5",
+        "symfony/config": "~2.5",
+        "symfony/dependency-injection": "~2.5",
+        "symfony/property-access": "~2.5",
+        "bmichalski/arlecchino-core": "dev-experimental/bmichalski"
+    },
+    "require-dev":  {
+        "phpunit/phpunit": "~4.2",
+        "phpmd/phpmd": "~2.0",
+        "instaclick/php-code-sniffer": "~1.4",
+        "phpdocumentor/phpdocumentor": "~2.5",
+        "cebe/markdown": "~0.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Arlecchino\\DatabaseAbstractionLayer\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Arlecchino\\Core\\Tests\\": "vendor/bmichalski/arlecchino-core/tests/",
+            "Arlecchino\\DatabaseAbstractionLayer\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php postInstallOrUpdate.php"
+        ],
+        "post-update-cmd": [
+            "php postInstallOrUpdate.php"
+        ]
+    }
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://raw.github.com/sebastianbergmann/phpunit/4.2/phpunit.xsd"
+    bootstrap="./bootstrap.php"
+    backupGlobals="false"
+    backupStaticAttributes="false"
+    cacheTokens="false"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    forceCoversAnnotation="true"
+    mapTestClassNameToCoveredClassName="true"
+    printerClass="PHPUnit_TextUI_ResultPrinter"
+    processIsolation="false"
+    stopOnError="true"
+    stopOnFailure="true"
+    stopOnIncomplete="true"
+    stopOnSkipped="true"
+    stopOnRisky="true"
+    verbose="true"
+    beStrictAboutTestsThatDoNotTestAnything="true"
+    beStrictAboutOutputDuringTests="true">
+    <testsuites>
+        <testsuite
+            name="unit">
+            <directory>./</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory>../src/</directory>
+        </whitelist>
+    </filter>
+</phpunit>
