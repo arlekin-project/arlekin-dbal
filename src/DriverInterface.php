@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer;
+namespace Arlekin\DatabaseAbstractionLayer;
 
 interface DriverInterface
 {

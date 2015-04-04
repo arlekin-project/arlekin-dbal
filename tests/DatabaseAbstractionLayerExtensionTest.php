@@ -7,11 +7,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer\Tests;
+namespace Arlekin\DatabaseAbstractionLayer\Tests;
 
-use Arlecchino\DatabaseAbstractionLayer\DatabaseAbstractionLayerCompilerPass;
-use Arlecchino\DatabaseAbstractionLayer\DatabaseAbstractionLayerExtension;
-use Arlecchino\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager;
+use Arlekin\DatabaseAbstractionLayer\DatabaseAbstractionLayerCompilerPass;
+use Arlekin\DatabaseAbstractionLayer\DatabaseAbstractionLayerExtension;
+use Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager;
 use PHPUnit_Framework_TestCase;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -23,7 +23,7 @@ class DatabaseAbstractionLayerExtensionTest extends PHPUnit_Framework_TestCase
      * Test the load method
      * and make sure the altered container is still dumpable.
      *
-     * @covers Arlecchino\DatabaseAbstractionLayer\DatabaseAbstractionLayerExtension::load
+     * @covers Arlekin\DatabaseAbstractionLayer\DatabaseAbstractionLayerExtension::load
      */
     public function testLoad()
     {
@@ -81,7 +81,7 @@ class DatabaseAbstractionLayerExtensionTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\DatabaseAbstractionLayerExtension::getCompilerPasses
+     * @covers Arlekin\DatabaseAbstractionLayer\DatabaseAbstractionLayerExtension::getCompilerPasses
      */
     public function testGetCompilerPasses()
     {

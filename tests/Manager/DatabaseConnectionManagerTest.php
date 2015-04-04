@@ -7,12 +7,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer\Tests\Manager;
+namespace Arlekin\DatabaseAbstractionLayer\Tests\Manager;
 
-use Arlecchino\DatabaseAbstractionLayer\DatabaseConnectionInterface;
-use Arlecchino\DatabaseAbstractionLayer\DriverInterface;
-use Arlecchino\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager;
-use Arlecchino\Core\Tests\Helper\CommonTestHelper;
+use Arlekin\DatabaseAbstractionLayer\DatabaseConnectionInterface;
+use Arlekin\DatabaseAbstractionLayer\DriverInterface;
+use Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager;
+use Arlekin\Core\Tests\Helper\CommonTestHelper;
 use Exception;
 use PHPUnit_Framework_TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -25,7 +25,7 @@ class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
     protected $databaseConnectionManager;
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::__construct
+     * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::__construct
      */
     public function test__construct()
     {
@@ -45,7 +45,7 @@ class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::instanciateDatabaseConnection
+     * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::instanciateDatabaseConnection
      */
     public function testInstanciateDatabaseConnection()
     {
@@ -120,7 +120,7 @@ class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::instanciateDatabaseConnection
+     * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::instanciateDatabaseConnection
      */
     public function testInstanciateDatabaseConnectionExceptionIfNoDriverFound()
     {
@@ -162,7 +162,7 @@ class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::instanciateNamedDatabaseConnection
+     * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::instanciateNamedDatabaseConnection
      */
     public function testInstanciateNamedDatabaseConnection()
     {
@@ -241,7 +241,7 @@ class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::instanciateNamedDatabaseConnection
+     * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::instanciateNamedDatabaseConnection
      */
     public function testInstanciateNamedDatabaseConnectionExceptionIfNoDriverFound()
     {

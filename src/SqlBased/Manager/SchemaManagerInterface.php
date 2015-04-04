@@ -7,11 +7,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer\SqlBased\Manager;
+namespace Arlekin\DatabaseAbstractionLayer\SqlBased\Manager;
 
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Schema;
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table;
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\View;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\View;
 use Exception;
 
 /**

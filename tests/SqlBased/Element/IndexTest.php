@@ -7,13 +7,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer\Tests\SqlBased\Element;
+namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased\Element;
 
-use Arlecchino\Core\Collection\ArrayCollection;
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Column;
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Index;
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table;
-use Arlecchino\Core\Tests\Helper\CommonTestHelper;
+use Arlekin\Core\Collection\ArrayCollection;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table;
+use Arlekin\Core\Tests\Helper\CommonTestHelper;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -22,7 +22,7 @@ use PHPUnit_Framework_TestCase;
 class IndexTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Index::__construct
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index::__construct
      */
     public function testConstruct()
     {
@@ -51,8 +51,8 @@ class IndexTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Index::getKind
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Index::setKind
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index::getKind
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index::setKind
      */
     public function testGetAndSetKind()
     {
@@ -65,8 +65,8 @@ class IndexTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Index::getName
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Index::setName
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index::getName
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index::setName
      */
     public function testGetAndSetName()
     {
@@ -82,8 +82,8 @@ class IndexTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Index::getTable
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Index::setTable
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index::getTable
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index::setTable
      */
     public function testGetAndSetTable()
     {
@@ -96,8 +96,8 @@ class IndexTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Index::getColumns
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Index::setColumns
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index::getColumns
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index::setColumns
      */
     public function testGetAndSetColumns()
     {
@@ -112,7 +112,7 @@ class IndexTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Index::addColumn
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index::addColumn
      */
     public function testAddColumn()
     {
@@ -125,7 +125,7 @@ class IndexTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Index::addColumns
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index::addColumns
      */
     public function testAddColumns()
     {
@@ -140,7 +140,7 @@ class IndexTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Index::toArray
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index::toArray
      */
     public function testToArrayNoTable()
     {

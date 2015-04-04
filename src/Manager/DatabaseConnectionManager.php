@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer\Manager;
+namespace Arlekin\DatabaseAbstractionLayer\Manager;
 
-use Arlecchino\DatabaseAbstractionLayer\DriverInterface;
+use Arlekin\DatabaseAbstractionLayer\DriverInterface;
 use Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

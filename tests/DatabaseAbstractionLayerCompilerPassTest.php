@@ -7,16 +7,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer\Tests;
+namespace Arlekin\DatabaseAbstractionLayer\Tests;
 
-use Arlecchino\DatabaseAbstractionLayer\DatabaseAbstractionLayerCompilerPass;
+use Arlekin\DatabaseAbstractionLayer\DatabaseAbstractionLayerCompilerPass;
 use PHPUnit_Framework_TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class DatabaseAbstractionLayerCompilerPassTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\DatabaseAbstractionLayerCompilerPass::process
+     * @covers Arlekin\DatabaseAbstractionLayer\DatabaseAbstractionLayerCompilerPass::process
      */
     public function testProcess()
     {

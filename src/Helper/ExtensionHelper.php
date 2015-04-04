@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer\Helper;
+namespace Arlekin\DatabaseAbstractionLayer\Helper;
 
-use Arlecchino\DatabaseAbstractionLayer\DriverInterface;
+use Arlekin\DatabaseAbstractionLayer\DriverInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ExtensionHelper

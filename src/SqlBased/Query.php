@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer\SqlBased;
+namespace Arlekin\DatabaseAbstractionLayer\SqlBased;
 
-use Arlecchino\Core\Collection\ArrayCollection;
+use Arlekin\Core\Collection\ArrayCollection;
 
 /**
  * Represents a SQL-based query.

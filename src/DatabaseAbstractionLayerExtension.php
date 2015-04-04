@@ -7,16 +7,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer;
+namespace Arlekin\DatabaseAbstractionLayer;
 
-use Arlecchino\Core\AbstractBaseArlecchinoExtension;
-use Arlecchino\DatabaseAbstractionLayer\DatabaseAbstractionLayerCompilerPass;
-use Arlecchino\DatabaseAbstractionLayer\Helper\ExtensionHelper;
+use Arlekin\Core\AbstractBaseArlekinExtension;
+use Arlekin\DatabaseAbstractionLayer\DatabaseAbstractionLayerCompilerPass;
+use Arlekin\DatabaseAbstractionLayer\Helper\ExtensionHelper;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
-class DatabaseAbstractionLayerExtension extends AbstractBaseArlecchinoExtension
+class DatabaseAbstractionLayerExtension extends AbstractBaseArlekinExtension
 {
     /**
      * {@inheritdoc}

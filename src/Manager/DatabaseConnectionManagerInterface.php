@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer\Manager;
+namespace Arlekin\DatabaseAbstractionLayer\Manager;
 
-use Arlecchino\DatabaseAbstractionLayer\DatabaseConnectionInterface;
+use Arlekin\DatabaseAbstractionLayer\DatabaseConnectionInterface;
 
 interface DatabaseConnectionManagerInterface
 {

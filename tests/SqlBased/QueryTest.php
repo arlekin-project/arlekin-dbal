@@ -7,11 +7,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer\Tests\SqlBased;
+namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased;
 
-use Arlecchino\Core\Collection\ArrayCollection;
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\Query;
-use Arlecchino\Core\Tests\Helper\CommonTestHelper;
+use Arlekin\Core\Collection\ArrayCollection;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\Query;
+use Arlekin\Core\Tests\Helper\CommonTestHelper;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -25,7 +25,7 @@ class QueryTest extends PHPUnit_Framework_TestCase
     protected $query;
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Query::__construct
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Query::__construct
      */
     public function testConstruct()
     {
@@ -39,8 +39,8 @@ class QueryTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Query::getSql
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Query::setSql
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Query::getSql
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Query::setSql
      */
     public function testGetSqlAndSetSql()
     {
@@ -53,8 +53,8 @@ class QueryTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Query::getParameters
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Query::setParameters
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Query::getParameters
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Query::setParameters
      */
     public function testGetSqlAndSetParameters()
     {
@@ -69,7 +69,7 @@ class QueryTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Query::setParameter
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Query::setParameter
      */
     public function testSetParameter()
     {

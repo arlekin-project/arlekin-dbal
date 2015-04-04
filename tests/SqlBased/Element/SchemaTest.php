@@ -7,13 +7,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer\Tests\SqlBased\Element;
+namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased\Element;
 
-use Arlecchino\Core\Collection\ArrayCollection;
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Schema;
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table;
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\View;
-use Arlecchino\Core\Tests\Helper\CommonTestHelper;
+use Arlekin\Core\Collection\ArrayCollection;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\View;
+use Arlekin\Core\Tests\Helper\CommonTestHelper;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -22,7 +22,7 @@ use PHPUnit_Framework_TestCase;
 class SchemaTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Schema::__construct
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::__construct
      */
     public function testConstruct()
     {
@@ -41,8 +41,8 @@ class SchemaTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Schema::getTables
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Schema::setTables
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::getTables
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::setTables
      */
     public function testGetAndSetTables()
     {
@@ -57,7 +57,7 @@ class SchemaTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Schema::addTable
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::addTable
      */
     public function testAddTable()
     {
@@ -78,7 +78,7 @@ class SchemaTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Schema::addTables
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::addTables
      */
     public function testAddTables()
     {
@@ -101,8 +101,8 @@ class SchemaTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Schema::getViews
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Schema::setViews
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::getViews
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::setViews
      */
     public function testGetAndSetViews()
     {
@@ -117,7 +117,7 @@ class SchemaTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Schema::addView
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::addView
      */
     public function testAddView()
     {
@@ -138,7 +138,7 @@ class SchemaTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Schema::addViews
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::addViews
      */
     public function testAddViews()
     {
@@ -161,7 +161,7 @@ class SchemaTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Schema::toArray
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::toArray
      */
     public function testToArray()
     {

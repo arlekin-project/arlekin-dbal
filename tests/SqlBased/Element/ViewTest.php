@@ -7,10 +7,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer\Tests\SqlBased\Element;
+namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased\Element;
 
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\View;
-use Arlecchino\Core\Tests\Helper\CommonTestHelper;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\View;
+use Arlekin\Core\Tests\Helper\CommonTestHelper;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -19,8 +19,8 @@ use PHPUnit_Framework_TestCase;
 class ViewTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\View::getName
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\View::setName
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\View::getName
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\View::setName
      */
     public function testGetAndSetName()
     {
@@ -36,8 +36,8 @@ class ViewTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\View::getDefinition
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\View::setDefinition
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\View::getDefinition
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\View::setDefinition
      */
     public function testGetAndSetDefinition()
     {
@@ -53,7 +53,7 @@ class ViewTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\View::toArray
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\View::toArray
      */
     public function testToArray()
     {

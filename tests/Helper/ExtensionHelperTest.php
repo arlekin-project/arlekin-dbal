@@ -7,17 +7,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer\Tests\Helper;
+namespace Arlekin\DatabaseAbstractionLayer\Tests\Helper;
 
-use Arlecchino\DatabaseAbstractionLayer\DriverInterface;
-use Arlecchino\DatabaseAbstractionLayer\Helper\ExtensionHelper;
+use Arlekin\DatabaseAbstractionLayer\DriverInterface;
+use Arlekin\DatabaseAbstractionLayer\Helper\ExtensionHelper;
 use PHPUnit_Framework_TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class ExtensionHelperTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\Helper\ExtensionHelper::getDriverIdsByDriverNameFromTaggedServiceIds
+     * @covers Arlekin\DatabaseAbstractionLayer\Helper\ExtensionHelper::getDriverIdsByDriverNameFromTaggedServiceIds
      */
     public function testGetDriverIdsByDriverNameFromTaggedServiceIds()
     {
@@ -84,7 +84,7 @@ class ExtensionHelperTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\Helper\ExtensionHelper::getParametersByDatabaseConnectionName
+     * @covers Arlekin\DatabaseAbstractionLayer\Helper\ExtensionHelper::getParametersByDatabaseConnectionName
      */
     public function testGetParametersByDatabaseConnectionNameNoConnection()
     {
@@ -97,7 +97,7 @@ class ExtensionHelperTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\Helper\ExtensionHelper::getParametersByDatabaseConnectionName
+     * @covers Arlekin\DatabaseAbstractionLayer\Helper\ExtensionHelper::getParametersByDatabaseConnectionName
      */
     public function testGetParametersByDatabaseConnectionName()
     {

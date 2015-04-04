@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer\SqlBased\Element;
+namespace Arlekin\DatabaseAbstractionLayer\SqlBased\Element;
 
-use Arlecchino\Core\Collection\ArrayCollection;
+use Arlekin\Core\Collection\ArrayCollection;
 use Exception;
 
 /**

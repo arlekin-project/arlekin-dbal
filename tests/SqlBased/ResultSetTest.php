@@ -7,11 +7,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer\Tests\SqlBased;
+namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased;
 
-use Arlecchino\Core\Collection\ArrayCollection;
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\ResultRow;
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\ResultSet;
+use Arlekin\Core\Collection\ArrayCollection;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\ResultRow;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\ResultSet;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -25,7 +25,7 @@ class ResultSetTest extends PHPUnit_Framework_TestCase
     protected $resultSet;
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\ResultSet::__construct
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\ResultSet::__construct
      */
     public function testConstruct()
     {
@@ -39,8 +39,8 @@ class ResultSetTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\ResultSet::getRows
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\ResultSet::setRows
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\ResultSet::getRows
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\ResultSet::setRows
      */
     public function testGetAndSetRows()
     {

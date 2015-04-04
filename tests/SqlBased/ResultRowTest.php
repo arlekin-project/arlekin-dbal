@@ -7,10 +7,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer\Tests\SqlBased;
+namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased;
 
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\ResultRow;
-use Arlecchino\Core\Tests\Helper\CommonTestHelper;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\ResultRow;
+use Arlekin\Core\Tests\Helper\CommonTestHelper;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -24,8 +24,8 @@ class ResultRowTest extends PHPUnit_Framework_TestCase
     protected $resultRow;
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\ResultRow::getData
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\ResultRow::setData
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\ResultRow::getData
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\ResultRow::setData
      */
     public function testGetAndSetData()
     {
@@ -42,7 +42,7 @@ class ResultRowTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\ResultRow::get
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\ResultRow::get
      */
     public function testGet()
     {

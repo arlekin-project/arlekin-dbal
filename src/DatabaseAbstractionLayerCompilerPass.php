@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer;
+namespace Arlekin\DatabaseAbstractionLayer;
 
-use Arlecchino\DatabaseAbstractionLayer\Helper\ExtensionHelper;
+use Arlekin\DatabaseAbstractionLayer\Helper\ExtensionHelper;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

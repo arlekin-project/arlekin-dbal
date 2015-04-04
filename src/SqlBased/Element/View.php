@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer\SqlBased\Element;
+namespace Arlekin\DatabaseAbstractionLayer\SqlBased\Element;
 
 /**
  * Represents a SQL view.

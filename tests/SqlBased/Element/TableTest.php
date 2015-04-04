@@ -7,15 +7,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer\Tests\SqlBased\Element;
+namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased\Element;
 
-use Arlecchino\Core\Collection\ArrayCollection;
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Column;
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey;
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Index;
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\PrimaryKey;
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table;
-use Arlecchino\Core\Tests\Helper\CommonTestHelper;
+use Arlekin\Core\Collection\ArrayCollection;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\PrimaryKey;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table;
+use Arlekin\Core\Tests\Helper\CommonTestHelper;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -24,7 +24,7 @@ use PHPUnit_Framework_TestCase;
 class TableTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table::__construct
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::__construct
      */
     public function testConstruct()
     {
@@ -58,8 +58,8 @@ class TableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table::getName
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table::setName
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::getName
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::setName
      */
     public function testGetAndSetName()
     {
@@ -75,8 +75,8 @@ class TableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table::getPrimaryKey
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table::setPrimaryKey
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::getPrimaryKey
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::setPrimaryKey
      */
     public function testGetAndSetPrimaryKey()
     {
@@ -109,8 +109,8 @@ class TableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table::getColumns
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table::setColumns
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::getColumns
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::setColumns
      */
     public function testGetAndSetColumns()
     {
@@ -134,7 +134,7 @@ class TableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table::addColumn
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::addColumn
      */
     public function testAddColumn()
     {
@@ -162,7 +162,7 @@ class TableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table::addColumns
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::addColumns
      */
     public function testAddColumns()
     {
@@ -192,8 +192,8 @@ class TableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table::getForeignKeys
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table::setForeignKeys
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::getForeignKeys
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::setForeignKeys
      */
     public function testGetAndSetForeignKeys()
     {
@@ -217,7 +217,7 @@ class TableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table::addForeignKey
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::addForeignKey
      */
     public function testAddForeignKey()
     {
@@ -245,7 +245,7 @@ class TableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table::addForeignKeys
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::addForeignKeys
      */
     public function testAddForeignKeys()
     {
@@ -275,8 +275,8 @@ class TableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table::getIndexes
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table::setIndexes
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::getIndexes
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::setIndexes
      */
     public function testGetAndSetIndexes()
     {
@@ -300,7 +300,7 @@ class TableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table::addIndex
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::addIndex
      */
     public function testAddIndex()
     {
@@ -323,7 +323,7 @@ class TableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table::addIndexes
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::addIndexes
      */
     public function testAddIndexes()
     {
@@ -347,7 +347,7 @@ class TableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table::toArray
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::toArray
      */
     public function testToArray()
     {

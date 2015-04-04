@@ -9,11 +9,11 @@
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
 
-if (!isset($GLOBALS['arlecchino_bootstrap_loaded'])
-    || !$GLOBALS['arlecchino_bootstrap_loaded']) {
+if (!isset($GLOBALS['arlekin_bootstrap_loaded'])
+    || !$GLOBALS['arlekin_bootstrap_loaded']) {
     $currentDirectory = __DIR__;
 
-    $GLOBALS['arlecchino_bootstrap_loaded'] = true;
+    $GLOBALS['arlekin_bootstrap_loaded'] = true;
 
     error_reporting(E_ALL | E_STRICT);
     ini_set(

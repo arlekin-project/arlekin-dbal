@@ -7,12 +7,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer\Tests\SqlBased\Element;
+namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased\Element;
 
-use Arlecchino\Core\Collection\ArrayCollection;
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Column;
-use Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Table;
-use Arlecchino\Core\Tests\Helper\CommonTestHelper;
+use Arlekin\Core\Collection\ArrayCollection;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column;
+use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table;
+use Arlekin\Core\Tests\Helper\CommonTestHelper;
 use Exception;
 use PHPUnit_Framework_TestCase;
 
@@ -22,7 +22,7 @@ use PHPUnit_Framework_TestCase;
 class ColumnTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Column::__construct
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::__construct
      */
     public function testConstruct()
     {
@@ -62,8 +62,8 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Column::getName
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Column::setName
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::getName
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::setName
      */
     public function testGetAndSetName()
     {
@@ -76,8 +76,8 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Column::getType
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Column::setType
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::getType
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::setType
      */
     public function testGetAndSetType()
     {
@@ -90,8 +90,8 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Column::isNullable
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Column::setNullable
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::isNullable
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::setNullable
      */
     public function testIsAndSetNullable()
     {
@@ -104,8 +104,8 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Column::isAutoIncrement
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Column::setAutoIncrement
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::isAutoIncrement
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::setAutoIncrement
      */
     public function testIsAndSetAutoIncrement()
     {
@@ -118,8 +118,8 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Column::getParameters
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Column::setParameters
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::getParameters
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::setParameters
      */
     public function testGetAndSetParameters()
     {
@@ -134,7 +134,7 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Column::addParameters
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::addParameters
      */
     public function testAddParameters()
     {
@@ -169,8 +169,8 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Column::getTable
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Column::setTable
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::getTable
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::setTable
      */
     public function testGetAndSetTable()
     {
@@ -183,7 +183,7 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Column::toArray
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::toArray
      */
     public function testToArrayNoTableExceptionIfNoTable()
     {
@@ -198,7 +198,7 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlecchino\DatabaseAbstractionLayer\SqlBased\Element\Column::toArray
+     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::toArray
      */
     public function testToArray()
     {

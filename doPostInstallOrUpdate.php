@@ -22,8 +22,8 @@ $postInstallOrUpdate = function (
         DIRECTORY_SEPARATOR
     );
 
-    $arlecchinoCommonBinDir = sprintf(
-        '%s%sbmichalski%sarlecchino-core%sbin',
+    $arlekinCommonBinDir = sprintf(
+        '%s%sbmichalski%sarlekin-core%sbin',
         $vendorsDir,
         DIRECTORY_SEPARATOR,
         DIRECTORY_SEPARATOR,
@@ -31,16 +31,16 @@ $postInstallOrUpdate = function (
     );
 
     $filenames = array(
-        'arlecchino-generate-coverage',
-        'arlecchino-generate-documentation',
-        'arlecchino-generate-markdown',
-        'arlecchino-phpcs'
+        'arlekin-generate-coverage',
+        'arlekin-generate-documentation',
+        'arlekin-generate-markdown',
+        'arlekin-phpcs'
     );
 
     foreach ($filenames as $filename) {
         $fileFullPath = sprintf(
             '%s%s%s',
-            $arlecchinoCommonBinDir,
+            $arlekinCommonBinDir,
             DIRECTORY_SEPARATOR,
             $filename
         );
@@ -65,12 +65,12 @@ $postInstallOrUpdate = function (
         );
     }
 
-    $arlecchinoCommonPublishVendorsBinsFilePhp = sprintf(
-        '%s/vendor/bmichalski/arlecchino-core/publishVendorsBins.php',
+    $arlekinCommonPublishVendorsBinsFilePhp = sprintf(
+        '%s/vendor/bmichalski/arlekin-core/publishVendorsBins.php',
         $currentDir
     );
 
-    require $arlecchinoCommonPublishVendorsBinsFilePhp;
+    require $arlekinCommonPublishVendorsBinsFilePhp;
 
     $publishVendorsBins(
         sprintf(

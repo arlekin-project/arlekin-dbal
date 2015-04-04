@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlecchino\DatabaseAbstractionLayer\SqlBased;
+namespace Arlekin\DatabaseAbstractionLayer\SqlBased;
 
 /**
  * Represents a SQL-based result row.
