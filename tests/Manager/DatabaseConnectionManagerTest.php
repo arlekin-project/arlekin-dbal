@@ -12,8 +12,7 @@ namespace Arlekin\DatabaseAbstractionLayer\Tests\Manager;
 use Arlekin\DatabaseAbstractionLayer\DatabaseConnectionInterface;
 use Arlekin\DatabaseAbstractionLayer\DriverInterface;
 use Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager;
-use Arlekin\Core\Tests\Helper\CommonTestHelper;
-use Exception;
+use Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManagerInterface;
 use PHPUnit_Framework_TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -45,126 +44,9 @@ class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::instanciateDatabaseConnection
+     * @return DatabaseConnectionManagerInterface
      */
-    public function testInstanciateDatabaseConnection()
-    {
-        $databaseConnectionMock = $this->getMock(
-            DatabaseConnectionInterface::class
-        );
-
-        $driverMock = $this->getMock(
-            DriverInterface::class
-        );
-
-        $driverMock->method(
-            'instanciateDatabaseConnection'
-        )->will(
-            $this->returnValue(
-                $databaseConnectionMock
-            )
-        );
-
-        $containerMock = $this->getMock(
-            ContainerInterface::class
-        );
-
-        $containerMock->method(
-            'getParameter'
-        )->will(
-            $this->returnCallback(
-                function (
-                    $id
-                ) {
-                    if ($id === 'dbal.driver_ids_by_driver_name') {
-                        return array(
-                            'test' => 'dbal.driver.test'
-                        );
-                    }
-                }
-            )
-        );
-
-        $containerMock->method(
-            'get'
-        )->will(
-            $this->returnCallback(
-                function (
-                    $id
-                ) use (
-                    $driverMock
-                ) {
-                    if ($id === 'dbal.driver.test') {
-                        return $driverMock;
-                    }
-                }
-            )
-        );
-
-        $databaseConnectionManager = new DatabaseConnectionManager(
-            $containerMock
-        );
-
-        $instance = $databaseConnectionManager->instanciateDatabaseConnection(
-            array(
-                'driver' => 'test'
-            )
-        );
-
-        $this->assertInstanceOf(
-            get_class(
-                $databaseConnectionMock
-            ),
-            $instance
-        );
-    }
-
-    /**
-     * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::instanciateDatabaseConnection
-     */
-    public function testInstanciateDatabaseConnectionExceptionIfNoDriverFound()
-    {
-        $containerMock = $this->getMock(
-            ContainerInterface::class
-        );
-
-        $containerMock->method(
-            'getParameter'
-        )->will(
-            $this->returnCallback(
-                function (
-                    $id
-                ) {
-                    if ($id === 'dbal.driver_ids_by_driver_name') {
-                        return array();
-                    }
-                }
-            )
-        );
-
-        $databaseConnectionManager = new DatabaseConnectionManager(
-            $containerMock
-        );
-
-        CommonTestHelper::assertExceptionThrown(
-            function () use (
-                $databaseConnectionManager
-            ) {
-                $databaseConnectionManager->instanciateDatabaseConnection(
-                    array(
-                        'driver' => 'test'
-                    )
-                );
-            },
-            Exception::class,
-            'Found no driver with name "test".'
-        );
-    }
-
-    /**
-     * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::instanciateNamedDatabaseConnection
-     */
-    public function testInstanciateNamedDatabaseConnection()
+    protected function doTestGetConnectionWithNameGetDatabaseConnectionManager()
     {
         $databaseConnectionMock = $this->getMock(
             DatabaseConnectionInterface::class
@@ -224,63 +106,49 @@ class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
             )
         );
 
-        $databaseConnectionManager = new DatabaseConnectionManager(
+        return new DatabaseConnectionManager(
             $containerMock
         );
+    }
 
-        $instance = $databaseConnectionManager->instanciateNamedDatabaseConnection(
+    /**
+     * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::getConnectionWithName
+     * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::instanciateDatabaseConnection
+     * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::instanciateNamedDatabaseConnection
+     */
+    public function testGetConnectionWithName()
+    {
+        $databaseConnectionManager = $this->doTestGetConnectionWithNameGetDatabaseConnectionManager();
+
+        $instance = $databaseConnectionManager->getConnectionWithName(
             'default'
         );
 
         $this->assertInstanceOf(
-            get_class(
-                $databaseConnectionMock
-            ),
+            DatabaseConnectionInterface::class,
             $instance
         );
     }
 
     /**
+     * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::getConnectionWithName
+     * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::instanciateDatabaseConnection
      * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::instanciateNamedDatabaseConnection
      */
-    public function testInstanciateNamedDatabaseConnectionExceptionIfNoDriverFound()
+    public function testGetConnectionWithNameTwice()
     {
-        $containerMock = $this->getMock(
-            ContainerInterface::class
+        $databaseConnectionManager = $this->doTestGetConnectionWithNameGetDatabaseConnectionManager();
+
+        $firstOne = $databaseConnectionManager->getConnectionWithName(
+            'default'
+        );
+        $secondOne = $databaseConnectionManager->getConnectionWithName(
+            'default'
         );
 
-        $containerMock->method(
-            'getParameter'
-        )->will(
-            $this->returnCallback(
-                function (
-                    $id
-                ) {
-                    if ($id === 'dbal.driver_ids_by_driver_name') {
-                        return array(
-                            'test' => 'dbal.driver.test'
-                        );
-                    } elseif ($id === 'dbal.parameters_by_database_connection_name') {
-                        return array();
-                    }
-                }
-            )
-        );
-
-        $databaseConnectionManager = new DatabaseConnectionManager(
-            $containerMock
-        );
-
-        CommonTestHelper::assertExceptionThrown(
-            function () use (
-                $databaseConnectionManager
-            ) {
-                $databaseConnectionManager->instanciateNamedDatabaseConnection(
-                    'default'
-                );
-            },
-            Exception::class,
-            'Found no database connection with name "default".'
+        $this->assertSame(
+            $firstOne,
+            $secondOne
         );
     }
 }

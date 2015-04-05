@@ -21,18 +21,25 @@ class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
     protected $container;
 
     /**
+     * @var array
+     */
+    protected $connectionsByName;
+
+    /**
      * @param ContainerInterface $container
      */
     public function __construct(
         ContainerInterface $container
     ) {
         $this->container = $container;
+
+        $this->connectionsByName = array();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function instanciateDatabaseConnection(
+    protected function instanciateDatabaseConnection(
         array $parameters
     ) {
         $driverIdsByDriverName = $this->container->getParameter(
@@ -41,7 +48,7 @@ class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
 
         $driverParameter = $parameters['driver'];
 
-        if (!array_key_exists($driverParameter, $driverIdsByDriverName)) {
+        if (!isset($driverIdsByDriverName[$driverParameter])) {
             throw new Exception(
                 sprintf(
                     'Found no driver with name "%s".',
@@ -66,14 +73,14 @@ class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function instanciateNamedDatabaseConnection(
+    protected function instanciateNamedDatabaseConnection(
         $name
     ) {
         $configByDatabaseConnectionName = $this->container->getParameter(
             'dbal.parameters_by_database_connection_name'
         );
 
-        if (!array_key_exists($name, $configByDatabaseConnectionName)) {
+        if (!isset($configByDatabaseConnectionName[$name])) {
             throw new Exception(
                 sprintf(
                     'Found no database connection with name "%s".',
@@ -85,5 +92,20 @@ class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
         return $this->instanciateDatabaseConnection(
             $configByDatabaseConnectionName[$name]
         );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getConnectionWithName(
+        $name
+    ) {
+        if (!isset($this->connectionsByName[$name])) {
+            $this->connectionsByName[$name] = $this->instanciateNamedDatabaseConnection(
+                $name
+            );
+        }
+
+        return $this->connectionsByName[$name];
     }
 }

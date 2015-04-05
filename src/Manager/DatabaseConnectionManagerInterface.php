@@ -14,20 +14,11 @@ use Arlekin\DatabaseAbstractionLayer\DatabaseConnectionInterface;
 interface DatabaseConnectionManagerInterface
 {
     /**
-     * @param array $parameters
-     *
-     * @return DatabaseConnectionInterface
-     */
-    public function instanciateDatabaseConnection(
-        array $parameters
-    );
-
-    /**
      * @param string $name
      *
      * @return DatabaseConnectionInterface
      */
-    public function instanciateNamedDatabaseConnection(
+    public function getConnectionWithName(
         $name
     );
 }
