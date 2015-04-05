@@ -101,9 +101,13 @@ class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
         $name
     ) {
         if (!isset($this->connectionsByName[$name])) {
-            $this->connectionsByName[$name] = $this->instanciateNamedDatabaseConnection(
+            $connection = $this->instanciateNamedDatabaseConnection(
                 $name
             );
+
+            $connection->connect();
+
+            $this->connectionsByName[$name] = $connection;
         }
 
         return $this->connectionsByName[$name];
