@@ -9,8 +9,6 @@
 
 namespace Arlekin\DatabaseAbstractionLayer\SqlBased\Element;
 
-use Arlekin\Core\Collection\ArrayCollection;
-
 /**
  * Represents a SQL table.
  *
@@ -35,21 +33,21 @@ abstract class Table
     /**
      * The table's columns.
      *
-     * @var ArrayCollection
+     * @var array
      */
     protected $columns;
 
     /**
      * The table's foreign keys.
      *
-     * @var ArrayCollection
+     * @var array
      */
     protected $foreignKeys;
 
     /**
      * The table's indexes.
      *
-     * @var ArrayCollection
+     * @var array
      */
     protected $indexes;
 
@@ -58,10 +56,10 @@ abstract class Table
      */
     public function __construct()
     {
-        $this->columns = new ArrayCollection();
-        $this->foreignKeys = new ArrayCollection();
+        $this->columns = [];
+        $this->foreignKeys = [];
         $this->primaryKey = null;
-        $this->indexes = new ArrayCollection();
+        $this->indexes = [];
     }
 
     /**
@@ -125,7 +123,7 @@ abstract class Table
     /**
      * Gets the table's columns.
      *
-     * @return ArrayCollection
+     * @return array
      */
     public function getColumns()
     {
@@ -135,70 +133,26 @@ abstract class Table
     /**
      * Sets the table's columns.
      *
-     * @param array|ArrayCollection $columns
+     * @param array $columns
      *
      * @return Table
      */
-    public function setColumns(
-        $columns
-    ) {
-        $this
-            ->columns
-            ->replaceWithCollection(
-                $columns
-            );
+    public function setColumns(array $columns)
+    {
+        $this->columns = $columns;
+
         foreach ($this->columns as $column) {
-            $column
-                ->setTable(
-                    $this
-                );
-        }
-
-        return $this;
-    }
-
-    /**
-     * Adds a column to the table's columns.
-     *
-     * @param Column $column
-     *
-     * @return Table
-     */
-    public function addColumn(
-        Column $column
-    ) {
-        $column
-            ->setTable(
-                $this
-            );
-        $this
-            ->columns
-            ->add(
-                $column
-            );
-
-        return $this;
-    }
-
-    /**
-     * Adds columns to the table's columns.
-     *
-     * @param array|ArrayCollection $columns
-     *
-     * @return Table
-     */
-    public function addColumns(
-        $columns
-    ) {
-        foreach ($columns as $column) {
-            /* @var $column Column */
             $column->setTable($this);
         }
-        $this
-            ->columns
-            ->mergeWithCollections(
-                $columns
-            );
+
+        return $this;
+    }
+
+    public function addColumn(Column $column)
+    {
+        $this->columns[] = $column;
+
+        $column->setTable($this);
 
         return $this;
     }
@@ -206,7 +160,7 @@ abstract class Table
     /**
      * Gets the table's foreign keys.
      *
-     * @return ArrayCollection
+     * @return array
      */
     public function getForeignKeys()
     {
@@ -216,72 +170,31 @@ abstract class Table
     /**
      * Sets the table's foreign keys.
      *
-     * @param string $foreignKeys
+     * @param array $foreignKeys
      *
      * @return Table
      */
-    public function setForeignKeys(
-        $foreignKeys
-    ) {
-        $this
-            ->foreignKeys
-            ->replaceWithCollection(
-                $foreignKeys
-            );
+    public function setForeignKeys(array $foreignKeys)
+    {
+        $this->foreignKeys = $foreignKeys;
+
         foreach ($this->foreignKeys as $foreignKey) {
-            $foreignKey->setTable(
-                $this
-            );
+            $foreignKey->setTable($this);
         }
 
         return $this;
     }
 
     /**
-     * Adds a foreign key to the table's foreign keys.
-     *
      * @param ForeignKey $foreignKey
      *
      * @return Table
      */
-    public function addForeignKey(
-        ForeignKey $foreignKey
-    ) {
-        $foreignKey
-            ->setTable(
-                $this
-            );
-        $this
-            ->foreignKeys
-            ->add(
-                $foreignKey
-            );
+    public function addForeignKey(ForeignKey $foreignKey)
+    {
+        $this->foreignKeys[] = $foreignKey;
 
-        return $this;
-    }
-
-    /**
-     * Adds foreign keys to the table's foreign keys.
-     *
-     * @param array|ArrayCollection $foreignKeys
-     *
-     * @return Table
-     */
-    public function addForeignKeys(
-        $foreignKeys
-    ) {
-        foreach ($foreignKeys as $foreignKey) {
-            /* @var $foreignKey ForeignKey */
-            $foreignKey
-                ->setTable(
-                    $this
-                );
-        }
-        $this
-            ->foreignKeys
-            ->mergeWithCollections(
-                $foreignKeys
-            );
+        $foreignKey->setTable($this);
 
         return $this;
     }
@@ -289,7 +202,7 @@ abstract class Table
     /**
      * Gets the table's indexes.
      *
-     * @return ArrayCollection
+     * @return array
      */
     public function getIndexes()
     {
@@ -299,71 +212,31 @@ abstract class Table
     /**
      * Sets the table's indexes.
      *
-     * @param array|ArrayCollection $indexes
+     * @param array $indexes
      *
      * @return Table
      */
-    public function setIndexes(
-        $indexes
-    ) {
-        $this
-            ->indexes
-            ->replaceWithCollection(
-                $indexes
-            );
+    public function setIndexes(array $indexes)
+    {
+        $this->indexes = $indexes;
+
         foreach ($this->indexes as $index) {
-            $index
-                ->setTable(
-                    $this
-                );
+            $index->setTable($this);
         }
 
         return $this;
     }
 
     /**
-     * Adds an index to the table's indexes.
-     *
      * @param Index $index
      *
      * @return Table
      */
-    public function addIndex(
-        Index $index
-    ) {
-        $index
-            ->setTable(
-                $this
-            );
-        $this
-            ->indexes
-            ->add(
-                $index
-            );
+    public function addIndex(Index $index)
+    {
+        $this->indexes[] = $index;
 
-        return $this;
-    }
-
-    /**
-     * Adds indexes to the table's indexes.
-     *
-     * @param array|ArrayCollection $indexes
-     *
-     * @return Table
-     */
-    public function addIndexes(
-        $indexes
-    ) {
-        $this
-            ->indexes
-            ->mergeWithCollections(
-                $indexes
-            );
-        foreach ($this->indexes as $index) {
-            $index->setTable(
-                $this
-            );
-        }
+        $index->setTable($this);
 
         return $this;
     }
@@ -394,8 +267,7 @@ abstract class Table
         }
 
         if (isset($this->primaryKey)) {
-            $primaryKeyAsArray = $this->primaryKey
-                ->toArray();
+            $primaryKeyAsArray = $this->primaryKey->toArray();
         } else {
             $primaryKeyAsArray = null;
         }

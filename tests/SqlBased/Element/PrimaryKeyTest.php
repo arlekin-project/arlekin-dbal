@@ -9,7 +9,6 @@
 
 namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased\Element;
 
-use Arlekin\Core\Collection\ArrayCollection;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\PrimaryKey;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table;
@@ -33,8 +32,8 @@ class PrimaryKeyTest extends PHPUnit_Framework_TestCase
             'table',
             $primaryKey
         );
-        $this->assertAttributeInstanceOf(
-            ArrayCollection::class,
+        $this->assertAttributeSame(
+            [],
             'columns',
             $primaryKey
         );
@@ -63,50 +62,6 @@ class PrimaryKeyTest extends PHPUnit_Framework_TestCase
         CommonTestHelper::testBasicGetAndSetCollectionForProperty(
             $this,
             $this->createBaseNewPrimaryKey(),
-            'columns',
-            array(
-                $this->createBaseNewColumn()
-            )
-        );
-    }
-
-    /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\PrimaryKey::addColumn
-     */
-    public function testAddColumn()
-    {
-        $primaryKey = $this->createBaseNewPrimaryKey();
-
-        $primaryKey->setColumns(
-            array(
-                $this->createBaseNewColumn()
-            )
-        );
-
-        CommonTestHelper::testBasicAddForProperty(
-            $this,
-            $primaryKey,
-            'columns',
-            $this->createBaseNewColumn()
-        );
-    }
-
-    /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\PrimaryKey::addColumns
-     */
-    public function testAddColumns()
-    {
-        $primaryKey = $this->createBaseNewPrimaryKey();
-
-        $primaryKey->setColumns(
-            array(
-                $this->createBaseNewColumn()
-            )
-        );
-
-        CommonTestHelper::testBasicAddCollectionForProperty(
-            $this,
-            $primaryKey,
             'columns',
             array(
                 $this->createBaseNewColumn()
@@ -147,7 +102,7 @@ class PrimaryKeyTest extends PHPUnit_Framework_TestCase
             ),
             'table' => 'testTableName'
         );
-        
+
         $this->assertEquals(
             $expected,
             $arr

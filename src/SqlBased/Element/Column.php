@@ -9,7 +9,6 @@
 
 namespace Arlekin\DatabaseAbstractionLayer\SqlBased\Element;
 
-use Arlekin\Core\Collection\ArrayCollection;
 use Exception;
 
 /**
@@ -50,7 +49,7 @@ abstract class Column
     /**
      * The column's parameters.
      *
-     * @var ArrayCollection
+     * @var array
      */
     protected $parameters;
 
@@ -67,7 +66,7 @@ abstract class Column
     public function __construct()
     {
         $this->autoIncrement = false;
-        $this->parameters = new ArrayCollection();
+        $this->parameters = [];
     }
 
     /**
@@ -172,7 +171,7 @@ abstract class Column
     /**
      * Gets the column's parameters.
      *
-     * @return ArrayCollection
+     * @return array
      */
     public function getParameters()
     {
@@ -182,37 +181,13 @@ abstract class Column
     /**
      * Sets the column's parameters.
      *
-     * @param array|ArrayCollection $parameters
+     * @param array $parameters
      *
      * @return Column
      */
-    public function setParameters(
-        $parameters
-    ) {
-        $this
-            ->parameters
-            ->replaceWithCollection(
-                $parameters
-            );
-
-        return $this;
-    }
-
-    /**
-     * Adds parameters to the column's parameters.
-     *
-     * @param array|ArrayCollection $parameters
-     *
-     * @return Column
-     */
-    public function addParameters(
-        $parameters
-    ) {
-        $this
-            ->parameters
-            ->mergeWithCollections(
-                $parameters
-            );
+    public function setParameters(array $parameters)
+    {
+        $this->parameters = $parameters;
 
         return $this;
     }
@@ -264,8 +239,7 @@ abstract class Column
             );
         }
 
-        $parameters = $this->getParameters()
-            ->asArray();
+        $parameters = $this->getParameters();
 
         $arr = array(
             'name' => $this->getName(),

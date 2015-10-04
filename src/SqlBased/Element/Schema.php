@@ -9,8 +9,6 @@
 
 namespace Arlekin\DatabaseAbstractionLayer\SqlBased\Element;
 
-use Arlekin\Core\Collection\ArrayCollection;
-
 /**
  * Represents a SQL database.
  *
@@ -21,14 +19,14 @@ abstract class Schema
     /**
      * The schema's tables.
      *
-     * @var ArrayCollection
+     * @var array
      */
     protected $tables;
 
     /**
      * The schema's views.
      *
-     * @var ArrayCollection
+     * @var array
      */
     protected $views;
 
@@ -37,14 +35,14 @@ abstract class Schema
      */
     public function __construct()
     {
-        $this->tables = new ArrayCollection();
-        $this->views = new ArrayCollection();
+        $this->tables = [];
+        $this->views = [];
     }
 
     /**
      * Gets the schema's tables.
      *
-     * @return ArrayCollection
+     * @return array
      */
     public function getTables()
     {
@@ -54,56 +52,25 @@ abstract class Schema
     /**
      * Sets the schema's tables.
      *
-     * @param array|ArrayCollection $tables
+     * @param array $tables
      *
      * @return Schema
      */
-    public function setTables(
-        $tables
-    ) {
-        $this
-            ->tables
-            ->replaceWithCollection(
-                $tables
-            );
+    public function setTables(array $tables)
+    {
+        $this->tables = $tables;
 
         return $this;
     }
 
     /**
-     * Adds a table to the schema's tables.
-     *
      * @param Table $table
      *
      * @return Schema
      */
-    public function addTable(
-        Table $table
-    ) {
-        $this
-            ->tables
-            ->add(
-                $table
-            );
-
-        return $this;
-    }
-
-    /**
-     * Adds tables to the schema's tables.
-     *
-     * @param array|ArrayCollection $tables
-     *
-     * @return Schema
-     */
-    public function addTables(
-        $tables
-    ) {
-        $this
-            ->tables
-            ->mergeWithCollections(
-                $tables
-            );
+    public function addTable(Table $table)
+    {
+        $this->tables[] = $table;
 
         return $this;
     }
@@ -111,7 +78,7 @@ abstract class Schema
     /**
      * Gets the schema's views.
      *
-     * @return ArrayCollection
+     * @return array
      */
     public function getViews()
     {
@@ -121,56 +88,25 @@ abstract class Schema
     /**
      * Sets the schema's views.
      *
-     * @param array|ArrayCollection $views
+     * @param array $views
      *
      * @return Schema
      */
-    public function setViews(
-        $views
-    ) {
-        $this
-            ->views
-            ->replaceWithCollection(
-                $views
-            );
+    public function setViews(array $views)
+    {
+        $this->views = $views;
 
         return $this;
     }
 
     /**
-     * Adds a view to the schema's views.
-     *
      * @param View $view
      *
      * @return Schema
      */
-    public function addView(
-        View $view
-    ) {
-        $this
-            ->views
-            ->add(
-                $view
-            );
-
-        return $this;
-    }
-
-    /**
-     * Adds views to the schema's views.
-     *
-     * @param array|ArrayCollection $views
-     *
-     * @return Schema
-     */
-    public function addViews(
-        $views
-    ) {
-        $this
-            ->views
-            ->mergeWithCollections(
-                $views
-            );
+    public function addView(View $view)
+    {
+        $this->views[] = $view;
 
         return $this;
     }

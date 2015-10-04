@@ -9,7 +9,6 @@
 
 namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased\Element;
 
-use Arlekin\Core\Collection\ArrayCollection;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index;
@@ -40,18 +39,18 @@ class TableTest extends PHPUnit_Framework_TestCase
             'primaryKey',
             $table
         );
-        $this->assertAttributeInstanceOf(
-            ArrayCollection::class,
+        $this->assertAttributeSame(
+            [],
             'columns',
             $table
         );
-        $this->assertAttributeInstanceOf(
-            ArrayCollection::class,
+        $this->assertAttributeSame(
+            [],
             'foreignKeys',
             $table
         );
-        $this->assertAttributeInstanceOf(
-            ArrayCollection::class,
+        $this->assertAttributeSame(
+            [],
             'indexes',
             $table
         );
@@ -134,64 +133,6 @@ class TableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::addColumn
-     */
-    public function testAddColumn()
-    {
-        $column = $this->createBaseNewColumn();
-
-        $table = $this->createBaseNewTable();
-
-        $table->setColumns(
-            array(
-                $this->createBaseNewColumn()
-            )
-        );
-
-        CommonTestHelper::testBasicAddForProperty(
-            $this,
-            $table,
-            'columns',
-            $column
-        );
-
-        $this->assertSame(
-            $table,
-            $column->getTable()
-        );
-    }
-
-    /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::addColumns
-     */
-    public function testAddColumns()
-    {
-        $column = $this->createBaseNewColumn();
-
-        $table = $this->createBaseNewTable();
-
-        $table->setColumns(
-            array(
-                $this->createBaseNewColumn()
-            )
-        );
-
-        CommonTestHelper::testBasicAddCollectionForProperty(
-            $this,
-            $table,
-            'columns',
-            array(
-                $column
-            )
-        );
-
-        $this->assertSame(
-            $table,
-            $column->getTable()
-        );
-    }
-
-    /**
      * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::getForeignKeys
      * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::setForeignKeys
      */
@@ -217,64 +158,6 @@ class TableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::addForeignKey
-     */
-    public function testAddForeignKey()
-    {
-        $foreignKey = $this->createBaseNewForeignKey();
-
-        $table = $this->createBaseNewTable();
-
-        $table->setForeignKeys(
-            array(
-                $this->createBaseNewForeignKey()
-            )
-        );
-
-        CommonTestHelper::testBasicAddForProperty(
-            $this,
-            $table,
-            'foreignKeys',
-            $foreignKey
-        );
-
-        $this->assertEquals(
-            $table,
-            $foreignKey->getTable()
-        );
-    }
-
-    /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::addForeignKeys
-     */
-    public function testAddForeignKeys()
-    {
-        $foreignKey = $this->createBaseNewForeignKey();
-
-        $table = $this->createBaseNewTable();
-
-        $table->setForeignKeys(
-            array(
-                $this->createBaseNewForeignKey()
-            )
-        );
-
-        CommonTestHelper::testBasicAddCollectionForProperty(
-            $this,
-            $table,
-            'foreignKeys',
-            array(
-                $foreignKey
-            )
-        );
-
-        $this->assertEquals(
-            $table,
-            $foreignKey->getTable()
-        );
-    }
-
-    /**
      * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::getIndexes
      * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::setIndexes
      */
@@ -285,53 +168,6 @@ class TableTest extends PHPUnit_Framework_TestCase
         $table = $this->createBaseNewTable();
 
         CommonTestHelper::testBasicGetAndSetCollectionForProperty(
-            $this,
-            $table,
-            'indexes',
-            array(
-                $index
-            )
-        );
-
-        $this->assertSame(
-            $table,
-            $index->getTable()
-        );
-    }
-
-    /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::addIndex
-     */
-    public function testAddIndex()
-    {
-        $index = $this->createBaseNewIndex();
-
-        $table = $this->createBaseNewTable();
-
-        CommonTestHelper::testBasicAddForProperty(
-            $this,
-            $table,
-            'indexes',
-            $index,
-            'index'
-        );
-
-        $this->assertSame(
-            $table,
-            $index->getTable()
-        );
-    }
-
-    /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::addIndexes
-     */
-    public function testAddIndexes()
-    {
-        $index = $this->createBaseNewIndex();
-
-        $table = $this->createBaseNewTable();
-
-        CommonTestHelper::testBasicAddCollectionForProperty(
             $this,
             $table,
             'indexes',
@@ -411,14 +247,16 @@ class TableTest extends PHPUnit_Framework_TestCase
             )
         );
 
-        $table->setName('departments')
-            ->addColumns(
-                array(
-                    $columnDeptNo,
-                    $columnDeptName,
-                    $table2ReferencedIdColumn
-                )
-            );
+        $table->setName(
+            'departments'
+        )->setColumns(
+            array(
+                $columnDeptNo,
+                $columnDeptName,
+                $table2ReferencedIdColumn
+            )
+        );
+
         $table->setPrimaryKey($primaryKey);
         $index = $this->createBaseNewIndex();
         $index->setName(

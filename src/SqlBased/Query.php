@@ -9,8 +9,6 @@
 
 namespace Arlekin\DatabaseAbstractionLayer\SqlBased;
 
-use Arlekin\Core\Collection\ArrayCollection;
-
 /**
  * Represents a SQL-based query.
  *
@@ -28,7 +26,7 @@ class Query
     /**
      * The query parameters.
      *
-     * @var ArrayCollection
+     * @var array
      */
     protected $parameters;
 
@@ -37,7 +35,7 @@ class Query
      */
     public function __construct()
     {
-        $this->parameters = new ArrayCollection();
+        $this->parameters = [];
     }
 
     /**
@@ -68,7 +66,7 @@ class Query
     /**
      * Gets the query parameters.
      *
-     * @return ArrayCollection
+     * @return array
      */
     public function getParameters()
     {
@@ -82,14 +80,9 @@ class Query
      *
      * @return Query
      */
-    public function setParameters(
-        $parameters
-    ) {
-        $this
-            ->parameters
-            ->replaceWithCollection(
-                $parameters
-            );
+    public function setParameters(array $parameters)
+    {
+        $this->parameters = $parameters;
 
         return $this;
     }
@@ -98,20 +91,13 @@ class Query
      * Sets a query parameter with given name and value.
      *
      * @param string $parameterName
-     *
      * @param mixed $value
      *
      * @return Query $value
      */
-    public function setParameter(
-        $parameterName,
-        $value
-    ) {
-        $this->parameters
-            ->set(
-                $parameterName,
-                $value
-            );
+    public function setParameter($parameterName, $value)
+    {
+        $this->parameters[$parameterName] = $value;
 
         return $this;
     }

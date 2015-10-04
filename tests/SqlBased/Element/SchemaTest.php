@@ -9,7 +9,6 @@
 
 namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased\Element;
 
-use Arlekin\Core\Collection\ArrayCollection;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\View;
@@ -28,13 +27,13 @@ class SchemaTest extends PHPUnit_Framework_TestCase
     {
         $schema = $this->createBaseNewSchema();
 
-        $this->assertAttributeInstanceOf(
-            ArrayCollection::class,
+        $this->assertAttributeSame(
+            [],
             'tables',
             $schema
         );
-        $this->assertAttributeInstanceOf(
-            ArrayCollection::class,
+        $this->assertAttributeSame(
+            [],
             'views',
             $schema
         );
@@ -57,50 +56,6 @@ class SchemaTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::addTable
-     */
-    public function testAddTable()
-    {
-        $schema = $this->createBaseNewSchema();
-
-        $schema->setTables(
-            array(
-                $this->createBaseNewTable()
-            )
-        );
-
-        CommonTestHelper::testBasicAddForProperty(
-            $this,
-            $schema,
-            'tables',
-            $this->createBaseNewTable()
-        );
-    }
-
-    /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::addTables
-     */
-    public function testAddTables()
-    {
-        $schema = $this->createBaseNewSchema();
-
-        $schema->setTables(
-            array(
-                $this->createBaseNewTable()
-            )
-        );
-
-        CommonTestHelper::testBasicAddCollectionForProperty(
-            $this,
-            $schema,
-            'tables',
-            array(
-                $this->createBaseNewTable()
-            )
-        );
-    }
-
-    /**
      * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::getViews
      * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::setViews
      */
@@ -109,50 +64,6 @@ class SchemaTest extends PHPUnit_Framework_TestCase
         CommonTestHelper::testBasicGetAndSetCollectionForProperty(
             $this,
             $this->createBaseNewSchema(),
-            'views',
-            array(
-                $this->createBaseNewView()
-            )
-        );
-    }
-
-    /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::addView
-     */
-    public function testAddView()
-    {
-        $schema = $this->createBaseNewSchema();
-
-        $schema->setViews(
-            array(
-                $this->createBaseNewView()
-            )
-        );
-
-        CommonTestHelper::testBasicAddForProperty(
-            $this,
-            $schema,
-            'views',
-            $this->createBaseNewView()
-        );
-    }
-
-    /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::addViews
-     */
-    public function testAddViews()
-    {
-        $schema = $this->createBaseNewSchema();
-
-        $schema->setViews(
-            array(
-                $this->createBaseNewView()
-            )
-        );
-
-        CommonTestHelper::testBasicAddCollectionForProperty(
-            $this,
-            $schema,
             'views',
             array(
                 $this->createBaseNewView()

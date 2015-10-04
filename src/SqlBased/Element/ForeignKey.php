@@ -9,8 +9,6 @@
 
 namespace Arlekin\DatabaseAbstractionLayer\SqlBased\Element;
 
-use Arlekin\Core\Collection\ArrayCollection;
-
 /**
  * Represents a SQL foreign key.
  *
@@ -28,7 +26,7 @@ abstract class ForeignKey
     /**
      * The columns that the foreign key uses from the table it belongs to.
      *
-     * @var ArrayCollection
+     * @var array
      */
     protected $columns;
 
@@ -42,7 +40,7 @@ abstract class ForeignKey
     /**
      * The columns from the referenced table that the foreign key references.
      *
-     * @var ArrayCollection
+     * @var array
      */
     protected $referencedColumns;
 
@@ -65,8 +63,8 @@ abstract class ForeignKey
      */
     public function __construct()
     {
-        $this->columns = new ArrayCollection();
-        $this->referencedColumns = new ArrayCollection();
+        $this->columns = [];
+        $this->referencedColumns = [];
     }
 
     /**
@@ -97,7 +95,7 @@ abstract class ForeignKey
     /**
      * Gets the columns.
      *
-     * @return ArrayCollection
+     * @return array
      */
     public function getColumns()
     {
@@ -107,17 +105,12 @@ abstract class ForeignKey
     /**
      * Sets the columns.
      *
-     * @param array|ArrayCollection $columns
+     * @param array $columns
      *
      * @return ForeignKey
      */
-    public function setColumns(
-        $columns
-    ) {
-        $this->columns
-            ->replaceWithCollection(
-                $columns
-            );
+    public function setColumns(array $columns) {
+        $this->columns = $columns;
 
         return $this;
     }
@@ -129,31 +122,9 @@ abstract class ForeignKey
      *
      * @return ForeignKey
      */
-    public function addColumn(
-        Column $column
-    ) {
-        $this->columns
-            ->add(
-                $column
-            );
-
-        return $this;
-    }
-
-    /**
-     * Add columns to the foreign key columns.
-     *
-     * @param array|ArrayCollection $columns
-     *
-     * @return ForeignKey
-     */
-    public function addColumns(
-        $columns
-    ) {
-        $this->columns
-            ->mergeWithCollections(
-                $columns
-            );
+    public function addColumn(Column $column)
+    {
+        $this->columns[] = $column;
 
         return $this;
     }
@@ -186,7 +157,7 @@ abstract class ForeignKey
     /**
      * Gets the referenced columns.
      *
-     * @return ArrayCollection
+     * @return array
      */
     public function getReferencedColumns()
     {
@@ -196,53 +167,20 @@ abstract class ForeignKey
     /**
      * Sets the referenced columns.
      *
-     * @param array|ArrayCollection $referencedColumns
+     * @param array $referencedColumns
      *
      * @return ForeignKey
      */
-    public function setReferencedColumns(
-        $referencedColumns
-    ) {
-        $this->referencedColumns
-            ->replaceWithCollection(
-                $referencedColumns
-            );
+    public function setReferencedColumns(array $referencedColumns)
+    {
+        $this->referencedColumns = $referencedColumns;
 
         return $this;
     }
 
-    /**
-     * Adds a referenced column to the foreign key referenced columns.
-     *
-     * @param Column $referencedColumn
-     *
-     * @return ForeignKey
-     */
-    public function addReferencedColumn(
-        Column $referencedColumn
-    ) {
-        $this->referencedColumns
-            ->add(
-                $referencedColumn
-            );
-
-        return $this;
-    }
-
-    /**
-     * Adds referenced columns to the foreign key referenced columns.
-     *
-     * @param array|ArrayCollection $referencedColumns
-     *
-     * @return ForeignKey
-     */
-    public function addReferencedColumns(
-        $referencedColumns
-    ) {
-        $this->referencedColumns
-            ->mergeWithCollections(
-                $referencedColumns
-            );
+    public function addReferencedColumn(Column $referencedColumn)
+    {
+        $this->referencedColumns[] = $referencedColumn;
 
         return $this;
     }

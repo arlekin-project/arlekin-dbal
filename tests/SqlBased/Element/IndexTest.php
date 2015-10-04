@@ -9,7 +9,6 @@
 
 namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased\Element;
 
-use Arlekin\Core\Collection\ArrayCollection;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table;
@@ -43,8 +42,8 @@ class IndexTest extends PHPUnit_Framework_TestCase
             'table',
             $index
         );
-        $this->assertAttributeInstanceOf(
-            ArrayCollection::class,
+        $this->assertAttributeSame(
+            [],
             'columns',
             $index
         );
@@ -102,34 +101,6 @@ class IndexTest extends PHPUnit_Framework_TestCase
     public function testGetAndSetColumns()
     {
         CommonTestHelper::testBasicGetAndSetCollectionForProperty(
-            $this,
-            $this->createBaseNewIndex(),
-            'columns',
-            array(
-                $this->createBaseNewColumn()
-            )
-        );
-    }
-
-    /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index::addColumn
-     */
-    public function testAddColumn()
-    {
-        CommonTestHelper::testBasicAddForProperty(
-            $this,
-            $this->createBaseNewIndex(),
-            'columns',
-            $this->createBaseNewColumn()
-        );
-    }
-
-    /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index::addColumns
-     */
-    public function testAddColumns()
-    {
-        CommonTestHelper::testBasicAddCollectionForProperty(
             $this,
             $this->createBaseNewIndex(),
             'columns',

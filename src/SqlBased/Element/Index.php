@@ -9,8 +9,6 @@
 
 namespace Arlekin\DatabaseAbstractionLayer\SqlBased\Element;
 
-use Arlekin\Core\Collection\ArrayCollection;
-
 /**
  * Represents a SQL index.
  *
@@ -42,7 +40,7 @@ abstract class Index
     /**
      * The index's columns.
      *
-     * @var ArrayCollection
+     * @var array
      */
     protected $columns;
 
@@ -51,7 +49,7 @@ abstract class Index
      */
     public function __construct()
     {
-        $this->columns = new ArrayCollection();
+        $this->columns = [];
     }
 
     /**
@@ -131,7 +129,7 @@ abstract class Index
     /**
      * Gets the index's columns.
      *
-     * @return ArrayCollection
+     * @return array
      */
     public function getColumns()
     {
@@ -141,56 +139,25 @@ abstract class Index
     /**
      * Sets the index's columns.
      *
-     * @param array|ArrayCollection $columns
+     * @param array $columns
      *
      * @return Index
      */
-    public function setColumns(
-        $columns
-    ) {
-        $this
-            ->columns
-            ->replaceWithCollection(
-                $columns
-            );
+    public function setColumns(array $columns)
+    {
+        $this->columns = $columns;
 
         return $this;
     }
 
     /**
-     * Adds a column to the index's columns.
-     *
      * @param Column $column
      *
      * @return Index
      */
-    public function addColumn(
-        Column $column
-    ) {
-        $this
-            ->columns
-            ->add(
-                $column
-            );
-
-        return $this;
-    }
-
-    /**
-     * Adds columns to the index's columns.
-     *
-     * @param array|ArrayCollection $columns
-     *
-     * @return Index
-     */
-    public function addColumns(
-        $columns
-    ) {
-        $this
-            ->columns
-            ->mergeWithCollections(
-                $columns
-            );
+    public function addColumn(Column $column)
+    {
+        $this->columns[] = $column;
 
         return $this;
     }

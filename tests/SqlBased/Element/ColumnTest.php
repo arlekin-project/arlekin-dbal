@@ -9,7 +9,6 @@
 
 namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased\Element;
 
-use Arlekin\Core\Collection\ArrayCollection;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table;
 use Arlekin\Core\Tests\Helper\CommonTestHelper;
@@ -33,8 +32,8 @@ class ColumnTest extends PHPUnit_Framework_TestCase
             'autoIncrement',
             $column
         );
-        $this->assertAttributeInstanceOf(
-            ArrayCollection::class,
+        $this->assertAttributeSame(
+            [],
             'parameters',
             $column
         );
@@ -134,41 +133,6 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::addParameters
-     */
-    public function testAddParameters()
-    {
-        $column = $this->createBaseNewColumn();
-
-        $parameters = array(
-            'test' => 42
-        );
-        $column
-            ->setParameters(
-                array(
-                    'test' => 42
-                )
-            );
-        $result
-            = $column->addParameters(
-                array(
-                    'test1' => 12
-                )
-            );
-        $this->assertInstanceOf(
-            Column::class,
-            $result
-        );
-        $this->assertSame(
-            $column->getParameters()->asArray(),
-            array(
-                'test' => 42,
-                'test1' => 12
-            )
-        );
-    }
-
-    /**
      * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::getTable
      * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::setTable
      */
@@ -215,6 +179,7 @@ class ColumnTest extends PHPUnit_Framework_TestCase
         );
 
         $arr = $column->toArray();
+
         $expected = array(
             'name' => 'testName',
             'type' => 'VARCHAR',

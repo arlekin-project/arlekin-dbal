@@ -9,8 +9,6 @@
 
 namespace Arlekin\DatabaseAbstractionLayer\SqlBased;
 
-use Arlekin\Core\Collection\ArrayCollection;
-
 /**
  * Represents a set of results returned by a a SQL-based query.
  *
@@ -21,7 +19,7 @@ class ResultSet
     /**
      * The returned rows.
      *
-     * @var ArrayCollection
+     * @var array
      */
     protected $rows;
 
@@ -30,13 +28,13 @@ class ResultSet
      */
     public function __construct()
     {
-        $this->rows = new ArrayCollection();
+        $this->rows = [];
     }
 
     /**
      * Gets the returned rows.
      *
-     * @return ArrayCollection
+     * @return array
      */
     public function getRows()
     {
@@ -46,17 +44,13 @@ class ResultSet
     /**
      * Sets the returned rows.
      *
-     * @param array|ArrayCollection $rows
+     * @param array $rows
      *
      * @return ResultSet
      */
-    public function setRows(
-        $rows
-    ) {
-        $this->rows
-            ->replaceWithCollection(
-                $rows
-            );
+    public function setRows(array $rows)
+    {
+        $this->rows = $rows;
 
         return $this;
     }

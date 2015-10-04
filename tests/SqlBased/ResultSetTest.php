@@ -9,7 +9,7 @@
 
 namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased;
 
-use Arlekin\Core\Collection\ArrayCollection;
+use Arlekin\Core\Tests\Helper\CommonTestHelper;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\ResultRow;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\ResultSet;
 use PHPUnit_Framework_TestCase;
@@ -31,8 +31,8 @@ class ResultSetTest extends PHPUnit_Framework_TestCase
     {
         $resultSet = new ResultSet();
 
-        $this->assertAttributeInstanceOf(
-            ArrayCollection::class,
+        $this->assertAttributeSame(
+            [],
             'rows',
             $resultSet
         );
@@ -49,29 +49,12 @@ class ResultSetTest extends PHPUnit_Framework_TestCase
             new ResultRow(),
             new ResultRow()
         );
-        $initRows = $this->resultSet->getRows();
-        $result = $this->resultSet->setRows(
-            $rows
-        );
 
-        $this->assertSame(
+        CommonTestHelper::testBasicGetAndSetForProperty(
+            $this,
             $this->resultSet,
-            $result
-        );
-
-        $this->assertSame(
-            $initRows,
-            $this->resultSet->getRows()
-        );
-
-        $this->assertInstanceOf(
-            ArrayCollection::class,
-            $this->resultSet->getRows()
-        );
-
-        $this->assertSame(
-            $rows,
-            $this->resultSet->getRows()->asArray()
+            'rows',
+            $rows
         );
     }
 

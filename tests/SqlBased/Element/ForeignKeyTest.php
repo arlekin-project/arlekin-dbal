@@ -9,7 +9,6 @@
 
 namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased\Element;
 
-use Arlekin\Core\Collection\ArrayCollection;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table;
@@ -33,8 +32,8 @@ class ForeignKeyTest extends PHPUnit_Framework_TestCase
             'table',
             $foreignKey
         );
-        $this->assertAttributeInstanceOf(
-            ArrayCollection::class,
+        $this->assertAttributeSame(
+            [],
             'columns',
             $foreignKey
         );
@@ -43,8 +42,8 @@ class ForeignKeyTest extends PHPUnit_Framework_TestCase
             'referencedTable',
             $foreignKey
         );
-        $this->assertAttributeInstanceOf(
-            ArrayCollection::class,
+        $this->assertAttributeSame(
+            [],
             'referencedColumns',
             $foreignKey
         );
@@ -91,50 +90,6 @@ class ForeignKeyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey::addColumn
-     */
-    public function testAddColumn()
-    {
-        $foreignKey = $this->createBaseNewForeignKey();
-
-        $foreignKey->setColumns(
-            array(
-               $this->createBaseNewColumn()
-            )
-        );
-
-        CommonTestHelper::testBasicAddForProperty(
-            $this,
-            $foreignKey,
-            'columns',
-            $this->createBaseNewColumn()
-        );
-    }
-
-    /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey::addColumns
-     */
-    public function testAddColumns()
-    {
-        $foreignKey = $this->createBaseNewForeignKey();
-
-        $foreignKey->setColumns(
-            array(
-               $this->createBaseNewColumn()
-            )
-        );
-
-        CommonTestHelper::testBasicAddCollectionForProperty(
-            $this,
-            $foreignKey,
-            'columns',
-            array(
-                $this->createBaseNewColumn()
-            )
-        );
-    }
-
-    /**
      * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey::getReferencedTable
      * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey::setReferencedTable
      */
@@ -158,50 +113,6 @@ class ForeignKeyTest extends PHPUnit_Framework_TestCase
             $this,
             $this->createBaseNewForeignKey(),
             'referencedcolumns',
-            array(
-                $this->createBaseNewColumn()
-            )
-        );
-    }
-
-    /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey::addReferencedColumn
-     */
-    public function testAddReferencedColumn()
-    {
-        $foreignKey = $this->createBaseNewForeignKey();
-
-        $foreignKey->setReferencedColumns(
-            array(
-               $this->createBaseNewColumn()
-            )
-        );
-
-        CommonTestHelper::testBasicAddForProperty(
-            $this,
-            $foreignKey,
-            'referencedColumns',
-            $this->createBaseNewColumn()
-        );
-    }
-
-    /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey::addReferencedColumns
-     */
-    public function testAddReferencedColumns()
-    {
-        $foreignKey = $this->createBaseNewForeignKey();
-
-        $foreignKey->setReferencedColumns(
-            array(
-               $this->createBaseNewColumn()
-            )
-        );
-
-        CommonTestHelper::testBasicAddCollectionForProperty(
-            $this,
-            $foreignKey,
-            'referencedColumns',
             array(
                 $this->createBaseNewColumn()
             )
