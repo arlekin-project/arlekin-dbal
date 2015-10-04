@@ -27,16 +27,8 @@ class SchemaTest extends PHPUnit_Framework_TestCase
     {
         $schema = $this->createBaseNewSchema();
 
-        $this->assertAttributeSame(
-            [],
-            'tables',
-            $schema
-        );
-        $this->assertAttributeSame(
-            [],
-            'views',
-            $schema
-        );
+        $this->assertAttributeSame([], 'tables', $schema);
+        $this->assertAttributeSame([], 'views', $schema);
     }
 
     /**
@@ -49,9 +41,9 @@ class SchemaTest extends PHPUnit_Framework_TestCase
             $this,
             $this->createBaseNewSchema(),
             'tables',
-            array(
-                $this->createBaseNewTable()
-            )
+            [
+                $this->createBaseNewTable(),
+            ]
         );
     }
 
@@ -65,9 +57,9 @@ class SchemaTest extends PHPUnit_Framework_TestCase
             $this,
             $this->createBaseNewSchema(),
             'views',
-            array(
-                $this->createBaseNewView()
-            )
+            [
+                $this->createBaseNewView(),
+            ]
         );
     }
 
@@ -82,34 +74,34 @@ class SchemaTest extends PHPUnit_Framework_TestCase
         $schema = $this->createBaseNewSchema();
 
         $schema->setTables(
-            array(
-                $table
-            )
+            [
+                $table,
+            ]
         )->setViews(
-            array(
-                $view
-            )
+            [
+                $view,
+            ]
         );
 
         $this->assertSame(
             $schema->toArray(),
-            array(
-                'tables' => array(
-                    array(
+            [
+                'tables' => [
+                    [
                         'name' => null,
-                        'columns' => array(),
+                        'columns' => [],
                         'primaryKey' => null,
-                        'indexes' => array(),
-                        'foreignKeys' => array(),
-                    ),
-                ),
-                'views' => array(
-                    array(
+                        'indexes' => [],
+                        'foreignKeys' => [],
+                    ],
+                ],
+                'views' => [
+                    [
                         'name' => null,
                         'definition' => null,
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
     }
 

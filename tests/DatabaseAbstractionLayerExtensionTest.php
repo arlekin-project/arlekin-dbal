@@ -32,11 +32,11 @@ class DatabaseAbstractionLayerExtensionTest extends PHPUnit_Framework_TestCase
         $container = new ContainerBuilder();
 
         $extension->load(
-            array(
-                array(
-                    'dbal' => array(),
-                ),
-            ),
+            [
+                [
+                    'dbal' => [],
+                ],
+            ],
             $container
         );
 
@@ -56,15 +56,11 @@ class DatabaseAbstractionLayerExtensionTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertSame(
-            array(),
-            $container->getParameter(
-                'dbal.parameters_by_database_connection_name'
-            )
+            [],
+            $container->getParameter('dbal.parameters_by_database_connection_name')
         );
 
-        $dumper = new PhpDumper(
-            $container
-        );
+        $dumper = new PhpDumper($container);
 
         $this->assertTrue(
             is_string(
@@ -74,9 +70,7 @@ class DatabaseAbstractionLayerExtensionTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(
             DatabaseConnectionManager::class,
-            $container->get(
-                'dbal.manager.database_connection'
-            )
+            $container->get('dbal.manager.database_connection')
         );
     }
 

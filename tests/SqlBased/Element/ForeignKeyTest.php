@@ -27,36 +27,12 @@ class ForeignKeyTest extends PHPUnit_Framework_TestCase
     {
         $foreignKey = $this->createBaseNewForeignKey();
 
-        $this->assertAttributeSame(
-            null,
-            'table',
-            $foreignKey
-        );
-        $this->assertAttributeSame(
-            [],
-            'columns',
-            $foreignKey
-        );
-        $this->assertAttributeSame(
-            null,
-            'referencedTable',
-            $foreignKey
-        );
-        $this->assertAttributeSame(
-            [],
-            'referencedColumns',
-            $foreignKey
-        );
-        $this->assertAttributeSame(
-            null,
-            'onDelete',
-            $foreignKey
-        );
-        $this->assertAttributeSame(
-            null,
-            'onUpdate',
-            $foreignKey
-        );
+        $this->assertAttributeSame(null, 'table', $foreignKey);
+        $this->assertAttributeSame([], 'columns', $foreignKey);
+        $this->assertAttributeSame(null, 'referencedTable', $foreignKey);
+        $this->assertAttributeSame([], 'referencedColumns', $foreignKey);
+        $this->assertAttributeSame(null, 'onDelete', $foreignKey);
+        $this->assertAttributeSame(null, 'onUpdate', $foreignKey);
     }
 
     /**
@@ -83,9 +59,9 @@ class ForeignKeyTest extends PHPUnit_Framework_TestCase
             $this,
             $this->createBaseNewForeignKey(),
             'columns',
-            array(
-                $this->createBaseNewColumn()
-            )
+            [
+                $this->createBaseNewColumn(),
+            ]
         );
     }
 
@@ -113,9 +89,9 @@ class ForeignKeyTest extends PHPUnit_Framework_TestCase
             $this,
             $this->createBaseNewForeignKey(),
             'referencedcolumns',
-            array(
-                $this->createBaseNewColumn()
-            )
+            [
+                $this->createBaseNewColumn(),
+            ]
         );
     }
 
@@ -155,23 +131,21 @@ class ForeignKeyTest extends PHPUnit_Framework_TestCase
         $foreignKey = $this->createBaseTestForeignKey();
 
         $arr = $foreignKey->toArray();
-        $expected = array(
-            'table' => 'testTable',
-            'columns' => array(
-                'deptNo'
-            ),
-            'referencedTable' => 'departments',
-            'referencedColumns' => array(
-                'deptNo1'
-            ),
-            'onDelete' => null,
-            'onUpdate' => null
-        );
 
-        $this->assertEquals(
-            $expected,
-            $arr
-        );
+        $expected = [
+            'table' => 'testTable',
+            'columns' => [
+                'deptNo',
+            ],
+            'referencedTable' => 'departments',
+            'referencedColumns' => [
+                'deptNo1',
+            ],
+            'onDelete' => null,
+            'onUpdate' => null,
+        ];
+
+        $this->assertEquals($expected, $arr);
     }
 
     /**
@@ -180,16 +154,15 @@ class ForeignKeyTest extends PHPUnit_Framework_TestCase
     protected function createBaseTestForeignKey()
     {
         $table = $this->createBaseNewTable();
-        $table->setName(
-            'testTable'
-        );
+
+        $table->setName('testTable');
 
         $referencedTable = $this->createBaseNewTable();
-        $referencedTable->setName(
-            'departments'
-        );
+
+        $referencedTable->setName('departments');
 
         $column = $this->createBaseNewColumn();
+
         $column->setName(
             'deptNo'
         )->setTable(
@@ -197,6 +170,7 @@ class ForeignKeyTest extends PHPUnit_Framework_TestCase
         );
 
         $referencedColumn = $this->createBaseNewColumn();
+
         $referencedColumn->setName(
             'deptNo1'
         )->setTable(
@@ -204,6 +178,7 @@ class ForeignKeyTest extends PHPUnit_Framework_TestCase
         );
 
         $foreignKey = $this->createBaseNewForeignKey();
+
         $foreignKey->addColumn(
             $column
         )->addReferencedColumn(

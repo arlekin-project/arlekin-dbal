@@ -30,11 +30,7 @@ class QueryTest extends PHPUnit_Framework_TestCase
     {
         $query = new Query();
 
-        $this->assertAttributeSame(
-            [],
-            'parameters',
-            $query
-        );
+        $this->assertAttributeSame([], 'parameters', $query);
     }
 
     /**
@@ -61,9 +57,9 @@ class QueryTest extends PHPUnit_Framework_TestCase
             $this,
             $this->query,
             'parameters',
-            array(
-                'test' => 'test'
-            )
+            [
+                'test' => 'test',
+            ]
         );
     }
 
@@ -72,17 +68,13 @@ class QueryTest extends PHPUnit_Framework_TestCase
      */
     public function testSetParameter()
     {
-        $result = $this->query->setParameter(
-            'test',
-            42
-        );
+        $result = $this->query->setParameter('test', 42);
+
+        $this->assertSame($this->query, $result);
+
         $this->assertSame(
-            $this->query,
-            $result
-        );
-        $this->assertSame(
-            $this->query->getParameters()['test'],
-            42
+            42,
+            $this->query->getParameters()['test']
         );
     }
 

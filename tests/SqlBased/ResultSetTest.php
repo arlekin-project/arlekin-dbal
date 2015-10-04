@@ -31,11 +31,7 @@ class ResultSetTest extends PHPUnit_Framework_TestCase
     {
         $resultSet = new ResultSet();
 
-        $this->assertAttributeSame(
-            [],
-            'rows',
-            $resultSet
-        );
+        $this->assertAttributeSame([], 'rows', $resultSet);
     }
 
     /**
@@ -44,17 +40,15 @@ class ResultSetTest extends PHPUnit_Framework_TestCase
      */
     public function testGetAndSetRows()
     {
-        $rows = array(
-            new ResultRow(),
-            new ResultRow(),
-            new ResultRow()
-        );
-
         CommonTestHelper::testBasicGetAndSetForProperty(
             $this,
             $this->resultSet,
             'rows',
-            $rows
+            [
+                new ResultRow(),
+                new ResultRow(),
+                new ResultRow(),
+            ]
         );
     }
 

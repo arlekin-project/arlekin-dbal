@@ -27,16 +27,8 @@ class PrimaryKeyTest extends PHPUnit_Framework_TestCase
     {
         $primaryKey = $this->createBaseNewPrimaryKey();
 
-        $this->assertAttributeSame(
-            null,
-            'table',
-            $primaryKey
-        );
-        $this->assertAttributeSame(
-            [],
-            'columns',
-            $primaryKey
-        );
+        $this->assertAttributeSame(null, 'table', $primaryKey);
+        $this->assertAttributeSame([], 'columns', $primaryKey);
     }
 
     /**
@@ -63,9 +55,9 @@ class PrimaryKeyTest extends PHPUnit_Framework_TestCase
             $this,
             $this->createBaseNewPrimaryKey(),
             'columns',
-            array(
-                $this->createBaseNewColumn()
-            )
+            [
+                $this->createBaseNewColumn(),
+            ]
         );
     }
 
@@ -75,38 +67,35 @@ class PrimaryKeyTest extends PHPUnit_Framework_TestCase
     public function testToArray()
     {
         $column = $this->createBaseNewColumn();
-        $column->setName(
-            'deptNo'
-        );
+
+        $column->setName('deptNo');
 
         $primaryKey = $this->createBaseNewPrimaryKey();
-        $primaryKey->addColumn(
-            $column
-        );
+
+        $primaryKey->addColumn($column);
 
         $table = $this->createBaseNewTable();
+
         $table->setName(
             'testTableName'
         )->setPrimaryKey(
             $primaryKey
         )->setColumns(
-            array(
-                $column
-            )
+            [
+                $column,
+            ]
         );
 
         $arr = $primaryKey->toArray();
-        $expected = array(
-            'columns' => array(
-                'deptNo'
-            ),
-            'table' => 'testTableName'
-        );
 
-        $this->assertEquals(
-            $expected,
-            $arr
-        );
+        $expected = [
+            'columns' => [
+                'deptNo',
+            ],
+            'table' => 'testTableName',
+        ];
+
+        $this->assertEquals($expected, $arr);
     }
 
     /**

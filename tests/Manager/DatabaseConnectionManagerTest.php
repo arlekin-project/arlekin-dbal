@@ -26,15 +26,13 @@ class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
     /**
      * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::__construct
      */
-    public function test__construct()
+    public function testConstruct()
     {
         $containerMock = $this->getMock(
             ContainerInterface::class
         );
 
-        $instance = new DatabaseConnectionManager(
-            $containerMock
-        );
+        $instance = new DatabaseConnectionManager($containerMock);
 
         $this->assertAttributeInstanceOf(
             ContainerInterface::class,
@@ -72,19 +70,17 @@ class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
             'getParameter'
         )->will(
             $this->returnCallback(
-                function (
-                    $id
-                ) {
+                function ($id) {
                     if ($id === 'dbal.driver_ids_by_driver_name') {
-                        return array(
-                            'test' => 'dbal.driver.test'
-                        );
+                        return [
+                            'test' => 'dbal.driver.test',
+                        ];
                     } elseif ($id === 'dbal.parameters_by_database_connection_name') {
-                        return array(
-                            'default' => array(
-                                'driver' => 'test'
-                            )
-                        );
+                        return [
+                            'default' => [
+                                'driver' => 'test',
+                            ],
+                        ];
                     }
                 }
             )
@@ -94,11 +90,7 @@ class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
             'get'
         )->will(
             $this->returnCallback(
-                function (
-                    $id
-                ) use (
-                    $driverMock
-                ) {
+                function ($id) use ($driverMock) {
                     if ($id === 'dbal.driver.test') {
                         return $driverMock;
                     }
@@ -106,9 +98,7 @@ class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
             )
         );
 
-        return new DatabaseConnectionManager(
-            $containerMock
-        );
+        return new DatabaseConnectionManager($containerMock);
     }
 
     /**
@@ -120,9 +110,7 @@ class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
     {
         $databaseConnectionManager = $this->doTestGetConnectionWithNameGetDatabaseConnectionManager();
 
-        $instance = $databaseConnectionManager->getConnectionWithName(
-            'default'
-        );
+        $instance = $databaseConnectionManager->getConnectionWithName('default');
 
         $this->assertInstanceOf(
             DatabaseConnectionInterface::class,
@@ -139,16 +127,9 @@ class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
     {
         $databaseConnectionManager = $this->doTestGetConnectionWithNameGetDatabaseConnectionManager();
 
-        $firstOne = $databaseConnectionManager->getConnectionWithName(
-            'default'
-        );
-        $secondOne = $databaseConnectionManager->getConnectionWithName(
-            'default'
-        );
+        $firstOne = $databaseConnectionManager->getConnectionWithName('default');
+        $secondOne = $databaseConnectionManager->getConnectionWithName('default');
 
-        $this->assertSame(
-            $firstOne,
-            $secondOne
-        );
+        $this->assertSame($firstOne, $secondOne);
     }
 }

@@ -16,14 +16,9 @@ if (!isset($GLOBALS['arlekin_bootstrap_loaded'])
     $GLOBALS['arlekin_bootstrap_loaded'] = true;
 
     error_reporting(E_ALL | E_STRICT);
-    ini_set(
-        'display_errors',
-        '1'
-    );
-    ini_set(
-        'display_startup_errors',
-        '1'
-    );
+
+    ini_set('display_errors', '1');
+    ini_set('display_startup_errors', '1');
 
     $autoloadFilePhp = sprintf(
         '%s/../vendor/autoload.php',

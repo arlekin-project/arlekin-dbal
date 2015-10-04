@@ -29,31 +29,11 @@ class TableTest extends PHPUnit_Framework_TestCase
     {
         $table = $this->createBaseNewTable();
 
-        $this->assertAttributeSame(
-            null,
-            'name',
-            $table
-        );
-        $this->assertAttributeSame(
-            null,
-            'primaryKey',
-            $table
-        );
-        $this->assertAttributeSame(
-            [],
-            'columns',
-            $table
-        );
-        $this->assertAttributeSame(
-            [],
-            'foreignKeys',
-            $table
-        );
-        $this->assertAttributeSame(
-            [],
-            'indexes',
-            $table
-        );
+        $this->assertAttributeSame(null, 'name', $table);
+        $this->assertAttributeSame(null, 'primaryKey', $table);
+        $this->assertAttributeSame([], 'columns', $table);
+        $this->assertAttributeSame([], 'foreignKeys', $table);
+        $this->assertAttributeSame([], 'indexes', $table);
     }
 
     /**
@@ -66,10 +46,7 @@ class TableTest extends PHPUnit_Framework_TestCase
             $this,
             $this->createBaseNewTable(),
             'name',
-            uniqid(
-                'test_name_',
-                true
-            )
+            uniqid('test_name_', true)
         );
     }
 
@@ -121,9 +98,9 @@ class TableTest extends PHPUnit_Framework_TestCase
             $this,
             $table,
             'columns',
-            array(
-                $column
-            )
+            [
+                $column,
+            ]
         );
 
         $this->assertSame(
@@ -146,9 +123,9 @@ class TableTest extends PHPUnit_Framework_TestCase
             $this,
             $table,
             'foreignKeys',
-            array(
-                $foreignKey
-            )
+            [
+                $foreignKey,
+            ]
         );
 
         $this->assertEquals(
@@ -171,9 +148,9 @@ class TableTest extends PHPUnit_Framework_TestCase
             $this,
             $table,
             'indexes',
-            array(
-                $index
-            )
+            [
+                $index,
+            ]
         );
 
         $this->assertSame(
@@ -188,20 +165,25 @@ class TableTest extends PHPUnit_Framework_TestCase
     public function testToArray()
     {
         $table2 = $this->createBaseNewTable();
+
         $table2->setName(
             'table2'
         );
+
         $table2IdColumn = $this->createBaseNewColumn();
+
         $table2IdColumn->setName('id');
+
         $table2->setColumns(
-            array(
-                $table2IdColumn
-            )
+            [
+                $table2IdColumn,
+            ]
         );
 
         $table = $this->createBaseNewTable();
 
         $columnDeptNo = $this->createBaseNewColumn();
+
         $columnDeptNo->setName(
             'deptNo'
         )->setType(
@@ -209,12 +191,13 @@ class TableTest extends PHPUnit_Framework_TestCase
         )->setNullable(
             false
         )->setParameters(
-            array(
-                'length' => 4
-            )
+            [
+                'length' => 4,
+            ]
         );
 
         $columnDeptName = $this->createBaseNewColumn();
+
         $columnDeptName->setName(
             'deptName'
         )->setType(
@@ -222,12 +205,13 @@ class TableTest extends PHPUnit_Framework_TestCase
         )->setNullable(
             false
         )->setParameters(
-            array(
-                'length' => 40
-            )
+            [
+                'length' => 40,
+            ]
         );
 
         $table2ReferencedIdColumn = $this->createBaseNewColumn();
+
         $table2ReferencedIdColumn->setName(
             'table2_id'
         )->setType(
@@ -235,55 +219,59 @@ class TableTest extends PHPUnit_Framework_TestCase
         )->setNullable(
             false
         )->setParameters(
-            array(
-                'length' => 11
-            )
+            [
+                'length' => 11,
+            ]
         );
 
         $primaryKey = $this->createBaseNewPrimaryKey();
+
         $primaryKey->setColumns(
-            array(
-                $columnDeptNo
-            )
+            [
+                $columnDeptNo,
+            ]
         );
 
         $table->setName(
             'departments'
         )->setColumns(
-            array(
+            [
                 $columnDeptNo,
                 $columnDeptName,
-                $table2ReferencedIdColumn
-            )
+                $table2ReferencedIdColumn,
+            ]
         );
 
         $table->setPrimaryKey($primaryKey);
+
         $index = $this->createBaseNewIndex();
+
         $index->setName(
             'unique_deptName'
         )->setKind(
             'UNIQUE'
         )->setColumns(
-            array(
-                $columnDeptName
-            )
+            [
+                $columnDeptName,
+            ]
         );
 
         $table->setIndexes(
-            array(
-                $index
-            )
+            [
+                $index,
+            ]
         );
 
         $foreignKey = $this->createBaseNewForeignKey();
+
         $foreignKey->setColumns(
-            array(
-                $table2ReferencedIdColumn
-            )
+            [
+                $table2ReferencedIdColumn,
+            ]
         )->setReferencedColumns(
-            array(
-                $table2IdColumn
-            )
+            [
+                $table2IdColumn,
+            ]
         )->setReferencedTable(
             $table2
         );
@@ -292,74 +280,72 @@ class TableTest extends PHPUnit_Framework_TestCase
             $foreignKey
         );
 
-        $expected = array(
+        $expected = [
             'name' => 'departments',
-            'columns' => array(
-                array(
+            'columns' => [
+                [
                     'name' => 'deptNo',
                     'type' => 'VARCHAR',
                     'nullable' => false,
-                    'parameters' => array(
+                    'parameters' => [
                         'length' => 4,
-                    ),
+                    ],
                     'autoIncrement' => false,
-                ),
-                array(
+                ],
+                [
                     'name' => 'deptName',
                     'type' => 'VARCHAR',
                     'nullable' => false,
-                    'parameters' => array(
+                    'parameters' => [
                         'length' => 40,
-                    ),
+                    ],
                     'autoIncrement' => false,
-                ),
-                array(
+                ],
+                [
                     'name' => 'table2_id',
                     'type' => 'INT',
                     'nullable' => false,
-                    'parameters' => array(
+                    'parameters' => [
                         'length' => 11,
-                    ),
+                    ],
                     'autoIncrement' => false,
-                ),
-            ),
-            'primaryKey' => array(
-                'columns' => array(
+                ],
+            ],
+            'primaryKey' => [
+                'columns' => [
                     'deptNo',
-                )
-            ),
-            'indexes' => array(
-                array(
+                ]
+            ],
+            'indexes' => [
+                [
                     'name' => 'unique_deptName',
                     'kind' => 'UNIQUE',
-                    'columns' => array(
+                    'columns' => [
                         'deptName',
-                    ),
-                ),
-            ),
-            'foreignKeys' => array(
-                array(
-                    'columns' => array(
-                        'table2_id'
-                    ),
+                    ],
+                ],
+            ],
+            'foreignKeys' => [
+                [
+                    'columns' => [
+                        'table2_id',
+                    ],
                     'referencedTable' => 'table2',
-                    'referencedColumns' => array(
-                        'id'
-                    ),
+                    'referencedColumns' => [
+                        'id',
+                    ],
                     'onDelete' => null,
                     'onUpdate' => null,
-                )
-            )
-        );
+                ]
+            ]
+        ];
 
         $this->assertEquals(
             $expected,
             $table->toArray()
         );
 
-        $table->setPrimaryKey(
-            null
-        );
+        $table->setPrimaryKey(null);
 
         $expected['primaryKey'] = null;
 

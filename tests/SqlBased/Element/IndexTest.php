@@ -27,26 +27,10 @@ class IndexTest extends PHPUnit_Framework_TestCase
     {
         $index = $this->createBaseNewIndex();
 
-        $this->assertAttributeSame(
-            null,
-            'kind',
-            $index
-        );
-        $this->assertAttributeSame(
-            null,
-            'name',
-            $index
-        );
-        $this->assertAttributeSame(
-            null,
-            'table',
-            $index
-        );
-        $this->assertAttributeSame(
-            [],
-            'columns',
-            $index
-        );
+        $this->assertAttributeSame(null, 'kind', $index);
+        $this->assertAttributeSame(null, 'name', $index);
+        $this->assertAttributeSame(null, 'table', $index);
+        $this->assertAttributeSame([], 'columns', $index);
     }
 
     /**
@@ -73,10 +57,7 @@ class IndexTest extends PHPUnit_Framework_TestCase
             $this,
             $index = $this->createBaseNewIndex(),
             'name',
-            uniqid(
-                'test_name_',
-                true
-            )
+            uniqid('test_name_', true)
         );
     }
 
@@ -104,9 +85,9 @@ class IndexTest extends PHPUnit_Framework_TestCase
             $this,
             $this->createBaseNewIndex(),
             'columns',
-            array(
-                $this->createBaseNewColumn()
-            )
+            [
+                $this->createBaseNewColumn(),
+            ]
         );
     }
 
@@ -116,20 +97,19 @@ class IndexTest extends PHPUnit_Framework_TestCase
     public function testToArrayNoTable()
     {
         $index = $this->createBaseTestIndexWithTable();
+
         $arr = $index->toArray();
-        $expected = array(
+
+        $expected = [
             'name' => 'unique_deptName',
             'kind' => 'UNIQUE',
-            'columns' => array(
-                'deptName'
-            ),
-            'table' => 'testTableName'
-        );
+            'columns' => [
+                'deptName',
+            ],
+            'table' => 'testTableName',
+        ];
 
-        $this->assertEquals(
-            $expected,
-            $arr
-        );
+        $this->assertEquals($expected, $arr);
     }
 
     /**
@@ -138,6 +118,7 @@ class IndexTest extends PHPUnit_Framework_TestCase
     protected function createBaseTestIndex()
     {
         $index = $this->createBaseNewIndex();
+
         $index->setName(
             'unique_deptName'
         )->setKind(
@@ -145,20 +126,19 @@ class IndexTest extends PHPUnit_Framework_TestCase
         );
 
         $column = $this->createBaseNewColumn();
-        $column->setName(
-            'deptName'
-        );
+
+        $column->setName('deptName');
 
         $index->setColumns(
-            array(
-                $column
-            )
+            [
+                $column,
+            ]
         );
 
-        return array(
+        return [
             'index' => $index,
-            'column' => $column
-        );
+            'column' => $column,
+        ];
     }
 
     /**
@@ -167,11 +147,17 @@ class IndexTest extends PHPUnit_Framework_TestCase
     protected function createBaseTestIndexWithTable()
     {
         $result = $this->createBaseTestIndex();
+
         $index = $result['index'];
+
         $column = $result['column'];
+
         $table = $this->createBaseNewTable();
+
         $table->setName('testTableName');
+
         $column->setTable($table);
+
         $index->setTable($table);
 
         return $index;

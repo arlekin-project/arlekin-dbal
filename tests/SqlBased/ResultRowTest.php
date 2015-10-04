@@ -29,15 +29,13 @@ class ResultRowTest extends PHPUnit_Framework_TestCase
      */
     public function testGetAndSetData()
     {
-        $data = array(
-            'test' => 42
-        );
-
         CommonTestHelper::testBasicGetAndSetForProperty(
             $this,
             $this->resultRow,
             'data',
-            $data
+            [
+                'test' => 42,
+            ]
         );
     }
 
@@ -46,18 +44,15 @@ class ResultRowTest extends PHPUnit_Framework_TestCase
      */
     public function testGet()
     {
-        $data = array(
-            'test' => 42
-        );
-        $this->resultRow->setData(
-            $data
-        );
-        
+        $data = [
+            'test' => 42,
+        ];
+
+        $this->resultRow->setData($data);
+
         $this->assertSame(
             42,
-            $this->resultRow->get(
-                'test'
-            )
+            $this->resultRow->get('test')
         );
     }
 

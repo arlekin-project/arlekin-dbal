@@ -28,10 +28,7 @@ class ViewTest extends PHPUnit_Framework_TestCase
             $this,
             $this->createBaseNewView(),
             'name',
-            uniqid(
-                'test_name_',
-                true
-            )
+            uniqid('test_name_', true)
         );
     }
 
@@ -45,10 +42,7 @@ class ViewTest extends PHPUnit_Framework_TestCase
             $this,
             $this->createBaseNewView(),
             'definition',
-            uniqid(
-                'test_definitin_',
-                true
-            )
+            uniqid('test_definitin_', true)
         );
     }
 
@@ -59,14 +53,8 @@ class ViewTest extends PHPUnit_Framework_TestCase
     {
         $view = $this->createBaseNewView();
 
-        $name = uniqid(
-            'test_name_',
-            true
-        );
-        $definition = uniqid(
-            'test_definition_',
-            true
-        );
+        $name = uniqid('test_name_', true);
+        $definition = uniqid('test_definition_', true);
 
         $view->setName(
             $name
@@ -75,10 +63,10 @@ class ViewTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertSame(
-            array(
+            [
                 'name' => $name,
-                'definition' => $definition
-            ),
+                'definition' => $definition,
+            ],
             $view->toArray()
         );
     }

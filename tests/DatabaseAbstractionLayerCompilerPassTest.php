@@ -24,15 +24,11 @@ class DatabaseAbstractionLayerCompilerPassTest extends PHPUnit_Framework_TestCas
 
         $compilerPass = new DatabaseAbstractionLayerCompilerPass();
 
-        $compilerPass->process(
-            $container
-        );
+        $compilerPass->process($container);
 
         $this->assertSame(
-            array(),
-            $container->getParameter(
-                'dbal.driver_ids_by_driver_name'
-            )
+            [],
+            $container->getParameter('dbal.driver_ids_by_driver_name')
         );
     }
 }

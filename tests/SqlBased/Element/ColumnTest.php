@@ -27,16 +27,8 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     {
         $column = $this->createBaseNewColumn();
 
-        $this->assertAttributeSame(
-            false,
-            'autoIncrement',
-            $column
-        );
-        $this->assertAttributeSame(
-            [],
-            'parameters',
-            $column
-        );
+        $this->assertAttributeSame(false, 'autoIncrement', $column);
+        $this->assertAttributeSame([], 'parameters', $column);
     }
 
     /**
@@ -126,9 +118,9 @@ class ColumnTest extends PHPUnit_Framework_TestCase
             $this,
             $this->createBaseNewColumn(),
             'parameters',
-            array(
-                'test' => 42
-            )
+            [
+                'test' => 42,
+            ]
         );
     }
 
@@ -167,33 +159,31 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     public function testToArray()
     {
         $column = $this->createBaseTestColumn();
+
         $table = $this->createBaseNewTable();
+
         $table->setName(
             'testTableName'
-        );
-        $table->addColumn(
+        )->addColumn(
             $column
         );
-        $column->setType(
-            'VARCHAR'
-        );
+
+        $column->setType('VARCHAR');
 
         $arr = $column->toArray();
 
-        $expected = array(
+        $expected = [
             'name' => 'testName',
             'type' => 'VARCHAR',
             'nullable' => false,
-            'parameters' => array(
-                'testParameterKey' => 'testParameterName'
-            ),
+            'parameters' => [
+                'testParameterKey' => 'testParameterName',
+            ],
             'table' => 'testTableName',
-            'autoIncrement' => false
-        );
-        $this->assertEquals(
-            $expected,
-            $arr
-        );
+            'autoIncrement' => false,
+        ];
+
+        $this->assertEquals($expected, $arr);
     }
 
     /**
@@ -231,9 +221,9 @@ class ColumnTest extends PHPUnit_Framework_TestCase
         )->setNullable(
             $nullable
         )->setParameters(
-            array(
-                'testParameterKey' => 'testParameterName'
-            )
+            [
+                'testParameterKey' => 'testParameterName',
+            ]
         );
 
         return $column;

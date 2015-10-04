@@ -28,30 +28,26 @@ class ExtensionHelperTest extends PHPUnit_Framework_TestCase
         $driverMock->method(
             'getName'
         )->will(
-            $this->returnValue(
-                'test'
-            )
+            $this->returnValue('test')
         );
 
         $containerMock = $this->getMock(
             ContainerBuilder::class,
-            array(
+            [
                 'findTaggedServiceIds',
                 'get',
-            )
+            ]
         );
 
         $containerMock->method(
             'findTaggedServiceIds'
         )->will(
             $this->returnCallback(
-                function (
-                    $id
-                ) {
+                function ($id) {
                     if ($id === 'dbal.driver') {
-                        return array(
-                            'dbal.driver.test' => array(),
-                        );
+                        return [
+                            'dbal.driver.test' => [],
+                        ];
                     }
                 }
             )
@@ -61,11 +57,7 @@ class ExtensionHelperTest extends PHPUnit_Framework_TestCase
             'get'
         )->will(
             $this->returnCallback(
-                function (
-                    $id
-                ) use (
-                    $driverMock
-                ) {
+                function ($id) use ($driverMock) {
                     if ($id === 'dbal.driver.test') {
                         return $driverMock;
                     }
@@ -74,9 +66,9 @@ class ExtensionHelperTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertSame(
-            array(
-                'test' => 'dbal.driver.test'
-            ),
+            [
+                'test' => 'dbal.driver.test',
+            ],
             ExtensionHelper::getDriverIdsByDriverNameFromTaggedServiceIds(
                 $containerMock
             )
@@ -89,9 +81,9 @@ class ExtensionHelperTest extends PHPUnit_Framework_TestCase
     public function testGetParametersByDatabaseConnectionNameNoConnection()
     {
         $this->assertSame(
-            array(),
+            [],
             ExtensionHelper::getParametersByDatabaseConnectionName(
-                array()
+                []
             )
         );
     }
@@ -102,21 +94,21 @@ class ExtensionHelperTest extends PHPUnit_Framework_TestCase
     public function testGetParametersByDatabaseConnectionName()
     {
         $this->assertSame(
-            array(
-                'test_connection_name' => array(
+            [
+                'test_connection_name' => [
                     'name' => 'test_connection_name',
-                    'value' => 42
-                )
-            ),
+                    'value' => 42,
+                ],
+            ],
             ExtensionHelper::getParametersByDatabaseConnectionName(
-                array(
-                    'connections' => array(
-                        array(
+                [
+                    'connections' => [
+                        [
                             'name' => 'test_connection_name',
-                            'value' => 42
-                        )
-                    )
-                )
+                            'value' => 42,
+                        ],
+                    ],
+                ]
             )
         );
     }
