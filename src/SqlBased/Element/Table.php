@@ -79,9 +79,8 @@ abstract class Table
      *
      * @return Table
      */
-    public function setName(
-        $name
-    ) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -104,17 +103,14 @@ abstract class Table
      *
      * @return Table
      */
-    public function setPrimaryKey(
-        PrimaryKey $primaryKey = null
-    ) {
+    public function setPrimaryKey(PrimaryKey $primaryKey = null)
+    {
         if ($primaryKey === null) {
-            $this
-                ->primaryKey
-                ->setTable(null);
+            $this->primaryKey->setTable(null);
         } else {
-            $primaryKey
-                ->setTable($this);
+            $primaryKey->setTable($this);
         }
+
         $this->primaryKey = $primaryKey;
 
         return $this;
@@ -250,9 +246,9 @@ abstract class Table
      */
     public function toArray()
     {
-        $columnsAsArray = array();
-        $indexesAsArray = array();
-        $foreignKeysAsArray = array();
+        $columnsAsArray = [];
+        $indexesAsArray = [];
+        $foreignKeysAsArray = [];
 
         foreach ($this->columns as $column) {
             $columnAsArray = $column->toArray();
@@ -280,13 +276,13 @@ abstract class Table
             $foreignKeysAsArray[] = $foreignKeyAsArray;
         }
 
-        $arr = array(
+        $arr = [
             'name' => $this->getName(),
             'columns' => $columnsAsArray,
             'primaryKey' => $primaryKeyAsArray,
             'indexes' => $indexesAsArray,
-            'foreignKeys' => $foreignKeysAsArray
-        );
+            'foreignKeys' => $foreignKeysAsArray,
+        ];
 
         return $arr;
     }

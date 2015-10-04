@@ -55,9 +55,8 @@ abstract class PrimaryKey
      *
      * @return PrimaryKey
      */
-    public function setTable(
-        Table $table = null
-    ) {
+    public function setTable(Table $table = null)
+    {
         $this->table = $table;
 
         return $this;
@@ -111,16 +110,16 @@ abstract class PrimaryKey
         $table = $this->getTable();
         $tableName = $table->getName();
 
-        $columnsAsArray = array();
+        $columnsAsArray = [];
 
         foreach ($this->columns as $column) {
             $columnsAsArray[] = $column->getName();
         }
 
-        $arr = array(
+        $arr = [
             'columns' => $columnsAsArray,
-            'table' => $tableName
-        );
+            'table' => $tableName,
+        ];
 
         return $arr;
     }

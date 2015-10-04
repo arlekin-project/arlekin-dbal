@@ -31,10 +31,7 @@ interface SchemaManagerInterface
      *
      * @throws Exception if no table with given name is found
      */
-    public function getTableWithName(
-        Schema $schema,
-        $name
-    );
+    public function getTableWithName(Schema $schema, $name);
 
     /**
      * Whether the given Schema instance has a table with given name.
@@ -44,10 +41,7 @@ interface SchemaManagerInterface
      *
      * @return bool
      */
-    public function hasTableWithName(
-        Schema $schema,
-        $name
-    );
+    public function hasTableWithName(Schema $schema, $name);
 
     /**
      * Removes the table with given name from given Schema instance.
@@ -60,10 +54,7 @@ interface SchemaManagerInterface
      *
      * @throws Exception if no table with given name is found
      */
-    public function removeTableWithName(
-        Schema $schema,
-        $name
-    );
+    public function removeTableWithName(Schema $schema, $name);
 
     /**
      * Gets the view with given name from given schema.
@@ -75,10 +66,7 @@ interface SchemaManagerInterface
      *
      * @throws Exception if no view with given name is found
      */
-    public function getViewWithName(
-        Schema $schema,
-        $name
-    );
+    public function getViewWithName(Schema $schema, $name);
 
     /**
      * Whether the given Schema instance has a view with given name.
@@ -88,10 +76,7 @@ interface SchemaManagerInterface
      *
      * @return bool
      */
-    public function hasViewWithName(
-        Schema $schema,
-        $name
-    );
+    public function hasViewWithName(Schema $schema, $name);
 
     /**
      * Removes the view with given name from given Schema instance.
@@ -104,8 +89,5 @@ interface SchemaManagerInterface
      *
      * @throws Exception if no view with given name is found
      */
-    public function removeViewWithName(
-        Schema $schema,
-        $name
-    );
+    public function removeViewWithName(Schema $schema, $name);
 }

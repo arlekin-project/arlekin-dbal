@@ -86,9 +86,8 @@ abstract class Column
      *
      * @return Column
      */
-    public function setName(
-        $name
-    ) {
+    public function setName($name)
+    {
         $this->name = $name;
         return $this;
     }
@@ -110,9 +109,8 @@ abstract class Column
      *
      * @return Column
      */
-    public function setType(
-        $type
-    ) {
+    public function setType($type)
+    {
         $this->type = $type;
 
         return $this;
@@ -135,9 +133,8 @@ abstract class Column
      *
      * @return Column
      */
-    public function setNullable(
-        $nullable
-    ) {
+    public function setNullable($nullable)
+    {
         $this->nullable = (bool)$nullable;
 
         return $this;
@@ -160,9 +157,8 @@ abstract class Column
      *
      * @return Column
      */
-    public function setAutoIncrement(
-        $autoIncrement
-    ) {
+    public function setAutoIncrement($autoIncrement)
+    {
         $this->autoIncrement = (bool)$autoIncrement;
 
         return $this;
@@ -209,9 +205,8 @@ abstract class Column
      *
      * @return Column
      */
-    public function setTable(
-        Table $table
-    ) {
+    public function setTable(Table $table)
+    {
         $this->table = $table;
 
         return $this;
@@ -233,22 +228,23 @@ abstract class Column
 
         if ($table === null) {
             throw new Exception(
-                'Missing table for column "'
-                . $columnName
-                . '".'
+                sprintf(
+                    'Missing table for column "%s".',
+                    $columnName
+                )
             );
         }
 
         $parameters = $this->getParameters();
 
-        $arr = array(
+        $arr = [
             'name' => $this->getName(),
             'type' => $this->getType(),
             'nullable' => $this->isNullable(),
             'parameters' => $parameters,
             'autoIncrement' => $this->isAutoIncrement(),
-            'table' => $table->getName()
-        );
+            'table' => $table->getName(),
+        ];
 
         return $arr;
     }

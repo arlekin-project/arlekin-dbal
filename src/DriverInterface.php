@@ -19,7 +19,5 @@ interface DriverInterface
     /**
      * @param array $parameters
      */
-    public function instanciateDatabaseConnection(
-        array $parameters
-    );
+    public function instanciateDatabaseConnection(array $parameters);
 }

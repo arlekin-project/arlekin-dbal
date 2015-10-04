@@ -19,18 +19,16 @@ class ExtensionHelper
      *
      * @return array
      */
-    public static function getDriverIdsByDriverNameFromTaggedServiceIds(
-        ContainerInterface $container
-    ) {
-        $dbalDriversTaggedServiceIds = $container->findTaggedServiceIds(
-            'dbal.driver'
-        );
+    public static function getDriverIdsByDriverNameFromTaggedServiceIds(ContainerInterface $container)
+    {
+        $dbalDriversTaggedServiceIds = $container->findTaggedServiceIds('dbal.driver');
 
-        $driverIdsByDriverName = array();
+        $driverIdsByDriverName = [];
 
         foreach (array_keys($dbalDriversTaggedServiceIds) as $serviceId) {
             $driver = $container->get($serviceId);
             /* @var $driver DriverInterface */
+
             $driverIdsByDriverName[$driver->getName()] = $serviceId;
         }
 
@@ -42,10 +40,9 @@ class ExtensionHelper
      *
      * @return array
      */
-    public static function getParametersByDatabaseConnectionName(
-        array $config
-    ) {
-        $parametersByDatabaseConnectionName = array();
+    public static function getParametersByDatabaseConnectionName(array $config)
+    {
+        $parametersByDatabaseConnectionName = [];
 
         if (isset($config['connections'])) {
             foreach ($config['connections'] as $connectionConfig) {

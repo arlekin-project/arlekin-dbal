@@ -69,9 +69,8 @@ abstract class Index
      *
      * @return Index
      */
-    public function setKind(
-        $kind
-    ) {
+    public function setKind($kind)
+    {
         $this->kind = $kind;
 
         return $this;
@@ -94,10 +93,10 @@ abstract class Index
      *
      * @return Index
      */
-    public function setName(
-        $name
-    ) {
+    public function setName($name)
+    {
         $this->name = $name;
+
         return $this;
     }
 
@@ -118,9 +117,8 @@ abstract class Index
      *
      * @return Index
      */
-    public function setTable(
-        Table $table
-    ) {
+    public function setTable(Table $table)
+    {
         $this->table = $table;
 
         return $this;
@@ -175,22 +173,18 @@ abstract class Index
         $tableName = $table->getName();
         $indexName = $this->getName();
 
-        $columnsAsArray = array();
+        $columnsAsArray = [];
 
         foreach ($this->columns as $column) {
             $columnsAsArray[] = $column->getName();
         }
 
-        $arr = array(
-            'name'
-                => $indexName,
-            'kind'
-                => $this->getKind(),
-            'columns'
-                => $columnsAsArray,
-            'table'
-                => $tableName
-        );
+        $arr = [
+            'name' => $indexName,
+            'kind' => $this->getKind(),
+            'columns' => $columnsAsArray,
+            'table' => $tableName,
+        ];
 
         return $arr;
     }

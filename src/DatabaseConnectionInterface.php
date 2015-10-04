@@ -57,9 +57,7 @@ interface DatabaseConnectionInterface
      *
      * @return ResultSet
      */
-    public function executeQuery(
-        $query
-    );
+    public function executeQuery($query);
 
     /**
      * Executes given query.
@@ -68,7 +66,5 @@ interface DatabaseConnectionInterface
      *
      * @return ResultSet[]
      */
-    public function executeMultipleQueries(
-        array $queries
-    );
+    public function executeMultipleQueries(array $queries);
 }

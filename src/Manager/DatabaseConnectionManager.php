@@ -28,12 +28,11 @@ class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
     /**
      * @param ContainerInterface $container
      */
-    public function __construct(
-        ContainerInterface $container
-    ) {
+    public function __construct(ContainerInterface $container)
+    {
         $this->container = $container;
 
-        $this->connectionsByName = array();
+        $this->connectionsByName = [];
     }
 
     /**
@@ -59,23 +58,18 @@ class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
 
         $driverId = $driverIdsByDriverName[$driverParameter];
 
-        $driver = $this->container->get(
-            $driverId
-        );
+        $driver = $this->container->get($driverId);
 
         /* @var $driver DriverInterface */
 
-        return $driver->instanciateDatabaseConnection(
-            $parameters
-        );
+        return $driver->instanciateDatabaseConnection($parameters);
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function instanciateNamedDatabaseConnection(
-        $name
-    ) {
+    protected function instanciateNamedDatabaseConnection($name)
+    {
         $configByDatabaseConnectionName = $this->container->getParameter(
             'dbal.parameters_by_database_connection_name'
         );
@@ -97,13 +91,10 @@ class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getConnectionWithName(
-        $name
-    ) {
+    public function getConnectionWithName($name)
+    {
         if (!isset($this->connectionsByName[$name])) {
-            $connection = $this->instanciateNamedDatabaseConnection(
-                $name
-            );
+            $connection = $this->instanciateNamedDatabaseConnection($name);
 
             $connection->connect();
 

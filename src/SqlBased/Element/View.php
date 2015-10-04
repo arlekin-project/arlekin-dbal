@@ -47,9 +47,8 @@ abstract class View
      *
      * @return View
      */
-    public function setName(
-        $name
-    ) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -72,9 +71,8 @@ abstract class View
      *
      * @return View
      */
-    public function setDefinition(
-        $definition
-    ) {
+    public function setDefinition($definition)
+    {
         $this->definition = $definition;
 
         return $this;
@@ -89,10 +87,10 @@ abstract class View
      */
     public function toArray()
     {
-        $arr = array(
+        $arr = [
             'name' => $this->getName(),
             'definition' => $this->getDefinition(),
-        );
+        ];
 
         return $arr;
     }

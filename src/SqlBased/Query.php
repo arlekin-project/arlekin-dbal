@@ -55,9 +55,8 @@ class Query
      *
      * @return Query
      */
-    public function setSql(
-        $sql
-    ) {
+    public function setSql($sql)
+    {
         $this->sql = $sql;
 
         return $this;

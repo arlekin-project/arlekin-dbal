@@ -15,16 +15,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class DatabaseAbstractionLayerCompilerPass implements CompilerPassInterface
 {
-    public function process(
-        ContainerBuilder $container
-    ) {
-        $driverIdsByDriverName = ExtensionHelper::getDriverIdsByDriverNameFromTaggedServiceIds(
-            $container
-        );
+    public function process(ContainerBuilder $container)
+    {
+        $driverIdsByDriverName = ExtensionHelper::getDriverIdsByDriverNameFromTaggedServiceIds($container);
 
-        $container->setParameter(
-            'dbal.driver_ids_by_driver_name',
-            $driverIdsByDriverName
-        );
+        $container->setParameter('dbal.driver_ids_by_driver_name', $driverIdsByDriverName);
     }
 }

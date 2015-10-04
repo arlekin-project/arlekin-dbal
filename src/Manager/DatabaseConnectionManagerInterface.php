@@ -18,7 +18,5 @@ interface DatabaseConnectionManagerInterface
      *
      * @return DatabaseConnectionInterface
      */
-    public function getConnectionWithName(
-        $name
-    );
+    public function getConnectionWithName($name);
 }

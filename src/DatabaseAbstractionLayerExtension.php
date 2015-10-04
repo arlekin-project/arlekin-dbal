@@ -23,9 +23,9 @@ class DatabaseAbstractionLayerExtension extends AbstractBaseArlekinExtension
      */
     public function getCompilerPasses()
     {
-        return array(
-            new DatabaseAbstractionLayerCompilerPass()
-        );
+        return [
+            new DatabaseAbstractionLayerCompilerPass(),
+        ];
     }
 
     /**
@@ -39,37 +39,25 @@ class DatabaseAbstractionLayerExtension extends AbstractBaseArlekinExtension
     /**
      * {@inheritdoc}
      */
-    public function load(
-        array $configs,
-        ContainerBuilder $container
-    ) {
-        $merged = array();
+    public function load(array $configs, ContainerBuilder $container)
+    {
+        $merged = [];
 
         foreach ($configs as $config) {
-            $merged = array_merge_recursive(
-                $merged,
-                $config
-            );
+            $merged = array_merge_recursive($merged, $config);
         }
 
         $xmlFileLoader = new XmlFileLoader(
             $container,
-            new FileLocator(
-                __DIR__
-            )
+            new FileLocator(__DIR__)
         );
 
         $xmlFileLoader->load(
-            __DIR__ . '/../services.xml'
+            __DIR__.'/../services.xml'
         );
 
-        $parametersByDatabaseConnectionName = ExtensionHelper::getParametersByDatabaseConnectionName(
-            $merged
-        );
+        $parametersByDatabaseConnectionName = ExtensionHelper::getParametersByDatabaseConnectionName($merged);
 
-        $container->setParameter(
-            'dbal.parameters_by_database_connection_name',
-            $parametersByDatabaseConnectionName
-        );
+        $container->setParameter('dbal.parameters_by_database_connection_name', $parametersByDatabaseConnectionName);
     }
 }

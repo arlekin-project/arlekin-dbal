@@ -40,9 +40,8 @@ class ResultRow
      *
      * @return ResultRow
      */
-    public function setData(
-        array $data
-    ) {
+    public function setData(array $data)
+    {
         $this->data = $data;
 
         return $this;
@@ -55,9 +54,8 @@ class ResultRow
      *
      * @return string
      */
-    public function get(
-        $columnName
-    ) {
+    public function get($columnName)
+    {
         $datum = $this->data[$columnName];
 
         return $datum;

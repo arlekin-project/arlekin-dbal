@@ -32,10 +32,7 @@ interface TableManagerInterface
      *
      * @throws Exception if no column is found for given column name.
      */
-    public function removeColumnWithName(
-        Table $table,
-        $columnName
-    );
+    public function removeColumnWithName(Table $table, $columnName);
 
     /**
      * Removes an index with given name from given Schema.
@@ -48,10 +45,7 @@ interface TableManagerInterface
      *
      * @throws Exception if no index is found for given index name.
      */
-    public function removeIndexWithName(
-        Table $table,
-        $indexName
-    );
+    public function removeIndexWithName(Table $table, $indexName);
 
     /**
      * Removes a foreign key with given column names,
@@ -102,10 +96,7 @@ interface TableManagerInterface
      *
      * @return bool
      */
-    public function hasColumn(
-        Table $table,
-        Column $column
-    );
+    public function hasColumn(Table $table, Column $column);
 
     /**
      * Whether the given table has a column with given name.
@@ -115,10 +106,7 @@ interface TableManagerInterface
      *
      * @return bool
      */
-    public function hasColumnWithName(
-        Table $table,
-        $columnName
-    );
+    public function hasColumnWithName(Table $table, $columnName);
 
     /**
      * Whether the given table has an index with given name.
@@ -128,10 +116,7 @@ interface TableManagerInterface
      *
      * @return bool
      */
-    public function hasIndexWithName(
-        Table $table,
-        $indexName
-    );
+    public function hasIndexWithName(Table $table, $indexName);
 
     /**
      * Whether the given table has a primary key
@@ -142,10 +127,7 @@ interface TableManagerInterface
      *
      * @return bool
      */
-    public function hasPrimaryKeyWithColumnsNamed(
-        Table $table,
-        array $columnNames
-    );
+    public function hasPrimaryKeyWithColumnsNamed(Table $table, array $columnNames);
 
     /**
      * Gets an index with given name from given table.
@@ -157,10 +139,7 @@ interface TableManagerInterface
      *
      * @throws Exception if no index with given name is found
      */
-    public function getIndexWithName(
-        Table $table,
-        $indexName
-    );
+    public function getIndexWithName(Table $table, $indexName);
 
     /**
      * Gets a column with given name from given table.
@@ -172,10 +151,7 @@ interface TableManagerInterface
      *
      * @throws Exception
      */
-    public function getColumnWithName(
-        Table $table,
-        $columnName
-    );
+    public function getColumnWithName(Table $table, $columnName);
 
     /**
      * Whether there's a difference between the two columns
@@ -186,8 +162,5 @@ interface TableManagerInterface
      *
      * @return bool
      */
-    public function columnsAreSameIgnoreAutoIncrement(
-        Column $column1,
-        Column $column2
-    );
+    public function columnsAreSameIgnoreAutoIncrement(Column $column1, Column $column2);
 }

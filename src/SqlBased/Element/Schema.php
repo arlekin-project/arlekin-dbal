@@ -122,14 +122,17 @@ abstract class Schema
     {
         $tables = $this->getTables();
         $views = $this->getViews();
-        $arr = array(
-            'tables' => array(),
-            'views' => array(),
-        );
+
+        $arr = [
+            'tables' => [],
+            'views' => [],
+        ];
+
         foreach ($tables as $table) {
             /* @var $table Table */
             $arr['tables'][] = $table->toArray();
         }
+        
         foreach ($views as $view) {
             /* @var $view Views */
             $arr['views'][] = $view->toArray();
