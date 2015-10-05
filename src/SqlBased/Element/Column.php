@@ -189,6 +189,19 @@ abstract class Column
     }
 
     /**
+     * @param string $parameterName
+     * @param mixed $value
+     *
+     * @return Column
+     */
+    public function setParameter($parameterName, $value)
+    {
+        $this->parameters[$parameterName] = $value;
+
+        return $this;
+    }
+
+    /**
      * Gets the column's table.
      *
      * @return Table

@@ -100,4 +100,16 @@ class Query
 
         return $this;
     }
+
+    /**
+     * Removes the query parameter with given name.
+     *
+     * @param string $parameterName
+     */
+    public function removeParameter($parameterName)
+    {
+        unset($this->parameters[$parameterName]);
+
+        return $this;
+    }
 }
