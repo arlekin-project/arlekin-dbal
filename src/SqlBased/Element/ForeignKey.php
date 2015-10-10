@@ -130,6 +130,20 @@ abstract class ForeignKey
     }
 
     /**
+     * Removes at column at given index.
+     *
+     * @param int $index
+     *
+     * @return ForeignKey
+     */
+    public function removeColumnAtIndex($index)
+    {
+        unset($this->columns[$index]);
+
+        return $this;
+    }
+
+    /**
      * Gets the referenced table.
      *
      * @return Table
@@ -180,6 +194,13 @@ abstract class ForeignKey
     public function addReferencedColumn(Column $referencedColumn)
     {
         $this->referencedColumns[] = $referencedColumn;
+
+        return $this;
+    }
+
+    public function removeReferencedColumnAtIndex($index)
+    {
+        unset($this->referencedColumns[$index]);
 
         return $this;
     }

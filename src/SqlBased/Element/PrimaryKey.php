@@ -99,6 +99,18 @@ abstract class PrimaryKey
     }
 
     /**
+     * @param int $index
+     *
+     * @return PrimaryKey
+     */
+    public function removeColumnAtIndex($index)
+    {
+        unset($this->columns[$index]);
+
+        return $this;
+    }
+
+    /**
      * Converts the primary key into an array.
      *
      * @todo Move the toArray responsability away from the primary key.

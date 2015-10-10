@@ -161,6 +161,18 @@ abstract class Index
     }
 
     /**
+     * @param int $index
+     *
+     * @return Index
+     */
+    public function removeColumnAtIndex($index)
+    {
+        unset($this->columns[$index]);
+
+        return $this;
+    }
+
+    /**
      * Converts the index into an array.
      *
      * @todo Move the toArray responsability away from the Index

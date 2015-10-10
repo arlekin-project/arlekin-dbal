@@ -76,6 +76,18 @@ abstract class Schema
     }
 
     /**
+     * @param int $index
+     *
+     * @return Schema
+     */
+    public function removeTableAtIndex($index)
+    {
+        unset($this->tables[$index]);
+
+        return $this;
+    }
+
+    /**
      * Gets the schema's views.
      *
      * @return array
@@ -112,6 +124,18 @@ abstract class Schema
     }
 
     /**
+     * @param int $index
+     *
+     * @return Schema
+     */
+    public function removeViewAtIndex($index)
+    {
+        unset($this->views[$index]);
+
+        return $this;
+    }
+
+    /**
      * Converts a Schema into an array.
      *
      * @todo Move the toArray responsability away from the Schemas
@@ -132,7 +156,7 @@ abstract class Schema
             /* @var $table Table */
             $arr['tables'][] = $table->toArray();
         }
-        
+
         foreach ($views as $view) {
             /* @var $view Views */
             $arr['views'][] = $view->toArray();

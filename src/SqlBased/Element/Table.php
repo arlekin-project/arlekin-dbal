@@ -144,11 +144,28 @@ abstract class Table
         return $this;
     }
 
+    /**
+     * @param Column $column
+     *
+     * @return Table
+     */
     public function addColumn(Column $column)
     {
         $this->columns[] = $column;
 
         $column->setTable($this);
+
+        return $this;
+    }
+
+    /**
+     * @param int $index
+     *
+     * @return Table
+     */
+    public function removeColumnAtIndex($index)
+    {
+        unset($this->columns[$index]);
 
         return $this;
     }
@@ -196,6 +213,18 @@ abstract class Table
     }
 
     /**
+     * @param int $index
+     *
+     * @return Table
+     */
+    public function removeForeignKeyAtIndex($index)
+    {
+        unset($this->foreignKeys[$index]);
+
+        return $this;
+    }
+
+    /**
      * Gets the table's indexes.
      *
      * @return array
@@ -233,6 +262,18 @@ abstract class Table
         $this->indexes[] = $index;
 
         $index->setTable($this);
+
+        return $this;
+    }
+
+    /**
+     * @param int $index
+     *
+     * @return Table
+     */
+    public function removeIndexAtIndex($index)
+    {
+        unset($this->indexes[$index]);
 
         return $this;
     }
