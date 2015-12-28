@@ -14,7 +14,7 @@ use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\PrimaryKey;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table;
-use Arlekin\Core\Tests\Helper\CommonTestHelper;
+use Arlekin\Common\Tests\Helper\CommonTestHelper;
 use PHPUnit_Framework_TestCase;
 
 /**

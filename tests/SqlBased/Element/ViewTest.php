@@ -10,7 +10,7 @@
 namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased\Element;
 
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\View;
-use Arlekin\Core\Tests\Helper\CommonTestHelper;
+use Arlekin\Common\Tests\Helper\CommonTestHelper;
 use PHPUnit_Framework_TestCase;
 
 /**
