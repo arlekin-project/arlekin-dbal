@@ -47,5 +47,8 @@
         "post-update-cmd": [
             "php postInstallOrUpdate.php"
         ]
+    },
+    "config": {
+        "bin-dir": "bin"
     }
 }
