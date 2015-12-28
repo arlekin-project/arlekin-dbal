@@ -9,7 +9,6 @@
 
 namespace Arlekin\DatabaseAbstractionLayer\Manager;
 
-use Arlekin\DatabaseAbstractionLayer\DriverInterface;
 use Arlekin\DatabaseAbstractionLayer\Exception\DbalException;
 
 class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
@@ -18,6 +17,11 @@ class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
      * @var array
      */
     protected $configuration;
+    
+    /**
+     * @var array
+     */
+    protected $configurationByConnectionName;
     
     /**
      * @var array
@@ -37,9 +41,21 @@ class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
      */
     public function __construct(array &$configuration, array &$driversByName)
     {
-        $this->configuration = $configuration;
+        $this->configuration = &$configuration;
         
-        $this->driversByName = $driversByName;
+        $this->configurationByConnectionName = [];
+        
+        if (isset($configuration['connections'])) {
+            foreach ($configuration['connections'] as $connection) {
+                if (!isset($connection['name'])) {
+                    throw new DbalException('Missing name for connection.');
+                }
+                
+                $this->configurationByConnectionName[$connection['name']] = $connection;
+            }
+        }
+        
+        $this->driversByName = &$driversByName;
         
         $this->connectionsByName = [];
     }
@@ -70,7 +86,7 @@ class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
      */
     protected function instanciateNamedDatabaseConnection($name)
     {
-        if (!isset($this->configuration['connections'][$name])) {
+        if (!isset($this->configurationByConnectionName[$name])) {
             throw new DbalException(
                 sprintf(
                     'Found no database connection with name "%s".',
@@ -80,7 +96,7 @@ class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
         }
 
         return $this->instanciateDatabaseConnection(
-            $this->configuration['connections'][$name]
+            $this->configurationByConnectionName[$name]
         );
     }
 

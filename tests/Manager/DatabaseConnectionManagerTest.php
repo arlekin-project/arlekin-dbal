@@ -68,7 +68,8 @@ class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
         
         $config = [
             'connections' => [
-                'default' => [
+                [
+                    'name' => 'default',
                     'driver' => 'foobar',
                 ],
             ],

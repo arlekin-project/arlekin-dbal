@@ -18,11 +18,6 @@ class Registry
     protected $driversByName;
     
     /**
-     * @var array
-     */
-    protected $configuration;
-    
-    /**
      * @param array $configuration
      */
     public function __construct(array &$configuration = [])
