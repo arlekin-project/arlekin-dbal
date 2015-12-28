@@ -7,9 +7,7 @@
  * file that was distributed with this source code.
  */
 
-$postInstallOrUpdate = function (
-    $currentDir
-) {
+$postInstallOrUpdate = function ($currentDir) {
     $vendorsDir = sprintf(
         '%s%svendor',
         $currentDir,
@@ -23,7 +21,7 @@ $postInstallOrUpdate = function (
     );
 
     $arlekinCommonBinDir = sprintf(
-        '%s%sbmichalski%sarlekin-core%sbin',
+        '%s%sarlekin%sarlekin-common%sbin',
         $vendorsDir,
         DIRECTORY_SEPARATOR,
         DIRECTORY_SEPARATOR,
