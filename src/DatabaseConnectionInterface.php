@@ -55,7 +55,7 @@ interface DatabaseConnectionInterface
      *
      * @param mixed $query
      *
-     * @return ResultSet
+     * @return array
      */
     public function executeQuery($query);
 
@@ -64,7 +64,7 @@ interface DatabaseConnectionInterface
      *
      * @param array $queries
      *
-     * @return ResultSet[]
+     * @return array
      */
     public function executeMultipleQueries(array $queries);
 }
