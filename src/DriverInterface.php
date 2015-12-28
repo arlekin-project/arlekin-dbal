@@ -12,7 +12,7 @@ namespace Arlekin\DatabaseAbstractionLayer;
 interface DriverInterface
 {
     /**
-     * @param array &$parameters
+     * @param array $parameters
      */
-    public function instanciateDatabaseConnection(array &$parameters);
+    public function instanciateDatabaseConnection(array $parameters);
 }
