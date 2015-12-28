@@ -9,10 +9,10 @@
 
 namespace Arlekin\DatabaseAbstractionLayer\SqlBased\Manager;
 
+use Arlekin\DatabaseAbstractionLayer\Exception\DbalException;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\View;
-use Exception;
 
 /**
  * To manage SQL-based schemas.
@@ -29,7 +29,7 @@ interface SchemaManagerInterface
      *
      * @return Table
      *
-     * @throws Exception if no table with given name is found
+     * @throws DbalException if no table with given name is found
      */
     public function getTableWithName(Schema $schema, $name);
 
@@ -52,7 +52,7 @@ interface SchemaManagerInterface
      *
      * @return SchemaManagerInterface
      *
-     * @throws Exception if no table with given name is found
+     * @throws DbalException if no table with given name is found
      */
     public function removeTableWithName(Schema $schema, $name);
 
@@ -64,7 +64,7 @@ interface SchemaManagerInterface
      *
      * @return View
      *
-     * @throws Exception if no view with given name is found
+     * @throws DbalException if no view with given name is found
      */
     public function getViewWithName(Schema $schema, $name);
 
@@ -87,7 +87,7 @@ interface SchemaManagerInterface
      *
      * @return SchemaManagerInterface
      *
-     * @throws Exception if no view with given name is found
+     * @throws DbalException if no view with given name is found
      */
     public function removeViewWithName(Schema $schema, $name);
 }

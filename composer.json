@@ -17,9 +17,6 @@
     ],
     "require": {
         "php": ">= 5.5",
-        "symfony/config": "~2.5",
-        "symfony/dependency-injection": "~2.5",
-        "symfony/property-access": "~2.5",
         "bmichalski/arlekin-core": "dev-experimental/bmichalski"
     },
     "require-dev":  {

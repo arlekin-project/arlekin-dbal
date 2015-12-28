@@ -12,7 +12,6 @@ namespace Arlekin\DatabaseAbstractionLayer\SqlBased\Manager;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index;
 use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table;
-use Exception;
 
 /**
  * To manage SQL-based tables.
@@ -30,7 +29,7 @@ interface TableManagerInterface
      *
      * @return TableManagerInterface
      *
-     * @throws Exception if no column is found for given column name.
+     * @throws DbalException if no column is found for given column name.
      */
     public function removeColumnWithName(Table $table, $columnName);
 
@@ -43,7 +42,7 @@ interface TableManagerInterface
      *
      * @return TableManagerInterface
      *
-     * @throws Exception if no index is found for given index name.
+     * @throws DbalException if no index is found for given index name.
      */
     public function removeIndexWithName(Table $table, $indexName);
 
@@ -60,7 +59,7 @@ interface TableManagerInterface
      *
      * @return TableManagerInterface
      *
-     * @throws Exception if no foreign key is found.
+     * @throws DbalException if no foreign key is found.
      */
     public function removeForeignKeyWithColumnsAndReferencedColumnsNamed(
         Table $table,
@@ -137,7 +136,7 @@ interface TableManagerInterface
      *
      * @return Index
      *
-     * @throws Exception if no index with given name is found
+     * @throws DbalException if no index with given name is found
      */
     public function getIndexWithName(Table $table, $indexName);
 
@@ -149,7 +148,7 @@ interface TableManagerInterface
      *
      * @return Column
      *
-     * @throws Exception
+     * @throws DbalException
      */
     public function getColumnWithName(Table $table, $columnName);
 

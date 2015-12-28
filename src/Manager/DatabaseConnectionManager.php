@@ -10,45 +10,49 @@
 namespace Arlekin\DatabaseAbstractionLayer\Manager;
 
 use Arlekin\DatabaseAbstractionLayer\DriverInterface;
-use Exception;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Arlekin\DatabaseAbstractionLayer\Exception\DbalException;
 
 class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
 {
     /**
-     * @var ContainerInterface
+     * @var array
      */
-    protected $container;
-
+    protected $configuration;
+    
+    /**
+     * @var array
+     */
+    protected $driversByName;
+    
     /**
      * @var array
      */
     protected $connectionsByName;
 
     /**
-     * @param ContainerInterface $container
+     * Constructor.
+     * 
+     * @param array $configuration
+     * @param array $driversByName
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(array &$configuration, array &$driversByName)
     {
-        $this->container = $container;
-
+        $this->configuration = $configuration;
+        
+        $this->driversByName = $driversByName;
+        
         $this->connectionsByName = [];
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function instanciateDatabaseConnection(
-        array $parameters
-    ) {
-        $driverIdsByDriverName = $this->container->getParameter(
-            'dbal.driver_ids_by_driver_name'
-        );
-
+    protected function instanciateDatabaseConnection(array &$parameters)
+    {
         $driverParameter = $parameters['driver'];
 
-        if (!isset($driverIdsByDriverName[$driverParameter])) {
-            throw new Exception(
+        if (!isset($this->driversByName[$driverParameter])) {
+            throw new DbalException(
                 sprintf(
                     'Found no driver with name "%s".',
                     $driverParameter
@@ -56,11 +60,7 @@ class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
             );
         }
 
-        $driverId = $driverIdsByDriverName[$driverParameter];
-
-        $driver = $this->container->get($driverId);
-
-        /* @var $driver DriverInterface */
+        $driver = $this->driversByName[$driverParameter];
 
         return $driver->instanciateDatabaseConnection($parameters);
     }
@@ -70,12 +70,8 @@ class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
      */
     protected function instanciateNamedDatabaseConnection($name)
     {
-        $configByDatabaseConnectionName = $this->container->getParameter(
-            'dbal.parameters_by_database_connection_name'
-        );
-
-        if (!isset($configByDatabaseConnectionName[$name])) {
-            throw new Exception(
+        if (!isset($this->configuration['connections'][$name])) {
+            throw new DbalException(
                 sprintf(
                     'Found no database connection with name "%s".',
                     $name
@@ -84,7 +80,7 @@ class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
         }
 
         return $this->instanciateDatabaseConnection(
-            $configByDatabaseConnectionName[$name]
+            $this->configuration['connections'][$name]
         );
     }
 

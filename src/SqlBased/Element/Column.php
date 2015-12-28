@@ -9,7 +9,7 @@
 
 namespace Arlekin\DatabaseAbstractionLayer\SqlBased\Element;
 
-use Exception;
+use Arlekin\DatabaseAbstractionLayer\Exception\DbalException;
 
 /**
  * Represents a SQL column.
@@ -232,7 +232,7 @@ abstract class Column
      *
      * @return array
      *
-     * @throws Exception if the column has no Table
+     * @throws DbalException if the column has no Table
      */
     public function toArray()
     {
@@ -240,7 +240,7 @@ abstract class Column
         $columnName = $this->getName();
 
         if ($table === null) {
-            throw new Exception(
+            throw new DbalException(
                 sprintf(
                     'Missing table for column "%s".',
                     $columnName

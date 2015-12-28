@@ -14,7 +14,6 @@ use Arlekin\DatabaseAbstractionLayer\DriverInterface;
 use Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager;
 use Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManagerInterface;
 use PHPUnit_Framework_TestCase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
 {
@@ -28,17 +27,22 @@ class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
-        $containerMock = $this->getMock(
-            ContainerInterface::class
-        );
-
-        $instance = new DatabaseConnectionManager($containerMock);
-
-        $this->assertAttributeInstanceOf(
-            ContainerInterface::class,
-            'container',
-            $instance
-        );
+        $config = [
+            'foo',
+        ];
+        
+        $drivers = [
+            'bar',
+        ];
+        
+        $instance = new DatabaseConnectionManager($config, $drivers);
+        
+        $this->assertAttributeInternalType('array', 'configuration', $instance);
+        $this->assertAttributeInternalType('array', 'driversByName', $instance);
+        $this->assertAttributeInternalType('array', 'connectionsByName', $instance);
+        
+        $this->assertAttributeSame($config, 'configuration', $instance);
+        $this->assertAttributeSame($drivers, 'driversByName', $instance);
     }
 
     /**
@@ -61,44 +65,20 @@ class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
                 $databaseConnectionMock
             )
         );
+        
+        $config = [
+            'connections' => [
+                'default' => [
+                    'driver' => 'foobar',
+                ],
+            ],
+        ];
+        
+        $drivers = [
+            'foobar' => $driverMock,
+        ];
 
-        $containerMock = $this->getMock(
-            ContainerInterface::class
-        );
-
-        $containerMock->method(
-            'getParameter'
-        )->will(
-            $this->returnCallback(
-                function ($id) {
-                    if ($id === 'dbal.driver_ids_by_driver_name') {
-                        return [
-                            'test' => 'dbal.driver.test',
-                        ];
-                    } elseif ($id === 'dbal.parameters_by_database_connection_name') {
-                        return [
-                            'default' => [
-                                'driver' => 'test',
-                            ],
-                        ];
-                    }
-                }
-            )
-        );
-
-        $containerMock->method(
-            'get'
-        )->will(
-            $this->returnCallback(
-                function ($id) use ($driverMock) {
-                    if ($id === 'dbal.driver.test') {
-                        return $driverMock;
-                    }
-                }
-            )
-        );
-
-        return new DatabaseConnectionManager($containerMock);
+        return new DatabaseConnectionManager($config, $drivers);
     }
 
     /**
