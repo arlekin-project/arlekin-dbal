@@ -64,20 +64,4 @@ $postInstallOrUpdate = function (
             )
         );
     }
-
-    $arlekinCommonPublishVendorsBinsFilePhp = sprintf(
-        '%s/vendor/bmichalski/arlekin-core/publishVendorsBins.php',
-        $currentDir
-    );
-
-    require $arlekinCommonPublishVendorsBinsFilePhp;
-
-    $publishVendorsBins(
-        sprintf(
-            '%s%sbin',
-            $currentDir,
-            DIRECTORY_SEPARATOR
-        ),
-        $currentDir
-    );
 };
