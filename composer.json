@@ -12,12 +12,12 @@
     "repositories": [
         {
             "type": "git",
-            "url": "https://github.com/bmichalski/arlekin-core.git"
+            "url": "https://github.com/bmichalski/arlekin-common.git"
         }
     ],
     "require": {
         "php": ">= 5.5",
-        "bmichalski/arlekin-core": "dev-experimental/bmichalski"
+        "bmichalski/arlekin-common": "dev-experimental/bmichalski"
     },
     "require-dev":  {
         "phpunit/phpunit": "~4.2",
