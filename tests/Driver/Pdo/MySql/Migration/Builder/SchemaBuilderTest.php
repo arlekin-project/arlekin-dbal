@@ -19,7 +19,7 @@ use Arlekin\Dbal\Driver\Pdo\MySql\Element\Index;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\IndexKind;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
 use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder;
-use Arlekin\Dbal\Driver\Pdo\MySql\Tests\AbstractBasePdoMySqlTest;
+use Arlekin\Dbal\Tests\Driver\Pdo\MySql\AbstractBasePdoMySqlTest;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>

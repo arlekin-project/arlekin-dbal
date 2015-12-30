@@ -9,13 +9,13 @@
 
 namespace Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager;
 
-use Arlekin\Dbal\Migration\SqlBased\Builder\MigrationQueriesBuilderInterface;
-use Arlekin\Dbal\SqlBased\Element\Schema;
+use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
+use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder;
 
 class DiffManager
 {
     /**
-     * @var MigrationQueriesBuilderInterface
+     * @var MigrationQueriesBuilder
      */
     protected $migrationQueriesBuilder;
 
@@ -24,7 +24,7 @@ class DiffManager
      */
     protected $versionGenerator;
 
-    public function __construct(MigrationQueriesBuilderInterface $migrationQueriesBuilder)
+    public function __construct(MigrationQueriesBuilder $migrationQueriesBuilder)
     {
         $this->migrationQueriesBuilder = $migrationQueriesBuilder;
     }

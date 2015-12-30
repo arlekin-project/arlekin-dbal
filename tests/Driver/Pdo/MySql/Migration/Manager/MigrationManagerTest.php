@@ -19,12 +19,7 @@ use Arlekin\Dbal\Driver\Pdo\MySql\Manager\TableManager;
 use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder;
 use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\DiffManager;
 use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\MigrationManager;
-use Arlekin\Dbal\Migration\Factory\TwigFactory;
-use Arlekin\Dbal\Migration\SqlBased\Builder\MigrationQueriesBuilderInterface;
-use Arlekin\Dbal\SqlBased\Query;
-use Arlekin\Dbal\SqlBased\ResultRow;
-use Arlekin\Dbal\SqlBased\ResultSet;
-use Arlekin\Dbal\Driver\Pdo\MySql\Tests\AbstractBasePdoMySqlTest;
+use Arlekin\Dbal\Tests\Driver\Pdo\MySql\AbstractBasePdoMySqlTest;
 
 class MigrationManagerTest extends AbstractBasePdoMySqlTest
 {
@@ -206,10 +201,9 @@ class MigrationManagerTest extends AbstractBasePdoMySqlTest
     /**
      * @return DiffManager
      */
-    protected function getDiffManagerWithVersionGenerator(MigrationQueriesBuilderInterface $migrationQueriesBuilder)
+    protected function getDiffManagerWithVersionGenerator(MigrationQueriesBuilder $migrationQueriesBuilder)
     {
         $diffManager = new DiffManager(
-            TwigFactory::get(),
             $migrationQueriesBuilder
         );
 
@@ -303,7 +297,7 @@ class MigrationManagerTest extends AbstractBasePdoMySqlTest
             $column1
         );
 
-        $sourceSchema->addTables(
+        $sourceSchema->setTables(
             [
                 $table,
                 $table1,

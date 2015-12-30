@@ -7,10 +7,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\SqlBased\Element;
+namespace Arlekin\Dbal\Tests\Driver\Pdo\MySql\Element;
 
-use Arlekin\Dbal\SqlBased\Element\Column;
-use Arlekin\Dbal\SqlBased\Element\Table;
+use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
+use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
 use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
 use Exception;
 use PHPUnit_Framework_TestCase;

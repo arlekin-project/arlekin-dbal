@@ -9,27 +9,36 @@
 
 namespace Arlekin\Dbal\Driver\Pdo\MySql\Manager;
 
-use Arlekin\Dbal\Helper\ArrayHelper;
+use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
+use Arlekin\Dbal\Driver\Pdo\MySql\Element\Index;
+use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
 use Arlekin\Dbal\Driver\Pdo\MySql\Exception\PdoMySqlDriverException;
 use Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper;
-use Arlekin\Dbal\SqlBased\Element\Column;
-use Arlekin\Dbal\SqlBased\Element\Table;
-use Arlekin\Dbal\SqlBased\Manager\TableManagerInterface;
+use Arlekin\Dbal\Exception\DbalException;
+use Arlekin\Dbal\Helper\ArrayHelper;
 
 /**
  * To manage MySQL tables.
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class TableManager implements TableManagerInterface
+class TableManager
 {
     /**
-     * {@inheritdoc}
+     * Removes a column with given name from given Schema.
+     * Note that the column has to exists.
+     *
+     * @param Table $table
+     * @param string $columnName
+     *
+     * @return TableManagerInterface
+     *
+     * @throws DbalException if no column is found for given column name.
      */
-    public function removeColumnWithName(Table $table, $name)
+    public function removeColumnWithName(Table $table, $columnName)
     {
         foreach ($table->getColumns() as $i => $column) {
-            if ($column->getName() === $name) {
+            if ($column->getName() === $columnName) {
                 $table->removeColumnAtIndex($i);
 
                 return $this;
@@ -39,18 +48,26 @@ class TableManager implements TableManagerInterface
         throw new PdoMySqlDriverException(
             sprintf(
                 'Table has no column with name "%s".',
-                $name
+                $columnName
             )
         );
     }
 
     /**
-     * {@inheritdoc}
+     * Removes an index with given name from given Schema.
+     * Note that the index has to exists.
+     *
+     * @param Table $table
+     * @param string $indexName
+     *
+     * @return TableManagerInterface
+     *
+     * @throws DbalException if no index is found for given index name.
      */
-    public function removeIndexWithName(Table $table, $name)
+    public function removeIndexWithName(Table $table, $indexName)
     {
         foreach ($table->getIndexes() as $i => $index) {
-            if ($index->getName() === $name) {
+            if ($index->getName() === $indexName) {
                 $table->removeIndexAtIndex($i);
 
                 return $this;
@@ -60,13 +77,25 @@ class TableManager implements TableManagerInterface
         throw new PdoMySqlDriverException(
             sprintf(
                 'Table has no index with name "%s".',
-                $name
+                $indexName
             )
         );
     }
 
     /**
-     * {@inheritdoc}
+     * Removes a foreign key with given column names,
+     * referenced table name and referenced columns name as identifiers
+     * from given table.
+     * Note that the foreign key has to exists.
+     *
+     * @param Table $table
+     * @param array $columnsNames
+     * @param string $referencedTableName
+     * @param array $referencedColumnsNames
+     *
+     * @return TableManagerInterface
+     *
+     * @throws DbalException if no foreign key is found.
      */
     public function removeForeignKeyWithColumnsAndReferencedColumnsNamed(
         Table $table,
@@ -109,7 +138,16 @@ class TableManager implements TableManagerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Whether a foreign key with given column names,
+     * referenced table name and referenced columns name as identifiers
+     * exists in given table.
+     *
+     * @param Table $table
+     * @param array $columnsNames
+     * @param string $referencedTableName
+     * @param array $referencedColumnsNames
+     *
+     * @return boolean
      */
     public function hasForeignKeyWithColumnsAndReferencedColumnsNamed(
         Table $table,
@@ -141,7 +179,12 @@ class TableManager implements TableManagerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Whether the given table has the given column.
+     *
+     * @param Table $table
+     * @param Column $column
+     *
+     * @return bool
      */
     public function hasColumn(Table $table, Column $column)
     {
@@ -152,12 +195,17 @@ class TableManager implements TableManagerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Whether the given table has a column with given name.
+     *
+     * @param Table $table
+     * @param string $columnName
+     *
+     * @return bool
      */
-    public function hasColumnWithName(Table $table, $name)
+    public function hasColumnWithName(Table $table, $columnName)
     {
         foreach ($table->getColumns() as $column) {
-            if ($column->getName() === $name) {
+            if ($column->getName() === $columnName) {
                 return true;
             }
         }
@@ -166,12 +214,17 @@ class TableManager implements TableManagerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Whether the given table has an index with given name.
+     *
+     * @param Table $table
+     * @param string $indexName
+     *
+     * @return bool
      */
-    public function hasIndexWithName(Table $table, $name)
+    public function hasIndexWithName(Table $table, $indexName)
     {
         foreach ($table->getIndexes() as $index) {
-            if ($index->getName() === $name) {
+            if ($index->getName() === $indexName) {
                 return true;
             }
         }
@@ -180,7 +233,13 @@ class TableManager implements TableManagerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Whether the given table has a primary key
+     * which columns names are identical to the given column names.
+     *
+     * @param Table $table
+     * @param array $columnNames
+     *
+     * @return bool
      */
     public function hasPrimaryKeyWithColumnsNamed(Table $table, array $columnNames)
     {
@@ -202,12 +261,19 @@ class TableManager implements TableManagerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Gets an index with given name from given table.
+     *
+     * @param Table $table
+     * @param string $indexName
+     *
+     * @return Index
+     *
+     * @throws DbalException if no index with given name is found
      */
-    public function getIndexWithName(Table $table, $name)
+    public function getIndexWithName(Table $table, $indexName)
     {
         foreach ($table->getIndexes() as $index) {
-            if ($index->getName() === $name) {
+            if ($index->getName() === $indexName) {
                 return $index;
             }
         }
@@ -216,18 +282,25 @@ class TableManager implements TableManagerInterface
             sprintf(
                 'Table "%s" has no index with name "%s".',
                 $table->getName(),
-                $name
+                $indexName
             )
         );
     }
 
     /**
-     * {@inheritdoc}
+     * Gets a column with given name from given table.
+     *
+     * @param Table $table
+     * @param string $columnName
+     *
+     * @return Column
+     *
+     * @throws DbalException
      */
-    public function getColumnWithName(Table $table, $name)
+    public function getColumnWithName(Table $table, $columnName)
     {
         foreach ($table->getColumns() as $column) {
-            if ($column->getName() === $name) {
+            if ($column->getName() === $columnName) {
                 return $column;
             }
         }
@@ -236,13 +309,19 @@ class TableManager implements TableManagerInterface
             sprintf(
                 'Table "%s" has no column with name "%s".',
                 $table->getName(),
-                $name
+                $columnName
             )
         );
     }
 
     /**
-     * {@inheritdoc}
+     * Whether there's a difference between the two columns
+     * and that difference concerns the autoincrement
+     *
+     * @param Column $column1
+     * @param Column $column2
+     *
+     * @return bool
      */
     public function columnsAreSameIgnoreAutoIncrement(Column $column1, Column $column2)
     {

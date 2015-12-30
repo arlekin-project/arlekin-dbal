@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\SqlBased\Element;
+namespace Arlekin\Dbal\Tests\Driver\Pdo\MySql\Element;
 
-use Arlekin\Dbal\SqlBased\Element\View;
+use Arlekin\Dbal\Driver\Pdo\MySql\Element\View;
 use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
 use PHPUnit_Framework_TestCase;
 

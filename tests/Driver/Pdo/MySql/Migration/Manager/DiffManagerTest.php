@@ -16,7 +16,7 @@ use Arlekin\Dbal\Driver\Pdo\MySql\Manager\TableManager;
 use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder;
 use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\DiffManager;
 use Arlekin\Dbal\Migration\MigrationInterface;
-use Arlekin\Dbal\Driver\Pdo\MySql\Tests\AbstractBasePdoMySqlTest;
+use Arlekin\Dbal\Tests\Driver\Pdo\MySql\AbstractBasePdoMySqlTest;
 
 class DiffManagerTest extends AbstractBasePdoMySqlTest
 {

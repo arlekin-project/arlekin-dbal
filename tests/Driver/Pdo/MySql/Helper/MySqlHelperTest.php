@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Driver\Pdo\MySql\Tests\Helper;
+namespace Arlekin\Dbal\Tests\Driver\Pdo\MySql\Helper;
 
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\ColumnType;
@@ -16,7 +16,7 @@ use Arlekin\Dbal\Driver\Pdo\MySql\Element\Index;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\IndexKind;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
 use Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper;
-use Arlekin\Dbal\Driver\Pdo\MySql\Tests\AbstractBasePdoMySqlTest;
+use Arlekin\Dbal\Tests\Driver\Pdo\MySql\AbstractBasePdoMySqlTest;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>

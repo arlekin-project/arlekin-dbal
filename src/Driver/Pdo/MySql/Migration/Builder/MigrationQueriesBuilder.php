@@ -9,22 +9,21 @@
 
 namespace Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder;
 
-use Arlekin\Dbal\Helper\ArrayHelper;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
+use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\View;
 use Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper;
 use Arlekin\Dbal\Driver\Pdo\MySql\Manager\SchemaManager;
 use Arlekin\Dbal\Driver\Pdo\MySql\Manager\TableManager;
-use Arlekin\Dbal\Migration\SqlBased\Builder\MigrationQueriesBuilderInterface;
-use Arlekin\Dbal\SqlBased\Element\Schema;
+use Arlekin\Dbal\Helper\ArrayHelper;
 
 /**
  * Builds MySQL migration queries.
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class MigrationQueriesBuilder implements MigrationQueriesBuilderInterface
+class MigrationQueriesBuilder
 {
     /**
      * A TableManager instance.

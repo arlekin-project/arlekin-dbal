@@ -15,7 +15,7 @@ use Arlekin\Dbal\Registry;
 
 $aTime = microtime(true);
 
-require_once __DIR__.'/../tests/bootstrap.php';
+require_once __DIR__.'/../../../tests/bootstrap.php';
 
 $dbal = new Registry($_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']);
 

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Driver\Pdo\MySql\Tests;
+namespace Arlekin\Dbal\Tests\Driver\Pdo\MySql;
 
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\ColumnType;

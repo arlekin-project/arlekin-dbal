@@ -23,7 +23,7 @@ use Arlekin\Dbal\Driver\Pdo\MySql\Manager\SchemaManager;
 use Arlekin\Dbal\Driver\Pdo\MySql\Manager\TableManager;
 use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder;
 use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder;
-use Arlekin\Dbal\Driver\Pdo\MySql\Tests\AbstractBasePdoMySqlTest;
+use Arlekin\Dbal\Tests\Driver\Pdo\MySql\AbstractBasePdoMySqlTest;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>

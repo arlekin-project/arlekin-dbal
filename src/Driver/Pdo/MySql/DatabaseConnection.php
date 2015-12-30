@@ -10,14 +10,13 @@
 namespace Arlekin\Dbal\Driver\Pdo\MySql;
 
 use Arlekin\Dbal\Driver\Pdo\MySql\Exception\PdoMySqlDriverException;
-use Arlekin\Dbal\SqlBased\DatabaseConnectionInterface;
 
 /**
  * Represents a MySQL database connection.
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class DatabaseConnection implements DatabaseConnectionInterface
+class DatabaseConnection
 {
     /**
      * @var \PDO
@@ -68,7 +67,9 @@ class DatabaseConnection implements DatabaseConnectionInterface
     }
 
     /**
-     * {@inheritdoc}
+     * True if connected to the database, false otherwise.
+     *
+     * @return boolean
      */
     public function isConnected()
     {
@@ -76,7 +77,11 @@ class DatabaseConnection implements DatabaseConnectionInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Connects with the database.
+     *
+     * @throws PdoMySqlDriverException if already connected
+     *
+     * @return DatabaseConnection
      */
     public function connect()
     {
@@ -107,7 +112,11 @@ class DatabaseConnection implements DatabaseConnectionInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Connects with the database if not already connected.
+     * It should not fail if already connected, as it does check
+     * if already connected before trying to connect.
+     *
+     * @return DatabaseConnection
      */
     public function connectIfNotConnected()
     {
@@ -119,7 +128,11 @@ class DatabaseConnection implements DatabaseConnectionInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Disconnects from the database.
+     *
+     * @throws PdoMySqlDriverException if already disconnected
+     *
+     * @return DatabaseConnection
      */
     public function disconnect()
     {
@@ -132,7 +145,11 @@ class DatabaseConnection implements DatabaseConnectionInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Executes a given query.
+     *
+     * @param mixed $query
+     *
+     * @return array
      */
     public function executeQuery($query, array $parameters = [])
     {
@@ -213,7 +230,11 @@ class DatabaseConnection implements DatabaseConnectionInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Executes given query.
+     *
+     * @param array $queries
+     *
+     * @return array
      */
     public function executeMultipleQueries(array $queries)
     {

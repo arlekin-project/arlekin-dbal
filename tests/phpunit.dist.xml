@@ -17,9 +17,9 @@
     processIsolation="false"
     stopOnError="true"
     stopOnFailure="true"
-    stopOnIncomplete="true"
-    stopOnSkipped="true"
-    stopOnRisky="true"
+    stopOnIncomplete="false"
+    stopOnSkipped="false"
+    stopOnRisky="false"
     verbose="true"
     beStrictAboutTestsThatDoNotTestAnything="true"
     beStrictAboutOutputDuringTests="true">

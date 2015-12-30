@@ -9,7 +9,7 @@
 
 namespace Arlekin\Dbal\Driver\Pdo\MySql\Migration\Tests;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\Tests\AbstractBasePdoMySqlTest;
+use Arlekin\Dbal\Tests\Driver\Pdo\MySql\AbstractBasePdoMySqlTest;
 
 abstract class AbstractBaseMySqlMigrationTest extends AbstractBasePdoMySqlTest
 {

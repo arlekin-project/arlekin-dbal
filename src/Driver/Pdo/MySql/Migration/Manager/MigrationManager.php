@@ -13,10 +13,6 @@ use Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection;
 use Arlekin\Dbal\Exception\DbalException;
 use Arlekin\Dbal\Migration\Manager\MigrationManagerInterface;
 use Arlekin\Dbal\Migration\MigrationInterface;
-use Arlekin\Dbal\SqlBased\DatabaseConnectionInterface;
-use Arlekin\Dbal\SqlBased\Query;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 
 class MigrationManager implements MigrationManagerInterface
 {
@@ -35,21 +31,15 @@ class MigrationManager implements MigrationManagerInterface
      */
     public function versionApplied($version)
     {
-        $getExistingVersionsQuery = new Query();
-
-        $getExistingVersionsQuery->setSql(
+        $result = $this->databaseConnection->executeQuery(
             sprintf(
                 'SELECT COUNT(`version`) as count FROM `%s` WHERE `version` = :version',
                 $this->getMigrationTableName()
-            )
-        )->setParameter(
-            'version',
-            $version
+            ),
+            [
+                'version' => $version,
+            ]
         );
-
-        $result = $this->databaseConnection->executeQuery(
-            $getExistingVersionsQuery
-        )->getRows();
 
         return isset($result[0]) && $result[0]->get('count') === '1';
     }
@@ -74,33 +64,29 @@ class MigrationManager implements MigrationManagerInterface
         $versionsApplied = [];
 
         try {
-            $finder = new Finder();
+            $fileNames = scandir($migrationsFolderFullPath, SCANDIR_SORT_ASCENDING);
 
-            //All files whose name starts with Version
-            $finder->files()
-                ->in(
-                    $migrationsFolderFullPath
-                )->filter(
-                    function (
-                        SplFileInfo $splFileInfo
-                    ) {
-                        return $splFileInfo->getExtension() === 'php' && strpos(
-                            $splFileInfo->getBasename(),
-                            'Version'
-                        ) === 0;
-                    }
-                )->sortByName();
-
-            foreach ($finder as $file) {
+            foreach ($fileNames as $filename) {
+                $splFileInfo = new \SplFileInfo($migrationsFolderFullPath.DIRECTORY_SEPARATOR.$filename);
+                
+                $extension = $splFileInfo->getExtension();
+                
+                if (!($extension === 'php' && strpos($splFileInfo->getBasename(), 'Version') === 0)) {
+                    continue;
+                }
+                
                 /* @var $file SplFileInfo */
-                require $file->getRealPath();
+                
+                require $splFileInfo->getRealPath();
 
+                $splFileInfoFilename = $splFileInfo->getFilename();
+                
                 $classname = substr(
-                    $file->getFilename(),
+                    $splFileInfoFilename,
                     0,
                     strrpos(
-                        $file->getFilename(),
-                        $file->getExtension()
+                        $splFileInfoFilename,
+                        $extension
                     ) - 1
                 );
 
@@ -128,27 +114,11 @@ class MigrationManager implements MigrationManagerInterface
 
             if ($executedMigrationsCount > 0) {
                 $queryString = sprintf(
-                    'INSERT INTO `%s` VALUES (%s)',
-                    $this->getMigrationTableName(),
-                    implode(
-                        '), (',
-                        array_fill(
-                            0,
-                            $executedMigrationsCount,
-                            '?'
-                        )
-                    )
+                    'INSERT INTO `%s` VALUES (:versionsApplied)',
+                    $this->getMigrationTableName()
                 );
 
-                $insertAppliedVersionQuery = new Query();
-
-                $insertAppliedVersionQuery->setSql($queryString);
-
-                foreach ($versionsApplied as $key => $version) {
-                    $insertAppliedVersionQuery->setParameter($key, $version);
-                }
-
-                $this->databaseConnection->executeQuery($insertAppliedVersionQuery);
+                $this->databaseConnection->executeQuery($queryString, $versionsApplied);
             }
 
             $this->databaseConnection->executeQuery('COMMIT');

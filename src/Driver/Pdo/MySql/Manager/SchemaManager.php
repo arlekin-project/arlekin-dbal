@@ -9,19 +9,27 @@
 
 namespace Arlekin\Dbal\Driver\Pdo\MySql\Manager;
 
+use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
+use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
+use Arlekin\Dbal\Driver\Pdo\MySql\Element\View;
 use Arlekin\Dbal\Driver\Pdo\MySql\Exception\PdoMySqlDriverException;
-use Arlekin\Dbal\SqlBased\Element\Schema;
-use Arlekin\Dbal\SqlBased\Manager\SchemaManagerInterface;
 
 /**
  * To manage MySQL schemas.
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class SchemaManager implements SchemaManagerInterface
+class SchemaManager
 {
     /**
-     * {@inheritdoc}
+     * Gets the table with given name from given schema.
+     *
+     * @param Schema $schema
+     * @param string $name
+     *
+     * @return Table
+     *
+     * @throws PdoMySqlDriverException if no table with given name is found
      */
     public function getTableWithName(Schema $schema, $name)
     {
@@ -33,7 +41,12 @@ class SchemaManager implements SchemaManagerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Whether the given Schema instance has a table with given name.
+     *
+     * @param Schema $schema
+     * @param string $name
+     *
+     * @return bool
      */
     public function hasTableWithName(Schema $schema, $name)
     {
@@ -45,7 +58,15 @@ class SchemaManager implements SchemaManagerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Removes the table with given name from given Schema instance.
+     * Note that the table has to exists.
+     *
+     * @param Schema $schema
+     * @param string $name
+     *
+     * @return SchemaManagerInterface
+     *
+     * @throws PdoMySqlDriverException if no table with given name is found
      */
     public function removeTableWithName(Schema $schema, $name)
     {
@@ -66,7 +87,14 @@ class SchemaManager implements SchemaManagerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Gets the view with given name from given schema.
+     *
+     * @param Schema $schema
+     * @param string $name
+     *
+     * @return View
+     *
+     * @throws PdoMySqlDriverException if no view with given name is found
      */
     public function getViewWithName(Schema $schema, $name)
     {
@@ -78,7 +106,12 @@ class SchemaManager implements SchemaManagerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Whether the given Schema instance has a view with given name.
+     *
+     * @param Schema $schema
+     * @param string $name
+     *
+     * @return bool
      */
     public function hasViewWithName(Schema $schema, $name)
     {
@@ -90,7 +123,15 @@ class SchemaManager implements SchemaManagerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Removes the view with given name from given Schema instance.
+     * Note that the view has to exists.
+     *
+     * @param Schema $schema
+     * @param string $name
+     *
+     * @return SchemaManagerInterface
+     *
+     * @throws PdoMySqlDriverException if no view with given name is found
      */
     public function removeViewWithName(Schema $schema, $name)
     {

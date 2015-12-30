@@ -9,6 +9,7 @@
 
 namespace Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder;
 
+use Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\ColumnType;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
@@ -18,21 +19,23 @@ use Arlekin\Dbal\Driver\Pdo\MySql\Element\PrimaryKey;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\View;
-use Arlekin\Dbal\Migration\SqlBased\Builder\SchemaBuilderInterface;
-use Arlekin\Dbal\SqlBased\DatabaseConnectionInterface;
-use Arlekin\Dbal\SqlBased\ResultRow;
 
 /**
  * Builds a MySql\Element\Schema from a MySQL database.
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class SchemaBuilder implements SchemaBuilderInterface
+class SchemaBuilder
 {
     /**
-     * {@inheritdoc}
+     * Builds and gets a Schema from the SQL-based database
+     * that the provided $connection is configured to use.
+     *
+     * @param DatabaseConnection $connection
+     *
+     * @return Schema
      */
-    public function getFromDatabase(DatabaseConnectionInterface $connection)
+    public function getFromDatabase(DatabaseConnection $connection)
     {
         $schema = new Schema();
 
@@ -119,8 +122,6 @@ class SchemaBuilder implements SchemaBuilderInterface
         }
 
         foreach ($result[1] as $row) {
-            /* @var $row ResultRow */
-
             $tableName = $row['tableName'];
             $tableType = $row['tableType'];
 
@@ -202,8 +203,6 @@ class SchemaBuilder implements SchemaBuilderInterface
         $tableIndexesByTableName = [];
 
         foreach ($result[2] as $row) {
-            /* @var $row ResultRow */
-
             $tableType = $row['tableType'];
 
             if ($tableType === 'BASE TABLE') {
