@@ -58,35 +58,6 @@ class SchemaManager
     }
 
     /**
-     * Removes the table with given name from given Schema instance.
-     * Note that the table has to exists.
-     *
-     * @param Schema $schema
-     * @param string $name
-     *
-     * @return SchemaManagerInterface
-     *
-     * @throws PdoMySqlDriverException if no table with given name is found
-     */
-    public function removeTableWithName(Schema $schema, $name)
-    {
-        foreach ($schema->getTables() as $i => $table) {
-            if ($table->getName() === $name) {
-                $schema->removeTableAtIndex($i);
-
-                return $this;
-            }
-        }
-
-        throw new PdoMySqlDriverException(
-            sprintf(
-                'Cannot remove table with name "%s": no such table in schema.',
-                $name
-            )
-        );
-    }
-
-    /**
      * Gets the view with given name from given schema.
      *
      * @param Schema $schema
@@ -120,35 +91,6 @@ class SchemaManager
         $has = $this->doHasWithName($views, $name, false);
 
         return $has;
-    }
-
-    /**
-     * Removes the view with given name from given Schema instance.
-     * Note that the view has to exists.
-     *
-     * @param Schema $schema
-     * @param string $name
-     *
-     * @return SchemaManagerInterface
-     *
-     * @throws PdoMySqlDriverException if no view with given name is found
-     */
-    public function removeViewWithName(Schema $schema, $name)
-    {
-        foreach ($schema->getViews() as $i => $view) {
-            if ($view->getName() === $name) {
-                $schema->removeViewAtIndex($i);
-
-                return $this;
-            }
-        }
-
-        throw new PdoMySqlDriverException(
-            sprintf(
-                'Cannot remove view with name "%s": no such view in schema.',
-                $name
-            )
-        );
     }
 
     /**

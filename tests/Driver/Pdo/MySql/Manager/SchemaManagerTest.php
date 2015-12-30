@@ -85,44 +85,6 @@ class SchemaManagerTest extends AbstractBasePdoMySqlTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Manager\SchemaManager::removeTableWithName
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Manager\SchemaManager::doRemoveWithName
-     */
-    public function testRemoveTableWithName()
-    {
-        $schema = new Schema();
-
-        $table = new Table();
-
-        $table->setName('testTable');
-
-        $schema->addTable($table);
-
-        $this->schemaManager->removeTableWithName($schema, 'testTable');
-
-        $this->assertFalse(
-            $this->schemaManager->hasTableWithName($schema, 'testTable')
-        );
-    }
-
-    /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Manager\SchemaManager::removeTableWithName
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Manager\SchemaManager::doRemoveWithName
-     */
-    public function testRemoveTableWithNameErrorIfNoTableWithNameInSchema()
-    {
-        $schema = new Schema();
-
-        CommonTestHelper::assertExceptionThrown(
-            function () use ($schema) {
-                $this->schemaManager->removeTableWithName($schema, 'testTable');
-            },
-            \Exception::class,
-            'Cannot remove table with name "testTable": no such table in schema.'
-        );
-    }
-
-    /**
      * @covers Arlekin\Dbal\Driver\Pdo\MySql\Manager\SchemaManager::getViewWithName
      * @covers Arlekin\Dbal\Driver\Pdo\MySql\Manager\SchemaManager::doGetWithName
      */
@@ -179,44 +141,6 @@ class SchemaManagerTest extends AbstractBasePdoMySqlTest
 
         $this->assertTrue(
             $this->schemaManager->hasViewWithName($schema, 'testView')
-        );
-    }
-
-    /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Manager\SchemaManager::removeViewWithName
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Manager\SchemaManager::doRemoveWithName
-     */
-    public function testRemoveViewWithName()
-    {
-        $schema = new Schema();
-
-        $view = new View();
-
-        $view->setName('testView');
-
-        $schema->addView($view);
-
-        $this->schemaManager->removeViewWithName($schema, 'testView');
-
-        $this->assertFalse(
-            $this->schemaManager->hasViewWithName($schema, 'testView')
-        );
-    }
-
-    /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Manager\SchemaManager::removeViewWithName
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Manager\SchemaManager::doRemoveWithName
-     */
-    public function testRemoveViewWithNameExceptionThrowIfNoViewWithNameInSchema()
-    {
-        $schema = new Schema();
-
-        CommonTestHelper::assertExceptionThrown(
-            function () use ($schema) {
-                $this->schemaManager->removeViewWithName($schema, 'testView');
-            },
-            \Exception::class,
-            'Cannot remove view with name "testView": no such view in schema.'
         );
     }
 
