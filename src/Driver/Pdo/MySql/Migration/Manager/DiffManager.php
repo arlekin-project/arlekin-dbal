@@ -100,19 +100,26 @@ class DiffManager
 
         $className = sprintf('%s%s', $prefix, $version);
         
-        $outputContent = function () use ($className, $version, $upFunctionContent) {
-            ob_start();
-            
-            include __DIR__.'/../../../../../Migration/Resources/views/migration.php';
-            
-            $content = ob_get_contents();
-            
-            ob_end_clean();
-            
-            return $content;
-        };
-        
-        $content = $outputContent();
+        $content = <<<EOT
+<?php
+
+namespace Application\Migrations;
+
+use Arlekin\Dbal\Migration\MigrationInterface;
+
+class $className implements MigrationInterface
+{
+    public function up()
+    {
+        $upFunctionContent
+    }
+
+    public function getVersion()
+    {
+        return $version;
+    }
+}
+EOT;
 
         return [
             'className' => $className,

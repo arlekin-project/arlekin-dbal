@@ -11,10 +11,9 @@ namespace Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager;
 
 use Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection;
 use Arlekin\Dbal\Exception\DbalException;
-use Arlekin\Dbal\Migration\Manager\MigrationManagerInterface;
 use Arlekin\Dbal\Migration\MigrationInterface;
 
-class MigrationManager implements MigrationManagerInterface
+class MigrationManager
 {
     /**
      * @var DatabaseConnectionInterface
@@ -27,7 +26,10 @@ class MigrationManager implements MigrationManagerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $version
+     *
+     * @return boolean true if version has already been applied,
+     * false otherwise
      */
     public function versionApplied($version)
     {
@@ -45,7 +47,9 @@ class MigrationManager implements MigrationManagerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $migrationsFolderFullPath
+     *
+     * @return array
      */
     public function migrate($migrationsFolderFullPath)
     {
