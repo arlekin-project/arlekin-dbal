@@ -104,6 +104,125 @@ class SchemaTest extends PHPUnit_Framework_TestCase
             ]
         );
     }
+    
+    /**
+     * @covers Arlekin\Dbal\SqlBased\Element\Schema::getTableWithName
+     * @covers Arlekin\Dbal\SqlBased\Element\Schema::doGetWithName
+     */
+    public function testGetTableWithName()
+    {
+        $schema = new Schema();
+
+        $table = new Table();
+
+        $table->setName('testTable');
+
+        $schema->addTable($table);
+
+        $retrievedTable = $schema->getTableWithName('testTable');
+
+        $this->assertSame($table, $retrievedTable);
+    }
+
+    /**
+     * @covers Arlekin\Dbal\SqlBased\Element\Schema::getTableWithName
+     * @covers Arlekin\Dbal\SqlBased\Element\Schema::doGetWithName
+     */
+    public function testGetTableWithNameExceptionThrownIfNoTableWithName()
+    {
+        $schema = new Schema();
+
+        CommonTestHelper::assertExceptionThrown(
+            function () use ($schema) {
+                $schema->getTableWithName('testTable');
+            },
+            \Exception::class,
+            'Found no table with name "testTable" in schema.'
+        );
+    }
+
+    /**
+     * @covers Arlekin\Dbal\SqlBased\Element\Schema::hasTableWithName
+     * @covers Arlekin\Dbal\SqlBased\Element\Schema::doHasWithName
+     */
+    public function testHasTableWithName()
+    {
+        $schema = new Schema();
+
+        $table = new Table();
+
+        $table->setName('testTable');
+
+        $this->assertFalse(
+            $schema->hasTableWithName('testTable')
+        );
+
+        $schema->addTable($table);
+
+        $this->assertTrue(
+            $schema->hasTableWithName('testTable')
+        );
+    }
+
+    /**
+     * @covers Arlekin\Dbal\SqlBased\Element\Schema::getViewWithName
+     * @covers Arlekin\Dbal\SqlBased\Element\Schema::doGetWithName
+     */
+    public function testGetViewWithName()
+    {
+        $schema = new Schema();
+
+        $view = new View();
+
+        $view->setName('testView');
+
+        $schema->addView($view);
+
+        $this->assertSame(
+            $view,
+            $schema->getViewWithName('testView')
+        );
+    }
+
+    /**
+     * @covers Arlekin\Dbal\SqlBased\Element\Schema::getViewWithName
+     * @covers Arlekin\Dbal\SqlBased\Element\Schema::doGetWithName
+     */
+    public function testGetViewWithNameExceptionThrownIfNoViewWithName()
+    {
+        $schema = new Schema();
+
+        CommonTestHelper::assertExceptionThrown(
+            function () use ($schema) {
+                $schema->getViewWithName('testView');
+            },
+            \Exception::class,
+            'Found no view with name "testView" in schema.'
+        );
+    }
+
+    /**
+     * @covers Arlekin\Dbal\SqlBased\Element\Schema::hasViewWithName
+     * @covers Arlekin\Dbal\SqlBased\Element\Schema::doHasWithName
+     */
+    public function testHasViewWithName()
+    {
+        $schema = new Schema();
+
+        $view = new View();
+
+        $view->setName('testView');
+
+        $this->assertFalse(
+            $schema->hasViewWithName('testView')
+        );
+
+        $schema->addView($view);
+
+        $this->assertTrue(
+            $schema->hasViewWithName('testView')
+        );
+    }
 
     /**
      * @return Table

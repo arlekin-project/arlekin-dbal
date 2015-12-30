@@ -9,6 +9,8 @@
 
 namespace Arlekin\Dbal\Driver\Pdo\MySql\Element;
 
+use Arlekin\Dbal\Driver\Pdo\MySql\Exception\PdoMySqlDriverException;
+
 /**
  * Represents a MySQL database.
  *
@@ -163,5 +165,154 @@ class Schema
         }
 
         return $arr;
+    }
+    
+    /**
+     * Gets the table with given name.
+     *
+     * @param string $name
+     *
+     * @return Table
+     *
+     * @throws PdoMySqlDriverException if no table with given name is found
+     */
+    public function getTableWithName($name)
+    {
+        $tables = $this->getTables();
+
+        $tableWithName = $this->doGetWithName($tables, 'table', $name);
+
+        return $tableWithName;
+    }
+
+    /**
+     * Whether the schema has a table with given name.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function hasTableWithName($name)
+    {
+        $tables = $this->getTables();
+
+        $has = $this->doHasWithName($tables, $name);
+
+        return $has;
+    }
+
+    /**
+     * Gets the view with given name.
+     *
+     * @param string $name
+     *
+     * @return View
+     *
+     * @throws PdoMySqlDriverException if no view with given name is found
+     */
+    public function getViewWithName($name)
+    {
+        $views = $this->getViews();
+
+        $viewWithName = $this->doGetWithName($views, 'view', $name, false);
+
+        return $viewWithName;
+    }
+
+    /**
+     * Whether the schema has a view with given name.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function hasViewWithName($name)
+    {
+        $views = $this->getViews();
+
+        $has = $this->doHasWithName($views, $name, false);
+
+        return $has;
+    }
+
+    /**
+     * Gets a single named element from a given collection, given its name.
+     *
+     * @param array $collection
+     * @param string $elementTypeName
+     * @param string $name
+     * @param bool $caseSensitive whether the comparison has to be case sensitive or not
+     *
+     * @return object the searched named element
+     *
+     * @throws PdoMySqlDriverException if no element is found
+     */
+    protected function doGetWithName(array $collection, $elementTypeName, $name, $caseSensitive = true)
+    {
+        $elementWithName = null;
+
+        if ($caseSensitive) {
+            foreach ($collection as $element) {
+                $elementName = $element->getName();
+
+                if ($elementName === $name) {
+                    $elementWithName = $element;
+                }
+            }
+        } else {
+            foreach ($collection as $element) {
+                $elementName = $element->getName();
+
+                if (strtolower($elementName) === strtolower($name)) {
+                    $elementWithName = $element;
+                }
+            }
+        }
+
+        if ($elementWithName === null) {
+            throw new PdoMySqlDriverException(
+                sprintf(
+                    'Found no %s with name "%s" in schema.',
+                    $elementTypeName,
+                    $name
+                )
+            );
+        }
+
+        return $elementWithName;
+    }
+
+    /**
+     * Whether the given collection has an element with given name.
+     *
+     * @param array $collection
+     * @param string $name
+     * @param bool $caseSensitive whether the comparison has to be case sensitive or not
+     *
+     * @return boolean
+     */
+    protected function doHasWithName(array $collection, $name, $caseSensitive = true)
+    {
+        $has = false;
+
+        if ($caseSensitive) {
+            foreach ($collection as $element) {
+                $elementName = $element ->getName();
+
+                if ($elementName === $name) {
+                    $has = true;
+                }
+            }
+        } else {
+            foreach ($collection as $element) {
+                $elementName = $element ->getName();
+
+                if (strtolower($elementName) === strtolower($name)) {
+                    $has = true;
+                }
+            }
+        }
+
+        return $has;
     }
 }

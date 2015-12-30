@@ -11,7 +11,6 @@ namespace Arlekin\Dbal\Driver\Pdo\MySql\Migration\Tests\Manager;
 
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
-use Arlekin\Dbal\Driver\Pdo\MySql\Manager\SchemaManager;
 use Arlekin\Dbal\Driver\Pdo\MySql\Manager\TableManager;
 use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder;
 use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\DiffManager;
@@ -71,9 +70,8 @@ class DiffManagerTest extends AbstractBasePdoMySqlTest
         parent::setUp();
 
         $tableManager = new TableManager();
-        $schemaManager = new SchemaManager();
 
-        $migrationQueriesBuilder = new MigrationQueriesBuilder($tableManager, $schemaManager);
+        $migrationQueriesBuilder = new MigrationQueriesBuilder($tableManager);
 
         $this->diffManager = new DiffManager($migrationQueriesBuilder);
     }

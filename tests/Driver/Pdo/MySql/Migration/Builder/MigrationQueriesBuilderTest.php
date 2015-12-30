@@ -19,7 +19,6 @@ use Arlekin\Dbal\Driver\Pdo\MySql\Element\PrimaryKey;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\View;
-use Arlekin\Dbal\Driver\Pdo\MySql\Manager\SchemaManager;
 use Arlekin\Dbal\Driver\Pdo\MySql\Manager\TableManager;
 use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder;
 use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder;
@@ -34,10 +33,6 @@ class MigrationQueriesBuilderTest extends AbstractBasePdoMySqlTest
      * @var TableManager
      */
     protected $tableManager;
-    /**
-     * @var SchemaManager
-     */
-    protected $schemaManager;
 
     /**
      * @var MigrationQueriesBuilder
@@ -54,10 +49,9 @@ class MigrationQueriesBuilderTest extends AbstractBasePdoMySqlTest
      */
     public function testConstruct()
     {
-        $migrationBuilder = new MigrationQueriesBuilder($this->tableManager, $this->schemaManager);
+        $migrationBuilder = new MigrationQueriesBuilder($this->tableManager);
 
         $this->assertAttributeInstanceOf(TableManager::class, 'tableManager', $migrationBuilder);
-        $this->assertAttributeInstanceOf(SchemaManager::class, 'schemaManager', $migrationBuilder);
     }
 
 
@@ -1570,9 +1564,7 @@ class MigrationQueriesBuilderTest extends AbstractBasePdoMySqlTest
 
         $this->tableManager = new TableManager();
 
-        $this->schemaManager = new SchemaManager();
-
-        $this->sqlMigrationBuilder = new MigrationQueriesBuilder($this->tableManager, $this->schemaManager);
+        $this->sqlMigrationBuilder = new MigrationQueriesBuilder($this->tableManager);
 
         $this->schemaBuilder = new SchemaBuilder();
     }

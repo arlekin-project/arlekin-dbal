@@ -14,7 +14,6 @@ use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\View;
 use Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper;
-use Arlekin\Dbal\Driver\Pdo\MySql\Manager\SchemaManager;
 use Arlekin\Dbal\Driver\Pdo\MySql\Manager\TableManager;
 use Arlekin\Dbal\Helper\ArrayHelper;
 
@@ -33,22 +32,13 @@ class MigrationQueriesBuilder
     protected $tableManager;
 
     /**
-     * A SchemaManager instance.
-     *
-     * @var SchemaManager
-     */
-    protected $schemaManager;
-
-    /**
      * Constructor.
      *
      * @param TableManager $tableManager
-     * @param SchemaManager $schemaManager
      */
-    public function __construct(TableManager $tableManager, SchemaManager $schemaManager)
+    public function __construct(TableManager $tableManager)
     {
         $this->tableManager = $tableManager;
-        $this->schemaManager = $schemaManager;
     }
 
     /**
@@ -181,7 +171,7 @@ class MigrationQueriesBuilder
         foreach ($originalTables as $originalTable) {
             $originTableName = $originalTable->getName();
 
-            if (!$this->schemaManager->hasTableWithName($destinationSchema, $originTableName)) {
+            if (!$destinationSchema->hasTableWithName($originTableName)) {
                 $dropTableQuery = 'DROP TABLE '
                     .MySqlHelper::backquoteTableOrColumnName($originTableName);
 
@@ -221,8 +211,8 @@ class MigrationQueriesBuilder
 
             //Remove the column
             //if the table exists in the destination schema
-            if ($this->schemaManager->hasTableWithName($destinationSchema, $originalTableName)) {
-                $destinationTable = $this->schemaManager->getTableWithName($destinationSchema, $originalTableName);
+            if ($destinationSchema->hasTableWithName($originalTableName)) {
+                $destinationTable = $destinationSchema->getTableWithName($originalTableName);
                 $originalColumns = $originalTable->getColumns();
 
                 foreach ($originalColumns as $originalColumn) {
@@ -298,8 +288,8 @@ class MigrationQueriesBuilder
 
             //Remove the index
             //if the table exists
-            if ($this->schemaManager->hasTableWithName($destinationSchema, $originalTableName)) {
-                $destinationTable = $this->schemaManager->getTableWithName($destinationSchema, $originalTableName);
+            if ($destinationSchema->hasTableWithName($originalTableName)) {
+                $destinationTable = $destinationSchema->getTableWithName($originalTableName);
                 $originalIndexes = $originalTable->getIndexes();
 
                 foreach ($originalIndexes as $originalIndex) {
@@ -365,8 +355,8 @@ class MigrationQueriesBuilder
 
             //Remove the foreign key
             //if the table exists
-            if ($this->schemaManager->hasTableWithName($destinationSchema, $originalTableName)) {
-                $destinationTable = $this->schemaManager->getTableWithName($destinationSchema, $originalTableName);
+            if ($destinationSchema->hasTableWithName($originalTableName)) {
+                $destinationTable = $destinationSchema->getTableWithName($originalTableName);
                 $originalForeignKeys = $originalTable->getForeignKeys();
 
                 foreach ($originalForeignKeys as $originalForeignKey) {
@@ -456,8 +446,8 @@ class MigrationQueriesBuilder
             //Remove the primary
             //if the table exists but the
             //the primary does not.
-            if ($this->schemaManager->hasTableWithName($destinationSchema, $originalTableName)&& $originalTable->getPrimaryKey() !== null) {
-                $destinationTable = $this->schemaManager->getTableWithName($destinationSchema, $originalTableName);
+            if ($destinationSchema->hasTableWithName($originalTableName) && $originalTable->getPrimaryKey() !== null) {
+                $destinationTable = $destinationSchema->getTableWithName($originalTableName);
 
                 $originalPrimaryKeyAsArray = $originalTable->getPrimaryKey()->toArray();
 
@@ -511,7 +501,7 @@ class MigrationQueriesBuilder
             $destinationTableName = $destinationTable->getName();
 
             //Create table if not exists
-            if (!$this->schemaManager->hasTableWithName($originalSchema, $destinationTableName)) {
+            if (!$originalSchema->hasTableWithName($destinationTableName)) {
                 $destinationColumns = $destinationTable->getColumns();
 
                 $sqlTableBases = 'CREATE TABLE ';
@@ -553,11 +543,11 @@ class MigrationQueriesBuilder
             $destinationPrimaryKey = $destinationTable->getPrimaryKey();
 
             //that is either if table does not exist in the original schema
-            if (!$this->schemaManager->hasTableWithName($originalSchema, $destinationTableName)) {
+            if (!$originalSchema->hasTableWithName($destinationTableName)) {
                 $doAddPrimaryKey = $destinationPrimaryKey !== null;
             //or it does but the key itself does not exist
             } else {
-                $originalTable = $this->schemaManager->getTableWithName($originalSchema, $destinationTableName);
+                $originalTable = $originalSchema->getTableWithName($destinationTableName);
 
                 $doAddPrimaryKey = $originalTable->getPrimaryKey() === null && $destinationTable->getPrimaryKey() !== null;
             }
@@ -605,7 +595,7 @@ class MigrationQueriesBuilder
             $destinationTableName = $destinationTable->getName();
 
             //that is either if table does not exists
-            if (!$this->schemaManager->hasTableWithName($originalSchema, $destinationTableName)) {
+            if (!$originalSchema->hasTableWithName($destinationTableName)) {
                 $indexes = $destinationTable->getIndexes();
 
                 foreach ($indexes as $index) {
@@ -615,7 +605,7 @@ class MigrationQueriesBuilder
                 }
             //or if table exists in schema but the index does not
             } else {
-                $originalTable = $this->schemaManager->getTableWithName($originalSchema, $destinationTableName);
+                $originalTable = $originalSchema->getTableWithName($destinationTableName);
 
                 $indexes = $destinationTable->getIndexes();
 
@@ -650,8 +640,8 @@ class MigrationQueriesBuilder
         foreach ($destinationTables as $destinationTable) {
             $destinationTableName= $destinationTable->getName();
 
-            if ($this->schemaManager->hasTableWithName($originalSchema, $destinationTableName)) {
-                $originalTable = $this->schemaManager->getTableWithName($originalSchema, $destinationTableName);
+            if ($originalSchema->hasTableWithName($destinationTableName)) {
+                $originalTable = $originalSchema->getTableWithName($destinationTableName);
                 $destinationColumns = $destinationTable->getColumns();
 
                 foreach ($destinationColumns as $destinationColumn) {
@@ -811,8 +801,8 @@ class MigrationQueriesBuilder
 
             //Create foreign if not exists,
             //that is if table exists and foreign key does not exists
-            if ($this->schemaManager->hasTableWithName($originalSchema, $destinationTableName)) {
-                $originalTable = $this->schemaManager->getTableWithName($originalSchema, $destinationTableName);
+            if ($originalSchema->hasTableWithName($destinationTableName)) {
+                $originalTable = $originalSchema->getTableWithName($destinationTableName);
 
                 $what = function (
                     Table $table,
@@ -895,8 +885,8 @@ class MigrationQueriesBuilder
             $originalTableName = $destinationTable->getName();
 
             //if original table exists
-            if ($this->schemaManager->hasTableWithName($originalSchema, $originalTableName)) {
-                $originalTable = $this->schemaManager->getTableWithName($originalSchema, $originalTableName);
+            if ($originalSchema->hasTableWithName($originalTableName)) {
+                $originalTable = $originalSchema->getTableWithName($originalTableName);
 
                 foreach ($destinationColumns as $destinationColumn) {
                     if ($destinationColumn ->isAutoIncrement()) {
@@ -953,8 +943,8 @@ class MigrationQueriesBuilder
             $originalTableName = $destinationTable->getName();
 
             //if original table exists
-            if ($this->schemaManager->hasTableWithName($originalSchema, $originalTableName)) {
-                $originalTable = $this->schemaManager->getTableWithName($originalSchema, $originalTableName);
+            if ($originalSchema->hasTableWithName($originalTableName)) {
+                $originalTable = $originalSchema->getTableWithName($originalTableName);
 
                 foreach ($destinationColumns as $destinationColumn) {
                     if (!$destinationColumn ->isAutoIncrement()) {
@@ -1002,7 +992,7 @@ class MigrationQueriesBuilder
 
             $originalSchemaViewName = $originalSchemaView->getName();
 
-            if (!$this->schemaManager->hasViewWithName($destinationSchema, $originalSchemaViewName)) {
+            if (!$destinationSchema->hasViewWithName($originalSchemaViewName)) {
                 $dropViewsQueries[] = sprintf('DROP VIEW %s', $originalSchemaViewName);
             }
         }
@@ -1028,7 +1018,7 @@ class MigrationQueriesBuilder
             /* @var $view View */
             $destinationSchemaViewName = $destinationSchemaView->getName();
 
-            if (!$this->schemaManager->hasViewWithName($originalSchema, $destinationSchemaViewName)) {
+            if (!$originalSchema->hasViewWithName($destinationSchemaViewName)) {
                 $destinationSchemaViewDefinition = $destinationSchemaView->getDefinition();
 
                 $createViewsQueries[] = sprintf(
@@ -1062,8 +1052,8 @@ class MigrationQueriesBuilder
 
             $destinationSchemaViewName = $destinationSchemaView->getName();
 
-            if ($this->schemaManager->hasViewWithName($originalSchema, $destinationSchemaViewName)) {
-                $originalSchemaView = $this->schemaManager->getViewWithName($originalSchema, $destinationSchemaViewName);
+            if ($originalSchema->hasViewWithName($destinationSchemaViewName)) {
+                $originalSchemaView = $originalSchema->getViewWithName($destinationSchemaViewName);
                 $destinationSchemaViewDefinition = $destinationSchemaView->getDefinition();
                 $originalSchemaViewDefinition = $originalSchemaView->getDefinition();
 
