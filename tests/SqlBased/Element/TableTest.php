@@ -7,14 +7,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased\Element;
+namespace Arlekin\Dbal\Tests\SqlBased\Element;
 
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column;
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey;
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index;
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\PrimaryKey;
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table;
-use Arlekin\Common\Tests\Helper\CommonTestHelper;
+use Arlekin\Dbal\SqlBased\Element\Column;
+use Arlekin\Dbal\SqlBased\Element\ForeignKey;
+use Arlekin\Dbal\SqlBased\Element\Index;
+use Arlekin\Dbal\SqlBased\Element\PrimaryKey;
+use Arlekin\Dbal\SqlBased\Element\Table;
+use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -23,7 +23,7 @@ use PHPUnit_Framework_TestCase;
 class TableTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::__construct
+     * @covers Arlekin\Dbal\SqlBased\Element\Table::__construct
      */
     public function testConstruct()
     {
@@ -37,8 +37,8 @@ class TableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::getName
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::setName
+     * @covers Arlekin\Dbal\SqlBased\Element\Table::getName
+     * @covers Arlekin\Dbal\SqlBased\Element\Table::setName
      */
     public function testGetAndSetName()
     {
@@ -51,8 +51,8 @@ class TableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::getPrimaryKey
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::setPrimaryKey
+     * @covers Arlekin\Dbal\SqlBased\Element\Table::getPrimaryKey
+     * @covers Arlekin\Dbal\SqlBased\Element\Table::setPrimaryKey
      */
     public function testGetAndSetPrimaryKey()
     {
@@ -85,8 +85,8 @@ class TableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::getColumns
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::setColumns
+     * @covers Arlekin\Dbal\SqlBased\Element\Table::getColumns
+     * @covers Arlekin\Dbal\SqlBased\Element\Table::setColumns
      */
     public function testGetAndSetColumns()
     {
@@ -110,8 +110,8 @@ class TableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::getForeignKeys
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::setForeignKeys
+     * @covers Arlekin\Dbal\SqlBased\Element\Table::getForeignKeys
+     * @covers Arlekin\Dbal\SqlBased\Element\Table::setForeignKeys
      */
     public function testGetAndSetForeignKeys()
     {
@@ -135,8 +135,8 @@ class TableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::getIndexes
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::setIndexes
+     * @covers Arlekin\Dbal\SqlBased\Element\Table::getIndexes
+     * @covers Arlekin\Dbal\SqlBased\Element\Table::setIndexes
      */
     public function testGetAndSetIndexes()
     {
@@ -160,7 +160,7 @@ class TableTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table::toArray
+     * @covers Arlekin\Dbal\SqlBased\Element\Table::toArray
      */
     public function testToArray()
     {

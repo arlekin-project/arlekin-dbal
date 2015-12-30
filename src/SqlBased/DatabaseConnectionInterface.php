@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\DatabaseAbstractionLayer\SqlBased;
+namespace Arlekin\Dbal\SqlBased;
 
 /**
  * Represents a database connection.

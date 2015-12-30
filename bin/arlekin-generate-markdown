@@ -1,0 +1,55 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * (c) Benjamin Michalski <benjamin.michalski@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Benjamin Michalski <benjamin.michalski@gmail.com>
+ */
+
+$docDir = __DIR__.'/../doc/markdown';
+
+$sourceDir = __DIR__.'/../src';
+
+if (file_exists($docDir)) {
+    passthru(
+        "rm -rf $docDir/*"
+    );
+}
+
+if (!file_exists($docDir)) {
+    mkdir($docDir, 0777, true);
+}
+
+$docDir = realpath($docDir);
+
+if (!$docDir) {
+    throw new Exception(
+        sprintf(
+            'Le dossier "%s" n\'existe pas.',
+            $docDir
+        )
+    );
+}
+
+$argv1 = array_merge($argv);
+
+unset($argv1[0]);
+
+$args = array_merge(
+    [
+        '--flavor=gfm',
+        ' '.__DIR__.'/../README.md',
+        '> '.$docDir.'/README.html',
+    ],
+    $argv1
+);
+
+passthru(
+    __DIR__
+    .'/../vendor/bin/markdown '
+    .implode(' ', $args)
+);

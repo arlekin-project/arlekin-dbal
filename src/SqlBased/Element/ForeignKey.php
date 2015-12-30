@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\DatabaseAbstractionLayer\SqlBased\Element;
+namespace Arlekin\Dbal\SqlBased\Element;
 
 /**
  * Represents a SQL foreign key.

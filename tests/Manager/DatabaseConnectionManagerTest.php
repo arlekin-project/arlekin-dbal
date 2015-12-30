@@ -7,12 +7,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\DatabaseAbstractionLayer\Tests\Manager;
+namespace Arlekin\Dbal\Tests\Manager;
 
-use Arlekin\DatabaseAbstractionLayer\DatabaseConnectionInterface;
-use Arlekin\DatabaseAbstractionLayer\DriverInterface;
-use Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager;
-use Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManagerInterface;
+use Arlekin\Dbal\DatabaseConnectionInterface;
+use Arlekin\Dbal\DriverInterface;
+use Arlekin\Dbal\Manager\DatabaseConnectionManager;
+use Arlekin\Dbal\Manager\DatabaseConnectionManagerInterface;
 use PHPUnit_Framework_TestCase;
 
 class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
@@ -23,7 +23,7 @@ class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
     protected $databaseConnectionManager;
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::__construct
+     * @covers Arlekin\Dbal\Manager\DatabaseConnectionManager::__construct
      */
     public function testConstruct()
     {
@@ -83,9 +83,9 @@ class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::getConnectionWithName
-     * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::instanciateDatabaseConnection
-     * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::instanciateNamedDatabaseConnection
+     * @covers Arlekin\Dbal\Manager\DatabaseConnectionManager::getConnectionWithName
+     * @covers Arlekin\Dbal\Manager\DatabaseConnectionManager::instanciateDatabaseConnection
+     * @covers Arlekin\Dbal\Manager\DatabaseConnectionManager::instanciateNamedDatabaseConnection
      */
     public function testGetConnectionWithName()
     {
@@ -100,9 +100,9 @@ class DatabaseConnectionManagerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::getConnectionWithName
-     * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::instanciateDatabaseConnection
-     * @covers Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager::instanciateNamedDatabaseConnection
+     * @covers Arlekin\Dbal\Manager\DatabaseConnectionManager::getConnectionWithName
+     * @covers Arlekin\Dbal\Manager\DatabaseConnectionManager::instanciateDatabaseConnection
+     * @covers Arlekin\Dbal\Manager\DatabaseConnectionManager::instanciateNamedDatabaseConnection
      */
     public function testGetConnectionWithNameTwice()
     {

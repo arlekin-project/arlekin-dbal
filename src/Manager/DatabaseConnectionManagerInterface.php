@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\DatabaseAbstractionLayer\Manager;
+namespace Arlekin\Dbal\Manager;
 
-use Arlekin\DatabaseAbstractionLayer\DatabaseConnectionInterface;
+use Arlekin\Dbal\DatabaseConnectionInterface;
 
 interface DatabaseConnectionManagerInterface
 {

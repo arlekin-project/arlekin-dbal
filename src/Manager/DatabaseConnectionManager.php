@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\DatabaseAbstractionLayer\Manager;
+namespace Arlekin\Dbal\Manager;
 
-use Arlekin\DatabaseAbstractionLayer\Exception\DbalException;
+use Arlekin\Dbal\Exception\DbalException;
 
 class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
 {

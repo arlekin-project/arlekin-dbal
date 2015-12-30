@@ -10,15 +10,17 @@
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
 
-$currentDirectory = __DIR__;
-
-$doInstallOrUpdateFilePhp = sprintf(
-    '%s/doPostInstallOrUpdate.php',
-    $currentDirectory
+$args = array_merge(
+    $argv,
+    [
+        '--standard=psr2',
+    ]
 );
 
-require $doInstallOrUpdateFilePhp;
+unset($args[0]);
 
-$postInstallOrUpdate(
-    $currentDirectory
+passthru(
+    __DIR__
+    .'/../vendor/bin/phpcs '
+    .implode(' ', $args)
 );

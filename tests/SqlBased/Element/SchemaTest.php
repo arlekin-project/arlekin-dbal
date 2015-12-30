@@ -7,12 +7,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased\Element;
+namespace Arlekin\Dbal\Tests\SqlBased\Element;
 
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema;
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table;
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\View;
-use Arlekin\Common\Tests\Helper\CommonTestHelper;
+use Arlekin\Dbal\SqlBased\Element\Schema;
+use Arlekin\Dbal\SqlBased\Element\Table;
+use Arlekin\Dbal\SqlBased\Element\View;
+use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -21,7 +21,7 @@ use PHPUnit_Framework_TestCase;
 class SchemaTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::__construct
+     * @covers Arlekin\Dbal\SqlBased\Element\Schema::__construct
      */
     public function testConstruct()
     {
@@ -32,8 +32,8 @@ class SchemaTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::getTables
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::setTables
+     * @covers Arlekin\Dbal\SqlBased\Element\Schema::getTables
+     * @covers Arlekin\Dbal\SqlBased\Element\Schema::setTables
      */
     public function testGetAndSetTables()
     {
@@ -48,8 +48,8 @@ class SchemaTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::getViews
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::setViews
+     * @covers Arlekin\Dbal\SqlBased\Element\Schema::getViews
+     * @covers Arlekin\Dbal\SqlBased\Element\Schema::setViews
      */
     public function testGetAndSetViews()
     {
@@ -64,7 +64,7 @@ class SchemaTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema::toArray
+     * @covers Arlekin\Dbal\SqlBased\Element\Schema::toArray
      */
     public function testToArray()
     {

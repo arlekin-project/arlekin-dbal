@@ -7,12 +7,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased\Element;
+namespace Arlekin\Dbal\Tests\SqlBased\Element;
 
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column;
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey;
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table;
-use Arlekin\Common\Tests\Helper\CommonTestHelper;
+use Arlekin\Dbal\SqlBased\Element\Column;
+use Arlekin\Dbal\SqlBased\Element\ForeignKey;
+use Arlekin\Dbal\SqlBased\Element\Table;
+use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -21,7 +21,7 @@ use PHPUnit_Framework_TestCase;
 class ForeignKeyTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey::__construct
+     * @covers Arlekin\Dbal\SqlBased\Element\ForeignKey::__construct
      */
     public function testConstruct()
     {
@@ -36,8 +36,8 @@ class ForeignKeyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey::getTable
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey::setTable
+     * @covers Arlekin\Dbal\SqlBased\Element\ForeignKey::getTable
+     * @covers Arlekin\Dbal\SqlBased\Element\ForeignKey::setTable
      */
     public function testGetAndSetTable()
     {
@@ -50,8 +50,8 @@ class ForeignKeyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey::getColumns
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey::setColumns
+     * @covers Arlekin\Dbal\SqlBased\Element\ForeignKey::getColumns
+     * @covers Arlekin\Dbal\SqlBased\Element\ForeignKey::setColumns
      */
     public function testGetAndSetColumns()
     {
@@ -66,8 +66,8 @@ class ForeignKeyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey::getReferencedTable
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey::setReferencedTable
+     * @covers Arlekin\Dbal\SqlBased\Element\ForeignKey::getReferencedTable
+     * @covers Arlekin\Dbal\SqlBased\Element\ForeignKey::setReferencedTable
      */
     public function testGetAndSetReferencedTable()
     {
@@ -80,8 +80,8 @@ class ForeignKeyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey::getReferencedColumns
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey::setReferencedColumns
+     * @covers Arlekin\Dbal\SqlBased\Element\ForeignKey::getReferencedColumns
+     * @covers Arlekin\Dbal\SqlBased\Element\ForeignKey::setReferencedColumns
      */
     public function testGetAndSetReferencedColumns()
     {
@@ -96,8 +96,8 @@ class ForeignKeyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey::getOnDelete
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey::setOnDelete
+     * @covers Arlekin\Dbal\SqlBased\Element\ForeignKey::getOnDelete
+     * @covers Arlekin\Dbal\SqlBased\Element\ForeignKey::setOnDelete
      */
     public function testGetAndSetOnDelete()
     {
@@ -110,8 +110,8 @@ class ForeignKeyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey::getOnUpdate
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey::setOnUpdate
+     * @covers Arlekin\Dbal\SqlBased\Element\ForeignKey::getOnUpdate
+     * @covers Arlekin\Dbal\SqlBased\Element\ForeignKey::setOnUpdate
      */
     public function testGetAndSetOnUpdate()
     {
@@ -124,7 +124,7 @@ class ForeignKeyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\ForeignKey::toArray
+     * @covers Arlekin\Dbal\SqlBased\Element\ForeignKey::toArray
      */
     public function testToArray()
     {

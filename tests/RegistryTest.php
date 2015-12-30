@@ -1,9 +1,9 @@
 <?php
 
-namespace Arlekin\DatabaseAbstractionLayer\Test;
+namespace Arlekin\Dbal\Test;
 
-use Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager;
-use Arlekin\DatabaseAbstractionLayer\Registry;
+use Arlekin\Dbal\Manager\DatabaseConnectionManager;
+use Arlekin\Dbal\Registry;
 use PHPUnit_Framework_TestCase;
 
 class RegistryTest extends PHPUnit_Framework_TestCase

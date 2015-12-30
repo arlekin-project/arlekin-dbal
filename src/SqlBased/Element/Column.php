@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\DatabaseAbstractionLayer\SqlBased\Element;
+namespace Arlekin\Dbal\SqlBased\Element;
 
-use Arlekin\DatabaseAbstractionLayer\Exception\DbalException;
+use Arlekin\Dbal\Exception\DbalException;
 
 /**
  * Represents a SQL column.

@@ -1,6 +1,6 @@
 <?php
 
-namespace Arlekin\DatabaseAbstractionLayer\Exception;
+namespace Arlekin\Dbal\Exception;
 
 class DbalException extends \Exception
 {

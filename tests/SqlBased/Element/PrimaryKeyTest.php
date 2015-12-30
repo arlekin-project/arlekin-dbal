@@ -7,12 +7,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased\Element;
+namespace Arlekin\Dbal\Tests\SqlBased\Element;
 
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column;
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\PrimaryKey;
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table;
-use Arlekin\Common\Tests\Helper\CommonTestHelper;
+use Arlekin\Dbal\SqlBased\Element\Column;
+use Arlekin\Dbal\SqlBased\Element\PrimaryKey;
+use Arlekin\Dbal\SqlBased\Element\Table;
+use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -21,7 +21,7 @@ use PHPUnit_Framework_TestCase;
 class PrimaryKeyTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\PrimaryKey::__construct
+     * @covers Arlekin\Dbal\SqlBased\Element\PrimaryKey::__construct
      */
     public function testConstruct()
     {
@@ -32,8 +32,8 @@ class PrimaryKeyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\PrimaryKey::getTable
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\PrimaryKey::setTable
+     * @covers Arlekin\Dbal\SqlBased\Element\PrimaryKey::getTable
+     * @covers Arlekin\Dbal\SqlBased\Element\PrimaryKey::setTable
      */
     public function testGetAndSetTable()
     {
@@ -46,8 +46,8 @@ class PrimaryKeyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\PrimaryKey::getColumns
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\PrimaryKey::setColumns
+     * @covers Arlekin\Dbal\SqlBased\Element\PrimaryKey::getColumns
+     * @covers Arlekin\Dbal\SqlBased\Element\PrimaryKey::setColumns
      */
     public function testGetAndSetColumns()
     {
@@ -62,7 +62,7 @@ class PrimaryKeyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\PrimaryKey::toArray
+     * @covers Arlekin\Dbal\SqlBased\Element\PrimaryKey::toArray
      */
     public function testToArray()
     {

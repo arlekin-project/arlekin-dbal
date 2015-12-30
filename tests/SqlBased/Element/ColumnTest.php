@@ -7,11 +7,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\DatabaseAbstractionLayer\Tests\SqlBased\Element;
+namespace Arlekin\Dbal\Tests\SqlBased\Element;
 
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column;
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table;
-use Arlekin\Common\Tests\Helper\CommonTestHelper;
+use Arlekin\Dbal\SqlBased\Element\Column;
+use Arlekin\Dbal\SqlBased\Element\Table;
+use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
 use Exception;
 use PHPUnit_Framework_TestCase;
 
@@ -21,7 +21,7 @@ use PHPUnit_Framework_TestCase;
 class ColumnTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::__construct
+     * @covers Arlekin\Dbal\SqlBased\Element\Column::__construct
      */
     public function testConstruct()
     {
@@ -53,8 +53,8 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::getName
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::setName
+     * @covers Arlekin\Dbal\SqlBased\Element\Column::getName
+     * @covers Arlekin\Dbal\SqlBased\Element\Column::setName
      */
     public function testGetAndSetName()
     {
@@ -67,8 +67,8 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::getType
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::setType
+     * @covers Arlekin\Dbal\SqlBased\Element\Column::getType
+     * @covers Arlekin\Dbal\SqlBased\Element\Column::setType
      */
     public function testGetAndSetType()
     {
@@ -81,8 +81,8 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::isNullable
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::setNullable
+     * @covers Arlekin\Dbal\SqlBased\Element\Column::isNullable
+     * @covers Arlekin\Dbal\SqlBased\Element\Column::setNullable
      */
     public function testIsAndSetNullable()
     {
@@ -95,8 +95,8 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::isAutoIncrement
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::setAutoIncrement
+     * @covers Arlekin\Dbal\SqlBased\Element\Column::isAutoIncrement
+     * @covers Arlekin\Dbal\SqlBased\Element\Column::setAutoIncrement
      */
     public function testIsAndSetAutoIncrement()
     {
@@ -109,8 +109,8 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::getParameters
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::setParameters
+     * @covers Arlekin\Dbal\SqlBased\Element\Column::getParameters
+     * @covers Arlekin\Dbal\SqlBased\Element\Column::setParameters
      */
     public function testGetAndSetParameters()
     {
@@ -125,8 +125,8 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::getTable
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::setTable
+     * @covers Arlekin\Dbal\SqlBased\Element\Column::getTable
+     * @covers Arlekin\Dbal\SqlBased\Element\Column::setTable
      */
     public function testGetAndSetTable()
     {
@@ -139,7 +139,7 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::toArray
+     * @covers Arlekin\Dbal\SqlBased\Element\Column::toArray
      */
     public function testToArrayNoTableExceptionIfNoTable()
     {
@@ -154,7 +154,7 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column::toArray
+     * @covers Arlekin\Dbal\SqlBased\Element\Column::toArray
      */
     public function testToArray()
     {

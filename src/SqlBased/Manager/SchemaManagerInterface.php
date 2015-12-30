@@ -7,12 +7,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\DatabaseAbstractionLayer\SqlBased\Manager;
+namespace Arlekin\Dbal\SqlBased\Manager;
 
-use Arlekin\DatabaseAbstractionLayer\Exception\DbalException;
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Schema;
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table;
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\View;
+use Arlekin\Dbal\Exception\DbalException;
+use Arlekin\Dbal\SqlBased\Element\Schema;
+use Arlekin\Dbal\SqlBased\Element\Table;
+use Arlekin\Dbal\SqlBased\Element\View;
 
 /**
  * To manage SQL-based schemas.

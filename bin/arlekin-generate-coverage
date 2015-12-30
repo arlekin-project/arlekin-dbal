@@ -1,0 +1,42 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * (c) Benjamin Michalski <benjamin.michalski@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Benjamin Michalski <benjamin.michalski@gmail.com>
+ */
+
+require __DIR__.'/../tests/bootstrap.php';
+
+$reportDir = __DIR__.'/../doc/coverage';
+
+$argv1 = array_merge($argv);
+
+unset($argv1[0]);
+
+$args = array_merge(
+    [
+        '--coverage-html '.$reportDir,
+    ],
+    $argv1
+);
+
+if (file_exists($reportDir)) {
+    passthru(
+        "rm -rf $reportDir/*"
+    );
+}
+
+if (!file_exists($reportDir)) {
+    mkdir($reportDir, 0777, true);
+}
+
+passthru(
+    __DIR__
+    .'/../vendor/bin/phpunit '
+    .implode(' ', $args)
+);

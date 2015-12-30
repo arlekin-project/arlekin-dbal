@@ -7,11 +7,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\DatabaseAbstractionLayer\SqlBased\Manager;
+namespace Arlekin\Dbal\SqlBased\Manager;
 
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Column;
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Index;
-use Arlekin\DatabaseAbstractionLayer\SqlBased\Element\Table;
+use Arlekin\Dbal\SqlBased\Element\Column;
+use Arlekin\Dbal\SqlBased\Element\Index;
+use Arlekin\Dbal\SqlBased\Element\Table;
 
 /**
  * To manage SQL-based tables.

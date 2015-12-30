@@ -1,9 +1,9 @@
 <?php
 
-namespace Arlekin\DatabaseAbstractionLayer;
+namespace Arlekin\Dbal;
 
-use Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManager;
-use Arlekin\DatabaseAbstractionLayer\Manager\DatabaseConnectionManagerInterface;
+use Arlekin\Dbal\Manager\DatabaseConnectionManager;
+use Arlekin\Dbal\Manager\DatabaseConnectionManagerInterface;
 
 class Registry
 {
