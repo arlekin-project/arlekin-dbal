@@ -45,17 +45,6 @@ class MigrationQueriesBuilderTest extends AbstractBasePdoMySqlTest
     protected $schemaBuilder;
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::__construct
-     */
-    public function testConstruct()
-    {
-        $migrationBuilder = new MigrationQueriesBuilder($this->tableManager);
-
-        $this->assertAttributeInstanceOf(TableManager::class, 'tableManager', $migrationBuilder);
-    }
-
-
-    /**
      * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
      * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropColumnsQueries
      */
@@ -1562,9 +1551,7 @@ class MigrationQueriesBuilderTest extends AbstractBasePdoMySqlTest
     {
         parent::setUp();
 
-        $this->tableManager = new TableManager();
-
-        $this->sqlMigrationBuilder = new MigrationQueriesBuilder($this->tableManager);
+        $this->sqlMigrationBuilder = new MigrationQueriesBuilder();
 
         $this->schemaBuilder = new SchemaBuilder();
     }

@@ -14,7 +14,6 @@ use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\ColumnType;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
-use Arlekin\Dbal\Driver\Pdo\MySql\Manager\TableManager;
 use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder;
 use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\DiffManager;
 use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\MigrationManager;
@@ -79,9 +78,7 @@ class MigrationManagerTest extends AbstractBasePdoMySqlTest
      */
     public function testMigrateSimple()
     {
-        $tableManager = new TableManager();
-
-        $migrationQueriesBuilder = new MigrationQueriesBuilder($tableManager);
+        $migrationQueriesBuilder = new MigrationQueriesBuilder();
 
         $diffManager = $this->getDiffManagerWithVersionGenerator($migrationQueriesBuilder);
 
@@ -132,9 +129,7 @@ class MigrationManagerTest extends AbstractBasePdoMySqlTest
      */
     public function testMigrateSimpleTwice()
     {
-        $tableManager = new TableManager();
-
-        $migrationQueriesBuilder = new MigrationQueriesBuilder($tableManager);
+        $migrationQueriesBuilder = new MigrationQueriesBuilder();
 
         $diffManager = $this->getDiffManagerWithVersionGenerator($migrationQueriesBuilder);
 

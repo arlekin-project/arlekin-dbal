@@ -583,6 +583,52 @@ class MySqlHelperTest extends AbstractBasePdoMySqlTest
             MySqlHelper::generateMySqlCommitQuery()
         );
     }
+    
+    /**
+     * @covers Arlekin\Dbal\SqlBased\Element\Table::columnsAreSameIgnoreAutoIncrement
+     */
+    public function testColumnsAreSameExceptAutoIncrement()
+    {
+        $initColumn1 = new Column();
+        $initColumn2 = new Column();
+        $table = new Table();
+
+        $table->setColumns(
+            [
+                $initColumn1,
+                $initColumn2,
+            ]
+        );
+
+        $table->setName('testTable');
+
+        $initColumn1->setType(ColumnType::TYPE_INT);
+        $initColumn2->setType(ColumnType::TYPE_INT);
+
+        $result = MySqlHelper::columnsAreSameIgnoreAutoIncrement($initColumn1, $initColumn2);
+
+        $this->assertTrue($result);
+
+        $column1 = clone $initColumn1;
+        $column2 = clone $initColumn2;
+
+        $column1->setAutoIncrement(true);
+        $column2->setAutoIncrement(false);
+
+        $result2 = MySqlHelper::columnsAreSameIgnoreAutoIncrement($column1, $column2);
+
+        $this->assertTrue($result2);
+
+        $column1 = clone $initColumn1;
+        $column2 = clone $initColumn2;
+
+        $column1->setName('test');
+        $column2->setName('test2');
+
+        $result3 = MySqlHelper::columnsAreSameIgnoreAutoIncrement($column1, $column2);
+
+        $this->assertFalse($result3);
+    }
 
     /**
      * @return ForeignKey

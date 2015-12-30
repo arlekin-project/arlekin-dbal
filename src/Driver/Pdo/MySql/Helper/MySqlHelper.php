@@ -16,6 +16,7 @@ use Arlekin\Dbal\Driver\Pdo\MySql\Element\Index;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\IndexKind;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
 use Arlekin\Dbal\Driver\Pdo\MySql\Exception\PdoMySqlDriverException;
+use Arlekin\Dbal\Helper\ArrayHelper;
 
 /**
  * To help dealing with MySQL database related operations.
@@ -462,6 +463,29 @@ class MySqlHelper
     public static function generateMySqlCommitQuery()
     {
         return 'COMMIT';
+    }
+    
+    /**
+     * Whether there's a difference between the two columns
+     * and that difference concerns the autoincrement
+     *
+     * @param Column $column1
+     * @param Column $column2
+     *
+     * @return bool
+     */
+    public static function columnsAreSameIgnoreAutoIncrement(Column $column1, Column $column2)
+    {
+        $column1AsArray = $column1->toArray();
+        $column2AsArray = $column2->toArray();
+
+        $diff = ArrayHelper::arrayDiffRecursive($column1AsArray, $column2AsArray);
+        $diff1 = ArrayHelper::arrayDiffRecursive($column2AsArray, $column1AsArray);
+
+        unset($diff['autoIncrement']);
+        unset($diff1['autoIncrement']);
+
+        return empty($diff) && empty($diff1);
     }
 
     /**

@@ -9,12 +9,12 @@
 
 namespace Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder;
 
+use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\View;
 use Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper;
-use Arlekin\Dbal\Driver\Pdo\MySql\Manager\TableManager;
 use Arlekin\Dbal\Helper\ArrayHelper;
 
 /**
@@ -24,23 +24,6 @@ use Arlekin\Dbal\Helper\ArrayHelper;
  */
 class MigrationQueriesBuilder
 {
-    /**
-     * A TableManager instance.
-     *
-     * @var TableManager
-     */
-    protected $tableManager;
-
-    /**
-     * Constructor.
-     *
-     * @param TableManager $tableManager
-     */
-    public function __construct(TableManager $tableManager)
-    {
-        $this->tableManager = $tableManager;
-    }
-
     /**
      * Builds and gets the MySQL queries to migrate
      * from the current database schema to a given destination schema.
@@ -218,14 +201,14 @@ class MigrationQueriesBuilder
                 foreach ($originalColumns as $originalColumn) {
                     $columnName = $originalColumn->getName();
                         //but the the column does not
-                        if (!$this->tableManager->hasColumnWithName($destinationTable, $columnName)) {
+                        if (!$destinationTable->hasColumnWithName($columnName)) {
                             $doDropColumn = true;
                         } else {
                             //or the column does not
                             //have the same definition
-                            $destinationColumn = $this->tableManager->getColumnWithName($destinationTable, $columnName);
+                            $destinationColumn = $destinationTable->getColumnWithName($columnName);
 
-                            $areSameIgnoreAutoIncrement = $this->tableManager->columnsAreSameIgnoreAutoIncrement(
+                            $areSameIgnoreAutoIncrement = MySqlHelper::columnsAreSameIgnoreAutoIncrement(
                                 $destinationColumn,
                                 $originalColumn
                             );
@@ -297,14 +280,14 @@ class MigrationQueriesBuilder
 
                     //but the
                     //the index does not
-                    if (!$this->tableManager->hasIndexWithName($destinationTable, $originalIndexName)) {
+                    if (!$destinationTable->hasIndexWithName($originalIndexName)) {
                         $doDropIndex = true;
                     } else {
                         //or the index does not
                         //have the same definition
 
                         $originalIndexAsArray = $originalIndex->toArray();
-                        $schemaIndex = $this->tableManager->getIndexWithName($destinationTable, $originalIndexName);
+                        $schemaIndex = $destinationTable->getIndexWithName($originalIndexName);
                         $schemaIndexAsArray = $schemaIndex->toArray();
 
                         $areSame = ArrayHelper::arraysAreSameRecursive($originalIndexAsArray, $schemaIndexAsArray);
@@ -367,7 +350,7 @@ class MigrationQueriesBuilder
 
                     //but the
                     //the foreign key does not
-                    if (!$this->tableManager->hasForeignKeyWithColumnsAndReferencedColumnsNamed($destinationTable, $originalColumnsNames, $originalReferencedTableName, $originalReferencedColumnsNames)) {
+                    if (!$destinationTable->hasForeignKeyWithColumnsAndReferencedColumnsNamed($originalColumnsNames, $originalReferencedTableName, $originalReferencedColumnsNames)) {
                         $stringId = MySqlHelper::getForeignKeyUniqueNameFromForeignKeyAsArray($originalForeignKeyAsArray);
 
                         $dropIndex = 'ALTER TABLE '
@@ -451,7 +434,7 @@ class MigrationQueriesBuilder
 
                 $originalPrimaryKeyAsArray = $originalTable->getPrimaryKey()->toArray();
 
-                if (!$this->tableManager->hasPrimaryKeyWithColumnsNamed($destinationTable, $originalPrimaryKeyAsArray['columns'])) {
+                if (!$destinationTable->hasPrimaryKeyWithColumnsNamed($originalPrimaryKeyAsArray['columns'])) {
                     $dropPrimaryKeyQuery = 'ALTER TABLE '
                         .MySqlHelper::backquoteTableOrColumnName(
                             $originalTableName
@@ -612,7 +595,7 @@ class MigrationQueriesBuilder
                 foreach ($indexes as $index) {
                     $indexName = $index->getName();
 
-                    if (!$this->tableManager->hasIndexWithName($originalTable, $indexName)) {
+                    if (!$originalTable->hasIndexWithName($indexName)) {
                         $query = MySqlHelper::generateCreateAlterTableCreateIndexSql($index);
 
                         $createIndexesSqlQueries[] = $query;
@@ -647,7 +630,7 @@ class MigrationQueriesBuilder
                 foreach ($destinationColumns as $destinationColumn) {
                     $destinationColumnName = $destinationColumn->getName();
 
-                    if (!$this->tableManager->hasColumnWithName($originalTable, $destinationColumnName)) {
+                    if (!$originalTable->hasColumnWithName($destinationColumnName)) {
                         $createColumnQuery = MySqlHelper::generateCreateAlterTableCreateColumnSql(
                             $destinationColumn
                         );
@@ -814,8 +797,7 @@ class MigrationQueriesBuilder
                     $referencedTableName,
                     $referencedColumnsNames
                 ) use (&$foreignKeysSqlQueries, $originalTable) {
-                    $doCreateForeignKey = !$this->tableManager->hasForeignKeyWithColumnsAndReferencedColumnsNamed(
-                        $originalTable,
+                    $doCreateForeignKey = !$originalTable->hasForeignKeyWithColumnsAndReferencedColumnsNamed(
                         $columnsNames,
                         $referencedTableName,
                         $referencedColumnsNames
@@ -893,8 +875,8 @@ class MigrationQueriesBuilder
                         //and it has the column
                         $originalColumnName = $destinationColumn->getName();
 
-                        if ($this->tableManager->hasColumnWithName($originalTable, $originalColumnName)) {
-                            $originalColumn = $this->tableManager->getColumnWithName($originalTable, $originalColumnName);
+                        if ($originalTable->hasColumnWithName($originalColumnName)) {
+                            $originalColumn = $originalTable->getColumnWithName($originalColumnName);
 
                             //and the autoincrement value is not the same as the one in the destination schema
                             $autoIncrement = $originalColumn->isAutoIncrement() !== $destinationColumn ->isAutoIncrement();
@@ -952,8 +934,8 @@ class MigrationQueriesBuilder
 
                         $originalColumnName = $destinationColumn->getName();
 
-                        if ($this->tableManager->hasColumnWithName($originalTable, $originalColumnName)) {
-                            $originalColumn= $this->tableManager->getColumnWithName($originalTable, $originalColumnName);
+                        if ($originalTable->hasColumnWithName($originalColumnName)) {
+                            $originalColumn= $originalTable->getColumnWithName($originalColumnName);
 
                             //and the autoincrement value is not the same as the one in the destination schema
                             $autoIncrement = $originalColumn->isAutoIncrement() !== $destinationColumn ->isAutoIncrement();

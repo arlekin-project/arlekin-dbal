@@ -9,6 +9,10 @@
 
 namespace Arlekin\Dbal\Driver\Pdo\MySql\Element;
 
+use Arlekin\Dbal\Driver\Pdo\MySql\Exception\PdoMySqlDriverException;
+use Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper;
+use Arlekin\Dbal\Exception\DbalException;
+
 /**
  * Represents a MySQL table.
  *
@@ -326,5 +330,174 @@ class Table
         ];
 
         return $arr;
+    }
+    
+    /**
+     * Whether a foreign key with given column names,
+     * referenced table name and referenced columns name as identifiers
+     * exists.
+     *
+     * @param array $columnsNames
+     * @param string $referencedTableName
+     * @param array $referencedColumnsNames
+     *
+     * @return boolean
+     */
+    public function hasForeignKeyWithColumnsAndReferencedColumnsNamed(
+        array $columnsNames,
+        $referencedTableName,
+        array $referencedColumnsNames
+    ) {
+        $foreignKeyAsArray = [
+            'table' => $this->getName(),
+            'columns' => $columnsNames,
+            'referencedTable' => $referencedTableName,
+            'referencedColumns' => $referencedColumnsNames,
+        ];
+
+        $foreignKeyToRemoveHash = MySqlHelper::getForeignKeyUniqueNameFromForeignKeyAsArray($foreignKeyAsArray);
+
+        $has = false;
+        $foreignKeys = $this->getForeignKeys();
+
+        foreach ($foreignKeys as $tableForeignKey) {
+            $tableForeignKeyHash = MySqlHelper::getForeignKeyUniqueNameFromForeignKey($tableForeignKey);
+
+            if ($tableForeignKeyHash === $foreignKeyToRemoveHash) {
+                $has = true;
+            }
+        }
+
+        return $has;
+    }
+
+    /**
+     * Whether the table has the given column.
+     *
+     * @param Column $column
+     *
+     * @return bool
+     */
+    public function hasColumn(Column $column)
+    {
+        return in_array(
+            $column,
+            $this->getColumns()
+        );
+    }
+
+    /**
+     * Whether the table has a column with given name.
+     *
+     * @param string $columnName
+     *
+     * @return bool
+     */
+    public function hasColumnWithName($columnName)
+    {
+        foreach ($this->getColumns() as $column) {
+            if ($column->getName() === $columnName) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Whether the table has an index with given name.
+     *
+     * @param string $indexName
+     *
+     * @return bool
+     */
+    public function hasIndexWithName($indexName)
+    {
+        foreach ($this->getIndexes() as $index) {
+            if ($index->getName() === $indexName) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Whether the table has a primary key
+     * which columns names are identical to the given column names.
+     *
+     * @param array $columnNames
+     *
+     * @return bool
+     */
+    public function hasPrimaryKeyWithColumnsNamed(array $columnNames)
+    {
+        $primaryKey = $this->getPrimaryKey();
+
+        if ($primaryKey === null) {
+            $hasPrimaryKeyWithColumnsNamed = false;
+        } else {
+            $primaryKeyAsArray = $primaryKey->toArray();
+
+            $hasPrimaryKeyWithColumnsNamed = array_values(
+                $primaryKeyAsArray['columns']
+            ) === array_values(
+                $columnNames
+            );
+        }
+
+        return $hasPrimaryKeyWithColumnsNamed;
+    }
+
+    /**
+     * Gets an index with given name.
+     *
+     * @param string $indexName
+     *
+     * @return Index
+     *
+     * @throws DbalException if no index with given name is found
+     */
+    public function getIndexWithName($indexName)
+    {
+        foreach ($this->getIndexes() as $index) {
+            if ($index->getName() === $indexName) {
+                return $index;
+            }
+        }
+
+        throw new PdoMySqlDriverException(
+            sprintf(
+                'Table "%s" has no index with name "%s".',
+                $this->getName(),
+                $indexName
+            )
+        );
+    }
+
+    /**
+     * Gets a column with given name from given table.
+     *
+     * @param string $columnName
+     *
+     * @return Column
+     *
+     * @throws DbalException
+     */
+    public function getColumnWithName($columnName)
+    {
+        foreach ($this->getColumns() as $column) {
+            if ($column->getName() === $columnName) {
+                return $column;
+            }
+        }
+
+        throw new PdoMySqlDriverException(
+            sprintf(
+                'Table "%s" has no column with name "%s".',
+                $this->getName(),
+                $columnName
+            )
+        );
     }
 }
