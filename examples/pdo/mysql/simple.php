@@ -10,12 +10,18 @@
 
 namespace Arlekin\Examples;
 
+use Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection;
 use Arlekin\Dbal\Driver\Pdo\MySql\Driver;
+use Arlekin\Dbal\Driver\Pdo\MySql\Log\JsonFileAppendQueryLogger;
 use Arlekin\Dbal\Registry;
 
 $aTime = microtime(true);
 
 require_once __DIR__.'/../../../tests/bootstrap.php';
+
+$logFile = '/tmp/log'.uniqid();
+
+$_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections'][0]['logger'] = new JsonFileAppendQueryLogger($logFile);
 
 $dbal = new Registry($_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']);
 
@@ -30,7 +36,19 @@ echo sprintf(
     PHP_EOL
 );
 
-$resultSet = $connection->executeQuery('SELECT 1 AS result FROM Dual');
+/* @var $connection DatabaseConnection */
+
+$resultSet = $connection->executeQuery(
+    'SELECT 1 AS result FROM Dual',
+    [],
+    [
+        'log' => [
+            'payload' => [
+                'requestId' => 'foobar',
+            ],
+        ],
+    ]
+);
 
 echo sprintf(
     'Selected %s from Dual.%s',
@@ -52,3 +70,11 @@ echo sprintf(
     $bTime - $aTime,
     PHP_EOL
 );
+
+echo 'Logged queries in '.$logFile.' file: '.PHP_EOL;
+
+passthru('cat '.$logFile);
+
+echo PHP_EOL;
+
+unlink($logFile);

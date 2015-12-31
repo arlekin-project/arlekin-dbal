@@ -12,7 +12,7 @@ namespace Arlekin\Dbal\Driver\Pdo\MySql;
 use Arlekin\Dbal\Driver\Pdo\MySql\Exception\PdoMySqlDriverException;
 
 /**
- * Represents a MySQL database connection.
+ * A MySQL database connection.
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
@@ -148,10 +148,12 @@ class DatabaseConnection
      * Executes a given query.
      *
      * @param mixed $query
+     * @param array $queryParameters
+     * @param array $otherParameters
      *
      * @return array
      */
-    public function executeQuery($query, array $parameters = [])
+    public function executeQuery($query, array $queryParameters = [], array $otherParameters = [])
     {
         if ($this->connection === null) {
             throw new PdoMySqlDriverException('Trying to execute a query using a non-connected connection.');
@@ -160,7 +162,7 @@ class DatabaseConnection
         $arrayParametersToReplace = [];
         $replaceArrayParametersWith = [];
 
-        foreach ($parameters as $parameterName => $parameter) {
+        foreach ($queryParameters as $parameterName => $parameter) {
             if (is_array($parameter)) {
                 $countParameters = count($parameter);
                 
@@ -171,7 +173,7 @@ class DatabaseConnection
                 for ($i = 0; $i < $countParameters; $i += 1) {
                     $replacementParameterName = "{$parameterName}{$i}";
                     
-                    $parameters[$replacementParameterName] = $parameter[$i];
+                    $queryParameters[$replacementParameterName] = $parameter[$i];
                     
                     $prefixedParameters[] = ":{$replacementParameterName}";
                 }
@@ -180,7 +182,7 @@ class DatabaseConnection
                 
                 unset($prefixedParameters);
                 
-                unset($parameters[$parameterName]);
+                unset($queryParameters[$parameterName]);
             }
         }
         
@@ -198,7 +200,7 @@ class DatabaseConnection
 
         $preparedStatement = $this->connection->prepare($replacedQuery);
 
-        $executeResult = $preparedStatement->execute($parameters);
+        $executeResult = $preparedStatement->execute($queryParameters);
 
         if (!$executeResult) {
             $errorInfo = $preparedStatement->errorInfo();

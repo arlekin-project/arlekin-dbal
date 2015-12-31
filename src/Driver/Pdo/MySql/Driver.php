@@ -18,12 +18,23 @@ class Driver implements DriverInterface
      */
     public function instanciateDatabaseConnection(array $parameters)
     {
-        return new DatabaseConnection(
-            $parameters['host'],
-            $parameters['port'],
-            $parameters['database'],
-            $parameters['user'],
-            $parameters['password']
-        );
+        if (isset($parameters['logger'])) {
+            return new LoggedDatabaseConnection(
+                $parameters['host'],
+                $parameters['port'],
+                $parameters['database'],
+                $parameters['user'],
+                $parameters['password'],
+                $parameters['logger']
+            );
+        } else {
+            return new DatabaseConnection(
+                $parameters['host'],
+                $parameters['port'],
+                $parameters['database'],
+                $parameters['user'],
+                $parameters['password']
+            );
+        }
     }
 }

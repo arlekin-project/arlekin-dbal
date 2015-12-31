@@ -11,6 +11,8 @@ namespace Arlekin\Dbal\Tests\Driver\Pdo\MySql;
 
 use Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection;
 use Arlekin\Dbal\Driver\Pdo\MySql\Driver;
+use Arlekin\Dbal\Driver\Pdo\MySql\LoggedDatabaseConnection;
+use Arlekin\Dbal\Driver\Pdo\MySql\Log\JsonFileAppendQueryLogger;
 
 class DriverTest extends AbstractBasePdoMySqlTest
 {
@@ -32,6 +34,33 @@ class DriverTest extends AbstractBasePdoMySqlTest
         );
 
         $this->assertInstanceOf(DatabaseConnection::class, $connection);
+
+        $this->assertAttributeSame('test_host', 'host', $connection);
+        $this->assertAttributeSame(4242, 'port', $connection);
+        $this->assertAttributeSame('test_database', 'database', $connection);
+        $this->assertAttributeSame('test_user', 'user', $connection);
+        $this->assertAttributeSame('test_password', 'password', $connection);
+    }
+    
+    /**
+     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Driver::instanciateDatabaseConnection
+     */
+    public function testInstanciateDatabaseConnectionWithLogger()
+    {
+        $driver = $this->getDriver();
+
+        $connection = $driver->instanciateDatabaseConnection(
+            [
+                'host' => 'test_host',
+                'port' => 4242,
+                'database' => 'test_database',
+                'user' => 'test_user',
+                'password' => 'test_password',
+                'logger' => new JsonFileAppendQueryLogger('/dev/null'),
+            ]
+        );
+
+        $this->assertInstanceOf(LoggedDatabaseConnection::class, $connection);
 
         $this->assertAttributeSame('test_host', 'host', $connection);
         $this->assertAttributeSame(4242, 'port', $connection);
