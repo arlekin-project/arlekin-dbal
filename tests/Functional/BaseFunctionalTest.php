@@ -7,15 +7,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests;
+namespace Arlekin\Dbal\Tests\Functional;
 
-use PHPUnit_Framework_TestCase;
+use Arlekin\Dbal\Tests\BaseTest;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-abstract class AbstractBaseTest extends PHPUnit_Framework_TestCase
-{
+abstract class BaseFunctionalTest extends BaseTest
+{    
     protected function setUp()
     {
         parent::setUp();

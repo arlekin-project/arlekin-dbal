@@ -10,10 +10,10 @@
 namespace Arlekin\Dbal\Tests\Unit\Helper;
 
 use Arlekin\Dbal\Helper\DumpHelper;
-use Arlekin\Dbal\Tests\AbstractBaseTest;
+use Arlekin\Dbal\Tests\BaseTest;
 use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
 
-class DumpHelperTest extends AbstractBaseTest
+class DumpHelperTest extends BaseTest
 {
     /**
      * @covers Arlekin\Dbal\Helper\DumpHelper::dumpValue

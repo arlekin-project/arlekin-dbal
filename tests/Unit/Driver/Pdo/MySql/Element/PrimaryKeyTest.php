@@ -12,13 +12,13 @@ namespace Arlekin\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\PrimaryKey;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
-use Arlekin\Dbal\Tests\AbstractBaseTest;
+use Arlekin\Dbal\Tests\BaseTest;
 use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class PrimaryKeyTest extends AbstractBaseTest
+class PrimaryKeyTest extends BaseTest
 {
     /**
      * @covers Arlekin\Dbal\SqlBased\Element\PrimaryKey::__construct

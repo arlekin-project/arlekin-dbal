@@ -16,13 +16,13 @@ use Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnUpdateConstraint;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Index;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\PrimaryKey;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
-use Arlekin\Dbal\Tests\AbstractBaseTest;
+use Arlekin\Dbal\Tests\BaseTest;
 use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class TableTest extends AbstractBaseTest
+class TableTest extends BaseTest
 {
     /**
      * @covers Arlekin\Dbal\SqlBased\Element\Table::__construct

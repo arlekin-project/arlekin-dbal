@@ -22,12 +22,12 @@ use Arlekin\Dbal\Driver\Pdo\MySql\Element\View;
 use Arlekin\Dbal\Driver\Pdo\MySql\Manager\TableManager;
 use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder;
 use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder;
-use Arlekin\Dbal\Tests\AbstractBaseTest;
+use Arlekin\Dbal\Tests\BaseTest;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class MigrationQueriesBuilderTest extends AbstractBaseTest
+class MigrationQueriesBuilderTest extends BaseTest
 {
     /**
      * @var TableManager

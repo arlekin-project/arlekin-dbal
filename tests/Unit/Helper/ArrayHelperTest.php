@@ -10,12 +10,12 @@
 namespace Arlekin\Dbal\Tests\Unit\Helper;
 
 use Arlekin\Dbal\Helper\ArrayHelper;
-use Arlekin\Dbal\Tests\AbstractBaseTest;
+use Arlekin\Dbal\Tests\BaseTest;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class ArrayHelperTest extends AbstractBaseTest
+class ArrayHelperTest extends BaseTest
 {
     /**
      * @covers Arlekin\Dbal\Helper\ArrayHelper::arrayDiffRecursive

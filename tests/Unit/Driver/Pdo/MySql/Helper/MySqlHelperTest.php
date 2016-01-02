@@ -16,12 +16,12 @@ use Arlekin\Dbal\Driver\Pdo\MySql\Element\Index;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\IndexKind;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
 use Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper;
-use Arlekin\Dbal\Tests\AbstractBaseTest;
+use Arlekin\Dbal\Tests\BaseTest;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class MySqlHelperTest extends AbstractBaseTest
+class MySqlHelperTest extends BaseTest
 {
     /**
      * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::betweenParentheses

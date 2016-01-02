@@ -13,9 +13,9 @@ use Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection;
 use Arlekin\Dbal\Driver\Pdo\MySql\Driver;
 use Arlekin\Dbal\Driver\Pdo\MySql\Log\JsonFileAppendQueryLogger;
 use Arlekin\Dbal\Driver\Pdo\MySql\LoggedDatabaseConnection;
-use Arlekin\Dbal\Tests\AbstractBaseTest;
+use Arlekin\Dbal\Tests\BaseTest;
 
-class DriverTest extends AbstractBaseTest
+class DriverTest extends BaseTest
 {
     /**
      * @covers Arlekin\Dbal\Driver\Pdo\MySql\Driver::instanciateDatabaseConnection

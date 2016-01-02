@@ -19,12 +19,12 @@ use Arlekin\Dbal\Driver\Pdo\MySql\Element\Index;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\IndexKind;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
 use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder;
-use Arlekin\Dbal\Tests\AbstractBaseTest;
+use Arlekin\Dbal\Tests\BaseTest;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class SchemaBuilderTest extends AbstractBaseTest
+class SchemaBuilderTest extends BaseTest
 {
     /**
      * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder::getFromDatabase

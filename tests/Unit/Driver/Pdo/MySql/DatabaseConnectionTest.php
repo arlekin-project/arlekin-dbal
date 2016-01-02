@@ -10,13 +10,13 @@
 namespace Arlekin\Dbal\Tests\Unit\Driver\Pdo\MySql;
 
 use Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection;
-use Arlekin\Dbal\Tests\AbstractBaseTest;
+use Arlekin\Dbal\Tests\BaseTest;
 use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class DatabaseConnectionTest extends AbstractBaseTest
+class DatabaseConnectionTest extends BaseTest
 {
     /**
      * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::__construct

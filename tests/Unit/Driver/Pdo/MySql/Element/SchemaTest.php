@@ -12,13 +12,13 @@ namespace Arlekin\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\View;
-use Arlekin\Dbal\Tests\AbstractBaseTest;
+use Arlekin\Dbal\Tests\BaseTest;
 use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class SchemaTest extends AbstractBaseTest
+class SchemaTest extends BaseTest
 {
     /**
      * @covers Arlekin\Dbal\SqlBased\Element\Schema::__construct

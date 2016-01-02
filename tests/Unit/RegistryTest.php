@@ -4,9 +4,9 @@ namespace Arlekin\Dbal\Tests\Unit;
 
 use Arlekin\Dbal\Manager\DatabaseConnectionManager;
 use Arlekin\Dbal\Registry;
-use Arlekin\Dbal\Tests\AbstractBaseTest;
+use Arlekin\Dbal\Tests\BaseTest;
 
-class RegistryTest extends AbstractBaseTest
+class RegistryTest extends BaseTest
 {
     public function testConstruct()
     {

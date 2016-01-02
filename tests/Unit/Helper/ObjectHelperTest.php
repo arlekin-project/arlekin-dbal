@@ -10,13 +10,13 @@
 namespace Arlekin\Dbal\Tests\Unit\Helper;
 
 use Arlekin\Dbal\Helper\ObjectHelper;
-use Arlekin\Dbal\Tests\AbstractBaseTest;
+use Arlekin\Dbal\Tests\BaseTest;
 use Arlekin\Dbal\Tests\Unit\Fixtures\DummyObject;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class ObjectHelperTest extends AbstractBaseTest
+class ObjectHelperTest extends BaseTest
 {
     /**
      * @covers Arlekin\Dbal\Helper\ObjectHelper::forcePropertyAccessible

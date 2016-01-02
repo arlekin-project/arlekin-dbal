@@ -13,9 +13,9 @@ use Arlekin\Dbal\DatabaseConnectionInterface;
 use Arlekin\Dbal\DriverInterface;
 use Arlekin\Dbal\Manager\DatabaseConnectionManager;
 use Arlekin\Dbal\Manager\DatabaseConnectionManagerInterface;
-use Arlekin\Dbal\Tests\AbstractBaseTest;
+use Arlekin\Dbal\Tests\BaseTest;
 
-class DatabaseConnectionManagerTest extends AbstractBaseTest
+class DatabaseConnectionManagerTest extends BaseTest
 {
     /**
      * @var DatabaseConnectionManager

@@ -14,10 +14,10 @@ use Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteConstraint;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnUpdateConstraint;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
-use Arlekin\Dbal\Tests\AbstractBaseTest;
+use Arlekin\Dbal\Tests\BaseTest;
 use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
 
-class ForeignKeyTest extends AbstractBaseTest
+class ForeignKeyTest extends BaseTest
 {
     /**
      * @covers Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey::__construct

@@ -11,14 +11,14 @@ namespace Arlekin\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
-use Arlekin\Dbal\Tests\AbstractBaseTest;
+use Arlekin\Dbal\Tests\BaseTest;
 use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
 use Exception;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class ColumnTest extends AbstractBaseTest
+class ColumnTest extends BaseTest
 {
     /**
      * @covers Arlekin\Dbal\SqlBased\Element\Column::__construct
