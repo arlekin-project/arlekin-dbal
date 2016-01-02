@@ -20,9 +20,14 @@ class AnalyzedQuery
     private $tableByAliasIndex;
     
     /**
-     * @var Parent
+     * @var AnalyzedQuery
      */
     private $analyzedParentQuery;
+    
+    /**
+     * @var array
+     */
+    private $analyzedChildrenQueries;
     
     /**
      * Construct.
@@ -32,6 +37,7 @@ class AnalyzedQuery
         $this->tables = [];
         $this->columnsByTable = [];
         $this->tableByAliasIndex = [];
+        $this->analyzedChildrenQueries = [];
     }
     
     /**
@@ -77,6 +83,8 @@ class AnalyzedQuery
     {
         $this->analyzedParentQuery = $analyzedParentQuery;
         
+        $analyzedParentQuery->addAnalyzedChildQuery($this);
+        
         return $this;
     }
     
@@ -110,5 +118,25 @@ class AnalyzedQuery
     public function getAnalyzedParentQuery()
     {
         return $this->analyzedParentQuery;
+    }
+    
+    /**
+     * @return array
+     */
+    public function getAnalyzedChildrenQueries()
+    {
+        return $this->analyzedChildrenQueries;
+    }
+    
+    /**
+     * @param AnalyzedQuery $analyzedQuery
+     * 
+     * @return AnalyzedQuery
+     */
+    public function addAnalyzedChildQuery(AnalyzedQuery $analyzedQuery)
+    {
+        $this->analyzedChildrenQueries[] = $analyzedQuery;
+        
+        return $this;
     }
 }

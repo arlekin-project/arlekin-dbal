@@ -68,6 +68,8 @@ class QueryAnalyzer
         
         $analyzedQuery = $queryAnalysisResult->getAnalyzedQuery();
         
+        $analyzedQuery->setParentQuery($this->analyzedQuery);
+        
         $tables = $analyzedQuery->getTables();
         
         $columnsByTable = $analyzedQuery->getColumnsByTable();
@@ -87,24 +89,6 @@ class QueryAnalyzer
         foreach ($tableByAliasIndex as $alias => $table) {
             $this->analyzedQuery->addTableByAliasIndex($alias, $table);
         }
-    }
-    
-    private function mergeSchemas(Schema $otherSchema)
-    {
-        $tables = $this->analyzedQuery->getTables();
-        
-        $otherSchemaTables = $otherSchema->getTables();
-                
-        $mergedTables = [];
-        
-        $this->doMergeSchemas($tables, $mergedTables);
-        $this->doMergeSchemas($otherSchemaTables, $mergedTables);
-        
-        $mergedSchema = new Schema();
-        
-        $mergedSchema->setTables(array_values($mergedTables));
-        
-        $this->analyzedQuery = $mergedSchema;
     }
     
     private function addColumnFromWhereLikeExpr(array $whereLikeExpr)

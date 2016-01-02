@@ -45,6 +45,18 @@ class QueryAnalyzerTest extends BasePdoMySqlFunctionalTest
         
         $this->assertColumns([ 'id', ], $query, 'Foo');
         $this->assertColumns([ 'id', ], $query, 'Bar');
+        
+        $this->assertNull($query->getAnalyzedParentQuery());
+        
+        $childrenQueries = $query->getAnalyzedChildrenQueries();
+        
+        $this->assertCount(1, $childrenQueries);
+        
+        $this->assertSame($query, $childrenQueries[0]->getAnalyzedParentQuery());
+        
+        $this->assertTables([ 'Bar', ], $childrenQueries[0]);
+        
+        $this->assertColumns([ 'id', ], $childrenQueries[0], 'Bar');
     }
     
     public function testSelectNoFrom()
@@ -57,8 +69,10 @@ class QueryAnalyzerTest extends BasePdoMySqlFunctionalTest
         
         $tables = $query->getTables();
         
-        //No table
         $this->assertCount(0, $tables);
+        
+        $this->assertNull($query->getAnalyzedParentQuery());
+        $this->assertEmpty($query->getAnalyzedChildrenQueries());
     }
     
     public function testJoin()
@@ -93,6 +107,9 @@ class QueryAnalyzerTest extends BasePdoMySqlFunctionalTest
             $query,
             'Bar'
         );
+        
+        $this->assertNull($query->getAnalyzedParentQuery());
+        $this->assertEmpty($query->getAnalyzedChildrenQueries());
     }
     
     public function testTwoJoins()
@@ -129,6 +146,9 @@ class QueryAnalyzerTest extends BasePdoMySqlFunctionalTest
             $query,
             'Bar'
         );
+        
+        $this->assertNull($query->getAnalyzedParentQuery());
+        $this->assertEmpty($query->getAnalyzedChildrenQueries());
     }
     
     public function testJoinTwoConditions()
@@ -156,6 +176,9 @@ class QueryAnalyzerTest extends BasePdoMySqlFunctionalTest
             $query,
             'Bar'
         );
+        
+        $this->assertNull($query->getAnalyzedParentQuery());
+        $this->assertEmpty($query->getAnalyzedChildrenQueries());
     }
     
     public function testJoinSubQueryCondition()
@@ -163,7 +186,6 @@ class QueryAnalyzerTest extends BasePdoMySqlFunctionalTest
         $analyzer = new QueryAnalyzer();
         
         $result = $analyzer->analyze('SELECT f.id FROM Foo f INNER JOIN Bar b ON b.foobar_id = (SELECT f2.other_column FROM Foo f2)', []);
-        
         
         $query = $result->getAnalyzedQuery();
         
@@ -191,6 +213,18 @@ class QueryAnalyzerTest extends BasePdoMySqlFunctionalTest
             $query,
             'Bar'
         );
+        
+        $this->assertNull($query->getAnalyzedParentQuery());
+        
+        $childrenQueries = $query->getAnalyzedChildrenQueries();
+        
+        $this->assertSame($query, $childrenQueries[0]->getAnalyzedParentQuery());
+        
+        $this->assertCount(1, $childrenQueries);
+        
+        $this->assertTables([ 'Foo', ], $childrenQueries[0]);
+        
+        $this->assertColumns([ 'other_column', ], $childrenQueries[0], 'Foo');
     }
     
     public function testWhere()
@@ -235,7 +269,6 @@ class QueryAnalyzerTest extends BasePdoMySqlFunctionalTest
     
     private function doAssertTestSimpleSelectResult(QueryAnalysisResult $result)
     {
-        //Table Foo
         $query = $result->getAnalyzedQuery();
         
         $this->assertTables(
@@ -252,6 +285,9 @@ class QueryAnalyzerTest extends BasePdoMySqlFunctionalTest
             $query,
             'Foo'
         );
+        
+        $this->assertNull($query->getAnalyzedParentQuery());
+        $this->assertEmpty($query->getAnalyzedChildrenQueries());
     }
     
     private function doTestWhere(QueryAnalysisResult $result)
@@ -273,5 +309,8 @@ class QueryAnalyzerTest extends BasePdoMySqlFunctionalTest
             $query,
             'Foo'
         );
+        
+        $this->assertNull($query->getAnalyzedParentQuery());
+        $this->assertEmpty($query->getAnalyzedChildrenQueries());
     }
 }
