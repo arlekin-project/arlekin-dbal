@@ -2,34 +2,13 @@
 
 namespace Arlekin\Dbal\Tests\Functional\Driver\Pdo\MySql\Log\Analyzer;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
+use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\AnalyzedQuery;
 use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\QueryAnalysisResult;
 use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\QueryAnalyzer;
 use Arlekin\Dbal\Tests\Functional\Driver\Pdo\MySql\BasePdoMySqlFunctionalTest;
 
 class QueryAnalyzerTest extends BasePdoMySqlFunctionalTest
 {
-    protected function doAssertTestSimpleSelectResult(QueryAnalysisResult $result)
-    {
-        //Table Foo
-        $schema = $result->getSchema();
-        
-        $tables = $schema->getTables();
-        
-        $this->assertCount(1, $tables);
-        $this->assertSame('Foo', $tables[0]->getName());
-        
-        //One id column in table Foo
-        $fooTable = $tables[0];
-        
-        /* @var $fooTable Table */
-        
-        $columns = $fooTable->getColumns();
-        
-        $this->assertCount(1, $columns);
-        $this->assertSame('id', $columns[0]->getName());
-    }
-    
     public function testSelect()
     {                  
         $analyzer = new QueryAnalyzer();
@@ -54,28 +33,18 @@ class QueryAnalyzerTest extends BasePdoMySqlFunctionalTest
         
         $result = $analyzer->analyze('SELECT id, (SELECT id FROM Bar) AS id FROM Foo', []);
         
-        $schema = $result->getSchema();
+        $query = $result->getAnalyzedQuery();
         
-        $tables = $schema->getTables();
+        $this->assertTables(
+            [
+                'Foo',
+                'Bar',
+            ],
+            $query
+        );
         
-        //Two table
-        $this->assertCount(2, $tables);
-        
-        //Table Foo
-        $this->assertSame('Foo', $tables[0]->getName());
-        
-        $fooColumns = $tables[0]->getColumns();
-        $this->assertCount(1, $fooColumns);
-        
-        //Table Bar
-        $this->assertSame('Bar', $tables[1]->getName());
-        
-        $barColumns = $tables[1]->getColumns();
-        
-        $this->assertCount(1, $barColumns);
-        
-        //One id column in table Bar
-        $this->assertSame('id', $barColumns[0]->getName());
+        $this->assertColumns([ 'id', ], $query, 'Foo');
+        $this->assertColumns([ 'id', ], $query, 'Bar');
     }
     
     public function testSelectNoFrom()
@@ -84,9 +53,9 @@ class QueryAnalyzerTest extends BasePdoMySqlFunctionalTest
         
         $result = $analyzer->analyze('SELECT 1', []);
         
-        $schema = $result->getSchema();
+        $query = $result->getAnalyzedQuery();
         
-        $tables = $schema->getTables();
+        $tables = $query->getTables();
         
         //No table
         $this->assertCount(0, $tables);
@@ -98,32 +67,32 @@ class QueryAnalyzerTest extends BasePdoMySqlFunctionalTest
         
         $result = $analyzer->analyze('SELECT f.id FROM Foo f INNER JOIN Bar b ON b.foobar_id = f.other_column', []);
         
-        //Two tables
+        $query = $result->getAnalyzedQuery();
         
-        $schema = $result->getSchema();
+        $this->assertTables(
+            [
+                'Foo',
+                'Bar',
+            ],
+            $query
+        );
         
-        $tables = $schema->getTables();
+        $this->assertColumns(
+            [
+                'other_column',
+                'id',
+            ],
+            $query,
+            'Foo'
+        );
         
-        $this->assertCount(2, $tables);
-        
-        //Table Foo
-        $this->assertSame('Foo', $tables[0]->getName());
-        
-        //Table Bar
-        $this->assertSame('Bar', $tables[1]->getName());
-        
-        $fooColumns = $tables[0]->getColumns();
-        
-        //One other_column column in table Foo
-        $this->assertSame('other_column', $fooColumns[0]->getName());
-        
-        //One id column in table Foo
-        $this->assertSame('id', $fooColumns[1]->getName());
-        
-        $barColumns = $tables[1]->getColumns();
-        
-        //One foobar_id column in table Bar
-        $this->assertSame('foobar_id', $barColumns[0]->getName());
+        $this->assertColumns(
+            [
+                'foobar_id',
+            ],
+            $query,
+            'Bar'
+        );
     }
     
     public function testTwoJoins()
@@ -132,38 +101,34 @@ class QueryAnalyzerTest extends BasePdoMySqlFunctionalTest
         
         $result = $analyzer->analyze('SELECT f.id FROM Foo f INNER JOIN Bar b ON b.foobar_id = f.other_column INNER JOIN Baz ba ON ba.foobar_id = f.other_column2', []);
         
-        //Three tables
+        $query = $result->getAnalyzedQuery();
         
-        $schema = $result->getSchema();
+        $this->assertTables(
+            [
+                'Foo',
+                'Bar',
+                'Baz',
+            ],
+            $query
+        );
         
-        $tables = $schema->getTables();
+        $this->assertColumns(
+            [
+                'other_column',
+                'other_column2',
+                'id',
+            ],
+            $query,
+            'Foo'
+        );
         
-        $this->assertCount(3, $tables);
-        
-        //Table Foo
-        $this->assertSame('Foo', $tables[0]->getName());
-        
-        //Table Bar
-        $this->assertSame('Bar', $tables[1]->getName());
-        
-        //Table Baz
-        $this->assertSame('Baz', $tables[2]->getName());
-        
-        $fooColumns = $tables[0]->getColumns();
-        
-        //One other_column column in table Foo
-        $this->assertSame('other_column', $fooColumns[0]->getName());
-        
-        //One other_column2 column in table Foo
-        $this->assertSame('other_column2', $fooColumns[1]->getName());
-        
-        //One id column in table Foo
-        $this->assertSame('id', $fooColumns[2]->getName());
-        
-        $barColumns = $tables[1]->getColumns();
-        
-        //One foobar_id column in table Bar
-        $this->assertSame('foobar_id', $barColumns[0]->getName());
+        $this->assertColumns(
+            [
+                'foobar_id',
+            ],
+            $query,
+            'Bar'
+        );
     }
     
     public function testJoinTwoConditions()
@@ -172,35 +137,25 @@ class QueryAnalyzerTest extends BasePdoMySqlFunctionalTest
         
         $result = $analyzer->analyze('SELECT f.id FROM Foo f INNER JOIN Bar b ON b.foobar_id = f.other_column OR b.foobar_id = f.other_column2', []);
         
-        //Two tables
+        $query = $result->getAnalyzedQuery();
         
-        $schema = $result->getSchema();
+        $this->assertColumns(
+            [
+                'other_column',
+                'other_column2',
+                'id',
+            ],
+            $query,
+            'Foo'
+        );
         
-        $tables = $schema->getTables();
-        
-        $this->assertCount(2, $tables);
-        
-        //Table Foo
-        $this->assertSame('Foo', $tables[0]->getName());
-        
-        //Table Bar
-        $this->assertSame('Bar', $tables[1]->getName());
-        
-        $fooColumns = $tables[0]->getColumns();
-        
-        //One other_column column in table Foo
-        $this->assertSame('other_column', $fooColumns[0]->getName());
-        
-        //One other_column2 column in table Foo
-        $this->assertSame('other_column2', $fooColumns[1]->getName());
-        
-        //One id column in table Foo
-        $this->assertSame('id', $fooColumns[2]->getName());
-        
-        $barColumns = $tables[1]->getColumns();
-        
-        //One foobar_id column in table Bar
-        $this->assertSame('foobar_id', $barColumns[0]->getName());
+        $this->assertColumns(
+            [
+                'foobar_id',
+            ],
+            $query,
+            'Bar'
+        );
     }
     
     public function testJoinSubQueryCondition()
@@ -209,54 +164,33 @@ class QueryAnalyzerTest extends BasePdoMySqlFunctionalTest
         
         $result = $analyzer->analyze('SELECT f.id FROM Foo f INNER JOIN Bar b ON b.foobar_id = (SELECT f2.other_column FROM Foo f2)', []);
         
-        //Two tables
         
-        $schema = $result->getSchema();
+        $query = $result->getAnalyzedQuery();
         
-        $tables = $schema->getTables();
+        $this->assertTables(
+            [
+                'Foo',
+                'Bar',
+            ],
+            $query
+        );
         
-        $this->assertCount(2, $tables);
+        $this->assertColumns(
+            [
+                'other_column',
+                'id',
+            ],
+            $query,
+            'Foo'
+        );
         
-        //Table Foo
-        $this->assertSame('Foo', $tables[0]->getName());
-        
-        $fooColumns = $tables[0]->getColumns();
-        
-        //Table Bar
-        $this->assertSame('Bar', $tables[1]->getName());
-        
-        $barColumns = $tables[1]->getColumns();
-        
-        //One other_column column in table Foo
-        $this->assertSame('other_column', $fooColumns[0]->getName());
-        
-        //One id column in table Foo
-        $this->assertSame('id', $fooColumns[1]->getName());
-        
-        //One foobar_id column in table Bar
-        $this->assertSame('foobar_id', $barColumns[0]->getName());
-    }
-    
-    protected function doTestWhere(QueryAnalysisResult $result)
-    {
-        $schema = $result->getSchema();
-        
-        $tables = $schema->getTables();
-        
-        //One table
-        $this->assertCount(1, $tables);
-        
-        //Table Foo
-        $this->assertSame('Foo', $tables[0]->getName());
-        
-        $fooColumns = $tables[0]->getColumns();
-        $this->assertCount(2, $fooColumns);
-        
-        //One baz column in table Foo
-        $this->assertSame('baz', $fooColumns[0]->getName());
-        
-        //One id column in table Foo
-        $this->assertSame('id', $fooColumns[1]->getName());
+        $this->assertColumns(
+            [
+                'foobar_id',
+            ],
+            $query,
+            'Bar'
+        );
     }
     
     public function testWhere()
@@ -275,5 +209,65 @@ class QueryAnalyzerTest extends BasePdoMySqlFunctionalTest
         $result = $analyzer->analyze('SELECT id FROM Foo WHERE baz = 1', []);
         
         $this->doTestWhere($result);
+    }
+    
+    private function assertTables(array $expected, AnalyzedQuery $query)
+    {
+        $actual = $query->getTables();
+        
+        $this->assertSame($expected, array_values($actual));
+        $this->assertSame($expected, array_keys($actual));
+    }
+    
+    private function assertColumns(array $expected, AnalyzedQuery $query, $table)
+    {
+        $columnsByTable = $query->getColumnsByTable();
+        
+        $columns = $columnsByTable[$table];
+        
+        $this->assertSame($expected, array_values($columns));
+        $this->assertSame($expected, array_keys($columns));
+    }
+    
+    private function doAssertTestSimpleSelectResult(QueryAnalysisResult $result)
+    {
+        //Table Foo
+        $query = $result->getAnalyzedQuery();
+        
+        $this->assertTables(
+            [
+                'Foo',
+            ],
+            $query
+        );
+        
+        $this->assertColumns(
+            [
+                'id',
+            ],
+            $query,
+            'Foo'
+        );
+    }
+    
+    private function doTestWhere(QueryAnalysisResult $result)
+    {
+        $query = $result->getAnalyzedQuery();
+        
+        $this->assertTables(
+            [
+                'Foo',
+            ],
+            $query
+        );
+        
+        $this->assertColumns(
+            [
+                'baz',
+                'id',
+            ],
+            $query,
+            'Foo'
+        );
     }
 }

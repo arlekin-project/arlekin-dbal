@@ -2,24 +2,26 @@
 
 namespace Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
-
 class QueryAnalysisResult
 {
     /**
-     * @var Schema
+     * @var AnalyzedQuery
      */
-    protected $schema;
+    private $analyzedQuery;
     
     /**
-     * @param Schema $schema
+     * @param AnalyzedQuery $analyzedQuery
      */
-    public function __construct(Schema $schema)
+    public function __construct(AnalyzedQuery $analyzedQuery)
     {
-        $this->schema = $schema;
+        $this->analyzedQuery = $analyzedQuery;
     }
     
-    public function getSchema() {
-        return $this->schema;
+    /**
+     * @return AnalyzedQuery
+     */
+    public function getAnalyzedQuery()
+    {
+        return $this->analyzedQuery;
     }
 }
