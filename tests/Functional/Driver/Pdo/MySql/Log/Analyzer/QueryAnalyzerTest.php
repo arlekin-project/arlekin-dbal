@@ -211,22 +211,26 @@ class QueryAnalyzerTest extends BasePdoMySqlFunctionalTest
         $this->doTestWhere($result);
     }
     
-    private function assertTables(array $expected, AnalyzedQuery $query)
+    private function doAssertSameKeyValue(array $expected, array $actual)
     {
-        $actual = $query->getTables();
-        
         $this->assertSame($expected, array_values($actual));
         $this->assertSame($expected, array_keys($actual));
+    }
+    
+    private function assertTables(array $expected, AnalyzedQuery $query)
+    {        
+        $actual = $query->getTables();
+        
+        $this->doAssertSameKeyValue($expected, $actual);
     }
     
     private function assertColumns(array $expected, AnalyzedQuery $query, $table)
     {
         $columnsByTable = $query->getColumnsByTable();
-        
+    
         $columns = $columnsByTable[$table];
         
-        $this->assertSame($expected, array_values($columns));
-        $this->assertSame($expected, array_keys($columns));
+        $this->doAssertSameKeyValue($expected, $columns);
     }
     
     private function doAssertTestSimpleSelectResult(QueryAnalysisResult $result)
