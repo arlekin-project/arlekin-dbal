@@ -26,7 +26,7 @@ if (!isset($GLOBALS['arlekin_bootstrap_loaded'])
     );
 
     require $autoloadFilePhp;
-    
+
     $testParametersFilePathName = __DIR__ . '/testParameters.php';
 
     if (file_exists($testParametersFilePathName)) {
@@ -34,9 +34,11 @@ if (!isset($GLOBALS['arlekin_bootstrap_loaded'])
     } else {
         require __DIR__ . '/testParameters.dist.php';
     }
-    
-    $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections']['root'] = $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections'][0];
-    
+
+    $defaultConnection = $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections'][0];
+
+    $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections']['root'] = $defaultConnection;
+
     $rootParameters = &$_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections']['root'];
 
     $rootParameters['user'] = 'root';
@@ -56,7 +58,11 @@ if (!isset($GLOBALS['arlekin_bootstrap_loaded'])
         $rootParameters['password']
     );
 
-    $pdo->exec("CREATE USER 'arlekin'@'%' IDENTIFIED BY 'arlekin';");
-    $pdo->exec("GRANT ALL ON `arlekin`.* TO 'arlekin'@'%';");
+    $pdo->exec("CREATE DATABASE {$defaultConnection['database']};");
+
+    $pdo->exec("CREATE USER '{$defaultConnection['user']}'@'%' IDENTIFIED BY '{$defaultConnection['password']}';");
+
+    $pdo->exec("GRANT ALL ON `{$defaultConnection['database'] }`.* TO '{$defaultConnection['user']}'@'%';");
+
     $pdo->exec("FLUSH PRIVILEGES;");
 }

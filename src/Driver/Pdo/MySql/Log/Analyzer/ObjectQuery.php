@@ -2,33 +2,33 @@
 
 namespace Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer;
 
-class AnalyzedQuery
+class ObjectQuery
 {
     /**
      * @var array
      */
     private $tables;
-    
+
     /**
      * @var array
      */
     private $columnsByTable;
-    
+
     /**
      * @var array
      */
     private $tableByAliasIndex;
-    
+
     /**
-     * @var AnalyzedQuery
+     * @var ObjectQuery
      */
-    private $analyzedParentQuery;
-    
+    private $parentQuery;
+
     /**
      * @var array
      */
-    private $analyzedChildrenQueries;
-    
+    private $childrenQueries;
+
     /**
      * Construct.
      */
@@ -37,19 +37,19 @@ class AnalyzedQuery
         $this->tables = [];
         $this->columnsByTable = [];
         $this->tableByAliasIndex = [];
-        $this->analyzedChildrenQueries = [];
+        $this->childrenQueries = [];
     }
-    
+
     /**
      * @param string $table
      */
     public function addTable($table)
     {
         $this->tables[$table] = $table;
-        
+
         return $this;
     }
-    
+
     /**
      * @param string $table
      * @param string $column
@@ -57,37 +57,37 @@ class AnalyzedQuery
     public function addColumn($table, $column)
     {
         $this->columnsByTable[$table][$column] = $column;
-        
+
         return $this;
     }
-    
+
     /**
      * @param string $alias
      * @param string $table
-     * 
-     * @return AnalyzedQuery
+     *
+     * @return ObjectQuery
      */
     public function addTableByAliasIndex($alias, $table)
     {
         $this->tableByAliasIndex[$alias] = $table;
-        
+
         return $this;
     }
-    
+
     /**
-     * @param AnalyzedQuery $analyzedParentQuery
-     * 
-     * @return AnalyzedQuery
+     * @param ObjectQuery $parentQuery
+     *
+     * @return ObjectQuery
      */
-    public function setParentQuery(AnalyzedQuery $analyzedParentQuery)
+    public function setParentQuery(ObjectQuery $parentQuery)
     {
-        $this->analyzedParentQuery = $analyzedParentQuery;
-        
-        $analyzedParentQuery->addAnalyzedChildQuery($this);
-        
+        $this->parentQuery = $parentQuery;
+
+        $parentQuery->addChildQuery($this);
+
         return $this;
     }
-    
+
     /**
      * @return array
      */
@@ -103,7 +103,7 @@ class AnalyzedQuery
     {
         return $this->columnsByTable;
     }
-    
+
     /**
      * @return array
      */
@@ -113,30 +113,30 @@ class AnalyzedQuery
     }
 
     /**
-     * @return AnalyzedQuery
+     * @return ObjectQuery
      */
     public function getAnalyzedParentQuery()
     {
-        return $this->analyzedParentQuery;
+        return $this->parentQuery;
     }
-    
+
     /**
      * @return array
      */
     public function getAnalyzedChildrenQueries()
     {
-        return $this->analyzedChildrenQueries;
+        return $this->childrenQueries;
     }
-    
+
     /**
-     * @param AnalyzedQuery $analyzedQuery
-     * 
-     * @return AnalyzedQuery
+     * @param ObjectQuery $childQuery
+     *
+     * @return ObjectQuery
      */
-    public function addAnalyzedChildQuery(AnalyzedQuery $analyzedQuery)
+    public function addChildQuery(ObjectQuery $childQuery)
     {
-        $this->analyzedChildrenQueries[] = $analyzedQuery;
-        
+        $this->childrenQueries[] = $childQuery;
+
         return $this;
     }
 }
