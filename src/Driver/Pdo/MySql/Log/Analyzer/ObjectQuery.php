@@ -30,6 +30,11 @@ class ObjectQuery
     private $childrenQueries;
 
     /**
+     * @var array
+     */
+    private $columnsInWhereByTable;
+
+    /**
      * Construct.
      */
     public function __construct()
@@ -38,6 +43,7 @@ class ObjectQuery
         $this->columnsByTable = [];
         $this->tableByAliasIndex = [];
         $this->childrenQueries = [];
+        $this->columnsInWhereByTable = [];
     }
 
     /**
@@ -136,6 +142,20 @@ class ObjectQuery
     public function addChildQuery(ObjectQuery $childQuery)
     {
         $this->childrenQueries[] = $childQuery;
+
+        return $this;
+    }
+
+    public function getColumnsInWhereByTable()
+    {
+        return $this->columnsInWhereByTable;
+    }
+
+    public function addColumnsInWhereByTable($table, array $columns)
+    {
+        $concatColumns = implode(',', $columns);
+
+        $this->columnsInWhereByTable[$table][$concatColumns] = $columns;
 
         return $this;
     }

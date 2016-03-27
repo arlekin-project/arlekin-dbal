@@ -3,6 +3,8 @@
 namespace Arlekin\Dbal\Tests\Functional\Driver\Pdo\MySql\Log\Analyzer;
 
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
+use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
+use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\MissingIndex;
 use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\MissingIndexAnalyzer;
 use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\MissingIndexAnalyzeResult;
 use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\ObjectQueryAnalyzer;
@@ -10,7 +12,7 @@ use Arlekin\Dbal\Tests\Functional\Driver\Pdo\MySql\BasePdoMySqlFunctionalTest;
 
 class MissingIndexAnalyzerTest extends BasePdoMySqlFunctionalTest
 {
-    public function testAnalyzeNoProblem()
+    public function testAnalyzeNoColumnNoProblem()
     {
         $schema = new Schema();
 
@@ -27,13 +29,19 @@ class MissingIndexAnalyzerTest extends BasePdoMySqlFunctionalTest
         $this->assertEmpty($result->getMissingIndexes());
     }
 
-    public function testAnalyzeOneMissingIndex()
+    public function testAnalyzeOneColumnMissingIndex()
     {
         $schema = new Schema();
 
+        $table = new Table();
+
+        $table->setName('Foo');
+
+        $schema->addTable($table);
+
         $objectQueryAnalyzer = new ObjectQueryAnalyzer();
 
-        $objectQueryAnalyzeResult = $objectQueryAnalyzer->analyze('SELECT id FROM Foo WHERE foo;');
+        $objectQueryAnalyzeResult = $objectQueryAnalyzer->analyze('SELECT id FROM Foo AS f WHERE f.foo = 42;');
 
         $missingIndexAnalyzer = new MissingIndexAnalyzer();
 
@@ -41,6 +49,21 @@ class MissingIndexAnalyzerTest extends BasePdoMySqlFunctionalTest
 
         $this->assertInstanceOf(MissingIndexAnalyzeResult::class, $result);
 
-        $this->assertEmpty($result->getMissingIndexes());
+        $missingIndexes = $result->getMissingIndexes();
+
+        $this->assertCount(1, $missingIndexes);
+
+        $missingIndex = $missingIndexes[0];
+
+        /* @var $missingIndex MissingIndex */
+
+        $this->assertSame('Foo', $missingIndex->getTable());
+
+        $this->assertSame(
+            [
+                'foo',
+            ],
+            $missingIndex->getColumns()
+        );
     }
 }

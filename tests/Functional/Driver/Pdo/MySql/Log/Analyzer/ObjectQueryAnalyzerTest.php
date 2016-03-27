@@ -269,6 +269,24 @@ class ObjectQueryAnalyzerTest extends BasePdoMySqlFunctionalTest
         $this->doTestWhere($result);
     }
 
+    public function testWhereInSubQuery()
+    {
+        $analyzer = new ObjectQueryAnalyzer();
+
+        $result = $analyzer->analyze('SELECT (SELECT id FROM Foo WHERE baz = 1) FROM Dual;', []);
+
+        $this->assertSame(
+            [
+                'Foo' => [
+                    'baz' => [
+                        'baz',
+                    ],
+                ],
+            ],
+            $result->getQuery()->getColumnsInWhereByTable()
+        );
+    }
+
     private function doAssertSameKeyValue(array $expected, array $actual)
     {
         $this->assertSame($expected, array_values($actual));
@@ -336,5 +354,16 @@ class ObjectQueryAnalyzerTest extends BasePdoMySqlFunctionalTest
 
         $this->assertNull($query->getAnalyzedParentQuery());
         $this->assertEmpty($query->getAnalyzedChildrenQueries());
+
+        $this->assertSame(
+            [
+                'Foo' => [
+                    'baz' => [
+                        'baz',
+                    ],
+                ],
+            ],
+            $query->getColumnsInWhereByTable()
+        );
     }
 }

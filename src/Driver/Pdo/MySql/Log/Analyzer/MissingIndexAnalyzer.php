@@ -15,10 +15,40 @@ class MissingIndexAnalyzer
      */
     public function analyze(ObjectQueryAnalyzeResult $objectQueryAnalysisResult, Schema $schema)
     {
-        $result = $objectQueryAnalysisResult->getQuery();
+        $query = $objectQueryAnalysisResult->getQuery();
 
-        $columnsByTable = $result->getColumnsByTable();
+        $columnsInWhereByTable = $query->getColumnsInWhereByTable();
 
-        return new MissingIndexAnalyzeResult();
+        $missingIndexes = [];
+
+        $missingIndexResult = new MissingIndexAnalyzeResult();
+
+        foreach ($columnsInWhereByTable as $tableName => $columnsInWhere) {
+            if (!$schema->hasTableWithName($tableName)) {
+                throw new \Arlekin\Dbal\Exception\DbalException(
+                    sprintf('Missing table with name: %s.', $tableName)
+                );
+            }
+
+            $table = $schema->getTableWithName($tableName);
+
+            $indexes = $table->getIndexes();
+
+            $indexesByConcatColumns = [];
+
+            foreach ($columnsInWhere as $columns) {
+                sort($columns);
+
+                $concatColumns = implode(',', $columns);
+
+                if (!isset($indexesByConcatColumns[$concatColumns])) {
+                    $missingIndexes[] = new MissingIndex($table->getName(), $columns);
+                }
+            }
+        }
+
+        $missingIndexResult->setMissingIndexes($missingIndexes);
+
+        return $missingIndexResult;
     }
 }

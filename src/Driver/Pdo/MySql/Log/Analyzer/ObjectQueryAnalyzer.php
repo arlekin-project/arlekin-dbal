@@ -28,22 +28,27 @@ class ObjectQueryAnalyzer
             && 0 !== strpos($expr['base_expr'], '?');
     }
 
-    private function addColumnFromColRef(array $expr)
+    /**
+     * @param array $expr
+     *
+     * @return array
+     *
+     * @throws DbalException
+     */
+    private function getTableAndColumnNamesFromExpr(array $expr)
     {
+        $tables = $this->query->getTables();
+
         $exprType = $expr['expr_type'];
 
         if (!$this->isColRef($expr)) {
             throw new DbalException(sprintf('Expecting colref, got %s.', $exprType));
         }
 
-        $tables = $this->query->getTables();
-
         if ('*' === $expr['base_expr']) {
             $table = array_values($tables)[0];
 
-            $this->query->addColumn($table, '*');
-
-            return;
+            return [ $table, '*' ];
         }
 
         $columnNoQuotesPartsCount = count($expr['no_quotes']['parts']);
@@ -66,7 +71,16 @@ class ObjectQueryAnalyzer
             throw new DbalException(sprintf('Missing table name for column %s.', $expr['base_expr']));
         }
 
-        $this->query->addColumn($table, $column);
+        return [ $table, $column ];
+    }
+
+    private function addColumnFromColRef(array $expr)
+    {
+        $tableAndColumn = $this->getTableAndColumnNamesFromExpr($expr);
+
+        $this->query->addColumn($tableAndColumn[0], $tableAndColumn[1]);
+
+        return $tableAndColumn;
     }
 
     private function mergeWithSubQuery(array $subQuery)
@@ -85,23 +99,45 @@ class ObjectQueryAnalyzer
 
         $tableByAliasIndex = $analyzedQuery->getTableByAliasIndex();
 
+        $columnsInWhereByTable = $analyzedQuery->getColumnsInWhereByTable();
+
         foreach ($tables as $table) {
             $this->query->addTable($table);
+
+            unset($table);
         }
 
         foreach ($columnsByTable as $table => $columns) {
             foreach ($columns as $column) {
                 $this->query->addColumn($table, $column);
+
+                unset($column);
             }
+
+            unset($table, $columns);
         }
 
         foreach ($tableByAliasIndex as $alias => $table) {
             $this->query->addTableByAliasIndex($alias, $table);
+
+            unset($alias, $table);
+        }
+
+        foreach ($columnsInWhereByTable as $table => $columnsInWhere) {
+            foreach ($columnsInWhere as $columns) {
+                $this->query->addColumnsInWhereByTable($table, $columns);
+
+                unset($columns);
+            }
+
+            unset($table, $columnsInWhere);
         }
     }
 
     private function addColumnFromWhereLikeExpr(array $whereLikeExpr)
     {
+        $columnsByTable = [];
+
         foreach ($whereLikeExpr as $clause) {
             $exprType = $clause['expr_type'];
 
@@ -110,10 +146,16 @@ class ObjectQueryAnalyzer
             } elseif ('subquery' === $exprType) {
                 $this->mergeWithSubQuery($clause['sub_tree']);
             } elseif ($this->isColRef($clause)) {
-                $this->addColumnFromColRef($clause);
-            } else {
-                $this->throwUnsupportedRefClause($clause);
+                list($table, $column) = $this->addColumnFromColRef($clause);
+
+                $columnsByTable[$table][] = $column;
             }
+
+            unset($clause);
+        }
+
+        foreach ($columnsByTable as $table => $columns) {
+            $this->query->addColumnsInWhereByTable($table, $columns);
         }
     }
 
@@ -161,6 +203,8 @@ class ObjectQueryAnalyzer
                     sprintf('Unsupported expression type: %s', $exprType)
                 );
             }
+
+            unset($parsedFrom);
         }
     }
 
@@ -184,16 +228,14 @@ class ObjectQueryAnalyzer
                     sprintf('Unsupported expression type: %s', $exprType)
                 );
             }
+
+            unset($parsedSelect);
         }
     }
 
     private function doAnalyseParsedWhere(array $parsedWheres)
     {
-        foreach ($parsedWheres as $parsedWhere) {
-            if ($this->isColRef($parsedWhere)) {
-                $this->addColumnFromColRef($parsedWhere);
-            }
-        }
+        $this->addColumnFromWhereLikeExpr($parsedWheres);
     }
 
     public function analyzeParsedQuery(array $parsedQuery)
