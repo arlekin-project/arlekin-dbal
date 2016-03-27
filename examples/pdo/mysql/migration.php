@@ -32,6 +32,21 @@ $connection = $dbal->getConnectionWithName('pdo_mysql_test');
 
 /* @var $connection DatabaseConnection */
 
+$descFoo = function () use ($connection) {
+    echo 'Execute query: DESC Foo'.PHP_EOL;
+
+    $rs = $connection->executeQuery('DESC Foo');
+
+    echo 'Result:'.PHP_EOL;
+
+    foreach ($rs as $r) {
+        foreach ($r as $field => $value) {
+            echo '    '.$field.': '.$value.PHP_EOL;
+        }
+        echo '----'.PHP_EOL;
+    }
+};
+
 $newSchema = new Schema();
 
 $table = new Table();
@@ -48,6 +63,17 @@ $table->addColumn($column);
 
 $newSchema->addTable($table);
 
+$connection->connect();
+
+echo sprintf(
+    'Connected.%s',
+    PHP_EOL
+);
+
+echo 'Droping dev database "'.$_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections'][0]['database'].'"...'.PHP_EOL;
+
+$connection->dropAllDatabaseStructure();
+
 $migrationQueriesBuilder = new MigrationQueriesBuilder();
 
 $migrationQueries = $migrationQueriesBuilder->getMigrationSqlQueries(new Schema(), $newSchema);
@@ -62,33 +88,7 @@ $echoMigrationQueries = function ($migrationQueries) {
 
 $echoMigrationQueries($migrationQueries);
 
-$connection->connect();
-
-echo sprintf(
-    'Connected.%s',
-    PHP_EOL
-);
-
-echo 'Droping dev database "'.$_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections'][0]['database'].'"...'.PHP_EOL;
-
-$connection->dropAllDatabaseStructure();
-
 $connection->executeMultipleQueries($migrationQueries);
-
-$descFoo = function () use ($connection) {
-    echo 'Execute query: DESC Foo'.PHP_EOL;
-
-    $rs = $connection->executeQuery('DESC Foo');
-
-    echo 'Result:'.PHP_EOL;
-    
-    foreach ($rs as $r) {
-        foreach ($r as $field => $value) {
-            echo '    '.$field.': '.$value.PHP_EOL;
-        }
-        echo '----'.PHP_EOL;
-    }
-};
 
 $descFoo();
 
