@@ -188,4 +188,126 @@ class MissingIndexAnalyzerTest extends BasePdoMySqlFunctionalTest
 
         $this->assertCount(0, $missingIndexes);
     }
+
+    public function testAnalyzeTwoTableOneColumnInEachNoMissingIndex()
+    {
+        $schema = new Schema();
+
+        $fooTable = new Table();
+
+        $fooTable->setName('Foo');
+
+        $barTable = new Table();
+
+        $barTable->setName('Bar');
+
+        $fooColumn = new Column();
+
+        $fooColumn->setName('foo');
+
+        $fooTable->addColumn($fooColumn);
+
+        $barColumn = new Column();
+
+        $barColumn->setName('bar');
+
+        $barTable->addColumn($barColumn);
+
+        $fooIndex = new Index();
+
+        $fooIndex->addColumn($fooColumn);
+
+        $fooTable->addIndex($fooIndex);
+
+        $barIndex = new Index();
+
+        $barIndex->addColumn($barColumn);
+
+        $barTable->addIndex($barIndex);
+
+        $schema->addTable($fooTable);
+        $schema->addTable($barTable);
+
+        $objectQueryAnalyzer = new ObjectQueryAnalyzer();
+
+        $objectQueryAnalyzeResult = $objectQueryAnalyzer->analyze('SELECT id FROM Foo AS f, Bar AS b WHERE f.foo = 42 AND b.bar = 43;');
+
+        $missingIndexAnalyzer = new MissingIndexAnalyzer();
+
+        $result = $missingIndexAnalyzer->analyze($objectQueryAnalyzeResult, $schema);
+
+        $this->assertInstanceOf(MissingIndexAnalyzeResult::class, $result);
+
+        $missingIndexes = $result->getMissingIndexes();
+
+        $this->assertCount(0, $missingIndexes);
+    }
+
+    public function testAnalyzeTwoTableTwoColumnsInEachNoMissingIndex()
+    {
+        $schema = new Schema();
+
+        $fooTable = new Table();
+
+        $fooTable->setName('Foo');
+
+        $barTable = new Table();
+
+        $barTable->setName('Bar');
+
+        $fooColumn = new Column();
+
+        $fooColumn->setName('foo');
+
+        $fooTable->addColumn($fooColumn);
+
+        $foo2Column = new Column();
+
+        $foo2Column->setName('foo2');
+
+        $fooTable->addColumn($foo2Column);
+
+        $barColumn = new Column();
+
+        $barColumn->setName('bar');
+
+        $barTable->addColumn($barColumn);
+
+        $bar2Column = new Column();
+
+        $bar2Column->setName('bar2');
+
+        $barTable->addColumn($bar2Column);
+
+        $fooIndex = new Index();
+
+        $fooIndex->addColumn($fooColumn);
+        $fooIndex->addColumn($foo2Column);
+
+        $fooTable->addIndex($fooIndex);
+
+        $barIndex = new Index();
+
+        $barIndex->addColumn($barColumn);
+        $barIndex->addColumn($bar2Column);
+
+        $barTable->addIndex($barIndex);
+
+        $schema->addTable($fooTable);
+        $schema->addTable($barTable);
+
+        $objectQueryAnalyzer = new ObjectQueryAnalyzer();
+
+        $objectQueryAnalyzeResult = $objectQueryAnalyzer->analyze('SELECT id FROM Foo AS f, Bar AS b WHERE f.foo = 42 AND f.foo2 = 43 AND b.bar = 44 AND b.bar2 = 45;');
+
+        $missingIndexAnalyzer = new MissingIndexAnalyzer();
+
+        $result = $missingIndexAnalyzer->analyze($objectQueryAnalyzeResult, $schema);
+
+        $this->assertInstanceOf(MissingIndexAnalyzeResult::class, $result);
+
+        $missingIndexes = $result->getMissingIndexes();
+
+        $this->assertCount(0, $missingIndexes);
+    }
 }
