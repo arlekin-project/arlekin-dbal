@@ -2,8 +2,11 @@
 
 namespace Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer;
 
+use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
+use Arlekin\Dbal\Driver\Pdo\MySql\Element\Index;
 use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
 use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\ObjectQueryAnalyzeResult;
+use Arlekin\Dbal\Exception\DbalException;
 
 class MissingIndexAnalyzer
 {
@@ -25,16 +28,40 @@ class MissingIndexAnalyzer
 
         foreach ($columnsInWhereByTable as $tableName => $columnsInWhere) {
             if (!$schema->hasTableWithName($tableName)) {
-                throw new \Arlekin\Dbal\Exception\DbalException(
+                throw new DbalException(
                     sprintf('Missing table with name: %s.', $tableName)
                 );
             }
 
             $table = $schema->getTableWithName($tableName);
 
+            $indexesByConcatColumns = [];
+
             $indexes = $table->getIndexes();
 
-            $indexesByConcatColumns = [];
+            foreach ($indexes as $index) {
+                /* @var $index Index */
+
+                $columns = $index->getColumns();
+
+                $columnNames = [];
+
+                foreach ($columns as $column) {
+                    /* @var $column Column */
+
+                    $columnNames[] = $column->getName();
+
+                    unset($column);
+                }
+
+                sort($columnNames);
+
+                $concatColumnNames = implode(',', $columnNames);
+
+                $indexesByConcatColumns[$concatColumnNames] = $index;
+
+                unset($index);
+            }
 
             foreach ($columnsInWhere as $columns) {
                 sort($columns);
