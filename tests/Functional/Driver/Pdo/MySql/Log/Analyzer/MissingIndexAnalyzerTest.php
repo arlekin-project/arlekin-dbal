@@ -66,4 +66,43 @@ class MissingIndexAnalyzerTest extends BasePdoMySqlFunctionalTest
             $missingIndex->getColumns()
         );
     }
+
+    public function testAnalyzeTwoColumnsMissingIndex()
+    {
+        $schema = new Schema();
+
+        $table = new Table();
+
+        $table->setName('Foo');
+
+        $schema->addTable($table);
+
+        $objectQueryAnalyzer = new ObjectQueryAnalyzer();
+
+        $objectQueryAnalyzeResult = $objectQueryAnalyzer->analyze('SELECT id FROM Foo AS f WHERE f.foo = 42 AND f.bar = 43;');
+
+        $missingIndexAnalyzer = new MissingIndexAnalyzer();
+
+        $result = $missingIndexAnalyzer->analyze($objectQueryAnalyzeResult, $schema);
+
+        $this->assertInstanceOf(MissingIndexAnalyzeResult::class, $result);
+
+        $missingIndexes = $result->getMissingIndexes();
+
+        $this->assertCount(1, $missingIndexes);
+
+        $missingIndex = $missingIndexes[0];
+
+        /* @var $missingIndex MissingIndex */
+
+        $this->assertSame('Foo', $missingIndex->getTable());
+
+        $this->assertSame(
+            [
+                'bar',
+                'foo',
+            ],
+            $missingIndex->getColumns()
+        );
+    }
 }
