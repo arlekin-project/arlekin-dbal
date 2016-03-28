@@ -2,6 +2,7 @@
 
 namespace Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer;
 
+use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\Exception\InvalidSqlQuery;
 use Arlekin\Dbal\Exception\DbalException;
 use PHPSQLParser\PHPSQLParser;
 
@@ -268,6 +269,15 @@ class ObjectQueryAnalyzer
         $parser = new PHPSQLParser();
 
         $parsedQuery = $parser->parse($query);
+
+        if (false === $parsedQuery) {
+            throw new InvalidSqlQuery(
+                sprintf(
+                    'Invalid SQL query "%s".',
+                    $query
+                )
+            );
+        }
 
         return $this->analyzeParsedQuery($parsedQuery);
     }

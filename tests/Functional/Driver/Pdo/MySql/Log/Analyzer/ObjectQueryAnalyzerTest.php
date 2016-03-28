@@ -2,14 +2,22 @@
 
 namespace Arlekin\Dbal\Tests\Functional\Driver\Pdo\MySql\Log\Analyzer;
 
+use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\Exception\InvalidSqlQuery;
 use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\ObjectQuery;
-use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\ObjectQueryAnalyzeResult;
 use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\ObjectQueryAnalyzer;
+use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\ObjectQueryAnalyzeResult;
 use Arlekin\Dbal\Tests\Functional\Driver\Pdo\MySql\BasePdoMySqlFunctionalTest;
 
 class ObjectQueryAnalyzerTest extends BasePdoMySqlFunctionalTest
 {
-    //TODO Adds SELECT * test
+    public function testInvalidQuery()
+    {
+        $this->setExpectedException(InvalidSqlQuery::class, 'Invalid SQL query "Foobar"');
+
+        $analyzer = new ObjectQueryAnalyzer();
+
+        $analyzer->analyze('Foobar');
+    }
 
     public function testSelect()
     {
