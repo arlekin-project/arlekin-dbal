@@ -67,6 +67,6 @@ $args = array_merge(
 
 passthru(
     __DIR__
-    .'/../vendor/bin/phpdoc project:run '
+    .'/../bin/phpdoc project:run '
     .implode(' ', $args)
 );
