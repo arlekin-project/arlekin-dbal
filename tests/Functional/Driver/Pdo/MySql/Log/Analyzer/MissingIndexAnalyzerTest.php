@@ -310,4 +310,200 @@ class MissingIndexAnalyzerTest extends BasePdoMySqlFunctionalTest
 
         $this->assertCount(0, $missingIndexes);
     }
+
+    public function testAnalyzeJoinMissingIndexesJoinTwoTableOneIndexInEach()
+    {
+        $schema = new Schema();
+
+        $fooTable = new Table();
+
+        $fooTable->setName('Foo');
+
+        $barTable = new Table();
+
+        $barTable->setName('Bar');
+
+        $schema->addTable($fooTable);
+        $schema->addTable($barTable);
+
+        $objectQueryAnalyzer = new ObjectQueryAnalyzer();
+
+        $objectQueryAnalyzeResult = $objectQueryAnalyzer->analyze('SELECT f.id FROM Foo AS f INNER JOIN Bar b ON b.id = f.bar_id;');
+
+        $missingIndexAnalyzer = new MissingIndexAnalyzer();
+
+        $result = $missingIndexAnalyzer->analyze($objectQueryAnalyzeResult, $schema);
+
+        $this->assertInstanceOf(MissingIndexAnalyzeResult::class, $result);
+
+        $missingIndexes = $result->getMissingIndexes();
+
+        $this->assertCount(2, $missingIndexes);
+
+        /* @var $missingIndexes MissingIndex[] */
+
+        $this->assertSame('Bar', $missingIndexes[0]->getTable());
+        $this->assertSame([ 'id' ], $missingIndexes[0]->getColumns());
+
+        $this->assertSame('Foo', $missingIndexes[1]->getTable());
+        $this->assertSame([ 'bar_id' ], $missingIndexes[1]->getColumns());
+    }
+
+    public function testAnalyzeJoinMissingIndexesJoinTwoTableTwoMultiColumnsIndexesInEach()
+    {
+        $schema = new Schema();
+
+        $fooTable = new Table();
+
+        $fooTable->setName('Foo');
+
+        $barTable = new Table();
+
+        $barTable->setName('Bar');
+
+        $schema->addTable($fooTable);
+        $schema->addTable($barTable);
+
+        $objectQueryAnalyzer = new ObjectQueryAnalyzer();
+
+        $objectQueryAnalyzeResult = $objectQueryAnalyzer->analyze('SELECT f.id FROM Foo AS f INNER JOIN Bar b ON b.id = f.bar_id AND b.id_2 = f.bar_id2;');
+
+        $missingIndexAnalyzer = new MissingIndexAnalyzer();
+
+        $result = $missingIndexAnalyzer->analyze($objectQueryAnalyzeResult, $schema);
+
+        $this->assertInstanceOf(MissingIndexAnalyzeResult::class, $result);
+
+        $missingIndexes = $result->getMissingIndexes();
+
+        $this->assertCount(2, $missingIndexes);
+
+        /* @var $missingIndexes MissingIndex[] */
+
+        $this->assertSame('Bar', $missingIndexes[0]->getTable());
+        $this->assertSame([ 'id', 'id_2' ], $missingIndexes[0]->getColumns());
+
+        $this->assertSame('Foo', $missingIndexes[1]->getTable());
+        $this->assertSame([ 'bar_id', 'bar_id2' ], $missingIndexes[1]->getColumns());
+    }
+
+    public function testAnalyzeJoinNoMissingIndexJoinTwoTableOneIndexInEach()
+    {
+        $schema = new Schema();
+
+        $fooTable = new Table();
+
+        $fooTable->setName('Foo');
+
+        $fooBarIdColumn = new Column();
+
+        $fooBarIdColumn->setName('bar_id');
+
+        $fooIndex = new Index();
+
+        $fooIndex->addColumn($fooBarIdColumn);
+
+        $fooTable->addColumn($fooBarIdColumn);
+
+        $fooTable->addIndex($fooIndex);
+
+        $barTable = new Table();
+
+        $barTable->setName('Bar');
+
+        $barIdColumn = new Column();
+
+        $barIdColumn->setName('id');
+
+        $barIndex = new Index();
+
+        $barIndex->addColumn($barIdColumn);
+
+        $barTable->addColumn($barIdColumn);
+
+        $barTable->addIndex($barIndex);
+
+        $schema->addTable($fooTable);
+        $schema->addTable($barTable);
+
+        $objectQueryAnalyzer = new ObjectQueryAnalyzer();
+
+        $objectQueryAnalyzeResult = $objectQueryAnalyzer->analyze('SELECT f.id FROM Foo AS f INNER JOIN Bar b ON b.id = f.bar_id;');
+
+        $missingIndexAnalyzer = new MissingIndexAnalyzer();
+
+        $result = $missingIndexAnalyzer->analyze($objectQueryAnalyzeResult, $schema);
+
+        $this->assertInstanceOf(MissingIndexAnalyzeResult::class, $result);
+
+        $missingIndexes = $result->getMissingIndexes();
+
+        $this->assertCount(0, $missingIndexes);
+    }
+
+    public function testAnalyzeJoinNoMissingIndexJoinTwoTableTwoMultiColumnsIndexesInEach()
+    {
+        $schema = new Schema();
+
+        $fooTable = new Table();
+
+        $fooTable->setName('Foo');
+
+        $fooBarIdColumn = new Column();
+
+        $fooBarIdColumn->setName('bar_id');
+
+        $fooBarId2Column = new Column();
+
+        $fooBarId2Column->setName('bar_id2');
+
+        $fooIndex = new Index();
+
+        $fooIndex->addColumn($fooBarIdColumn);
+        $fooIndex->addColumn($fooBarId2Column);
+
+        $fooTable->addColumn($fooBarIdColumn);
+        $fooTable->addColumn($fooBarId2Column);
+
+        $fooTable->addIndex($fooIndex);
+
+        $barTable = new Table();
+
+        $barTable->setName('Bar');
+
+        $barIdColumn = new Column();
+
+        $barIdColumn->setName('id');
+
+        $barId2Column = new Column();
+
+        $barId2Column->setName('id_2');
+
+        $barIndex = new Index();
+
+        $barIndex->addColumn($barIdColumn);
+        $barIndex->addColumn($barId2Column);
+
+        $barTable->addColumn($barIdColumn);
+        $barTable->addColumn($barId2Column);
+
+        $barTable->addIndex($barIndex);
+
+        $schema->addTable($fooTable);
+        $schema->addTable($barTable);
+
+        $objectQueryAnalyzer = new ObjectQueryAnalyzer();
+
+        $objectQueryAnalyzeResult = $objectQueryAnalyzer->analyze('SELECT f.id FROM Foo AS f INNER JOIN Bar b ON b.id = f.bar_id AND b.id_2 = f.bar_id2;');
+
+        $missingIndexAnalyzer = new MissingIndexAnalyzer();
+
+        $result = $missingIndexAnalyzer->analyze($objectQueryAnalyzeResult, $schema);
+
+        $this->assertInstanceOf(MissingIndexAnalyzeResult::class, $result);
+
+        $missingIndexes = $result->getMissingIndexes();
+
+        $this->assertCount(0, $missingIndexes);
+    }
 }
