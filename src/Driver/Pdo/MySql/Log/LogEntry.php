@@ -7,33 +7,33 @@ class LogEntry
     /**
      * @var string
      */
-    protected $query;
-    
+    private $query;
+
     /**
      * @var array
      */
-    protected $parameters;
-    
+    private $parameters;
+
     /**
      * @var float
      */
-    protected $start;
-    
+    private $start;
+
     /**
      * @var float
      */
-    protected $end;
-    
+    private $end;
+
     /**
      * @var float
      */
-    protected $duration;
-    
+    private $duration;
+
     /**
      * @var mixed
      */
-    protected $payload;
-    
+    private $payload;
+
     public function __construct($query, $parameters, $start, $end, $payload) {
         $this->query = $query;
         $this->parameters = $parameters;

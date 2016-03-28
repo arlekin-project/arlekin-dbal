@@ -21,32 +21,32 @@ class DatabaseConnection
     /**
      * @var \PDO
      */
-    protected $connection;
+    private $connection;
 
     /**
      * @var string
      */
-    protected $host;
+    private $host;
 
     /**
      * @var integer
      */
-    protected $port;
+    private $port;
 
     /**
      * @var string
      */
-    protected $database;
+    private $database;
 
     /**
      * @var string
      */
-    protected $user;
+    private $user;
 
     /**
      * @var string
      */
-    protected $password;
+    private $password;
 
     /**
      * Constructor.
@@ -158,36 +158,36 @@ class DatabaseConnection
         if ($this->connection === null) {
             throw new PdoMySqlDriverException('Trying to execute a query using a non-connected connection.');
         }
-        
+
         $arrayParametersToReplace = [];
         $replaceArrayParametersWith = [];
 
         foreach ($queryParameters as $parameterName => $parameter) {
             if (is_array($parameter)) {
                 $countParameters = count($parameter);
-                
+
                 $arrayParametersToReplace[] = "(:{$parameterName})";
-                
+
                 $prefixedParameters = [];
-                
+
                 for ($i = 0; $i < $countParameters; $i += 1) {
                     $replacementParameterName = "{$parameterName}{$i}";
-                    
+
                     $queryParameters[$replacementParameterName] = $parameter[$i];
-                    
+
                     $prefixedParameters[] = ":{$replacementParameterName}";
                 }
-                
+
                 $replaceArrayParametersWith[] = '('.implode(', ', $prefixedParameters).')';
-                
+
                 unset($prefixedParameters);
-                
+
                 unset($queryParameters[$parameterName]);
             }
         }
-        
+
         unset($parameterName, $parameter, $countParameters);
-        
+
         if (empty($arrayParametersToReplace)) {
             $replacedQuery = $query;
         } else {
@@ -248,7 +248,7 @@ class DatabaseConnection
                     $resultSet = $this->executeQuery($query);
                 } else {
                     $resultSet = $this->executeQuery($query[0], $query[1]);
-                }                
+                }
 
                 $resultSets[] = $resultSet;
             } catch (\Exception $ex) {

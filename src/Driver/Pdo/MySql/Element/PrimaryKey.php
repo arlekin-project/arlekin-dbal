@@ -21,14 +21,14 @@ class PrimaryKey
      *
      * @var Table
      */
-    protected $table;
+    private $table;
 
     /**
      * The primary key's columns.
      *
      * @var array
      */
-    protected $columns;
+    private $columns;
 
     /**
      * Constructor.

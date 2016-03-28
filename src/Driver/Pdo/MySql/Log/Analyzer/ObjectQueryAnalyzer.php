@@ -14,6 +14,32 @@ class ObjectQueryAnalyzer
     private $query;
 
     /**
+     * @param string $query
+     * @param array $parameters
+     *
+     * @return ObjectQueryAnalyzeResult
+     *
+     * @throws DbalException
+     */
+    public function analyze($query, array $parameters = [])
+    {
+        $parser = new PHPSQLParser();
+
+        $parsedQuery = $parser->parse($query);
+
+        if (false === $parsedQuery) {
+            throw new InvalidSqlQuery(
+                sprintf(
+                    'Invalid SQL query "%s".',
+                    $query
+                )
+            );
+        }
+
+        return $this->analyzeParsedQuery($parsedQuery);
+    }
+
+    /**
      * Whether or not given expression is a reference to a column.
      * An expression is considered to be a reference to a column
      * only if its expr_type is colref AND it doesn't start with : or ?
@@ -239,7 +265,7 @@ class ObjectQueryAnalyzer
         $this->addColumnFromWhereLikeExpr($parsedWheres);
     }
 
-    public function analyzeParsedQuery(array $parsedQuery)
+    private function analyzeParsedQuery(array $parsedQuery)
     {
         $this->query = new ObjectQuery();
 
@@ -254,31 +280,5 @@ class ObjectQueryAnalyzer
         $this->doAnalyseParsedSelect($parsedQuery['SELECT']);
 
         return new ObjectQueryAnalyzeResult($this->query);
-    }
-
-    /**
-     * @param string $query
-     * @param array $parameters
-     *
-     * @return ObjectQueryAnalyzeResult
-     *
-     * @throws DbalException
-     */
-    public function analyze($query, array $parameters = [])
-    {
-        $parser = new PHPSQLParser();
-
-        $parsedQuery = $parser->parse($query);
-
-        if (false === $parsedQuery) {
-            throw new InvalidSqlQuery(
-                sprintf(
-                    'Invalid SQL query "%s".',
-                    $query
-                )
-            );
-        }
-
-        return $this->analyzeParsedQuery($parsedQuery);
     }
 }

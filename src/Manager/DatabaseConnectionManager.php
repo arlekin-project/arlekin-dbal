@@ -16,54 +16,65 @@ class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
     /**
      * @var array
      */
-    protected $configuration;
-    
+    private $configuration;
+
     /**
      * @var array
      */
-    protected $configurationByConnectionName;
-    
+    private $configurationByConnectionName;
+
     /**
      * @var array
      */
-    protected $driversByName;
-    
+    private $driversByName;
+
     /**
      * @var array
      */
-    protected $connectionsByName;
+    private $connectionsByName;
 
     /**
      * Constructor.
-     * 
+     *
      * @param array $configuration
      * @param array $driversByName
      */
     public function __construct(array &$configuration, array &$driversByName)
     {
         $this->configuration = &$configuration;
-        
+
         $this->configurationByConnectionName = [];
-        
+
         if (isset($configuration['connections'])) {
             foreach ($configuration['connections'] as $connection) {
                 if (!isset($connection['name'])) {
                     throw new DbalException('Missing name for connection.');
                 }
-                
+
                 $this->configurationByConnectionName[$connection['name']] = $connection;
             }
         }
-        
+
         $this->driversByName = &$driversByName;
-        
+
         $this->connectionsByName = [];
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function instanciateDatabaseConnection(array &$parameters)
+    public function getConnectionWithName($name)
+    {
+        if (!isset($this->connectionsByName[$name])) {
+            $connection = $this->instanciateNamedDatabaseConnection($name);
+
+            $this->connectionsByName[$name] = $connection;
+        }
+
+        return $this->connectionsByName[$name];
+    }
+
+    private function instanciateDatabaseConnection(array &$parameters)
     {
         $driverParameter = $parameters['driver'];
 
@@ -81,10 +92,7 @@ class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
         return $driver->instanciateDatabaseConnection($parameters);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function instanciateNamedDatabaseConnection($name)
+    private function instanciateNamedDatabaseConnection($name)
     {
         if (!isset($this->configurationByConnectionName[$name])) {
             throw new DbalException(
@@ -98,19 +106,5 @@ class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
         return $this->instanciateDatabaseConnection(
             $this->configurationByConnectionName[$name]
         );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getConnectionWithName($name)
-    {
-        if (!isset($this->connectionsByName[$name])) {
-            $connection = $this->instanciateNamedDatabaseConnection($name);
-
-            $this->connectionsByName[$name] = $connection;
-        }
-
-        return $this->connectionsByName[$name];
     }
 }

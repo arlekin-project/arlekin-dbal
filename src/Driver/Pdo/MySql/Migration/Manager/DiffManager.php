@@ -17,16 +17,31 @@ class DiffManager
     /**
      * @var MigrationQueriesBuilder
      */
-    protected $migrationQueriesBuilder;
+    private $migrationQueriesBuilder;
 
     /**
      * @var callable
      */
-    protected $versionGenerator;
+    private $versionGenerator;
 
+    /**
+     * @param MigrationQueriesBuilder $migrationQueriesBuilder
+     */
     public function __construct(MigrationQueriesBuilder $migrationQueriesBuilder)
     {
         $this->migrationQueriesBuilder = $migrationQueriesBuilder;
+    }
+
+    /**
+     * callable $versionGenerator
+     *
+     * @return DiffManager
+     */
+    public function setVersionGenerator(callable $versionGenerator)
+    {
+        $this->versionGenerator = $versionGenerator;
+
+        return $this;
     }
 
     /**
@@ -73,7 +88,7 @@ class DiffManager
      *
      * @return array
      */
-    protected function doGenerateDiffFileContent(Schema $sourceSchema, Schema $destinationSchema)
+    private function doGenerateDiffFileContent(Schema $sourceSchema, Schema $destinationSchema)
     {
         $sqlMigrationsQueries = $this->migrationQueriesBuilder->getMigrationSqlQueries(
             $sourceSchema,
@@ -99,7 +114,7 @@ class DiffManager
         $prefix = 'Version';
 
         $className = sprintf('%s%s', $prefix, $version);
-        
+
         $content = <<<EOT
 <?php
 
@@ -128,24 +143,12 @@ EOT;
     }
 
     /**
-     * callable $versionGenerator
-     *
-     * @return DiffManager
-     */
-    public function setVersionGenerator(callable $versionGenerator)
-    {
-        $this->versionGenerator = $versionGenerator;
-
-        return $this;
-    }
-
-    /**
      * @param strng $diffDestinationDirectory
      * @param string $className
      *
      * @return string
      */
-    protected function getFileName($diffDestinationDirectory, $className)
+    private function getFileName($diffDestinationDirectory, $className)
     {
         return sprintf('%s/%s.php', $diffDestinationDirectory, $className);
     }
@@ -153,7 +156,7 @@ EOT;
     /**
      * @return callable
      */
-    protected function getVersionGenerator()
+    private function getVersionGenerator()
     {
         if (isset($this->versionGenerator)) {
             $val = $this->versionGenerator;

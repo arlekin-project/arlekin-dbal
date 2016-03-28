@@ -18,8 +18,11 @@ class MigrationManager
     /**
      * @var DatabaseConnectionInterface
      */
-    protected $databaseConnection;
+    private $databaseConnection;
 
+    /**
+     * @param DatabaseConnection $databaseConnection
+     */
     public function __construct(DatabaseConnection $databaseConnection)
     {
         $this->databaseConnection = $databaseConnection;
@@ -72,19 +75,19 @@ class MigrationManager
 
             foreach ($fileNames as $filename) {
                 $splFileInfo = new \SplFileInfo($migrationsFolderFullPath.DIRECTORY_SEPARATOR.$filename);
-                
+
                 $extension = $splFileInfo->getExtension();
-                
+
                 if (!($extension === 'php' && strpos($splFileInfo->getBasename(), 'Version') === 0)) {
                     continue;
                 }
-                
+
                 /* @var $file SplFileInfo */
-                
+
                 require $splFileInfo->getRealPath();
 
                 $splFileInfoFilename = $splFileInfo->getFilename();
-                
+
                 $classname = substr(
                     $splFileInfoFilename,
                     0,
@@ -140,7 +143,7 @@ class MigrationManager
     /**
      * @return string
      */
-    protected function getMigrationTableName()
+    private function getMigrationTableName()
     {
         return '_migration';
     }
@@ -149,7 +152,7 @@ class MigrationManager
      * As the name implies, execute a query to create the migration table
      * if it does not exist.
      */
-    protected function createMigrationTableIfNotExists()
+    private function createMigrationTableIfNotExists()
     {
         $this->databaseConnection->executeQuery(
             sprintf(

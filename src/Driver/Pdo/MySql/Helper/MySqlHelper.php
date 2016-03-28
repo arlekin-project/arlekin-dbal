@@ -464,7 +464,7 @@ class MySqlHelper
     {
         return 'COMMIT';
     }
-    
+
     /**
      * Whether there's a difference between the two columns
      * and that difference concerns the autoincrement
@@ -496,7 +496,7 @@ class MySqlHelper
      *
      * @return string the wrapped string
      */
-    protected static function doWrap($string, $between)
+    private static function doWrap($string, $between)
     {
         return $between.$string.$between;
     }
@@ -510,7 +510,7 @@ class MySqlHelper
      *
      * @return string
      */
-    protected static function getForeignKeyUniqueStringIdFromForeignKeyAsArray(array $foreignKeyAsArray)
+    private static function getForeignKeyUniqueStringIdFromForeignKeyAsArray(array $foreignKeyAsArray)
     {
         $columnsNames = $foreignKeyAsArray['columns'];
         $referencedColumnsNames = $foreignKeyAsArray['referencedColumns'];
@@ -535,7 +535,7 @@ class MySqlHelper
      *
      * @return string
      */
-    protected static function getForeignKeyUniqStringIdFromForeignKey(ForeignKey $foreignKey)
+    private static function getForeignKeyUniqStringIdFromForeignKey(ForeignKey $foreignKey)
     {
         return self::getForeignKeyUniqueStringIdFromForeignKeyAsArray(
             $foreignKey->toArray()

@@ -15,48 +15,48 @@ namespace Arlekin\Dbal\Driver\Pdo\MySql\Element;
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
 class ForeignKey
-{    
+{
     /**
      * The table the foreign key belongs to.
      *
      * @var Table
      */
-    protected $table;
+    private $table;
 
     /**
      * The columns that the foreign key uses from the table it belongs to.
      *
      * @var array
      */
-    protected $columns;
+    private $columns;
 
     /**
      * The table the foreign key references.
      *
      * @var Table
      */
-    protected $referencedTable;
+    private $referencedTable;
 
     /**
      * The columns from the referenced table that the foreign key references.
      *
      * @var array
      */
-    protected $referencedColumns;
+    private $referencedColumns;
 
     /**
      * The constraint to be applied on delete on the foreign key.
      *
      * @var string
      */
-    protected $onDelete;
+    private $onDelete;
 
     /**
      * The constraint to be applied on update on the foreign key.
      *
      * @var string
      */
-    protected $onUpdate;
+    private $onUpdate;
 
     /**
      * Constructor.
@@ -65,7 +65,7 @@ class ForeignKey
     {
         $this->columns = [];
         $this->referencedColumns = [];
-        
+
         $this->onDelete = ForeignKeyOnDeleteConstraint::ON_DELETE_RESTRICT;
         $this->onUpdate = ForeignKeyOnUpdateConstraint::ON_UPDATE_RESTRICT;
     }

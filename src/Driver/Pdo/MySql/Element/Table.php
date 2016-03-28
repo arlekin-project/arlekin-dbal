@@ -25,35 +25,35 @@ class Table
      *
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * The table's primary key.
      *
      * @var PrimaryKey|null
      */
-    protected $primaryKey;
+    private $primaryKey;
 
     /**
      * The table's columns.
      *
      * @var array
      */
-    protected $columns;
+    private $columns;
 
     /**
      * The table's foreign keys.
      *
      * @var array
      */
-    protected $foreignKeys;
+    private $foreignKeys;
 
     /**
      * The table's indexes.
      *
      * @var array
      */
-    protected $indexes;
+    private $indexes;
 
     /**
      * Constructor.
@@ -331,7 +331,7 @@ class Table
 
         return $arr;
     }
-    
+
     /**
      * Whether a foreign key with given column names,
      * referenced table name and referenced columns name as identifiers

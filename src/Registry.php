@@ -10,33 +10,33 @@ class Registry
     /**
      * @var DatabaseConnectionManagerInterface
      */
-    protected $databaseConnectionManager;
-    
+    private $databaseConnectionManager;
+
     /**
      * @var array
      */
-    protected $driversByName;
-    
+    private $driversByName;
+
     /**
      * @param array $configuration
      */
     public function __construct(array &$configuration = [])
     {
         $this->driversByName = [];
-        
+
         $this->databaseConnectionManager = new DatabaseConnectionManager($configuration, $this->driversByName);
     }
-    
+
     /**
      * @param string $name
-     * 
+     *
      * @return mixed
      */
     public function getConnectionWithName($name)
     {
         return $this->databaseConnectionManager->getConnectionWithName($name);
     }
-    
+
     /**
      * @param string $name
      * @param DriverInterface $driver

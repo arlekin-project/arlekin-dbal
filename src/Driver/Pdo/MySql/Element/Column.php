@@ -23,42 +23,42 @@ class Column
      *
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * The column's type.
      *
      * @var string
      */
-    protected $type;
+    private $type;
 
     /**
      * Whether the column is nullable.
      *
      * @var bool
      */
-    protected $nullable;
+    private $nullable;
 
     /**
      * Whether the column is autoincrementable.
      *
      * @var bool
      */
-    protected $autoIncrement;
+    private $autoIncrement;
 
     /**
      * The column's parameters.
      *
      * @var array
      */
-    protected $parameters;
+    private $parameters;
 
     /**
      * The table the column belongs to.
      *
      * @var Table
      */
-    protected $table;
+    private $table;
 
     /**
      * Constructor.

@@ -21,28 +21,28 @@ class Index
      *
      * @var string
      */
-    protected $kind;
+    private $kind;
 
     /**
      * The index's name.
      *
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * The table the index belongs to.
      *
      * @var Table
      */
-    protected $table;
+    private $table;
 
     /**
      * The index's columns.
      *
      * @var array
      */
-    protected $columns;
+    private $columns;
 
     /**
      * Constructor.

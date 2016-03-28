@@ -21,14 +21,14 @@ class View
      *
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * The view's definition.
      *
      * @var string
      */
-    protected $definition;
+    private $definition;
 
     /**
      * Gets the view's name.

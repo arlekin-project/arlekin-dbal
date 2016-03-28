@@ -23,14 +23,14 @@ class Schema
      *
      * @var array
      */
-    protected $tables;
+    private $tables;
 
     /**
      * The schema's views.
      *
      * @var array
      */
-    protected $views;
+    private $views;
 
     /**
      * Constructor.
@@ -166,7 +166,7 @@ class Schema
 
         return $arr;
     }
-    
+
     /**
      * Gets the table with given name.
      *
@@ -247,7 +247,7 @@ class Schema
      *
      * @throws PdoMySqlDriverException if no element is found
      */
-    protected function doGetWithName(array $collection, $elementTypeName, $name, $caseSensitive = true)
+    private function doGetWithName(array $collection, $elementTypeName, $name, $caseSensitive = true)
     {
         $elementWithName = null;
 
@@ -291,7 +291,7 @@ class Schema
      *
      * @return boolean
      */
-    protected function doHasWithName(array $collection, $name, $caseSensitive = true)
+    private function doHasWithName(array $collection, $name, $caseSensitive = true)
     {
         $has = false;
 

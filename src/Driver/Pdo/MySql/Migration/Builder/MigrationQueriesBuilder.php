@@ -146,7 +146,7 @@ class MigrationQueriesBuilder
      *
      * @return MigrationQueriesBuilder the current instance
      */
-    protected function makeDropTableQueries(array &$dropTablesQueries, Schema $originalSchema, Schema $destinationSchema)
+    private function makeDropTableQueries(array &$dropTablesQueries, Schema $originalSchema, Schema $destinationSchema)
     {
         $originalTables = $originalSchema->getTables();
 
@@ -181,7 +181,7 @@ class MigrationQueriesBuilder
      *
      * @return MigrationQueriesBuilder the current instance
      */
-    protected function makeDropColumnsQueries(
+    private function makeDropColumnsQueries(
         array &$dropColumnsQueries,
         array &$createColumnsQueries,
         Schema $originalSchema,
@@ -257,7 +257,7 @@ class MigrationQueriesBuilder
      *
      * @return MigrationQueriesBuilder the current instance
      */
-    protected function makeDropIndexesQueries(
+    private function makeDropIndexesQueries(
         array &$dropIndexesQueries,
         array &$createIndexesSqlQueries,
         Schema $originalSchema,
@@ -329,7 +329,7 @@ class MigrationQueriesBuilder
      *
      * @return MigrationQueriesBuilder the current instance
      */
-    protected function makeDropForeignKeysQueries(array &$dropForeignKeysQueries, Schema $originalSchema, Schema $destinationSchema)
+    private function makeDropForeignKeysQueries(array &$dropForeignKeysQueries, Schema $originalSchema, Schema $destinationSchema)
     {
         $originalTables = $originalSchema->getTables();
 
@@ -380,7 +380,7 @@ class MigrationQueriesBuilder
      *
      * @return MigrationQueriesBuilder the current instance
      */
-    protected function makeAlterTableAddPrimaryKeyQuery(array &$createPrimaryKeysSqlQueries, $tableName, array $columnsNames)
+    private function makeAlterTableAddPrimaryKeyQuery(array &$createPrimaryKeysSqlQueries, $tableName, array $columnsNames)
     {
         $sqlPrimaryKey = 'ALTER TABLE '
             .MySqlHelper::backquoteTableOrColumnName(
@@ -414,7 +414,7 @@ class MigrationQueriesBuilder
      *
      * @return MigrationQueriesBuilder the current instance
      */
-    protected function makeDropPrimaryKeyQueries(
+    private function makeDropPrimaryKeyQueries(
         array &$dropPrimaryKeysQueries,
         array &$createPrimaryKeysSqlQueries,
         Schema $originalSchema,
@@ -476,7 +476,7 @@ class MigrationQueriesBuilder
      *
      * @return MigrationQueriesBuilder the current instance
      */
-    protected function makeCreateTableBaseQueries(array &$tablesBasesSqlQueries, Schema $originalSchema, Schema $destinationSchema)
+    private function makeCreateTableBaseQueries(array &$tablesBasesSqlQueries, Schema $originalSchema, Schema $destinationSchema)
     {
         $destinationTables = $destinationSchema->getTables();
 
@@ -494,7 +494,7 @@ class MigrationQueriesBuilder
                 $sqlTableBases .= ' '.MySqlHelper::generateCreateTableColumnsSql($destinationColumns);
 
                 $sqlTableBases .= ' DEFAULT CHARACTER SET utf8 COLLATE utf8_bin';
-                
+
                 $tablesBasesSqlQueries[] = $sqlTableBases;
             }
         }
@@ -516,7 +516,7 @@ class MigrationQueriesBuilder
      *
      * @return MigrationQueriesBuilder the current instance
      */
-    protected function makeCreatePrimaryKeysSqlQueries(array &$createPrimaryKeysSqlQueries, Schema $originalSchema, Schema $destinationSchema)
+    private function makeCreatePrimaryKeysSqlQueries(array &$createPrimaryKeysSqlQueries, Schema $originalSchema, Schema $destinationSchema)
     {
         $destinationTables = $destinationSchema->getTables();
 
@@ -569,7 +569,7 @@ class MigrationQueriesBuilder
      *
      * @return MigrationQueriesBuilder the current instance
      */
-    protected function makeCreateIndexesSqlQueries(array &$createIndexesSqlQueries, Schema $originalSchema, Schema $destinationSchema)
+    private function makeCreateIndexesSqlQueries(array &$createIndexesSqlQueries, Schema $originalSchema, Schema $destinationSchema)
     {
         $destinationTables = $destinationSchema->getTables();
 
@@ -616,7 +616,7 @@ class MigrationQueriesBuilder
      *
      * @return MigrationQueriesBuilder the current instance
      */
-    protected function makeAlterTableCreateColumnsQueries(array &$createColumnsQueries, Schema $originalSchema, Schema $destinationSchema)
+    private function makeAlterTableCreateColumnsQueries(array &$createColumnsQueries, Schema $originalSchema, Schema $destinationSchema)
     {
         $destinationTables = $destinationSchema->getTables();
 
@@ -654,7 +654,7 @@ class MigrationQueriesBuilder
      *
      * @return MigrationQueriesBuilder the current instance
      */
-    protected function makeAlterTableCreateForeignKeysQueriesMakeDoForEachForeignKeys(
+    private function makeAlterTableCreateForeignKeysQueriesMakeDoForEachForeignKeys(
         callable $what,
         Table $table,
         Schema $originalSchema,
@@ -708,7 +708,7 @@ class MigrationQueriesBuilder
      *
      * @return MigrationQueriesBuilder the current instance
      */
-    protected function makeAlterTableCreateForeignKeysQueriesMakeCreateForeignKeySql(
+    private function makeAlterTableCreateForeignKeysQueriesMakeCreateForeignKeySql(
         array &$foreignKeysSqlQueries,
         ForeignKey $foreignKey,
         $tableName,
@@ -775,7 +775,7 @@ class MigrationQueriesBuilder
      *
      * @return MigrationQueriesBuilder the current instance
      */
-    protected function makeAlterTableCreateForeignKeysQueries(array &$foreignKeysSqlQueries, Schema $originalSchema, Schema $destinationSchema)
+    private function makeAlterTableCreateForeignKeysQueries(array &$foreignKeysSqlQueries, Schema $originalSchema, Schema $destinationSchema)
     {
         $destinationTables = $destinationSchema->getTables();
 
@@ -858,7 +858,7 @@ class MigrationQueriesBuilder
      *
      * @return MigrationQueriesBuilder
      */
-    protected function makeAlterTableSetAutoIncrementQueries(array &$alterTableSetAutoIncrementQueries, Schema $originalSchema, Schema $destinationSchema)
+    private function makeAlterTableSetAutoIncrementQueries(array &$alterTableSetAutoIncrementQueries, Schema $originalSchema, Schema $destinationSchema)
     {
         $destinationTables = $destinationSchema->getTables();
 
@@ -916,7 +916,7 @@ class MigrationQueriesBuilder
      *
      * @return MigrationQueriesBuilder
      */
-    protected function makeAlterTableUnsetAutoIncrementQueries(array &$alterTableUnsetAutoIncrementQueries, Schema $originalSchema, Schema $destinationSchema)
+    private function makeAlterTableUnsetAutoIncrementQueries(array &$alterTableUnsetAutoIncrementQueries, Schema $originalSchema, Schema $destinationSchema)
     {
         $destinationTables = $destinationSchema->getTables();
 
@@ -965,7 +965,7 @@ class MigrationQueriesBuilder
      *
      * @return MigrationQueriesBuilder
      */
-    protected function makeDropViewsQueries(array &$dropViewsQueries, Schema $originalSchema, Schema $destinationSchema)
+    private function makeDropViewsQueries(array &$dropViewsQueries, Schema $originalSchema, Schema $destinationSchema)
     {
         $originalSchemaViews = $originalSchema->getViews();
 
@@ -992,7 +992,7 @@ class MigrationQueriesBuilder
      *
      * @return MigrationQueriesBuilder
      */
-    protected function makeCreateViewsQueries(array &$createViewsQueries, Schema $originalSchema, Schema $destinationSchema)
+    private function makeCreateViewsQueries(array &$createViewsQueries, Schema $originalSchema, Schema $destinationSchema)
     {
         $destinationSchemaViews = $destinationSchema->getViews();
 
@@ -1025,7 +1025,7 @@ class MigrationQueriesBuilder
      *
      * @return MigrationQueriesBuilder
      */
-    protected function makeAlterViewsQueries(array& $alterViewsQueries, Schema $originalSchema, Schema $destinationSchema)
+    private function makeAlterViewsQueries(array& $alterViewsQueries, Schema $originalSchema, Schema $destinationSchema)
     {
         $destinationSchemaViews = $destinationSchema->getViews();
 
