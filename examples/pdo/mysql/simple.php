@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Examples;
+namespace Calam\Examples;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection;
-use Arlekin\Dbal\Driver\Pdo\MySql\Driver;
-use Arlekin\Dbal\Driver\Pdo\MySql\Log\JsonFileAppendQueryLogger;
-use Arlekin\Dbal\Registry;
+use Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection;
+use Calam\Dbal\Driver\Pdo\MySql\Driver;
+use Calam\Dbal\Driver\Pdo\MySql\Log\JsonFileAppendQueryLogger;
+use Calam\Dbal\Registry;
 
 $aTime = microtime(true);
 
@@ -21,9 +21,11 @@ require_once __DIR__.'/../../../tests/bootstrap.php';
 
 $logFile = '/tmp/log'.uniqid();
 
-$_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections'][0]['logger'] = new JsonFileAppendQueryLogger($logFile);
+$_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections']['pdo_mysql_test']['logger'] = new JsonFileAppendQueryLogger($logFile);
 
-$dbal = new Registry($_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']);
+$dbalConf = $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal'];
+
+$dbal = new Registry($dbalConf);
 
 $dbal->registerDriver('pdo.mysql', new Driver());
 
@@ -31,10 +33,7 @@ $connection = $dbal->getConnectionWithName('pdo_mysql_test');
 
 $connection->connect();
 
-echo sprintf(
-    'Connected.%s',
-    PHP_EOL
-);
+echo 'Connected.'.PHP_EOL;
 
 /* @var $connection DatabaseConnection */
 
@@ -58,10 +57,7 @@ echo sprintf(
 
 $connection->disconnect();
 
-echo sprintf(
-    'Disconnected.%s',
-    PHP_EOL
-);
+echo 'Disconnected.'.PHP_EOL;
 
 $bTime = microtime(true);
 
@@ -71,9 +67,10 @@ echo sprintf(
     PHP_EOL
 );
 
-echo 'Logged queries in '.$logFile.' file: '.PHP_EOL;
+echo "Logged queries in {$logFile} file.".PHP_EOL;
+echo 'File content was:'.PHP_EOL;
 
-passthru('cat '.$logFile);
+passthru("cat {$logFile}");
 
 echo PHP_EOL;
 

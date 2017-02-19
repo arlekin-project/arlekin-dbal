@@ -1,12 +1,12 @@
 <?php
 
-namespace Arlekin\Dbal\Tests\Functional\Driver\Pdo\MySql\Log\Analyzer;
+namespace Calam\Dbal\Tests\Functional\Driver\Pdo\MySql\Log\Analyzer;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\Exception\InvalidSqlQuery;
-use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\ObjectQuery;
-use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\ObjectQueryAnalyzer;
-use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\ObjectQueryAnalyzeResult;
-use Arlekin\Dbal\Tests\Functional\Driver\Pdo\MySql\BasePdoMySqlFunctionalTest;
+use Calam\Dbal\Driver\Pdo\MySql\Log\Analyzer\Exception\InvalidSqlQuery;
+use Calam\Dbal\Driver\Pdo\MySql\Log\Analyzer\ObjectQuery;
+use Calam\Dbal\Driver\Pdo\MySql\Log\Analyzer\ObjectQueryAnalyzer;
+use Calam\Dbal\Driver\Pdo\MySql\Log\Analyzer\ObjectQueryAnalyzeResult;
+use Calam\Dbal\Tests\Functional\Driver\Pdo\MySql\BasePdoMySqlFunctionalTest;
 
 class ObjectQueryAnalyzerTest extends BasePdoMySqlFunctionalTest
 {

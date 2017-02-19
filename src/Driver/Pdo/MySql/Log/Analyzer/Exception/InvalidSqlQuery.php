@@ -1,8 +1,8 @@
 <?php
 
-namespace Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\Exception;
+namespace Calam\Dbal\Driver\Pdo\MySql\Log\Analyzer\Exception;
 
-use Arlekin\Dbal\Exception\DbalException;
+use Calam\Dbal\Exception\DbalException;
 
 class InvalidSqlQuery extends DbalException
 {

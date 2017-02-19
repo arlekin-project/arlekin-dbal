@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Manager;
+namespace Calam\Dbal\Manager;
 
-use Arlekin\Dbal\Exception\DbalException;
+use Calam\Dbal\Exception\DbalException;
 
 class DatabaseConnectionManager implements DatabaseConnectionManagerInterface
 {

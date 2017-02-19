@@ -1,6 +1,6 @@
 <?php
 
-namespace Arlekin\Dbal\Helper\Dump;
+namespace Calam\Dbal\Helper\Dump;
 
 class RawStringValue
 {

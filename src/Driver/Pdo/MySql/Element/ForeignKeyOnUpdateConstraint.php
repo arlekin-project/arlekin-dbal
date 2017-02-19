@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Driver\Pdo\MySql\Element;
+namespace Calam\Dbal\Driver\Pdo\MySql\Element;
 
 /**
  * Represents a MySQL foreign key on update constraint.

@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Driver\Pdo\MySql\Element;
+namespace Calam\Dbal\Driver\Pdo\MySql\Element;
 
-use Arlekin\Dbal\Exception\DbalException;
+use Calam\Dbal\Exception\DbalException;
 
 /**
  * Represents a MySQL column.

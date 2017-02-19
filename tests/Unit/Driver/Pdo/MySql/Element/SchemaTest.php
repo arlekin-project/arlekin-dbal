@@ -7,13 +7,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
+namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\View;
-use Arlekin\Dbal\Tests\BaseTest;
-use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Schema;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
+use Calam\Dbal\Driver\Pdo\MySql\Element\View;
+use Calam\Dbal\Tests\BaseTest;
+use Calam\Dbal\Tests\Helper\CommonTestHelper;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
@@ -21,7 +21,7 @@ use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
 class SchemaTest extends BaseTest
 {
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Schema::__construct
+     * @covers Calam\Dbal\SqlBased\Element\Schema::__construct
      */
     public function testConstruct()
     {
@@ -32,8 +32,8 @@ class SchemaTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Schema::getTables
-     * @covers Arlekin\Dbal\SqlBased\Element\Schema::setTables
+     * @covers Calam\Dbal\SqlBased\Element\Schema::getTables
+     * @covers Calam\Dbal\SqlBased\Element\Schema::setTables
      */
     public function testGetAndSetTables()
     {
@@ -48,8 +48,8 @@ class SchemaTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Schema::getViews
-     * @covers Arlekin\Dbal\SqlBased\Element\Schema::setViews
+     * @covers Calam\Dbal\SqlBased\Element\Schema::getViews
+     * @covers Calam\Dbal\SqlBased\Element\Schema::setViews
      */
     public function testGetAndSetViews()
     {
@@ -64,7 +64,7 @@ class SchemaTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Schema::toArray
+     * @covers Calam\Dbal\SqlBased\Element\Schema::toArray
      */
     public function testToArray()
     {
@@ -106,8 +106,8 @@ class SchemaTest extends BaseTest
     }
     
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Schema::getTableWithName
-     * @covers Arlekin\Dbal\SqlBased\Element\Schema::doGetWithName
+     * @covers Calam\Dbal\SqlBased\Element\Schema::getTableWithName
+     * @covers Calam\Dbal\SqlBased\Element\Schema::doGetWithName
      */
     public function testGetTableWithName()
     {
@@ -125,8 +125,8 @@ class SchemaTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Schema::getTableWithName
-     * @covers Arlekin\Dbal\SqlBased\Element\Schema::doGetWithName
+     * @covers Calam\Dbal\SqlBased\Element\Schema::getTableWithName
+     * @covers Calam\Dbal\SqlBased\Element\Schema::doGetWithName
      */
     public function testGetTableWithNameExceptionThrownIfNoTableWithName()
     {
@@ -142,8 +142,8 @@ class SchemaTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Schema::hasTableWithName
-     * @covers Arlekin\Dbal\SqlBased\Element\Schema::doHasWithName
+     * @covers Calam\Dbal\SqlBased\Element\Schema::hasTableWithName
+     * @covers Calam\Dbal\SqlBased\Element\Schema::doHasWithName
      */
     public function testHasTableWithName()
     {
@@ -165,8 +165,8 @@ class SchemaTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Schema::getViewWithName
-     * @covers Arlekin\Dbal\SqlBased\Element\Schema::doGetWithName
+     * @covers Calam\Dbal\SqlBased\Element\Schema::getViewWithName
+     * @covers Calam\Dbal\SqlBased\Element\Schema::doGetWithName
      */
     public function testGetViewWithName()
     {
@@ -185,8 +185,8 @@ class SchemaTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Schema::getViewWithName
-     * @covers Arlekin\Dbal\SqlBased\Element\Schema::doGetWithName
+     * @covers Calam\Dbal\SqlBased\Element\Schema::getViewWithName
+     * @covers Calam\Dbal\SqlBased\Element\Schema::doGetWithName
      */
     public function testGetViewWithNameExceptionThrownIfNoViewWithName()
     {
@@ -202,8 +202,8 @@ class SchemaTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Schema::hasViewWithName
-     * @covers Arlekin\Dbal\SqlBased\Element\Schema::doHasWithName
+     * @covers Calam\Dbal\SqlBased\Element\Schema::hasViewWithName
+     * @covers Calam\Dbal\SqlBased\Element\Schema::doHasWithName
      */
     public function testHasViewWithName()
     {

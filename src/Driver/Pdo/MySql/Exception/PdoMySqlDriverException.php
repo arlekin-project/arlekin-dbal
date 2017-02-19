@@ -1,8 +1,8 @@
 <?php
 
-namespace Arlekin\Dbal\Driver\Pdo\MySql\Exception;
+namespace Calam\Dbal\Driver\Pdo\MySql\Exception;
 
-use Arlekin\Dbal\Exception\DbalException;
+use Calam\Dbal\Exception\DbalException;
 
 class PdoMySqlDriverException extends DbalException
 {

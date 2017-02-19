@@ -7,12 +7,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
+namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
-use Arlekin\Dbal\Tests\BaseTest;
-use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
+use Calam\Dbal\Tests\BaseTest;
+use Calam\Dbal\Tests\Helper\CommonTestHelper;
 use Exception;
 
 /**
@@ -21,7 +21,7 @@ use Exception;
 class ColumnTest extends BaseTest
 {
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Column::__construct
+     * @covers Calam\Dbal\SqlBased\Element\Column::__construct
      */
     public function testConstruct()
     {
@@ -53,8 +53,8 @@ class ColumnTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Column::getName
-     * @covers Arlekin\Dbal\SqlBased\Element\Column::setName
+     * @covers Calam\Dbal\SqlBased\Element\Column::getName
+     * @covers Calam\Dbal\SqlBased\Element\Column::setName
      */
     public function testGetAndSetName()
     {
@@ -67,8 +67,8 @@ class ColumnTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Column::getType
-     * @covers Arlekin\Dbal\SqlBased\Element\Column::setType
+     * @covers Calam\Dbal\SqlBased\Element\Column::getType
+     * @covers Calam\Dbal\SqlBased\Element\Column::setType
      */
     public function testGetAndSetType()
     {
@@ -81,8 +81,8 @@ class ColumnTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Column::isNullable
-     * @covers Arlekin\Dbal\SqlBased\Element\Column::setNullable
+     * @covers Calam\Dbal\SqlBased\Element\Column::isNullable
+     * @covers Calam\Dbal\SqlBased\Element\Column::setNullable
      */
     public function testIsAndSetNullable()
     {
@@ -95,8 +95,8 @@ class ColumnTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Column::isAutoIncrement
-     * @covers Arlekin\Dbal\SqlBased\Element\Column::setAutoIncrement
+     * @covers Calam\Dbal\SqlBased\Element\Column::isAutoIncrement
+     * @covers Calam\Dbal\SqlBased\Element\Column::setAutoIncrement
      */
     public function testIsAndSetAutoIncrement()
     {
@@ -109,8 +109,8 @@ class ColumnTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Column::getParameters
-     * @covers Arlekin\Dbal\SqlBased\Element\Column::setParameters
+     * @covers Calam\Dbal\SqlBased\Element\Column::getParameters
+     * @covers Calam\Dbal\SqlBased\Element\Column::setParameters
      */
     public function testGetAndSetParameters()
     {
@@ -125,8 +125,8 @@ class ColumnTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Column::getTable
-     * @covers Arlekin\Dbal\SqlBased\Element\Column::setTable
+     * @covers Calam\Dbal\SqlBased\Element\Column::getTable
+     * @covers Calam\Dbal\SqlBased\Element\Column::setTable
      */
     public function testGetAndSetTable()
     {
@@ -139,7 +139,7 @@ class ColumnTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Column::toArray
+     * @covers Calam\Dbal\SqlBased\Element\Column::toArray
      */
     public function testToArrayNoTableExceptionIfNoTable()
     {
@@ -154,7 +154,7 @@ class ColumnTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Column::toArray
+     * @covers Calam\Dbal\SqlBased\Element\Column::toArray
      */
     public function testToArray()
     {

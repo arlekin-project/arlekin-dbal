@@ -59,7 +59,7 @@ $args = array_merge(
         '--directory="'.$sourceDir.'"',
         '--ignore="'.$ignore.'"',
         '--target="'.$docDir.'"',
-        '--title="Arlekin"',
+        '--title="Calam"',
         '--sourcecode',
     ],
     $argv1

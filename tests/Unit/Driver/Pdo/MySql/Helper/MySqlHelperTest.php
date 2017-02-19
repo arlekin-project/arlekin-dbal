@@ -7,16 +7,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Unit\Driver\Pdo\MySql\Helper;
+namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Helper;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\ColumnType;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Index;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\IndexKind;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
-use Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper;
-use Arlekin\Dbal\Tests\BaseTest;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnType;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
+use Calam\Dbal\Driver\Pdo\MySql\Element\IndexKind;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
+use Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper;
+use Calam\Dbal\Tests\BaseTest;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
@@ -24,7 +24,7 @@ use Arlekin\Dbal\Tests\BaseTest;
 class MySqlHelperTest extends BaseTest
 {
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::betweenParentheses
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::betweenParentheses
      */
     public function testBetweenParentheses()
     {
@@ -35,7 +35,7 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateSqlCollection
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateSqlCollection
      */
     public function testGenerateSqlCollection()
     {
@@ -51,7 +51,7 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateSqlCollectionBetweenParentheses
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateSqlCollectionBetweenParentheses
      */
     public function testGenerateSqlCollectionBetweenParentheses()
     {
@@ -67,8 +67,8 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::wrapString
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::doWrap
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::wrapString
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::doWrap
      */
     public function testWrapString()
     {
@@ -79,7 +79,7 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::wrapStringCollection
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::wrapStringCollection
      */
     public function testWrapStringCollection()
     {
@@ -98,8 +98,8 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::backquoteTableOrColumnName
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::doWrap
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::backquoteTableOrColumnName
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::doWrap
      */
     public function testBackquoteTableOrColumnName()
     {
@@ -110,7 +110,7 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::backquoteArrayOfTableOrColumnNames
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::backquoteArrayOfTableOrColumnNames
      */
     public function testBackquoteArrayOfTableOrColumnNames()
     {
@@ -129,9 +129,9 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::getForeignKeyUniqueNameFromForeignKey
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::getForeignKeyUniqueStringIdFromForeignKeyAsArray
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::getForeignKeyUniqStringIdFromForeignKey
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::getForeignKeyUniqueNameFromForeignKey
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::getForeignKeyUniqueStringIdFromForeignKeyAsArray
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::getForeignKeyUniqStringIdFromForeignKey
      */
     public function testGetForeignKeyUniqueNameFromForeignKey()
     {
@@ -144,8 +144,8 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::getForeignKeyUniqueNameFromForeignKeyAsArray
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::getForeignKeyUniqueStringIdFromForeignKeyAsArray
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::getForeignKeyUniqueNameFromForeignKeyAsArray
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::getForeignKeyUniqueStringIdFromForeignKeyAsArray
      */
     public function testGetForeignKeyUniqueNameFromForeignKeyAsArray()
     {
@@ -158,7 +158,7 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateColumnSql
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateColumnSql
      */
     public function testGenerateColumnSql()
     {
@@ -296,7 +296,7 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateCreateTableColumnsSql
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateCreateTableColumnsSql
      */
     public function testGenerateCreateTableColumnsSql()
     {
@@ -339,7 +339,7 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateCreateAlterTableCreateColumnSql
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateCreateAlterTableCreateColumnSql
      */
     public function testGenerateCreateAlterTableCreateColumnSql()
     {
@@ -366,7 +366,7 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateCreateAlterTableCreateIndexSql
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateCreateAlterTableCreateIndexSql
      */
     public function testGenerateCreateAlterTableCreateIndexSql()
     {
@@ -499,7 +499,7 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-    * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateAlterTableSetAutoIncrementSqlQuery
+    * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateAlterTableSetAutoIncrementSqlQuery
     */
     public function testGenerateAlterTableSetAutoIncrementSqlQuery()
     {
@@ -531,7 +531,7 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-    * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateAlterTableUnsetAutoIncrementSqlQuery
+    * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateAlterTableUnsetAutoIncrementSqlQuery
     */
     public function testGenerateAlterTableUnsetAutoIncrementSqlQuery()
     {
@@ -563,7 +563,7 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-    * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateMySqlStartTransactionQuery
+    * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateMySqlStartTransactionQuery
     */
     public function testGenerateMySqlStartTransactionQuery()
     {
@@ -574,7 +574,7 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-    * @covers Arlekin\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateMySqlCommitQuery
+    * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateMySqlCommitQuery
     */
     public function testGenerateMySqlCommitQuery()
     {
@@ -585,7 +585,7 @@ class MySqlHelperTest extends BaseTest
     }
     
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::columnsAreSameIgnoreAutoIncrement
+     * @covers Calam\Dbal\SqlBased\Element\Table::columnsAreSameIgnoreAutoIncrement
      */
     public function testColumnsAreSameExceptAutoIncrement()
     {

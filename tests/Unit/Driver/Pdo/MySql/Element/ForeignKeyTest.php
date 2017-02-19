@@ -7,20 +7,20 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
+namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteConstraint;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnUpdateConstraint;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
-use Arlekin\Dbal\Tests\BaseTest;
-use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteConstraint;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnUpdateConstraint;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
+use Calam\Dbal\Tests\BaseTest;
+use Calam\Dbal\Tests\Helper\CommonTestHelper;
 
 class ForeignKeyTest extends BaseTest
 {
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey::__construct
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::__construct
      */
     public function testConstruct()
     {
@@ -45,8 +45,8 @@ class ForeignKeyTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey::getTable
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey::setTable
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::getTable
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::setTable
      */
     public function testGetAndSetTable()
     {
@@ -59,8 +59,8 @@ class ForeignKeyTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey::getColumns
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey::setColumns
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::getColumns
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::setColumns
      */
     public function testGetAndSetColumns()
     {
@@ -75,8 +75,8 @@ class ForeignKeyTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey::getReferencedTable
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey::setReferencedTable
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::getReferencedTable
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::setReferencedTable
      */
     public function testGetAndSetReferencedTable()
     {
@@ -89,8 +89,8 @@ class ForeignKeyTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey::getReferencedColumns
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey::setReferencedColumns
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::getReferencedColumns
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::setReferencedColumns
      */
     public function testGetAndSetReferencedColumns()
     {
@@ -105,8 +105,8 @@ class ForeignKeyTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey::getOnDelete
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey::setOnDelete
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::getOnDelete
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::setOnDelete
      */
     public function testGetAndSetOnDelete()
     {
@@ -119,8 +119,8 @@ class ForeignKeyTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey::getOnUpdate
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey::setOnUpdate
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::getOnUpdate
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::setOnUpdate
      */
     public function testGetAndSetOnUpdate()
     {
@@ -133,7 +133,7 @@ class ForeignKeyTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey::toArray
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::toArray
      */
     public function testToArray()
     {

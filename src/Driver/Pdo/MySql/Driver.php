@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Driver\Pdo\MySql;
+namespace Calam\Dbal\Driver\Pdo\MySql;
 
-use Arlekin\Dbal\DriverInterface;
+use Calam\Dbal\DriverInterface;
 
 class Driver implements DriverInterface
 {

@@ -1,6 +1,6 @@
 *
 !.gitignore
-!arlekin-phpcs
-!arlekin-generate-coverage
-!arlekin-generate-documentation
-!arlekin-generate-markdown
+!calam-phpcs
+!calam-generate-coverage
+!calam-generate-documentation
+!calam-generate-markdown

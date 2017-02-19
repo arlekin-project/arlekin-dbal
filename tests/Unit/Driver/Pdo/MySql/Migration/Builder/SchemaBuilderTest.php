@@ -7,19 +7,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Unit\Driver\Pdo\MySql\Migration\Builder;
+namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Migration\Builder;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\ColumnType;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteConstraint;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnUpdateConstraint;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Index;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\IndexKind;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
-use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder;
-use Arlekin\Dbal\Tests\BaseTest;
+use Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnType;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteConstraint;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnUpdateConstraint;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
+use Calam\Dbal\Driver\Pdo\MySql\Element\IndexKind;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
+use Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder;
+use Calam\Dbal\Tests\BaseTest;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
@@ -27,7 +27,7 @@ use Arlekin\Dbal\Tests\BaseTest;
 class SchemaBuilderTest extends BaseTest
 {
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder::getFromDatabase
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder::getFromDatabase
      */
     public function testGetFromDatabaseEmptySchema()
     {
@@ -65,7 +65,7 @@ class SchemaBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder::getFromDatabase
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder::getFromDatabase
      */
     public function testGetFromDatabaseSimpleView()
     {
@@ -119,7 +119,7 @@ class SchemaBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder::getFromDatabase
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder::getFromDatabase
      */
     public function testGetFromDatabaseSimpleTable()
     {
@@ -212,7 +212,7 @@ class SchemaBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder::getFromDatabase
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder::getFromDatabase
      */
     public function testGetFromDatabaseMoreComplexTable()
     {
@@ -388,7 +388,7 @@ class SchemaBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder::getFromDatabase
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder::getFromDatabase
      */
     public function testGetFromDatabaseSimpleTableWithIndexUnique()
     {
@@ -511,7 +511,7 @@ class SchemaBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder::getFromDatabase
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder::getFromDatabase
      */
     public function testGetFromDatabaseSimpleTableWithIndexNonUnique()
     {
@@ -634,7 +634,7 @@ class SchemaBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder::getFromDatabase
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder::getFromDatabase
      */
     public function testGetFromDatabaseSimpleTableWithPrimaryKey()
     {
@@ -745,7 +745,7 @@ class SchemaBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder::getFromDatabase
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder::getFromDatabase
      */
     public function testGetFromDatabaseTwoTablesWithForeignKey()
     {

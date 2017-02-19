@@ -7,13 +7,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
+namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Index;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
-use Arlekin\Dbal\Tests\BaseTest;
-use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
+use Calam\Dbal\Tests\BaseTest;
+use Calam\Dbal\Tests\Helper\CommonTestHelper;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
@@ -21,7 +21,7 @@ use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
 class IndexTest extends BaseTest
 {
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Index::__construct
+     * @covers Calam\Dbal\SqlBased\Element\Index::__construct
      */
     public function testConstruct()
     {
@@ -34,8 +34,8 @@ class IndexTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Index::getKind
-     * @covers Arlekin\Dbal\SqlBased\Element\Index::setKind
+     * @covers Calam\Dbal\SqlBased\Element\Index::getKind
+     * @covers Calam\Dbal\SqlBased\Element\Index::setKind
      */
     public function testGetAndSetKind()
     {
@@ -48,8 +48,8 @@ class IndexTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Index::getName
-     * @covers Arlekin\Dbal\SqlBased\Element\Index::setName
+     * @covers Calam\Dbal\SqlBased\Element\Index::getName
+     * @covers Calam\Dbal\SqlBased\Element\Index::setName
      */
     public function testGetAndSetName()
     {
@@ -62,8 +62,8 @@ class IndexTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Index::getTable
-     * @covers Arlekin\Dbal\SqlBased\Element\Index::setTable
+     * @covers Calam\Dbal\SqlBased\Element\Index::getTable
+     * @covers Calam\Dbal\SqlBased\Element\Index::setTable
      */
     public function testGetAndSetTable()
     {
@@ -76,8 +76,8 @@ class IndexTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Index::getColumns
-     * @covers Arlekin\Dbal\SqlBased\Element\Index::setColumns
+     * @covers Calam\Dbal\SqlBased\Element\Index::getColumns
+     * @covers Calam\Dbal\SqlBased\Element\Index::setColumns
      */
     public function testGetAndSetColumns()
     {
@@ -92,7 +92,7 @@ class IndexTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Index::toArray
+     * @covers Calam\Dbal\SqlBased\Element\Index::toArray
      */
     public function testToArrayNoTable()
     {

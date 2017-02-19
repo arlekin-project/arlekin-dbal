@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Driver\Pdo\MySql\Element;
+namespace Calam\Dbal\Driver\Pdo\MySql\Element;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\Exception\PdoMySqlDriverException;
+use Calam\Dbal\Driver\Pdo\MySql\Exception\PdoMySqlDriverException;
 
 /**
  * Represents a MySQL database.

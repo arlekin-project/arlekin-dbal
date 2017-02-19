@@ -1,12 +1,12 @@
 <?php
 
-namespace Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer;
+namespace Calam\Dbal\Driver\Pdo\MySql\Log\Analyzer;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Index;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
-use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\ObjectQueryAnalyzeResult;
-use Arlekin\Dbal\Exception\DbalException;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Schema;
+use Calam\Dbal\Driver\Pdo\MySql\Log\Analyzer\ObjectQueryAnalyzeResult;
+use Calam\Dbal\Exception\DbalException;
 
 class MissingIndexAnalyzer
 {

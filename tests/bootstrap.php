@@ -9,6 +9,10 @@
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
 
+function vd() {
+    call_user_func_array('var_dump', func_get_args());
+}
+
 if (!isset($GLOBALS['arlekin_bootstrap_loaded'])
     || !$GLOBALS['arlekin_bootstrap_loaded']) {
     $currentDirectory = __DIR__;
@@ -35,27 +39,27 @@ if (!isset($GLOBALS['arlekin_bootstrap_loaded'])
         require __DIR__ . '/testParameters.dist.php';
     }
 
-    $defaultConnection = $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections'][0];
+    $defaultConnection = $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections']['pdo_mysql_test'];
 
-    $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections']['root'] = $defaultConnection;
 
     $rootParameters = &$_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections']['root'];
-
-    $rootParameters['user'] = 'root';
-    $rootParameters['password'] = null;
-    $rootParameters['database'] = null;
-    $rootParameters['name'] = 'root';
 
     $dsn = sprintf(
         "mysql:host=%s;port=%s",
         $rootParameters['host'],
-        $rootParameters['port']
+        $rootParameters['port'],
+        [
+            PDO::ATTR_TIMEOUT => 2,
+        ]
     );
 
     $pdo = new PDO(
         $dsn,
         $rootParameters['user'],
-        $rootParameters['password']
+        $rootParameters['password'],
+        [
+            PDO::ATTR_TIMEOUT => 2,
+        ]
     );
 
     $pdo->exec("CREATE DATABASE {$defaultConnection['database']};");

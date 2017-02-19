@@ -1,10 +1,10 @@
 <?php
 
-namespace Arlekin\Dbal\Tests\Unit;
+namespace Calam\Dbal\Tests\Unit;
 
-use Arlekin\Dbal\Manager\DatabaseConnectionManager;
-use Arlekin\Dbal\Registry;
-use Arlekin\Dbal\Tests\BaseTest;
+use Calam\Dbal\Manager\DatabaseConnectionManager;
+use Calam\Dbal\Registry;
+use Calam\Dbal\Tests\BaseTest;
 
 class RegistryTest extends BaseTest
 {

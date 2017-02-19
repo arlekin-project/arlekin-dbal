@@ -7,16 +7,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Unit\Helper;
+namespace Calam\Dbal\Tests\Unit\Helper;
 
-use Arlekin\Dbal\Helper\DumpHelper;
-use Arlekin\Dbal\Tests\BaseTest;
-use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
+use Calam\Dbal\Helper\DumpHelper;
+use Calam\Dbal\Tests\BaseTest;
+use Calam\Dbal\Tests\Helper\CommonTestHelper;
 
 class DumpHelperTest extends BaseTest
 {
     /**
-     * @covers Arlekin\Dbal\Helper\DumpHelper::dumpValue
+     * @covers Calam\Dbal\Helper\DumpHelper::dumpValue
      */
     public function testDumpValue()
     {
@@ -65,7 +65,7 @@ class DumpHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Helper\DumpHelper::dumpArray
+     * @covers Calam\Dbal\Helper\DumpHelper::dumpArray
      */
     public function testDumpArray()
     {

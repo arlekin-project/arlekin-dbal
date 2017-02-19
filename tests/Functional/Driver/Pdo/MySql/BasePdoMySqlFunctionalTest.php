@@ -7,10 +7,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Functional\Driver\Pdo\MySql;
+namespace Calam\Dbal\Tests\Functional\Driver\Pdo\MySql;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection;
-use Arlekin\Dbal\Tests\BaseTest;
+use Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection;
+use Calam\Dbal\Tests\BaseTest;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>

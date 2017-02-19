@@ -7,10 +7,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager;
+namespace Calam\Dbal\Driver\Pdo\MySql\Migration\Manager;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
-use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Schema;
+use Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder;
 
 class DiffManager
 {
@@ -120,7 +120,7 @@ class DiffManager
 
 namespace Application\Migrations;
 
-use Arlekin\Dbal\Migration\MigrationInterface;
+use Calam\Dbal\Migration\MigrationInterface;
 
 class $className implements MigrationInterface
 {

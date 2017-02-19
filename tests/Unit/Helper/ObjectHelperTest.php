@@ -7,11 +7,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Unit\Helper;
+namespace Calam\Dbal\Tests\Unit\Helper;
 
-use Arlekin\Dbal\Helper\ObjectHelper;
-use Arlekin\Dbal\Tests\BaseTest;
-use Arlekin\Dbal\Tests\Unit\Fixtures\DummyObject;
+use Calam\Dbal\Helper\ObjectHelper;
+use Calam\Dbal\Tests\BaseTest;
+use Calam\Dbal\Tests\Unit\Fixtures\DummyObject;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
@@ -19,7 +19,7 @@ use Arlekin\Dbal\Tests\Unit\Fixtures\DummyObject;
 class ObjectHelperTest extends BaseTest
 {
     /**
-     * @covers Arlekin\Dbal\Helper\ObjectHelper::forcePropertyAccessible
+     * @covers Calam\Dbal\Helper\ObjectHelper::forcePropertyAccessible
      */
     public function testForcePropertyAccessible()
     {
@@ -35,7 +35,7 @@ class ObjectHelperTest extends BaseTest
             $reflectionProperty->setValue($dummyObject, 42);
         } catch (\ReflectionException $ex) {
             $this->assertSame(
-                'Cannot access non-public member Arlekin\Dbal\Tests\Unit\Fixtures\DummyObject::testProperty',
+                'Cannot access non-public member Calam\Dbal\Tests\Unit\Fixtures\DummyObject::testProperty',
                 $ex->getMessage()
             );
 
@@ -60,7 +60,7 @@ class ObjectHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Helper\ObjectHelper::resetPropertyAccessibility
+     * @covers Calam\Dbal\Helper\ObjectHelper::resetPropertyAccessibility
      */
     public function testResetPropertyAccessibility()
     {
@@ -79,7 +79,7 @@ class ObjectHelperTest extends BaseTest
             $reflectionProperty->setValue($dummyObject, 42);
         } catch (\ReflectionException $ex) {
             $this->assertSame(
-                'Cannot access non-public member Arlekin\Dbal\Tests\Unit\Fixtures\DummyObject::testProperty',
+                'Cannot access non-public member Calam\Dbal\Tests\Unit\Fixtures\DummyObject::testProperty',
                 $ex->getMessage()
             );
 
@@ -92,7 +92,7 @@ class ObjectHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Helper\ObjectHelper::forceSetProperty
+     * @covers Calam\Dbal\Helper\ObjectHelper::forceSetProperty
      */
     public function testForceSetProperty()
     {
@@ -111,7 +111,7 @@ class ObjectHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Helper\ObjectHelper::forceSetAlreadyAccessibleProperty
+     * @covers Calam\Dbal\Helper\ObjectHelper::forceSetAlreadyAccessibleProperty
      */
     public function testForceSetAlreadyAccessibleProperty()
     {

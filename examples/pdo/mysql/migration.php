@@ -8,23 +8,25 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Examples;
+namespace Calam\Examples;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection;
-use Arlekin\Dbal\Driver\Pdo\MySql\Driver;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\ColumnType;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
-use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder;
-use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder;
-use Arlekin\Dbal\Registry;
+use Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection;
+use Calam\Dbal\Driver\Pdo\MySql\Driver;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnType;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Schema;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
+use Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder;
+use Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder;
+use Calam\Dbal\Registry;
 
 $aTime = microtime(true);
 
 require_once __DIR__.'/../../../tests/bootstrap.php';
 
-$dbal = new Registry($_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']);
+$dbalConf = $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal'];
+
+$dbal = new Registry($dbalConf);
 
 $dbal->registerDriver('pdo.mysql', new Driver());
 
@@ -41,7 +43,7 @@ $descFoo = function () use ($connection) {
 
     foreach ($rs as $r) {
         foreach ($r as $field => $value) {
-            echo '    '.$field.': '.$value.PHP_EOL;
+            echo "    {$field}: {$value}".PHP_EOL;
         }
         echo '----'.PHP_EOL;
     }
@@ -55,9 +57,11 @@ $table->setName('Foo');
 
 $column = new Column();
 
-$column->setName('foo');
-$column->setType(ColumnType::TYPE_INT);
-$column->setNullable(true);
+$column
+    ->setName('foo')
+    ->setType(ColumnType::TYPE_INT)
+    ->setNullable(true)
+;
 
 $table->addColumn($column);
 
@@ -65,12 +69,9 @@ $newSchema->addTable($table);
 
 $connection->connect();
 
-echo sprintf(
-    'Connected.%s',
-    PHP_EOL
-);
+echo 'Connected.'.PHP_EOL;
 
-echo 'Droping dev database "'.$_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections'][0]['database'].'"...'.PHP_EOL;
+echo 'Droping dev database "'.$_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections']['pdo_mysql_test']['database'].'"...'.PHP_EOL;
 
 $connection->dropAllDatabaseStructure();
 
@@ -99,16 +100,12 @@ $schemaFromDb = $schemaBuilder->getFromDatabase($connection);
 //Adding a new column to the table
 $newColumn = new Column();
 
-$newColumn->setName(
-    'bar'
-)->setType(
-    ColumnType::TYPE_VARCHAR
-)->setParameter(
-    'length',
-    '255'
-)->setNullable(
-    false
-);
+$newColumn
+    ->setName('bar')
+    ->setType(ColumnType::TYPE_VARCHAR)
+    ->setParameter('length', '255')
+    ->setNullable(false)
+;
 
 $table->addColumn($newColumn);
 
@@ -124,10 +121,7 @@ $descFoo();
 
 $connection->disconnect();
 
-echo sprintf(
-    'Disconnected.%s',
-    PHP_EOL
-);
+echo 'Disconnected.'.PHP_EOL;
 
 $bTime = microtime(true);
 

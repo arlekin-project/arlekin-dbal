@@ -7,10 +7,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Unit\Helper;
+namespace Calam\Dbal\Tests\Unit\Helper;
 
-use Arlekin\Dbal\Helper\ArrayHelper;
-use Arlekin\Dbal\Tests\BaseTest;
+use Calam\Dbal\Helper\ArrayHelper;
+use Calam\Dbal\Tests\BaseTest;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
@@ -18,7 +18,7 @@ use Arlekin\Dbal\Tests\BaseTest;
 class ArrayHelperTest extends BaseTest
 {
     /**
-     * @covers Arlekin\Dbal\Helper\ArrayHelper::arrayDiffRecursive
+     * @covers Calam\Dbal\Helper\ArrayHelper::arrayDiffRecursive
      */
     public function testArrayDiffRecursive()
     {
@@ -42,7 +42,7 @@ class ArrayHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Helper\ArrayHelper::arrayDiffRecursive
+     * @covers Calam\Dbal\Helper\ArrayHelper::arrayDiffRecursive
      */
     public function testArrayDiffRecursiveBooleanValue()
     {
@@ -70,7 +70,7 @@ class ArrayHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Helper\ArrayHelper::arrayDiffRecursive
+     * @covers Calam\Dbal\Helper\ArrayHelper::arrayDiffRecursive
      */
     public function testArrayDiffRecursiveComplex()
     {
@@ -105,7 +105,7 @@ class ArrayHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Helper\ArrayHelper::arraysAreSameRecursive
+     * @covers Calam\Dbal\Helper\ArrayHelper::arraysAreSameRecursive
      */
     public function testArraysAreSameRecursive()
     {

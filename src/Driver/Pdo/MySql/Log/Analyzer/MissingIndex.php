@@ -1,6 +1,6 @@
 <?php
 
-namespace Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer;
+namespace Calam\Dbal\Driver\Pdo\MySql\Log\Analyzer;
 
 class MissingIndex
 {

@@ -7,11 +7,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager;
+namespace Calam\Dbal\Driver\Pdo\MySql\Migration\Manager;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection;
-use Arlekin\Dbal\Exception\DbalException;
-use Arlekin\Dbal\Migration\MigrationInterface;
+use Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection;
+use Calam\Dbal\Exception\DbalException;
+use Calam\Dbal\Migration\MigrationInterface;
 
 class MigrationManager
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer;
+namespace Calam\Dbal\Driver\Pdo\MySql\Log\Analyzer;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\Exception\InvalidSqlQuery;
-use Arlekin\Dbal\Exception\DbalException;
+use Calam\Dbal\Driver\Pdo\MySql\Log\Analyzer\Exception\InvalidSqlQuery;
+use Calam\Dbal\Exception\DbalException;
 use PHPSQLParser\PHPSQLParser;
 
 class ObjectQueryAnalyzer

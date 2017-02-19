@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Functional;
+namespace Calam\Dbal\Tests\Functional;
 
-use Arlekin\Dbal\Tests\BaseTest;
+use Calam\Dbal\Tests\BaseTest;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>

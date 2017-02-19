@@ -1,6 +1,6 @@
 <?php
 
-namespace Arlekin\Dbal\Exception;
+namespace Calam\Dbal\Exception;
 
 class DbalException extends \Exception
 {

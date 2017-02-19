@@ -7,14 +7,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Unit\Driver\Pdo\MySql\Migration\Manager;
+namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Migration\Manager;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
-use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder;
-use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\DiffManager;
-use Arlekin\Dbal\Migration\MigrationInterface;
-use Arlekin\Dbal\Tests\BaseTest;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Schema;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
+use Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder;
+use Calam\Dbal\Driver\Pdo\MySql\Migration\Manager\DiffManager;
+use Calam\Dbal\Migration\MigrationInterface;
+use Calam\Dbal\Tests\BaseTest;
 
 class DiffManagerTest extends BaseTest
 {
@@ -24,7 +24,7 @@ class DiffManagerTest extends BaseTest
     protected $diffManager;
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\DiffManager::__construct
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Manager\DiffManager::__construct
      */
     public function testConstruct()
     {
@@ -32,8 +32,8 @@ class DiffManagerTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\DiffManager::generateDiffFileContent
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\DiffManager::doGenerateDiffFileContent
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Manager\DiffManager::generateDiffFileContent
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Manager\DiffManager::doGenerateDiffFileContent
      */
     public function testGenerateDiffFileContent()
     {
@@ -45,8 +45,8 @@ class DiffManagerTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\DiffManager::generateDiffFile
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\DiffManager::doGenerateDiffFileContent
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Manager\DiffManager::generateDiffFile
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Manager\DiffManager::doGenerateDiffFileContent
      */
     public function testGenerateDiffFile()
     {

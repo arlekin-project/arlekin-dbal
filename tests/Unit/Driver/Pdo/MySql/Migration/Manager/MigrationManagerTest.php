@@ -7,17 +7,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Unit\Driver\Pdo\MySql\Migration\Manager;
+namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Migration\Manager;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\ColumnType;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
-use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder;
-use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\DiffManager;
-use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\MigrationManager;
-use Arlekin\Dbal\Tests\BaseTest;
+use Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnType;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Schema;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
+use Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder;
+use Calam\Dbal\Driver\Pdo\MySql\Migration\Manager\DiffManager;
+use Calam\Dbal\Driver\Pdo\MySql\Migration\Manager\MigrationManager;
+use Calam\Dbal\Tests\BaseTest;
 
 class MigrationManagerTest extends BaseTest
 {
@@ -47,7 +47,7 @@ class MigrationManagerTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\MigrationManager::__construct
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Manager\MigrationManager::__construct
      */
     public function testConstruct()
     {
@@ -57,8 +57,8 @@ class MigrationManagerTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\MigrationManager::migrate
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\MigrationManager::createMigrationTableIfNotExists
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Manager\MigrationManager::migrate
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Manager\MigrationManager::createMigrationTableIfNotExists
      */
     public function testMigrateBase()
     {
@@ -72,9 +72,9 @@ class MigrationManagerTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\MigrationManager::migrate
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\MigrationManager::versionApplied
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\MigrationManager::getMigrationTableName
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Manager\MigrationManager::migrate
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Manager\MigrationManager::versionApplied
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Manager\MigrationManager::getMigrationTableName
      */
     public function testMigrateSimple()
     {
@@ -125,7 +125,7 @@ class MigrationManagerTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\MigrationManager::migrate
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Manager\MigrationManager::migrate
      */
     public function testMigrateSimpleTwice()
     {
@@ -179,7 +179,7 @@ class MigrationManagerTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Manager\MigrationManager::migrate
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Manager\MigrationManager::migrate
      * @expectedException \Exception
      * @expectedExceptionMessage $migrationsFolderFullPath may not be empty.
      */

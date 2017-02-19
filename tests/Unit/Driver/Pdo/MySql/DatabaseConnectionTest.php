@@ -7,11 +7,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Unit\Driver\Pdo\MySql;
+namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection;
-use Arlekin\Dbal\Tests\BaseTest;
-use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
+use Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection;
+use Calam\Dbal\Tests\BaseTest;
+use Calam\Dbal\Tests\Helper\CommonTestHelper;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
@@ -19,7 +19,7 @@ use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
 class DatabaseConnectionTest extends BaseTest
 {
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::__construct
+     * @covers Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection::__construct
      */
     public function testConstruct()
     {
@@ -29,7 +29,7 @@ class DatabaseConnectionTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::isConnected
+     * @covers Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection::isConnected
      */
     public function testIsConnected()
     {
@@ -47,8 +47,8 @@ class DatabaseConnectionTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::connect
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::disconnect
+     * @covers Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection::connect
+     * @covers Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection::disconnect
      */
     public function testConnectAndDisconnect()
     {
@@ -62,7 +62,7 @@ class DatabaseConnectionTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::connect
+     * @covers Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection::connect
      */
     public function testConnectPortNotSpecified()
     {
@@ -81,7 +81,7 @@ class DatabaseConnectionTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::connect
+     * @covers Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection::connect
      */
     public function testConnectExceptionIfAlreadyConnected()
     {
@@ -97,7 +97,7 @@ class DatabaseConnectionTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::disconnect
+     * @covers Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection::disconnect
      */
     public function testDisconnectExceptionIfAlreadyDisconnected()
     {
@@ -113,7 +113,7 @@ class DatabaseConnectionTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::connectIfNotConnected
+     * @covers Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection::connectIfNotConnected
      */
     public function testConnectIfNotConnected()
     {
@@ -130,7 +130,7 @@ class DatabaseConnectionTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::executeQuery
+     * @covers Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection::executeQuery
      */
     public function testExecuteQueryErrorIfNotConnected()
     {
@@ -162,7 +162,7 @@ class DatabaseConnectionTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::executeQuery
+     * @covers Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection::executeQuery
      */
     public function testExecuteQueryResultSetExpected()
     {
@@ -178,7 +178,7 @@ class DatabaseConnectionTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::executeQuery
+     * @covers Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection::executeQuery
      */
     public function testExecuteBoundParameterOneParameter()
     {
@@ -197,7 +197,7 @@ class DatabaseConnectionTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::executeQuery
+     * @covers Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection::executeQuery
      */
     public function testExecuteBoundParameterTwoParametersSetParameterTwice()
     {
@@ -219,7 +219,7 @@ class DatabaseConnectionTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::executeQuery
+     * @covers Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection::executeQuery
      */
     public function testExecuteBoundParameterTwoParametersSetParametersArray()
     {
@@ -239,7 +239,7 @@ class DatabaseConnectionTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::executeQuery
+     * @covers Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection::executeQuery
      */
     public function testExecuteBoundParameterArrayParameter()
     {
@@ -283,7 +283,7 @@ class DatabaseConnectionTest extends BaseTest
     }
     
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::executeMultipleQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection::executeMultipleQueries
      */
     public function testExecuteMultipleQueries()
     {
@@ -296,7 +296,7 @@ class DatabaseConnectionTest extends BaseTest
     }
     
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::executeMultipleQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection::executeMultipleQueries
      */
     public function testExecuteMultipleQueriesWithParameters()
     {
@@ -314,7 +314,7 @@ class DatabaseConnectionTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::executeMultipleQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection::executeMultipleQueries
      */
     public function testExecuteMultipleQueriesWithError()
     {
@@ -349,7 +349,7 @@ class DatabaseConnectionTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::dropAllTables
+     * @covers Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection::dropAllTables
      */
     public function testDropAllTables()
     {
@@ -359,7 +359,7 @@ class DatabaseConnectionTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::dropAllViews
+     * @covers Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection::dropAllViews
      */
     public function testDropAllViews()
     {
@@ -369,7 +369,7 @@ class DatabaseConnectionTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection::dropAllDatabaseStructure
+     * @covers Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection::dropAllDatabaseStructure
      */
     public function testDropAllDatabaseStructure()
     {

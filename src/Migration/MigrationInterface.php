@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Migration;
+namespace Calam\Dbal\Migration;
 
 interface MigrationInterface
 {

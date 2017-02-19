@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Helper;
+namespace Calam\Dbal\Helper;
 
-use Arlekin\Dbal\Helper\Dump\RawStringValue;
+use Calam\Dbal\Helper\Dump\RawStringValue;
 
 class DumpHelper
 {
@@ -35,7 +35,7 @@ class DumpHelper
                 $value
             );
         } elseif (is_resource($value) || is_object($value)) {
-            throw new \Arlekin\Dbal\Exception\DbalException(
+            throw new \Calam\Dbal\Exception\DbalException(
                 sprintf(
                     'Given "%s" cannot be dumped.',
                     gettype($value)

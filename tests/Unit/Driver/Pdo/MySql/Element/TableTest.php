@@ -7,17 +7,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
+namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteConstraint;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnUpdateConstraint;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Index;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\PrimaryKey;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
-use Arlekin\Dbal\Tests\BaseTest;
-use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteConstraint;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnUpdateConstraint;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
+use Calam\Dbal\Driver\Pdo\MySql\Element\PrimaryKey;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
+use Calam\Dbal\Tests\BaseTest;
+use Calam\Dbal\Tests\Helper\CommonTestHelper;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
@@ -25,7 +25,7 @@ use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
 class TableTest extends BaseTest
 {
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::__construct
+     * @covers Calam\Dbal\SqlBased\Element\Table::__construct
      */
     public function testConstruct()
     {
@@ -39,8 +39,8 @@ class TableTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::getName
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::setName
+     * @covers Calam\Dbal\SqlBased\Element\Table::getName
+     * @covers Calam\Dbal\SqlBased\Element\Table::setName
      */
     public function testGetAndSetName()
     {
@@ -53,8 +53,8 @@ class TableTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::getPrimaryKey
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::setPrimaryKey
+     * @covers Calam\Dbal\SqlBased\Element\Table::getPrimaryKey
+     * @covers Calam\Dbal\SqlBased\Element\Table::setPrimaryKey
      */
     public function testGetAndSetPrimaryKey()
     {
@@ -87,8 +87,8 @@ class TableTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::getColumns
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::setColumns
+     * @covers Calam\Dbal\SqlBased\Element\Table::getColumns
+     * @covers Calam\Dbal\SqlBased\Element\Table::setColumns
      */
     public function testGetAndSetColumns()
     {
@@ -112,8 +112,8 @@ class TableTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::getForeignKeys
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::setForeignKeys
+     * @covers Calam\Dbal\SqlBased\Element\Table::getForeignKeys
+     * @covers Calam\Dbal\SqlBased\Element\Table::setForeignKeys
      */
     public function testGetAndSetForeignKeys()
     {
@@ -137,8 +137,8 @@ class TableTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::getIndexes
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::setIndexes
+     * @covers Calam\Dbal\SqlBased\Element\Table::getIndexes
+     * @covers Calam\Dbal\SqlBased\Element\Table::setIndexes
      */
     public function testGetAndSetIndexes()
     {
@@ -162,7 +162,7 @@ class TableTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::toArray
+     * @covers Calam\Dbal\SqlBased\Element\Table::toArray
      */
     public function testToArray()
     {
@@ -358,7 +358,7 @@ class TableTest extends BaseTest
     }
     
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::hasForeignKeyWithColumnsAndReferencedColumnsNamed
+     * @covers Calam\Dbal\SqlBased\Element\Table::hasForeignKeyWithColumnsAndReferencedColumnsNamed
      */
     public function testHasForeignKeyWithColumnsAndReferencedColumnsNamed()
     {
@@ -438,7 +438,7 @@ class TableTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::hasColumn
+     * @covers Calam\Dbal\SqlBased\Element\Table::hasColumn
      */
     public function testHasColumn()
     {
@@ -462,7 +462,7 @@ class TableTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::hasColumnWithName
+     * @covers Calam\Dbal\SqlBased\Element\Table::hasColumnWithName
      */
     public function testHasColumnWithName()
     {
@@ -488,7 +488,7 @@ class TableTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::hasIndexWithName
+     * @covers Calam\Dbal\SqlBased\Element\Table::hasIndexWithName
      */
     public function testHasIndexWithName()
     {
@@ -514,7 +514,7 @@ class TableTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::hasPrimaryKeyWithColumnsNamed
+     * @covers Calam\Dbal\SqlBased\Element\Table::hasPrimaryKeyWithColumnsNamed
      */
     public function testHasPrimaryKeyWithColumnsNamed()
     {
@@ -557,7 +557,7 @@ class TableTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::getIndexWithName
+     * @covers Calam\Dbal\SqlBased\Element\Table::getIndexWithName
      */
     public function testGetIndexWithName()
     {
@@ -581,7 +581,7 @@ class TableTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::getIndexWithName
+     * @covers Calam\Dbal\SqlBased\Element\Table::getIndexWithName
      */
     public function testGetIndexWithNameExceptionIfTableHasNoIndexWithName()
     {
@@ -599,7 +599,7 @@ class TableTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::getColumnWithName
+     * @covers Calam\Dbal\SqlBased\Element\Table::getColumnWithName
      */
     public function testGetColumnWithName()
     {
@@ -623,7 +623,7 @@ class TableTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\Table::getColumnWithName
+     * @covers Calam\Dbal\SqlBased\Element\Table::getColumnWithName
      */
     public function testGetColumnWithNameExceptionIfTableHasNoColumnWithName()
     {

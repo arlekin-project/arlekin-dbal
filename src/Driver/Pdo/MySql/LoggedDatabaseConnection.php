@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Driver\Pdo\MySql;
+namespace Calam\Dbal\Driver\Pdo\MySql;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\Log\QueryLoggerInterface;
+use Calam\Dbal\Driver\Pdo\MySql\Log\QueryLoggerInterface;
 
 /**
  * A MySQL database connection which logs its queries.

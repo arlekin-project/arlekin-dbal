@@ -7,10 +7,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Unit\Helper;
+namespace Calam\Dbal\Tests\Unit\Helper;
 
-use Arlekin\Dbal\Helper\StringHelper;
-use Arlekin\Dbal\Tests\BaseTest;
+use Calam\Dbal\Helper\StringHelper;
+use Calam\Dbal\Tests\BaseTest;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
@@ -18,7 +18,7 @@ use Arlekin\Dbal\Tests\BaseTest;
 class StringHelperTest extends BaseTest
 {
     /**
-     * @covers Arlekin\Dbal\Helper\StringHelper::startsWith
+     * @covers Calam\Dbal\Helper\StringHelper::startsWith
      */
     public function testStartsWithTrue()
     {
@@ -28,7 +28,7 @@ class StringHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Helper\StringHelper::startsWith
+     * @covers Calam\Dbal\Helper\StringHelper::startsWith
      */
     public function testStartsWithFalse()
     {
@@ -38,7 +38,7 @@ class StringHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Helper\StringHelper::endsWith
+     * @covers Calam\Dbal\Helper\StringHelper::endsWith
      */
     public function testEndsWithTrue()
     {
@@ -48,7 +48,7 @@ class StringHelperTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Helper\StringHelper::endsWith
+     * @covers Calam\Dbal\Helper\StringHelper::endsWith
      */
     public function testEndsWithFalse()
     {

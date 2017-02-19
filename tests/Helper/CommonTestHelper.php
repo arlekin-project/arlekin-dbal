@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Helper;
+namespace Calam\Dbal\Tests\Helper;
 
 use PHPUnit_Framework_Assert;
 use PHPUnit_Framework_TestCase;

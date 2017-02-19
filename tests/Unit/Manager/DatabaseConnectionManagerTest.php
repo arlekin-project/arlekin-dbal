@@ -7,13 +7,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Unit\Manager;
+namespace Calam\Dbal\Tests\Unit\Manager;
 
-use Arlekin\Dbal\DatabaseConnectionInterface;
-use Arlekin\Dbal\DriverInterface;
-use Arlekin\Dbal\Manager\DatabaseConnectionManager;
-use Arlekin\Dbal\Manager\DatabaseConnectionManagerInterface;
-use Arlekin\Dbal\Tests\BaseTest;
+use Calam\Dbal\DatabaseConnectionInterface;
+use Calam\Dbal\DriverInterface;
+use Calam\Dbal\Manager\DatabaseConnectionManager;
+use Calam\Dbal\Manager\DatabaseConnectionManagerInterface;
+use Calam\Dbal\Tests\BaseTest;
 
 class DatabaseConnectionManagerTest extends BaseTest
 {
@@ -23,7 +23,7 @@ class DatabaseConnectionManagerTest extends BaseTest
     protected $databaseConnectionManager;
 
     /**
-     * @covers Arlekin\Dbal\Manager\DatabaseConnectionManager::__construct
+     * @covers Calam\Dbal\Manager\DatabaseConnectionManager::__construct
      */
     public function testConstruct()
     {
@@ -83,9 +83,9 @@ class DatabaseConnectionManagerTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Manager\DatabaseConnectionManager::getConnectionWithName
-     * @covers Arlekin\Dbal\Manager\DatabaseConnectionManager::instanciateDatabaseConnection
-     * @covers Arlekin\Dbal\Manager\DatabaseConnectionManager::instanciateNamedDatabaseConnection
+     * @covers Calam\Dbal\Manager\DatabaseConnectionManager::getConnectionWithName
+     * @covers Calam\Dbal\Manager\DatabaseConnectionManager::instanciateDatabaseConnection
+     * @covers Calam\Dbal\Manager\DatabaseConnectionManager::instanciateNamedDatabaseConnection
      */
     public function testGetConnectionWithName()
     {
@@ -100,9 +100,9 @@ class DatabaseConnectionManagerTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Manager\DatabaseConnectionManager::getConnectionWithName
-     * @covers Arlekin\Dbal\Manager\DatabaseConnectionManager::instanciateDatabaseConnection
-     * @covers Arlekin\Dbal\Manager\DatabaseConnectionManager::instanciateNamedDatabaseConnection
+     * @covers Calam\Dbal\Manager\DatabaseConnectionManager::getConnectionWithName
+     * @covers Calam\Dbal\Manager\DatabaseConnectionManager::instanciateDatabaseConnection
+     * @covers Calam\Dbal\Manager\DatabaseConnectionManager::instanciateNamedDatabaseConnection
      */
     public function testGetConnectionWithNameTwice()
     {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Arlekin\Dbal;
+namespace Calam\Dbal;
 
-use Arlekin\Dbal\Manager\DatabaseConnectionManager;
-use Arlekin\Dbal\Manager\DatabaseConnectionManagerInterface;
+use Calam\Dbal\Manager\DatabaseConnectionManager;
+use Calam\Dbal\Manager\DatabaseConnectionManagerInterface;
 
 class Registry
 {

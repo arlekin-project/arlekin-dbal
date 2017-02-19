@@ -1,16 +1,16 @@
 <?php
 
-namespace Arlekin\Dbal\Tests\Functional\Driver\Pdo\MySql\Log\Analyzer;
+namespace Calam\Dbal\Tests\Functional\Driver\Pdo\MySql\Log\Analyzer;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Index;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
-use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\MissingIndex;
-use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\MissingIndexAnalyzer;
-use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\MissingIndexAnalyzeResult;
-use Arlekin\Dbal\Driver\Pdo\MySql\Log\Analyzer\ObjectQueryAnalyzer;
-use Arlekin\Dbal\Tests\Functional\Driver\Pdo\MySql\BasePdoMySqlFunctionalTest;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Schema;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
+use Calam\Dbal\Driver\Pdo\MySql\Log\Analyzer\MissingIndex;
+use Calam\Dbal\Driver\Pdo\MySql\Log\Analyzer\MissingIndexAnalyzer;
+use Calam\Dbal\Driver\Pdo\MySql\Log\Analyzer\MissingIndexAnalyzeResult;
+use Calam\Dbal\Driver\Pdo\MySql\Log\Analyzer\ObjectQueryAnalyzer;
+use Calam\Dbal\Tests\Functional\Driver\Pdo\MySql\BasePdoMySqlFunctionalTest;
 
 class MissingIndexAnalyzerTest extends BasePdoMySqlFunctionalTest
 {

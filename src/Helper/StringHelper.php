@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Helper;
+namespace Calam\Dbal\Helper;
 
 /**
  * To help with managing strings.

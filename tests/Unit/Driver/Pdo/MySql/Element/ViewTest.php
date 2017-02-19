@@ -7,11 +7,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
+namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\View;
-use Arlekin\Dbal\Tests\BaseTest;
-use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
+use Calam\Dbal\Driver\Pdo\MySql\Element\View;
+use Calam\Dbal\Tests\BaseTest;
+use Calam\Dbal\Tests\Helper\CommonTestHelper;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
@@ -19,8 +19,8 @@ use Arlekin\Dbal\Tests\Helper\CommonTestHelper;
 class ViewTest extends BaseTest
 {
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\View::getName
-     * @covers Arlekin\Dbal\SqlBased\Element\View::setName
+     * @covers Calam\Dbal\SqlBased\Element\View::getName
+     * @covers Calam\Dbal\SqlBased\Element\View::setName
      */
     public function testGetAndSetName()
     {
@@ -33,8 +33,8 @@ class ViewTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\View::getDefinition
-     * @covers Arlekin\Dbal\SqlBased\Element\View::setDefinition
+     * @covers Calam\Dbal\SqlBased\Element\View::getDefinition
+     * @covers Calam\Dbal\SqlBased\Element\View::setDefinition
      */
     public function testGetAndSetDefinition()
     {
@@ -47,7 +47,7 @@ class ViewTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\SqlBased\Element\View::toArray
+     * @covers Calam\Dbal\SqlBased\Element\View::toArray
      */
     public function testToArray()
     {

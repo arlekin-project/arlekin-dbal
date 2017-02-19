@@ -1,6 +1,6 @@
 <?php
 
-namespace Arlekin\Dbal\Driver\Pdo\MySql\Log;
+namespace Calam\Dbal\Driver\Pdo\MySql\Log;
 
 class JsonFileAppendQueryLogger implements QueryLoggerInterface
 {

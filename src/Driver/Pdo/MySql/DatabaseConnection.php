@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Driver\Pdo\MySql;
+namespace Calam\Dbal\Driver\Pdo\MySql;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\Exception\PdoMySqlDriverException;
+use Calam\Dbal\Driver\Pdo\MySql\Exception\PdoMySqlDriverException;
 
 /**
  * A MySQL database connection.
@@ -102,7 +102,9 @@ class DatabaseConnection
             );
         }
 
-        $options = [];
+        $options = [
+            \PDO::ATTR_TIMEOUT => 2,
+        ];
 
         $this->connection = new \PDO($dsn, $this->user, $this->password, $options);
 

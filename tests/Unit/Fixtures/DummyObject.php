@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Unit\Fixtures;
+namespace Calam\Dbal\Tests\Unit\Fixtures;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>

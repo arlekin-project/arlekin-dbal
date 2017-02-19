@@ -7,22 +7,22 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Unit\Driver\Pdo\MySql\Migration\Builder;
+namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Migration\Builder;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Column;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\ColumnType;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteConstraint;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Index;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\IndexKind;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\PrimaryKey;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Schema;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\Table;
-use Arlekin\Dbal\Driver\Pdo\MySql\Element\View;
-use Arlekin\Dbal\Driver\Pdo\MySql\Manager\TableManager;
-use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder;
-use Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder;
-use Arlekin\Dbal\Tests\BaseTest;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnType;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteConstraint;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
+use Calam\Dbal\Driver\Pdo\MySql\Element\IndexKind;
+use Calam\Dbal\Driver\Pdo\MySql\Element\PrimaryKey;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Schema;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
+use Calam\Dbal\Driver\Pdo\MySql\Element\View;
+use Calam\Dbal\Driver\Pdo\MySql\Manager\TableManager;
+use Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder;
+use Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder;
+use Calam\Dbal\Tests\BaseTest;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
@@ -45,8 +45,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     protected $schemaBuilder;
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropColumnsQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropColumnsQueries
      */
     public function testBuildSchemaColumnsNoChange()
     {
@@ -86,8 +86,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropTableQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropTableQueries
      */
     public function testBuildFromSchemaDropNonExistingInSchemaTable()
     {
@@ -113,8 +113,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropColumnsQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropColumnsQueries
      */
     public function testBuildFromSchemaDropNonExistingInSchemaColumn()
     {
@@ -152,8 +152,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropColumnsQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropColumnsQueries
      */
     public function testBuildFromSchemaDropAndCreateDifferentColumn()
     {
@@ -204,8 +204,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropIndexesQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropIndexesQueries
      */
     public function testBuildSchemaIndexesNoChange()
     {
@@ -257,8 +257,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropIndexesQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropIndexesQueries
      */
     public function testBuildFromSchemaDropNonExistingInSchemaIndex()
     {
@@ -296,8 +296,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropIndexesQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropIndexesQueries
      */
     public function testBuildFromSchemaDropAndCreateDifferentIndex()
     {
@@ -356,8 +356,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropForeignKeysQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropForeignKeysQueries
      */
     public function testBuildFromSchemaDropNonExistingInSchemaForeignKey()
     {
@@ -411,8 +411,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableAddPrimaryKeyQuery
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableAddPrimaryKeyQuery
      */
     public function testBuildFromSchemaCreateNonExistingInDatabasePrimaryKey()
     {
@@ -477,8 +477,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropPrimaryKeyQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropPrimaryKeyQueries
      */
     public function testBuildFromSchemaDropNonExistingInSchemaPrimaryKey()
     {
@@ -543,8 +543,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropPrimaryKeyQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropPrimaryKeyQueries
      */
     public function testBuildFromSchemaDropAndCreateDifferentPrimaryKey()
     {
@@ -620,8 +620,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeCreateTableBaseQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeCreateTableBaseQueries
      */
     public function testBuildFromSchemaCreateNonExistingInDatabaseTable()
     {
@@ -659,8 +659,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeCreatePrimaryKeysSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeCreatePrimaryKeysSqlQueries
      */
     public function testBuildFromSchemaCreateNonExistingInDatabasePrimaryKeyTableDoesNotExists()
     {
@@ -709,8 +709,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeCreatePrimaryKeysSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeCreatePrimaryKeysSqlQueries
      */
     public function testBuildFromSchemaCreateNonExistingInDatabasePrimaryKeyTableDoesNotExistsNoPrimaryKey()
     {
@@ -748,8 +748,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeCreatePrimaryKeysSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeCreatePrimaryKeysSqlQueries
      */
     public function testBuildFromSchemaCreateNonExistingInDatabasePrimaryKeyTableExists()
     {
@@ -809,8 +809,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeCreatePrimaryKeysSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeCreatePrimaryKeysSqlQueries
      */
     public function testBuildFromSchemaCreateNonExistingInDatabasePrimaryKeyTableExistsDoNotCreatePrimaryKey()
     {
@@ -869,8 +869,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeCreateIndexesSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeCreateIndexesSqlQueries
      */
     public function testBuildFromSchemaCreateNonExistingInDatabaseIndexTableExists()
     {
@@ -922,8 +922,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeCreateIndexesSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeCreateIndexesSqlQueries
      */
     public function testBuildFromSchemaCreateNonExistingInDatabaseIndexTableDoesNotExists()
     {
@@ -976,8 +976,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableCreateColumnsQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableCreateColumnsQueries
      */
     public function testBuildFromSchemaCreateNonExistingInDatabaseColumn()
     {
@@ -1024,10 +1024,10 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableCreateForeignKeysQueriesMakeDoForEachForeignKeys
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableCreateForeignKeysQueriesMakeCreateForeignKeySql
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableCreateForeignKeysQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableCreateForeignKeysQueriesMakeDoForEachForeignKeys
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableCreateForeignKeysQueriesMakeCreateForeignKeySql
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableCreateForeignKeysQueries
      */
     public function testBuildFromSchemaCreateNonExistingInDatabaseForeignKeyTableDoesExists()
     {
@@ -1117,10 +1117,10 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableCreateForeignKeysQueriesMakeDoForEachForeignKeys
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableCreateForeignKeysQueriesMakeCreateForeignKeySql
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableCreateForeignKeysQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableCreateForeignKeysQueriesMakeDoForEachForeignKeys
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableCreateForeignKeysQueriesMakeCreateForeignKeySql
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableCreateForeignKeysQueries
      */
     public function testBuildFromSchemaCreateNonExistingInDatabaseForeignKeyTableDoesNotExists()
     {
@@ -1208,8 +1208,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableSetAutoIncrementQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableSetAutoIncrementQueries
      */
     public function testGetMigrationSqlQueriesAutoIncrementNewColumn()
     {
@@ -1259,9 +1259,9 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableSetAutoIncrementQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableUnsetAutoIncrementQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableSetAutoIncrementQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterTableUnsetAutoIncrementQueries
      */
     public function testGetMigrationSqlQueriesAutoIncrementChange()
     {
@@ -1374,8 +1374,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeCreateViewsQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeCreateViewsQueries
      */
     public function testGetMigrationSqlQueriesNewView()
     {
@@ -1388,14 +1388,14 @@ class MigrationQueriesBuilderTest extends BaseTest
         $view->setName(
             'testView'
         )->setDefinition(
-            'SELECT `arlekin`.`test`.`foo` AS `foo` FROM `arlekin`.`test`'
+            'SELECT `calam`.`test`.`foo` AS `foo` FROM `calam`.`test`'
         );
 
         $destinationSchema->addView($view);
 
         $this->assertEquals(
             [
-                'CREATE VIEW testView AS SELECT `arlekin`.`test`.`foo` AS `foo` FROM `arlekin`.`test`',
+                'CREATE VIEW testView AS SELECT `calam`.`test`.`foo` AS `foo` FROM `calam`.`test`',
             ],
             $this->sqlMigrationBuilder->getMigrationSqlQueries(
                 $sourceSchema,
@@ -1405,8 +1405,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropViewsQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeDropViewsQueries
      */
     public function testGetMigrationSqlQueriesDropViews()
     {
@@ -1437,8 +1437,8 @@ class MigrationQueriesBuilderTest extends BaseTest
     }
 
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterViewsQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::getMigrationSqlQueries
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder::makeAlterViewsQueries
      */
     public function testGetMigrationSqlQueriesViewDefinitionChange()
     {

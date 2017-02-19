@@ -7,18 +7,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Arlekin\Dbal\Tests\Unit\Driver\Pdo\MySql;
+namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql;
 
-use Arlekin\Dbal\Driver\Pdo\MySql\DatabaseConnection;
-use Arlekin\Dbal\Driver\Pdo\MySql\Driver;
-use Arlekin\Dbal\Driver\Pdo\MySql\Log\JsonFileAppendQueryLogger;
-use Arlekin\Dbal\Driver\Pdo\MySql\LoggedDatabaseConnection;
-use Arlekin\Dbal\Tests\BaseTest;
+use Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection;
+use Calam\Dbal\Driver\Pdo\MySql\Driver;
+use Calam\Dbal\Driver\Pdo\MySql\Log\JsonFileAppendQueryLogger;
+use Calam\Dbal\Driver\Pdo\MySql\LoggedDatabaseConnection;
+use Calam\Dbal\Tests\BaseTest;
 
 class DriverTest extends BaseTest
 {
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Driver::instanciateDatabaseConnection
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Driver::instanciateDatabaseConnection
      */
     public function testInstanciateDatabaseConnection()
     {
@@ -44,7 +44,7 @@ class DriverTest extends BaseTest
     }
     
     /**
-     * @covers Arlekin\Dbal\Driver\Pdo\MySql\Driver::instanciateDatabaseConnection
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Driver::instanciateDatabaseConnection
      */
     public function testInstanciateDatabaseConnectionWithLogger()
     {
