@@ -30,11 +30,12 @@ class LoggedDatabaseConnection extends DatabaseConnection
      * @param string $user
      * @param string $password
      * @param QueryLoggerInterface $logger
+     * @param array $options
      */
-    public function __construct($host, $port, $database, $user, $password, QueryLoggerInterface $logger) {
+    public function __construct($host, $port, $database, $user, $password, QueryLoggerInterface $logger, array $options = []) {
         $this->logger = $logger;
 
-        parent::__construct($host, $port, $database, $user, $password);
+        parent::__construct($host, $port, $database, $user, $password, $options);
     }
 
     /**

@@ -9,8 +9,8 @@
 
 namespace Calam\Dbal\Tests\Helper;
 
-use PHPUnit_Framework_Assert;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
@@ -27,7 +27,7 @@ class CommonTestHelper
         try {
             $callback();
         } catch (\Exception $ex) {
-            PHPUnit_Framework_Assert::assertInstanceOf(
+            Assert::assertInstanceOf(
                 $expectedExceptionClass,
                 $ex,
                 sprintf(
@@ -37,7 +37,7 @@ class CommonTestHelper
                 )
             );
 
-            PHPUnit_Framework_Assert::assertEquals(
+            Assert::assertEquals(
                 $expectedExceptionMessage,
                 $ex->getMessage()
             );
@@ -45,7 +45,7 @@ class CommonTestHelper
             $exceptionThrown = true;
         }
 
-        PHPUnit_Framework_Assert::assertTrue(
+        Assert::assertTrue(
             $exceptionThrown,
             sprintf(
                 'Failed asserting that exception of class "%s" was thrown.',
@@ -225,13 +225,13 @@ class CommonTestHelper
     }
 
     /**
-     * @param PHPUnit_Framework_TestCase $testCase
+     * @param TestCase $testCase
      * @param object $object
      * @param string $property
      * @param mixed $value
      */
     public static function testBasicGetAndSetForProperty(
-        PHPUnit_Framework_TestCase $testCase,
+        TestCase $testCase,
         $object,
         $property,
         $value
@@ -256,13 +256,13 @@ class CommonTestHelper
     }
 
     /**
-     * @param PHPUnit_Framework_TestCase $testCase
+     * @param TestCase $testCase
      * @param object $object
      * @param string $property
      * @param mixed $value
      */
     public static function testBasicIsAndSetForProperty(
-        PHPUnit_Framework_TestCase $testCase,
+        TestCase $testCase,
         $object,
         $property,
         $value
@@ -287,14 +287,14 @@ class CommonTestHelper
     }
 
     /**
-     * @param PHPUnit_Framework_TestCase $testCase
+     * @param TestCase $testCase
      * @param object $object
      * @param string $property
      * @param mixed $value
      * @param string $propertySingular
      */
     public static function testBasicAddForProperty(
-        PHPUnit_Framework_TestCase $testCase,
+        TestCase $testCase,
         $object,
         $property,
         $value,
@@ -322,13 +322,13 @@ class CommonTestHelper
     }
 
     /**
-     * @param PHPUnit_Framework_TestCase $testCase
+     * @param TestCase $testCase
      * @param object $object
      * @param string $property
      * @param array $value
      */
     public static function testBasicGetAndSetCollectionForProperty(
-        PHPUnit_Framework_TestCase $testCase,
+        TestCase $testCase,
         $object,
         $property,
         $value
@@ -353,13 +353,13 @@ class CommonTestHelper
     }
 
     /**
-     * @param PHPUnit_Framework_TestCase $testCase
+     * @param TestCase $testCase
      * @param object $object
      * @param string $property
      * @param mixed $values
      */
     public static function testBasicAddCollectionForProperty(
-        PHPUnit_Framework_TestCase $testCase,
+        TestCase $testCase,
         $object,
         $property,
         array $values

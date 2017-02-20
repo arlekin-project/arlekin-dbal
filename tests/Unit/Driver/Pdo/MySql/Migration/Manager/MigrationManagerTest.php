@@ -241,7 +241,7 @@ class MigrationManagerTest extends BaseTest
      */
     protected function getMigrationManagerForBaseSourceSchema()
     {
-        $this->databaseConnectionMock = $this->getMock(DatabaseConnection::class, [], [], '', false);
+        $this->databaseConnectionMock = $this->createMock(DatabaseConnection::class, [], [], '', false);
 
         return new MigrationManager($this->databaseConnectionMock);
     }

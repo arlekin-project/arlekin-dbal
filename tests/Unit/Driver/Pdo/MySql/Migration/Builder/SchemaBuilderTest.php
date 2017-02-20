@@ -893,7 +893,7 @@ class SchemaBuilderTest extends BaseTest
 
     protected function getDatabaseConnectionMock(callable $executeQueryReturnCallback)
     {
-        $mock = $this->getMock(
+        $mock = $this->createMock(
             DatabaseConnection::class,
             [],
             [],

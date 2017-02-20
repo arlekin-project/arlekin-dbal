@@ -67,11 +67,11 @@ class DatabaseConnectionTest extends BaseTest
     public function testConnectPortNotSpecified()
     {
         $mysqlDatabaseConnection = new DatabaseConnection(
-            $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections'][0]['host'],
+            $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections']['pdo_mysql_test']['host'],
             null,
-            $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections'][0]['database'],
-            $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections'][0]['user'],
-            $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections'][0]['password']
+            $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections']['pdo_mysql_test']['database'],
+            $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections']['pdo_mysql_test']['user'],
+            $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections']['pdo_mysql_test']['password']
         );
 
         $mysqlDatabaseConnection->connect();
@@ -85,10 +85,8 @@ class DatabaseConnectionTest extends BaseTest
      */
     public function testConnectExceptionIfAlreadyConnected()
     {
-        $this->setExpectedException(
-            \Exception::class,
-            'Connection already established.'
-        );
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Connection already established.');
 
         $mysqlDatabaseConnection = $this->getPdoMysqlDatabaseConnection();
 
@@ -101,10 +99,8 @@ class DatabaseConnectionTest extends BaseTest
      */
     public function testDisconnectExceptionIfAlreadyDisconnected()
     {
-        $this->setExpectedException(
-            \Exception::class,
-            'Connection already closed.'
-        );
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Connection already closed.');
 
         $mysqlDatabaseConnection = $this->getPdoMysqlDatabaseConnection();
 
@@ -383,7 +379,7 @@ class DatabaseConnectionTest extends BaseTest
      */
     protected function getPdoMysqlDatabaseConnection($envDbal = [])
     {
-        $testParametersEnvDbal = $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections'][0];
+        $testParametersEnvDbal = $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections']['pdo_mysql_test'];
 
         $parameters = array_merge($testParametersEnvDbal, $envDbal);
 

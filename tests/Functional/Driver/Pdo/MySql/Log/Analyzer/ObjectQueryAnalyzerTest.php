@@ -12,7 +12,8 @@ class ObjectQueryAnalyzerTest extends BasePdoMySqlFunctionalTest
 {
     public function testInvalidQuery()
     {
-        $this->setExpectedException(InvalidSqlQuery::class, 'Invalid SQL query "Foobar"');
+        $this->expectException(InvalidSqlQuery::class);
+        $this->expectExceptionMessage('Invalid SQL query "Foobar"');
 
         $analyzer = new ObjectQueryAnalyzer();
 

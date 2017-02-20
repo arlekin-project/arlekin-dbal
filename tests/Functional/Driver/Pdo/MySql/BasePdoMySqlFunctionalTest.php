@@ -21,17 +21,20 @@ abstract class BasePdoMySqlFunctionalTest extends BaseTest
      * @var DatabaseConnection
      */
     protected $databaseConnection;
-    
+
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp()
     {
         parent::setUp();
         
         $this->databaseConnection = new DatabaseConnection(
-            $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections'][0]['host'],
-            $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections'][0]['port'],
-            $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections'][0]['database'],
-            $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections'][0]['user'],
-            $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections'][0]['password']
+            $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections']['pdo_mysql_test']['host'],
+            $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections']['pdo_mysql_test']['port'],
+            $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections']['pdo_mysql_test']['database'],
+            $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections']['pdo_mysql_test']['user'],
+            $_ENV['arlekin_dbal_driver_pdo_mysql_test_parameters']['dbal']['connections']['pdo_mysql_test']['password']
         );
         
         $this->databaseConnection->connect();

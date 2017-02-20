@@ -2,7 +2,7 @@
 
 <phpunit
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://raw.github.com/sebastianbergmann/phpunit/4.2/phpunit.xsd"
+    xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.5/phpunit.xsd"
     bootstrap="tests/bootstrap.php"
     backupGlobals="false"
     backupStaticAttributes="false"
@@ -13,19 +13,20 @@
     convertWarningsToExceptions="true"
     forceCoversAnnotation="true"
     mapTestClassNameToCoveredClassName="true"
-    printerClass="PHPUnit_TextUI_ResultPrinter"
     processIsolation="false"
     stopOnError="true"
     stopOnFailure="true"
-    stopOnIncomplete="false"
+    stopOnIncomplete="true"
     stopOnSkipped="false"
-    stopOnRisky="false"
-    verbose="true"
+    stopOnRisky="true"
+    verbose="false"
     beStrictAboutTestsThatDoNotTestAnything="true"
-    beStrictAboutOutputDuringTests="true">
+    beStrictAboutOutputDuringTests="true"
+    timeoutForSmallTests="1"
+    timeoutForMediumTests="10"
+    timeoutForLargeTests="60">
     <testsuites>
-        <testsuite
-            name="unit">
+        <testsuite name="unit">
             <directory>tests/</directory>
         </testsuite>
     </testsuites>

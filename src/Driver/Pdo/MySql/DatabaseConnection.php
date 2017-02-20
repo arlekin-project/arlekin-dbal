@@ -56,14 +56,21 @@ class DatabaseConnection
      * @param string $database
      * @param string $user
      * @param string $password
+     * @param array $options
      */
-    public function __construct($host, $port, $database, $user, $password)
+    public function __construct($host, $port, $database, $user, $password, array $options = [])
     {
         $this->host = $host;
         $this->port = $port;
         $this->database = $database;
         $this->user = $user;
         $this->password = $password;
+
+        $defaultOptions = [
+            \PDO::ATTR_TIMEOUT => 2,
+        ];
+
+        $this->options = array_merge($defaultOptions, $options);
     }
 
     /**
@@ -102,11 +109,7 @@ class DatabaseConnection
             );
         }
 
-        $options = [
-            \PDO::ATTR_TIMEOUT => 2,
-        ];
-
-        $this->connection = new \PDO($dsn, $this->user, $this->password, $options);
+        $this->connection = new \PDO($dsn, $this->user, $this->password, $this->options);
 
         $this->connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, 1);
 

@@ -9,7 +9,7 @@
 
 namespace Calam\Dbal\Tests\Unit\Manager;
 
-use Calam\Dbal\DatabaseConnectionInterface;
+use Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection;
 use Calam\Dbal\DriverInterface;
 use Calam\Dbal\Manager\DatabaseConnectionManager;
 use Calam\Dbal\Manager\DatabaseConnectionManagerInterface;
@@ -50,13 +50,9 @@ class DatabaseConnectionManagerTest extends BaseTest
      */
     protected function doTestGetConnectionWithNameGetDatabaseConnectionManager()
     {
-        $databaseConnectionMock = $this->getMock(
-            DatabaseConnectionInterface::class
-        );
+        $databaseConnectionMock = $this->createMock(DatabaseConnection::class);
 
-        $driverMock = $this->getMock(
-            DriverInterface::class
-        );
+        $driverMock = $this->createMock(DriverInterface::class);
 
         $driverMock->method(
             'instanciateDatabaseConnection'
@@ -94,7 +90,7 @@ class DatabaseConnectionManagerTest extends BaseTest
         $instance = $databaseConnectionManager->getConnectionWithName('default');
 
         $this->assertInstanceOf(
-            DatabaseConnectionInterface::class,
+            DatabaseConnection::class,
             $instance
         );
     }

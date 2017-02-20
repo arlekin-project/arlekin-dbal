@@ -59,6 +59,8 @@ class DiffManagerTest extends BaseTest
             $destinationSchema,
             sys_get_temp_dir()
         );
+
+        $this->assertTrue(true);
     }
 
     /**
