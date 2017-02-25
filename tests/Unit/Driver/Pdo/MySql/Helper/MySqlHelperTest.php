@@ -13,7 +13,7 @@ use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnType;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
-use Calam\Dbal\Driver\Pdo\MySql\Element\IndexKind;
+use Calam\Dbal\Driver\Pdo\MySql\Element\IndexType;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
 use Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper;
 use Calam\Dbal\Tests\BaseTest;
@@ -452,8 +452,8 @@ class MySqlHelperTest extends BaseTest
             MySqlHelper::generateCreateAlterTableCreateIndexSql($index)
         );
 
-        $index->setKind(
-            IndexKind::KIND_BTREE
+        $index->setType(
+            IndexType::BTREE
         );
 
         $this->assertSame(
@@ -461,8 +461,8 @@ class MySqlHelperTest extends BaseTest
             MySqlHelper::generateCreateAlterTableCreateIndexSql($index)
         );
 
-        $index->setKind(
-            IndexKind::KIND_HASH
+        $index->setType(
+            IndexType::HASH
         );
 
         $this->assertSame(
@@ -470,8 +470,8 @@ class MySqlHelperTest extends BaseTest
             MySqlHelper::generateCreateAlterTableCreateIndexSql($index)
         );
 
-        $index->setKind(
-            IndexKind::KIND_UNIQUE
+        $index->setType(
+            IndexType::KIND_UNIQUE
         );
 
         $this->assertSame(
@@ -479,8 +479,8 @@ class MySqlHelperTest extends BaseTest
             MySqlHelper::generateCreateAlterTableCreateIndexSql($index)
         );
 
-        $index->setKind(
-            IndexKind::KIND_FULLTEXT
+        $index->setType(
+            IndexType::KIND_FULLTEXT
         );
 
         $this->assertSame(
@@ -488,8 +488,8 @@ class MySqlHelperTest extends BaseTest
             MySqlHelper::generateCreateAlterTableCreateIndexSql($index)
         );
 
-        $index->setKind(
-            IndexKind::KIND_SPATIAL
+        $index->setType(
+            IndexType::KIND_SPATIAL
         );
 
         $this->assertSame(

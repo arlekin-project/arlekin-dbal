@@ -121,7 +121,7 @@ class IndexTest extends BaseTest
 
         $index->setName(
             'unique_deptName'
-        )->setKind(
+        )->setType(
             'UNIQUE'
         );
 

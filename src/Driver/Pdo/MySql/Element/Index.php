@@ -14,31 +14,40 @@ namespace Calam\Dbal\Driver\Pdo\MySql\Element;
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class Index
+final class Index
 {
     /**
-     * The index's kind.
+     * Index class.
+     *
+     * Must be one of the values defined as a const in @see IndexClass
      *
      * @var string
      */
-    private $kind;
+    private $class;
 
     /**
-     * The index's name.
+     * Index type.
+     *
+     * @var string
+     */
+    private $type;
+
+    /**
+     * Index name.
      *
      * @var string
      */
     private $name;
 
     /**
-     * The table the index belongs to.
+     * Table the index belongs to.
      *
      * @var Table
      */
     private $table;
 
     /**
-     * The index's columns.
+     * Index columns.
      *
      * @var array
      */
@@ -53,25 +62,56 @@ class Index
     }
 
     /**
-     * Gets the index's kind.
+     * Gets index class.
      *
      * @return string
      */
-    public function getKind()
+    public function getClass(): string
     {
-        return $this->kind;
+        return $this->class;
     }
 
     /**
-     * Sets the index's kind.
+     * Sets index class.
      *
-     * @param string $kind
+     * @param string $class one of the values defined as a const in @see IndexClass
+     *
+     * @return Index
+     *
+     * @throws UnknownIndexClassException if given index class is not one of the values
+     * defined as a const in @see IndexClass
+     */
+    public function setClass(string $class): Index
+    {
+        if (!in_array($class, IndexClass::$known)) {
+            throw new UnknownIndexClassException($class);
+        }
+
+        $this->class = $class;
+
+        return $this;
+    }
+
+    /**
+     * Gets index type.
+     *
+     * @return string one of the values defined as a const in @see IndexClass
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * Sets index type.
+     *
+     * @param string $type
      *
      * @return Index
      */
-    public function setKind($kind)
+    public function setType(string $type): Index
     {
-        $this->kind = $kind;
+        $this->type = $type;
 
         return $this;
     }
@@ -81,7 +121,7 @@ class Index
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -93,7 +133,7 @@ class Index
      *
      * @return Index
      */
-    public function setName($name)
+    public function setName(string $name): Index
     {
         $this->name = $name;
 
@@ -105,7 +145,7 @@ class Index
      *
      * @return Table
      */
-    public function getTable()
+    public function getTable(): Table
     {
         return $this->table;
     }
@@ -117,7 +157,7 @@ class Index
      *
      * @return Index
      */
-    public function setTable(Table $table)
+    public function setTable(Table $table): Index
     {
         $this->table = $table;
 
@@ -129,7 +169,7 @@ class Index
      *
      * @return array
      */
-    public function getColumns()
+    public function getColumns(): array
     {
         return $this->columns;
     }
@@ -141,7 +181,7 @@ class Index
      *
      * @return Index
      */
-    public function setColumns(array $columns)
+    public function setColumns(array $columns): Index
     {
         $this->columns = $columns;
 
@@ -153,7 +193,7 @@ class Index
      *
      * @return Index
      */
-    public function addColumn(Column $column)
+    public function addColumn(Column $column): Index
     {
         $this->columns[] = $column;
 
@@ -165,7 +205,7 @@ class Index
      *
      * @return Index
      */
-    public function removeColumnAtIndex($index)
+    public function removeColumnAtIndex(int $index): Index
     {
         unset($this->columns[$index]);
 
@@ -179,7 +219,7 @@ class Index
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $table = $this->getTable();
         $tableName = $table->getName();
@@ -193,7 +233,7 @@ class Index
 
         $arr = [
             'name' => $indexName,
-            'kind' => $this->getKind(),
+            'kind' => $this->getType(),
             'columns' => $columnsAsArray,
             'table' => $tableName,
         ];

@@ -13,7 +13,7 @@ use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnType;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
-use Calam\Dbal\Driver\Pdo\MySql\Element\IndexKind;
+use Calam\Dbal\Driver\Pdo\MySql\Element\IndexType;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
 use Calam\Dbal\Driver\Pdo\MySql\Exception\PdoMySqlDriverException;
 use Calam\Dbal\Helper\ArrayHelper;
@@ -352,7 +352,7 @@ class MySqlHelper
             );
         }
 
-        $kind = $index->getKind();
+        $kind = $index->getType();
 
         $query = 'ALTER TABLE '
             .MySqlHelper::backquoteTableOrColumnName($tableName);
@@ -360,14 +360,14 @@ class MySqlHelper
         $query .= ' ADD';
 
         if ($kind !== null) {
-            if ($kind === IndexKind::KIND_UNIQUE) {
+            if ($kind === IndexType::KIND_UNIQUE) {
                 $query .= " $kind";
             }
         }
 
         $query .= ' INDEX ';
 
-        if ($kind === IndexKind::KIND_FULLTEXT || $kind === IndexKind::KIND_SPATIAL) {
+        if ($kind === IndexType::KIND_FULLTEXT || $kind === IndexType::KIND_SPATIAL) {
             $query .= "$kind ";
         }
 
@@ -383,7 +383,7 @@ class MySqlHelper
         $query .= ' '
             .MySqlHelper::generateSqlCollectionBetweenParentheses($columnsNames);
 
-        if ($kind === IndexKind::KIND_BTREE || $kind === IndexKind::KIND_HASH) {
+        if ($kind === IndexType::BTREE || $kind === IndexType::HASH) {
             $query .= " USING $kind";
         }
 

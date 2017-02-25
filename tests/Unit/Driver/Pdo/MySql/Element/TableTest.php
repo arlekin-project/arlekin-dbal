@@ -250,7 +250,7 @@ class TableTest extends BaseTest
 
         $index->setName(
             'unique_deptName'
-        )->setKind(
+        )->setType(
             'UNIQUE'
         )->setColumns(
             [
