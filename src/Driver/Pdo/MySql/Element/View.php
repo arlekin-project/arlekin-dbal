@@ -51,19 +51,4 @@ final class View
     {
         return $this->definition;
     }
-
-    /**
-     * @todo Move the toArray responsibility away from the View
-     *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        $arr = [
-            'name' => $this->getName(),
-            'definition' => $this->getDefinition(),
-        ];
-
-        return $arr;
-    }
 }

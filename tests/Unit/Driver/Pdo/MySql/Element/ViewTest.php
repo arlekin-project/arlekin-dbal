@@ -47,20 +47,4 @@ class ViewTest extends BaseTest
 
         $this->assertSame('SELECT 1', $view->getDefinition());
     }
-
-    /**
-     * @covers View::toArray
-     */
-    public function testToArray()
-    {
-        $view = new View('foo', 'SELECT 1');
-
-        $this->assertSame(
-            [
-                'name' => 'foo',
-                'definition' => 'SELECT 1',
-            ],
-            $view->toArray()
-        );
-    }
 }
