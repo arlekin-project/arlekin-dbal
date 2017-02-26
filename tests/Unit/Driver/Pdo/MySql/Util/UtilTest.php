@@ -10,7 +10,7 @@
 namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Util;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
-use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataType;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataTypes;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
 use Calam\Dbal\Driver\Pdo\MySql\Element\IndexTypes;
@@ -162,30 +162,6 @@ final class UtilTest extends BaseTest
      */
     public function testGenerateColumnSql()
     {
-        $column = new Column();
-
-        $exceptionThrown = false;
-
-        try {
-            Util::generateColumnSql($column);
-        } catch (\Exception $ex) {
-            $exceptionThrown = true;
-
-            $this->assertSame(
-                'A table is required to generate column SQL.',
-                $ex->getMessage()
-            );
-        }
-
-        $this->assertTrue($exceptionThrown);
-
-        $table = new Table();
-
-        $table->setName('testTable');
-
-        $column->setTable($table);
-
-        $exceptionThrown = false;
 
         try {
             Util::generateColumnSql($column);
@@ -217,7 +193,7 @@ final class UtilTest extends BaseTest
 
         $this->assertTrue($exceptionThrown);
 
-        $column->setDataType(ColumnDataType::TYPE_ENUM);
+        $column->setDataType(ColumnDataTypes::TYPE_ENUM);
 
         $exceptionThrown = false;
 
@@ -275,7 +251,7 @@ final class UtilTest extends BaseTest
         );
 
         $column->setDataType(
-            ColumnDataType::TYPE_INT
+            ColumnDataTypes::TYPE_INT
         )->setParameters(
             [
                 'length' => 11,
@@ -312,7 +288,7 @@ final class UtilTest extends BaseTest
         )->setNullable(
             false
         )->setDataType(
-            ColumnDataType::TYPE_INT
+            ColumnDataTypes::TYPE_INT
         )->setName(
             'col1'
         );
@@ -322,7 +298,7 @@ final class UtilTest extends BaseTest
         )->setNullable(
             true
         )->setDataType(
-            ColumnDataType::TYPE_VARCHAR
+            ColumnDataTypes::TYPE_VARCHAR
         )->setName(
             'col2'
         );
@@ -354,7 +330,7 @@ final class UtilTest extends BaseTest
         )->setNullable(
             false
         )->setDataType(
-            ColumnDataType::TYPE_INT
+            ColumnDataTypes::TYPE_INT
         )->setName(
             'col1'
         );
@@ -379,7 +355,7 @@ final class UtilTest extends BaseTest
         )->setNullable(
             false
         )->setDataType(
-            ColumnDataType::TYPE_INT
+            ColumnDataTypes::TYPE_INT
         )->setName(
             'col1'
         );
@@ -510,7 +486,7 @@ final class UtilTest extends BaseTest
         )->setNullable(
             false
         )->setDataType(
-            ColumnDataType::TYPE_INT
+            ColumnDataTypes::TYPE_INT
         );
 
         $destinationTable = new Table();
@@ -542,7 +518,7 @@ final class UtilTest extends BaseTest
         )->setNullable(
             false
         )->setDataType(
-            ColumnDataType::TYPE_INT
+            ColumnDataTypes::TYPE_INT
         );
 
         $destinationTable = new Table();
@@ -602,8 +578,8 @@ final class UtilTest extends BaseTest
 
         $table->setName('testTable');
 
-        $initColumn1->setDataType(ColumnDataType::TYPE_INT);
-        $initColumn2->setDataType(ColumnDataType::TYPE_INT);
+        $initColumn1->setDataType(ColumnDataTypes::TYPE_INT);
+        $initColumn2->setDataType(ColumnDataTypes::TYPE_INT);
 
         $result = Util::columnsAreSameIgnoreAutoIncrement($initColumn1, $initColumn2);
 
@@ -635,42 +611,33 @@ final class UtilTest extends BaseTest
      */
     protected function getBasicForeignKey()
     {
-        $table = new Table();
+        $column = new Column('testColumn', ColumnDataTypes::TYPE_INT, false);
 
-        $table->setName('testTableName');
+        $referencedColumn = new Column('testReferencedColumn', ColumnDataTypes::TYPE_INT, false);
 
-        $referencedTable = new Table();
-
-        $referencedTable->setName('referencedTableName');
-
-        $column = new Column();
-
-        $column->setName('testColumn');
-
-        $referencedColumn = new Column();
-
-        $referencedColumn->setName(
-            'testReferencedColumn'
+        $table = new Table(
+            'testTableName',
+            [
+                $column,
+            ]
         );
 
-        $columns = [
-            $column,
-        ];
+        $referencedTable = new Table(
+            'referencedTableName',
+            [
+                $referencedColumn,
+            ]
+        );
 
-        $referencedColumns = [
-            $referencedColumn,
-        ];
-
-        $foreignKey = new ForeignKey();
-
-        $foreignKey->setTable(
-            $table
-        )->setReferencedTable(
-            $referencedTable
-        )->setColumns(
-            $columns
-        )->setReferencedColumns(
-            $referencedColumns
+        $foreignKey = new ForeignKey(
+            $table,
+            [
+                $column,
+            ],
+            $referencedTable,
+            [
+                $referencedColumn,
+            ]
         );
 
         return $foreignKey;

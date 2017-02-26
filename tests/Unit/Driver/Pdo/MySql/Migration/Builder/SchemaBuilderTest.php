@@ -11,7 +11,7 @@ namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Migration\Builder;
 
 use Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
-use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataType;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataTypes;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteReferenceOptions;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnUpdateReferenceOptions;
@@ -195,7 +195,7 @@ class SchemaBuilderTest extends BaseTest
         );
 
         $this->assertSame(
-            ColumnDataType::TYPE_INT,
+            ColumnDataTypes::TYPE_INT,
             $column->getDataType()
         );
 
@@ -310,7 +310,7 @@ class SchemaBuilderTest extends BaseTest
         );
 
         $this->assertSame(
-            ColumnDataType::TYPE_INT,
+            ColumnDataTypes::TYPE_INT,
             $idColumn->getDataType()
         );
 
@@ -339,7 +339,7 @@ class SchemaBuilderTest extends BaseTest
         );
 
         $this->assertSame(
-            ColumnDataType::TYPE_ENUM,
+            ColumnDataTypes::TYPE_ENUM,
             $testEnumColumn->getDataType()
         );
 
@@ -371,7 +371,7 @@ class SchemaBuilderTest extends BaseTest
         );
 
         $this->assertSame(
-            ColumnDataType::TYPE_VARCHAR,
+            ColumnDataTypes::TYPE_VARCHAR,
             $testVarcharColumn->getDataType()
         );
 
@@ -473,7 +473,7 @@ class SchemaBuilderTest extends BaseTest
         );
 
         $this->assertSame(
-            ColumnDataType::TYPE_INT,
+            ColumnDataTypes::TYPE_INT,
             $column->getDataType()
         );
 
@@ -596,7 +596,7 @@ class SchemaBuilderTest extends BaseTest
         );
 
         $this->assertSame(
-            ColumnDataType::TYPE_INT,
+            ColumnDataTypes::TYPE_INT,
             $column->getDataType()
         );
 
@@ -719,7 +719,7 @@ class SchemaBuilderTest extends BaseTest
         );
 
         $this->assertSame(
-            ColumnDataType::TYPE_INT,
+            ColumnDataTypes::TYPE_INT,
             $column->getDataType()
         );
 

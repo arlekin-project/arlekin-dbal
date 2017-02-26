@@ -13,7 +13,7 @@ namespace Calam\Examples;
 use Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection;
 use Calam\Dbal\Driver\Pdo\MySql\Driver;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
-use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataType;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataTypes;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Schema;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
 use Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder;
@@ -59,7 +59,7 @@ $column = new Column();
 
 $column
     ->setName('foo')
-    ->setDataType(ColumnDataType::TYPE_INT)
+    ->setDataType(ColumnDataTypes::TYPE_INT)
     ->setNullable(true)
 ;
 
@@ -102,7 +102,7 @@ $newColumn = new Column();
 
 $newColumn
     ->setName('bar')
-    ->setDataType(ColumnDataType::TYPE_VARCHAR)
+    ->setDataType(ColumnDataTypes::TYPE_VARCHAR)
     ->setParameter('length', '255')
     ->setNullable(false)
 ;

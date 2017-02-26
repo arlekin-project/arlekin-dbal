@@ -10,7 +10,7 @@
 namespace Calam\Dbal\Driver\Pdo\MySql\Util;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
-use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataType;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataTypes;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
 use Calam\Dbal\Driver\Pdo\MySql\Element\IndexTypes;
@@ -175,7 +175,6 @@ final class Util
      * @return string
      *
      * @throws DriverException either if:
-     * - the column has no table
      * - the column has no name
      * - the column has no data type
      * - the column nullable property hasn't been defined
@@ -187,44 +186,8 @@ final class Util
         $columnType = $column->getDataType();
         $nullable = $column->isNullable();
         $parameters = $column->getParameters();
-        $table = $column->getTable();
 
-        if (!isset($table)) {
-            throw new DriverException('A table is required to generate column SQL.');
-        }
-
-        $tableName = $table->getName();
-
-        if (empty($columnName)) {
-            throw new DriverException(
-                sprintf(
-                    'A column name is required for column from table "%s".',
-                    $tableName
-                )
-            );
-        }
-
-        if (empty($columnType)) {
-            throw new DriverException(
-                sprintf(
-                    'A column data type is required for column "%s" from table "%s".',
-                    $columnName,
-                    $tableName
-                )
-            );
-        }
-
-        if ($nullable === null) {
-            throw new DriverException(
-                sprintf(
-                    'Nullable is required for column "%s" from table "%s".',
-                    $columnName,
-                    $tableName
-                )
-            );
-        }
-
-        if ($columnType === ColumnDataType::TYPE_ENUM
+        if ($columnType === ColumnDataTypes::TYPE_ENUM
             && !array_key_exists('allowedValues', $parameters)
         ) {
             throw new DriverException(
@@ -236,7 +199,7 @@ final class Util
 
         $columnSql .= " $columnType";
 
-        if ($columnType === ColumnDataType::TYPE_ENUM) {
+        if ($columnType === ColumnDataTypes::TYPE_ENUM) {
             $allowedValues = $parameters['allowedValues'];
             $stringifiedValues = [];
 

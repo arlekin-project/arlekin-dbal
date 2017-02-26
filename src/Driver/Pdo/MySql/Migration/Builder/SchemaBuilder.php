@@ -11,7 +11,7 @@ namespace Calam\Dbal\Driver\Pdo\MySql\Migration\Builder;
 
 use Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
-use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataType;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataTypes;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
 use Calam\Dbal\Driver\Pdo\MySql\Element\IndexTypes;
@@ -144,9 +144,9 @@ class SchemaBuilder
 
                 $upperDataType = strtoupper($columnDataType);
 
-                if ($upperDataType === ColumnDataType::TYPE_ENUM) {
+                if ($upperDataType === ColumnDataTypes::TYPE_ENUM) {
                     $columnLength = null;
-                } elseif ($upperDataType === ColumnDataType::TYPE_INT) {
+                } elseif ($upperDataType === ColumnDataTypes::TYPE_INT) {
                     $columnLength = $columnNumericPrecision + 1;
                 } else {
                     $columnLength = $columnCharacterMaximumLength;
@@ -164,7 +164,7 @@ class SchemaBuilder
                     $upperDataType
                 );
 
-                if (in_array($upperDataType, ColumnDataType::$WITH_LENGTH_TYPES)) {
+                if (in_array($upperDataType, ColumnDataTypes::$WITH_LENGTH_TYPES)) {
                     $column->setParameter('length', $columnLength);
                 }
 
@@ -172,7 +172,7 @@ class SchemaBuilder
                     $column->setAutoIncrementable(true);
                 }
 
-                if (strtoupper($columnDataType) === ColumnDataType::TYPE_ENUM) {
+                if (strtoupper($columnDataType) === ColumnDataTypes::TYPE_ENUM) {
                     $commaSeparatedCollection = substr(
                         $columnType,
                         5,

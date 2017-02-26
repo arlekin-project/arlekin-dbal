@@ -10,7 +10,7 @@
 namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Migration\Builder;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
-use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataType;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataTypes;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteReferenceOptions;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
@@ -59,7 +59,7 @@ class MigrationQueriesBuilderTest extends BaseTest
         $fooColumn->setName(
             'foo'
         )->setDataType(
-            ColumnDataType::TYPE_INT
+            ColumnDataTypes::TYPE_INT
         )->setNullable(
             false
         )->setAutoIncrementable(
@@ -176,7 +176,7 @@ class MigrationQueriesBuilderTest extends BaseTest
         $destinationColumn->setName(
             'testColumn'
         )->setDataType(
-            ColumnDataType::TYPE_DATE
+            ColumnDataTypes::TYPE_DATE
         )->setNullable(
             false
         );
@@ -218,7 +218,7 @@ class MigrationQueriesBuilderTest extends BaseTest
         $fooColumn->setName(
             'foo'
         )->setDataType(
-            ColumnDataType::TYPE_INT
+            ColumnDataTypes::TYPE_INT
         )->setNullable(
             false
         )->setAutoIncrementable(
@@ -638,7 +638,7 @@ class MigrationQueriesBuilderTest extends BaseTest
         $destinationColumn->setName(
             'testColumn'
         )->setDataType(
-            ColumnDataType::TYPE_INT
+            ColumnDataTypes::TYPE_INT
         )->setNullable(
             false
         );
@@ -673,7 +673,7 @@ class MigrationQueriesBuilderTest extends BaseTest
         $testColumn->setName(
             'testColumn'
         )->setDataType(
-            ColumnDataType::TYPE_VARCHAR
+            ColumnDataTypes::TYPE_VARCHAR
         )->setNullable(
             true
         );
@@ -723,7 +723,7 @@ class MigrationQueriesBuilderTest extends BaseTest
         $testColumn->setName(
             'testColumn'
         )->setDataType(
-            ColumnDataType::TYPE_VARCHAR
+            ColumnDataTypes::TYPE_VARCHAR
         )->setNullable(
             true
         );
@@ -773,7 +773,7 @@ class MigrationQueriesBuilderTest extends BaseTest
 
         $destinationColumn->setName('testColumn');
 
-        $destinationColumn->setDataType(ColumnDataType::TYPE_VARCHAR);
+        $destinationColumn->setDataType(ColumnDataTypes::TYPE_VARCHAR);
 
         $destinationColumn->setParameters(
             [
@@ -834,7 +834,7 @@ class MigrationQueriesBuilderTest extends BaseTest
 
         $destinationColumn->setName('testColumn');
 
-        $destinationColumn->setDataType(ColumnDataType::TYPE_VARCHAR);
+        $destinationColumn->setDataType(ColumnDataTypes::TYPE_VARCHAR);
 
         $destinationColumn->setParameters(
             [
@@ -936,7 +936,7 @@ class MigrationQueriesBuilderTest extends BaseTest
         $testColumn->setName(
             'testColumn'
         )->setDataType(
-            ColumnDataType::TYPE_VARCHAR
+            ColumnDataTypes::TYPE_VARCHAR
         )->setNullable(
             true
         );
@@ -1001,7 +1001,7 @@ class MigrationQueriesBuilderTest extends BaseTest
         $destinationColumn->setName(
             'testColumn'
         )->setDataType(
-            ColumnDataType::TYPE_VARCHAR
+            ColumnDataTypes::TYPE_VARCHAR
         )->setNullable(
             false
         )->setParameters(
@@ -1153,9 +1153,9 @@ class MigrationQueriesBuilderTest extends BaseTest
 
         $referencedTestColumn = new Column();
 
-        $testColumn->setDataType(ColumnDataType::TYPE_INT);
+        $testColumn->setDataType(ColumnDataTypes::TYPE_INT);
 
-        $referencedTestColumn->setDataType(ColumnDataType::TYPE_INT);
+        $referencedTestColumn->setDataType(ColumnDataTypes::TYPE_INT);
 
         $testColumn->setNullable(false);
 
@@ -1221,7 +1221,7 @@ class MigrationQueriesBuilderTest extends BaseTest
 
         $column->setName('foo');
 
-        $column->setDataType(ColumnDataType::TYPE_INT);
+        $column->setDataType(ColumnDataTypes::TYPE_INT);
 
         $column->setNullable(false);
 
@@ -1278,7 +1278,7 @@ class MigrationQueriesBuilderTest extends BaseTest
         $sourceFooColumn->setName(
             'foo'
         )->setDataType(
-            ColumnDataType::TYPE_INT
+            ColumnDataTypes::TYPE_INT
         )->setNullable(
             false
         )->setAutoIncrementable(true);
@@ -1288,7 +1288,7 @@ class MigrationQueriesBuilderTest extends BaseTest
         $sourceBarColumn->setName(
             'bar'
         )->setDataType(
-            ColumnDataType::TYPE_INT
+            ColumnDataTypes::TYPE_INT
         )->setNullable(
             false
         );
@@ -1321,7 +1321,7 @@ class MigrationQueriesBuilderTest extends BaseTest
         $destinationFooColumn->setName(
             'foo'
         )->setDataType(
-            ColumnDataType::TYPE_INT
+            ColumnDataTypes::TYPE_INT
         )->setNullable(
             false
         )->setAutoIncrementable(
@@ -1333,7 +1333,7 @@ class MigrationQueriesBuilderTest extends BaseTest
         $destinationBarColumn->setName(
             'bar'
         )->setDataType(
-            ColumnDataType::TYPE_INT
+            ColumnDataTypes::TYPE_INT
         )->setNullable(
             false
         )->setAutoIncrementable(
@@ -1498,7 +1498,7 @@ class MigrationQueriesBuilderTest extends BaseTest
         $sourceFooColumn->setName(
             'foo'
         )->setDataType(
-            ColumnDataType::TYPE_INT
+            ColumnDataTypes::TYPE_INT
         )->setNullable(
             false
         )->setAutoIncrementable(
@@ -1520,7 +1520,7 @@ class MigrationQueriesBuilderTest extends BaseTest
         $destinationFooColumn->setName(
             'foo'
         )->setDataType(
-            ColumnDataType::TYPE_INT
+            ColumnDataTypes::TYPE_INT
         )->setNullable(
             true
         )->setAutoIncrementable(
