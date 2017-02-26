@@ -13,7 +13,7 @@ use Calam\Dbal\Driver\Pdo\MySql\Exception\ConnectionAlreadyClosedException;
 use Calam\Dbal\Driver\Pdo\MySql\Exception\ConnectionAlreadyEstablishedException;
 use Calam\Dbal\Driver\Pdo\MySql\Exception\MultipleQueriesQueryException;
 use Calam\Dbal\Driver\Pdo\MySql\Exception\QueryException;
-use Calam\Dbal\Driver\Pdo\MySql\Exception\QueryWithNotEstablishedConnectionException;
+use Calam\Dbal\Driver\Pdo\MySql\Exception\QueryWithNonEstablishedConnectionException;
 
 /**
  * MySQL database connection.
@@ -167,13 +167,13 @@ class DatabaseConnection
      *
      * @return array
      *
-     * @throws QueryWithNotEstablishedConnectionException
+     * @throws QueryWithNonEstablishedConnectionException
      * @throws QueryException
      */
     public function executeQuery(string $query, array $queryParameters = []): array
     {
         if ($this->connection === null) {
-            throw new QueryWithNotEstablishedConnectionException();
+            throw new QueryWithNonEstablishedConnectionException();
         }
 
         $arrayParametersToReplace = [];

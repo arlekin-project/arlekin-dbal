@@ -5,7 +5,7 @@ namespace Calam\Dbal\Driver\Pdo\MySql\Exception;
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-final class QueryWithNotEstablishedConnectionException extends DriverException
+final class QueryWithNonEstablishedConnectionException extends DriverException
 {
     public function __construct()
     {
