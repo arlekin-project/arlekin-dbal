@@ -10,10 +10,10 @@
 namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataTypes;
 use Calam\Dbal\Driver\Pdo\MySql\Element\PrimaryKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
 use Calam\Dbal\Tests\BaseTest;
-use Calam\Dbal\Tests\Helper\CommonTestHelper;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
@@ -21,110 +21,69 @@ use Calam\Dbal\Tests\Helper\CommonTestHelper;
 class PrimaryKeyTest extends BaseTest
 {
     /**
-     * @covers Calam\Dbal\SqlBased\Element\PrimaryKey::__construct
+     * @covers PrimaryKey::__construct
      */
     public function testConstruct()
     {
-        $primaryKey = $this->createBaseNewPrimaryKey();
+        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
 
-        $this->assertAttributeSame(null, 'table', $primaryKey);
-        $this->assertAttributeSame([], 'columns', $primaryKey);
+        $table = new Table('foo', [ $column ]);
+
+        $primaryKey = new PrimaryKey($table, [ $column ]);
+
+        $this->assertAttributeSame($table, 'table', $primaryKey);
+        $this->assertAttributeSame([ $column ], 'columns', $primaryKey);
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\PrimaryKey::getTable
-     * @covers Calam\Dbal\SqlBased\Element\PrimaryKey::setTable
+     * @covers PrimaryKey::getTable
      */
-    public function testGetAndSetTable()
+    public function testGetTable()
     {
-        CommonTestHelper::testBasicGetAndSetForProperty(
-            $this,
-            $this->createBaseNewPrimaryKey(),
-            'table',
-            $this->createBaseNewTable()
-        );
+        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $table = new Table('foo', [ $column ]);
+
+        $primaryKey = new PrimaryKey($table, [ $column ]);
+
+        $this->assertSame($table, $primaryKey->getTable());
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\PrimaryKey::getColumns
-     * @covers Calam\Dbal\SqlBased\Element\PrimaryKey::setColumns
+     * @covers PrimaryKey::getColumns
      */
-    public function testGetAndSetColumns()
+    public function testGetColumns()
     {
-        CommonTestHelper::testBasicGetAndSetCollectionForProperty(
-            $this,
-            $this->createBaseNewPrimaryKey(),
-            'columns',
-            [
-                $this->createBaseNewColumn(),
-            ]
-        );
+        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $table = new Table('foo', [ $column ]);
+
+        $primaryKey = new PrimaryKey($table, [ $column ]);
+
+        $this->assertSame([ $column ], $primaryKey->getColumns());
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\PrimaryKey::toArray
+     * @covers PrimaryKey::toArray
      */
     public function testToArray()
     {
-        $column = $this->createBaseNewColumn();
+        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
 
-        $column->setName('deptNo');
+        $table = new Table('foo', [ $column ]);
 
-        $primaryKey = $this->createBaseNewPrimaryKey();
-
-        $primaryKey->addColumn($column);
-
-        $table = $this->createBaseNewTable();
-
-        $table->setName(
-            'testTableName'
-        )->setPrimaryKey(
-            $primaryKey
-        )->setColumns(
-            [
-                $column,
-            ]
-        );
+        $primaryKey = new PrimaryKey($table, [ $column ]);
 
         $arr = $primaryKey->toArray();
 
-        $expected = [
-            'columns' => [
-                'deptNo',
+        $this->assertEquals(
+            [
+                'table' => 'foo',
+                'columns' => [
+                    'id',
+                ],
             ],
-            'table' => 'testTableName',
-        ];
-
-        $this->assertEquals($expected, $arr);
-    }
-
-    /**
-     * @return Column
-     */
-    protected function createBaseNewColumn()
-    {
-        return $this->getMockForAbstractClass(
-            Column::class
-        );
-    }
-
-    /**
-     * @return PrimaryKey
-     */
-    protected function createBaseNewPrimaryKey()
-    {
-        return $this->getMockForAbstractClass(
-            PrimaryKey::class
-        );
-    }
-
-    /**
-     * @return Table
-     */
-    protected function createBaseNewTable()
-    {
-        return $this->getMockForAbstractClass(
-            Table::class
+            $arr
         );
     }
 }
