@@ -13,7 +13,7 @@ use Calam\Dbal\Driver\Pdo\MySql\Element\IndexType;
 use Calam\Dbal\Driver\Pdo\MySql\Exception\PdoMySqlDriverException;
 
 /**
- * To be thrown when an unknown index class is used.
+ * To be thrown when an unknown index type is used.
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
@@ -25,7 +25,7 @@ final class UnknownIndexTypeException extends PdoMySqlDriverException
     private $indexType;
 
     /**
-     * UnknownIndexClassException constructor.
+     * Constructor.
      *
      * @param string $indexType
      */
@@ -33,9 +33,9 @@ final class UnknownIndexTypeException extends PdoMySqlDriverException
     {
         parent::__construct(
             sprintf(
-                'Unknown index class "%s". Known index types are %s.',
+                'Unknown index type "%s". Known index types are %s.',
                 $indexType,
-                IndexType::$known
+                IndexType::$KNOWN
             )
         );
 

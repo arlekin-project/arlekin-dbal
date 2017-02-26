@@ -11,10 +11,10 @@ namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Migration\Builder;
 
 use Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
-use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnType;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataType;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
-use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteConstraint;
-use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnUpdateConstraint;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteReferenceOptions;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnUpdateReferenceOptions;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
 use Calam\Dbal\Driver\Pdo\MySql\Element\IndexType;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
@@ -191,12 +191,12 @@ class SchemaBuilderTest extends BaseTest
         );
 
         $this->assertTrue(
-            $column->isAutoIncrement()
+            $column->isAutoIncrementable()
         );
 
         $this->assertSame(
-            ColumnType::TYPE_INT,
-            $column->getType()
+            ColumnDataType::TYPE_INT,
+            $column->getDataType()
         );
 
         $this->assertFalse(
@@ -306,12 +306,12 @@ class SchemaBuilderTest extends BaseTest
         );
 
         $this->assertTrue(
-            $idColumn->isAutoIncrement()
+            $idColumn->isAutoIncrementable()
         );
 
         $this->assertSame(
-            ColumnType::TYPE_INT,
-            $idColumn->getType()
+            ColumnDataType::TYPE_INT,
+            $idColumn->getDataType()
         );
 
         $this->assertFalse(
@@ -335,12 +335,12 @@ class SchemaBuilderTest extends BaseTest
         );
 
         $this->assertFalse(
-            $testEnumColumn->isAutoIncrement()
+            $testEnumColumn->isAutoIncrementable()
         );
 
         $this->assertSame(
-            ColumnType::TYPE_ENUM,
-            $testEnumColumn->getType()
+            ColumnDataType::TYPE_ENUM,
+            $testEnumColumn->getDataType()
         );
 
         $this->assertFalse(
@@ -367,12 +367,12 @@ class SchemaBuilderTest extends BaseTest
         );
 
         $this->assertFalse(
-            $testVarcharColumn->isAutoIncrement()
+            $testVarcharColumn->isAutoIncrementable()
         );
 
         $this->assertSame(
-            ColumnType::TYPE_VARCHAR,
-            $testVarcharColumn->getType()
+            ColumnDataType::TYPE_VARCHAR,
+            $testVarcharColumn->getDataType()
         );
 
         $this->assertFalse(
@@ -469,12 +469,12 @@ class SchemaBuilderTest extends BaseTest
         );
 
         $this->assertTrue(
-            $column->isAutoIncrement()
+            $column->isAutoIncrementable()
         );
 
         $this->assertSame(
-            ColumnType::TYPE_INT,
-            $column->getType()
+            ColumnDataType::TYPE_INT,
+            $column->getDataType()
         );
 
         $this->assertFalse(
@@ -592,12 +592,12 @@ class SchemaBuilderTest extends BaseTest
         );
 
         $this->assertTrue(
-            $column->isAutoIncrement()
+            $column->isAutoIncrementable()
         );
 
         $this->assertSame(
-            ColumnType::TYPE_INT,
-            $column->getType()
+            ColumnDataType::TYPE_INT,
+            $column->getDataType()
         );
 
         $this->assertFalse(
@@ -715,12 +715,12 @@ class SchemaBuilderTest extends BaseTest
         );
 
         $this->assertTrue(
-            $column->isAutoIncrement()
+            $column->isAutoIncrementable()
         );
 
         $this->assertSame(
-            ColumnType::TYPE_INT,
-            $column->getType()
+            ColumnDataType::TYPE_INT,
+            $column->getDataType()
         );
 
         $this->assertFalse(
@@ -881,12 +881,12 @@ class SchemaBuilderTest extends BaseTest
         );
 
         $this->assertSame(
-            ForeignKeyOnDeleteConstraint::ON_DELETE_CASCADE,
+            ForeignKeyOnDeleteReferenceOptions::ON_DELETE_CASCADE,
             $foreignKey->getOnDelete()
         );
 
         $this->assertSame(
-            ForeignKeyOnUpdateConstraint::ON_UPDATE_RESTRICT,
+            ForeignKeyOnUpdateReferenceOptions::ON_UPDATE_RESTRICT,
             $foreignKey->getOnUpdate()
         );
     }

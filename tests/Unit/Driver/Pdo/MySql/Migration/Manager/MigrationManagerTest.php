@@ -11,7 +11,7 @@ namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Migration\Manager;
 
 use Calam\Dbal\Driver\Pdo\MySql\DatabaseConnection;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
-use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnType;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataType;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Schema;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
 use Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\MigrationQueriesBuilder;
@@ -257,8 +257,8 @@ class MigrationManagerTest extends BaseTest
 
         $column->setName(
             'test'
-        )->setType(
-            ColumnType::TYPE_INT
+        )->setDataType(
+            ColumnDataType::TYPE_INT
         )->setNullable(
             false
         );
@@ -267,8 +267,8 @@ class MigrationManagerTest extends BaseTest
 
         $column1->setName(
             'test2'
-        )->setType(
-            ColumnType::TYPE_INT
+        )->setDataType(
+            ColumnDataType::TYPE_INT
         )->setNullable(
             false
         );

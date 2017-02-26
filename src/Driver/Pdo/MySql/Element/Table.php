@@ -9,48 +9,38 @@
 
 namespace Calam\Dbal\Driver\Pdo\MySql\Element;
 
-use Calam\Dbal\Driver\Pdo\MySql\Exception\PdoMySqlDriverException;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Exception\MissingTableColumnException;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Exception\MissingTableIndexException;
 use Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper;
-use Calam\Dbal\Exception\DbalException;
 
 /**
- * Represents a MySQL table.
+ * MySQL table.
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class Table
+final class Table
 {
     /**
-     * The table's name.
-     *
      * @var string
      */
     private $name;
 
     /**
-     * The table's primary key.
-     *
-     * @var PrimaryKey|null
-     */
-    private $primaryKey;
-
-    /**
-     * The table's columns.
-     *
      * @var array
      */
     private $columns;
 
     /**
-     * The table's foreign keys.
-     *
      * @var array
      */
     private $foreignKeys;
 
     /**
-     * The table's indexes.
-     *
+     * @var PrimaryKey|null
+     */
+    private $primaryKey;
+
+    /**
      * @var array
      */
     private $indexes;
@@ -62,28 +52,23 @@ class Table
     {
         $this->columns = [];
         $this->foreignKeys = [];
-        $this->primaryKey = null;
         $this->indexes = [];
     }
 
     /**
-     * Gets the table's name.
-     *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * Sets the table's name.
-     *
      * @param string $name
      *
      * @return Table
      */
-    public function setName($name)
+    public function setName(string $name): Table
     {
         $this->name = $name;
 
@@ -91,8 +76,6 @@ class Table
     }
 
     /**
-     * Gets the table's primary key.
-     *
      * @return PrimaryKey|null
      */
     public function getPrimaryKey()
@@ -101,13 +84,11 @@ class Table
     }
 
     /**
-     * Sets the table's primary key.
-     *
      * @param PrimaryKey $primaryKey
      *
      * @return Table
      */
-    public function setPrimaryKey(PrimaryKey $primaryKey = null)
+    public function setPrimaryKey(PrimaryKey $primaryKey = null): Table
     {
         if ($primaryKey === null) {
             $this->primaryKey->setTable(null);
@@ -121,23 +102,19 @@ class Table
     }
 
     /**
-     * Gets the table's columns.
-     *
      * @return array
      */
-    public function getColumns()
+    public function getColumns(): array
     {
         return $this->columns;
     }
 
     /**
-     * Sets the table's columns.
-     *
      * @param array $columns
      *
      * @return Table
      */
-    public function setColumns(array $columns)
+    public function setColumns(array $columns): Table
     {
         $this->columns = $columns;
 
@@ -153,7 +130,7 @@ class Table
      *
      * @return Table
      */
-    public function addColumn(Column $column)
+    public function addColumn(Column $column): Table
     {
         $this->columns[] = $column;
 
@@ -163,11 +140,13 @@ class Table
     }
 
     /**
+     * TODO See if it can be removed?
+     *
      * @param int $index
      *
      * @return Table
      */
-    public function removeColumnAtIndex($index)
+    public function removeColumnAtIndex(int $index): Table
     {
         unset($this->columns[$index]);
 
@@ -175,23 +154,19 @@ class Table
     }
 
     /**
-     * Gets the table's foreign keys.
-     *
      * @return array
      */
-    public function getForeignKeys()
+    public function getForeignKeys(): array
     {
         return $this->foreignKeys;
     }
 
     /**
-     * Sets the table's foreign keys.
-     *
      * @param array $foreignKeys
      *
      * @return Table
      */
-    public function setForeignKeys(array $foreignKeys)
+    public function setForeignKeys(array $foreignKeys): Table
     {
         $this->foreignKeys = $foreignKeys;
 
@@ -207,7 +182,7 @@ class Table
      *
      * @return Table
      */
-    public function addForeignKey(ForeignKey $foreignKey)
+    public function addForeignKey(ForeignKey $foreignKey): Table
     {
         $this->foreignKeys[] = $foreignKey;
 
@@ -217,11 +192,13 @@ class Table
     }
 
     /**
+     * TODO See if it can be removed?
+     *
      * @param int $index
      *
      * @return Table
      */
-    public function removeForeignKeyAtIndex($index)
+    public function removeForeignKeyAtIndex(int $index): Table
     {
         unset($this->foreignKeys[$index]);
 
@@ -229,23 +206,19 @@ class Table
     }
 
     /**
-     * Gets the table's indexes.
-     *
      * @return array
      */
-    public function getIndexes()
+    public function getIndexes(): array
     {
         return $this->indexes;
     }
 
     /**
-     * Sets the table's indexes.
-     *
      * @param array $indexes
      *
      * @return Table
      */
-    public function setIndexes(array $indexes)
+    public function setIndexes(array $indexes): Table
     {
         $this->indexes = $indexes;
 
@@ -261,7 +234,7 @@ class Table
      *
      * @return Table
      */
-    public function addIndex(Index $index)
+    public function addIndex(Index $index): Table
     {
         $this->indexes[] = $index;
 
@@ -271,11 +244,13 @@ class Table
     }
 
     /**
+     * TODO See if it can be removed?
+     *
      * @param int $index
      *
      * @return Table
      */
-    public function removeIndexAtIndex($index)
+    public function removeIndexAtIndex(int $index): Table
     {
         unset($this->indexes[$index]);
 
@@ -283,13 +258,11 @@ class Table
     }
 
     /**
-     * Converts a table into an array.
-     *
-     * @todo Move the toArray responsability away from the table.
+     * @todo Move the toArray responsibility away from the table.
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $columnsAsArray = [];
         $indexesAsArray = [];
@@ -341,13 +314,13 @@ class Table
      * @param string $referencedTableName
      * @param array $referencedColumnsNames
      *
-     * @return boolean
+     * @return bool
      */
     public function hasForeignKeyWithColumnsAndReferencedColumnsNamed(
         array $columnsNames,
-        $referencedTableName,
+        string $referencedTableName,
         array $referencedColumnsNames
-    ) {
+    ): bool {
         $foreignKeyAsArray = [
             'table' => $this->getName(),
             'columns' => $columnsNames,
@@ -372,13 +345,11 @@ class Table
     }
 
     /**
-     * Whether the table has the given column.
-     *
      * @param Column $column
      *
      * @return bool
      */
-    public function hasColumn(Column $column)
+    public function hasColumn(Column $column): bool
     {
         return in_array(
             $column,
@@ -387,36 +358,36 @@ class Table
     }
 
     /**
-     * Whether the table has a column with given name.
-     *
      * @param string $columnName
      *
      * @return bool
      */
-    public function hasColumnWithName($columnName)
+    public function hasColumnWithName(string $columnName): bool
     {
         foreach ($this->getColumns() as $column) {
             if ($column->getName() === $columnName) {
                 return true;
             }
+
+            unset($column);
         }
 
         return false;
     }
 
     /**
-     * Whether the table has an index with given name.
-     *
      * @param string $indexName
      *
      * @return bool
      */
-    public function hasIndexWithName($indexName)
+    public function hasIndexWithName(string $indexName): bool
     {
         foreach ($this->getIndexes() as $index) {
             if ($index->getName() === $indexName) {
                 return true;
             }
+
+            unset($index);
         }
 
         return false;
@@ -430,7 +401,7 @@ class Table
      *
      * @return bool
      */
-    public function hasPrimaryKeyWithColumnsNamed(array $columnNames)
+    public function hasPrimaryKeyWithColumnsNamed(array $columnNames): bool
     {
         $primaryKey = $this->getPrimaryKey();
 
@@ -450,54 +421,42 @@ class Table
     }
 
     /**
-     * Gets an index with given name.
-     *
      * @param string $indexName
      *
      * @return Index
      *
-     * @throws DbalException if no index with given name is found
+     * @throws MissingTableIndexException if no index with given name is found
      */
-    public function getIndexWithName($indexName)
+    public function getIndexWithName(string $indexName): Index
     {
         foreach ($this->getIndexes() as $index) {
             if ($index->getName() === $indexName) {
                 return $index;
             }
+
+            unset($index);
         }
 
-        throw new PdoMySqlDriverException(
-            sprintf(
-                'Table "%s" has no index with name "%s".',
-                $this->getName(),
-                $indexName
-            )
-        );
+        throw new MissingTableIndexException($this->getName(), $indexName);
     }
 
     /**
-     * Gets a column with given name from given table.
-     *
      * @param string $columnName
      *
      * @return Column
      *
-     * @throws DbalException
+     * @throws MissingTableColumnException if no column with given name is found
      */
-    public function getColumnWithName($columnName)
+    public function getColumnWithName(string $columnName): Column
     {
         foreach ($this->getColumns() as $column) {
             if ($column->getName() === $columnName) {
                 return $column;
             }
+
+            unset($column);
         }
 
-        throw new PdoMySqlDriverException(
-            sprintf(
-                'Table "%s" has no column with name "%s".',
-                $this->getName(),
-                $columnName
-            )
-        );
+        throw new MissingTableColumnException($this->getName(), $columnName);
     }
 }

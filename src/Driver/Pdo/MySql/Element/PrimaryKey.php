@@ -10,22 +10,18 @@
 namespace Calam\Dbal\Driver\Pdo\MySql\Element;
 
 /**
- * Represents a MySQL primary key.
+ * MySQL primary key.
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class PrimaryKey
+final class PrimaryKey
 {
     /**
-     * The table the primary key belongs to.
-     *
      * @var Table
      */
     private $table;
 
     /**
-     * The primary key's columns.
-     *
      * @var array
      */
     private $columns;
@@ -39,23 +35,19 @@ class PrimaryKey
     }
 
     /**
-     * Gets the primary key's table.
-     *
      * @return Table
      */
-    public function getTable()
+    public function getTable(): Table
     {
         return $this->table;
     }
 
     /**
-     * Sets the primary key's table.
-     *
      * @param Table $table
      *
      * @return PrimaryKey
      */
-    public function setTable(Table $table = null)
+    public function setTable(Table $table = null): PrimaryKey
     {
         $this->table = $table;
 
@@ -63,23 +55,19 @@ class PrimaryKey
     }
 
     /**
-     * Gets the primary key's columns.
-     *
      * @return array
      */
-    public function getColumns()
+    public function getColumns(): array
     {
         return $this->columns;
     }
 
     /**
-     * Sets the primary key's columns.
-     *
      * @param array $columns
      *
      * @return PrimaryKey
      */
-    public function setColumns(array $columns)
+    public function setColumns(array $columns): PrimaryKey
     {
         $this->columns = $columns;
 
@@ -91,7 +79,7 @@ class PrimaryKey
      *
      * @return PrimaryKey
      */
-    public function addColumn(Column $column)
+    public function addColumn(Column $column): PrimaryKey
     {
         $this->columns[] = $column;
 
@@ -99,11 +87,13 @@ class PrimaryKey
     }
 
     /**
+     * TODO See if it can be removed?
+     *
      * @param int $index
      *
      * @return PrimaryKey
      */
-    public function removeColumnAtIndex($index)
+    public function removeColumnAtIndex($index): PrimaryKey
     {
         unset($this->columns[$index]);
 
@@ -111,13 +101,11 @@ class PrimaryKey
     }
 
     /**
-     * Converts the primary key into an array.
-     *
-     * @todo Move the toArray responsability away from the primary key.
+     * @todo Move the toArray responsibility away from the primary key.
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $table = $this->getTable();
         $tableName = $table->getName();

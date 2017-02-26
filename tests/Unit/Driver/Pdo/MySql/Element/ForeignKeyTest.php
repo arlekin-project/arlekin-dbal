@@ -11,8 +11,8 @@ namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
-use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteConstraint;
-use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnUpdateConstraint;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteReferenceOptions;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnUpdateReferenceOptions;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
 use Calam\Dbal\Tests\BaseTest;
 use Calam\Dbal\Tests\Helper\CommonTestHelper;
@@ -32,13 +32,13 @@ class ForeignKeyTest extends BaseTest
         $this->assertAttributeSame([], 'referencedColumns', $foreignKey);
 
         $this->assertAttributeSame(
-            ForeignKeyOnDeleteConstraint::ON_DELETE_RESTRICT,
+            ForeignKeyOnDeleteReferenceOptions::ON_DELETE_RESTRICT,
             'onDelete',
             $foreignKey
         );
 
         $this->assertAttributeSame(
-            ForeignKeyOnUpdateConstraint::ON_UPDATE_RESTRICT,
+            ForeignKeyOnUpdateReferenceOptions::ON_UPDATE_RESTRICT,
             'onUpdate',
             $foreignKey
         );
@@ -150,8 +150,8 @@ class ForeignKeyTest extends BaseTest
             'referencedColumns' => [
                 'deptNo1',
             ],
-            'onDelete' => ForeignKeyOnDeleteConstraint::ON_DELETE_RESTRICT,
-            'onUpdate' => ForeignKeyOnUpdateConstraint::ON_UPDATE_RESTRICT,
+            'onDelete' => ForeignKeyOnDeleteReferenceOptions::ON_DELETE_RESTRICT,
+            'onUpdate' => ForeignKeyOnUpdateReferenceOptions::ON_UPDATE_RESTRICT,
         ];
 
         $this->assertEquals($expected, $arr);

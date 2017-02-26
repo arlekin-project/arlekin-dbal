@@ -10,44 +10,36 @@
 namespace Calam\Dbal\Driver\Pdo\MySql\Element;
 
 /**
- * Represents a MySQL view.
+ * MySQL view.
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class View
+final class View
 {
     /**
-     * The view's name.
-     *
      * @var string
      */
     private $name;
 
     /**
-     * The view's definition.
-     *
      * @var string
      */
     private $definition;
 
     /**
-     * Gets the view's name.
-     *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * Sets the view's name.
-     *
      * @param string $name
      *
      * @return View
      */
-    public function setName($name)
+    public function setName(string $name): View
     {
         $this->name = $name;
 
@@ -55,23 +47,19 @@ class View
     }
 
     /**
-     * Gets the view's definition.
-     *
      * @return string
      */
-    public function getDefinition()
+    public function getDefinition(): string
     {
         return $this->definition;
     }
 
     /**
-     * Sets the view's definition.
-     *
      * @param string $definition
      *
      * @return View
      */
-    public function setDefinition($definition)
+    public function setDefinition(string $definition): View
     {
         $this->definition = $definition;
 
@@ -79,13 +67,11 @@ class View
     }
 
     /**
-     * Converts the View instance to an array.
-     *
-     * @todo Move the toArray responsability away from the View
+     * @todo Move the toArray responsibility away from the View
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $arr = [
             'name' => $this->getName(),

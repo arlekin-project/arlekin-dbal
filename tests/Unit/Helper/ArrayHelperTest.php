@@ -76,23 +76,23 @@ class ArrayHelperTest extends BaseTest
     {
         $orig = [
             'name' => 'birthDate',
-            'type' => 'DATE',
+            'dataType' => 'DATE',
             'nullable' => true,
             'parameters' => [
                 'length' => null,
             ],
-            'autoIncrement' => false,
+            'autoIncrementable' => false,
             'table' => 'employees',
         ];
 
         $dest = [
             'name' => 'birthDate',
-            'type' => 'DATE',
+            'dataType' => 'DATE',
             'nullable' => false,
             'parameters' => [
                 'length' => null,
             ],
-            'autoIncrement' => false,
+            'autoIncrementable' => false,
             'table' => 'employees',
         ];
 
@@ -111,23 +111,23 @@ class ArrayHelperTest extends BaseTest
     {
         $orig = [
             'name' => 'birthDate',
-            'type' => 'DATE',
+            'dataType' => 'DATE',
             'nullable' => true,
             'parameters' => [
                 'length' => null,
             ],
-            'autoIncrement' => false,
+            'autoIncrementable' => false,
             'table' => 'employees',
         ];
 
         $dest = [
             'name' => 'birthDate',
-            'type' => 'DATE',
+            'dataType' => 'DATE',
             'nullable' => false,
             'parameters' => [
                 'length' => null,
             ],
-            'autoIncrement' => false,
+            'autoIncrementable' => false,
             'table' => 'employees',
         ];
 

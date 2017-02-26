@@ -10,7 +10,7 @@
 namespace Calam\Dbal\Driver\Pdo\MySql\Helper;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
-use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnType;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataType;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
 use Calam\Dbal\Driver\Pdo\MySql\Element\IndexType;
@@ -177,14 +177,14 @@ class MySqlHelper
      * @throws PdoMySqlDriverException either if:
      * - the column has no table
      * - the column has no name
-     * - the column has no type
+     * - the column has no data type
      * - the column nullable property hasn't been defined
-     * - the column is of type ColumnType::TYPE_ENUM and the allowedValues parameter hasn't been defined
+     * - the column is of data type ColumnType::TYPE_ENUM and the allowedValues parameter hasn't been defined
      */
     public static function generateColumnSql(Column $column)
     {
         $columnName = $column->getName();
-        $columnType = $column->getType();
+        $columnType = $column->getDataType();
         $nullable = $column->isNullable();
         $parameters = $column->getParameters();
         $table = $column->getTable();
@@ -207,7 +207,7 @@ class MySqlHelper
         if (empty($columnType)) {
             throw new PdoMySqlDriverException(
                 sprintf(
-                    'A column type is required for column "%s" from table "%s".',
+                    'A column data type is required for column "%s" from table "%s".',
                     $columnName,
                     $tableName
                 )
@@ -224,7 +224,7 @@ class MySqlHelper
             );
         }
 
-        if ($columnType === ColumnType::TYPE_ENUM
+        if ($columnType === ColumnDataType::TYPE_ENUM
             && !array_key_exists('allowedValues', $parameters)
         ) {
             throw new PdoMySqlDriverException(
@@ -236,7 +236,7 @@ class MySqlHelper
 
         $columnSql .= " $columnType";
 
-        if ($columnType === ColumnType::TYPE_ENUM) {
+        if ($columnType === ColumnDataType::TYPE_ENUM) {
             $allowedValues = $parameters['allowedValues'];
             $stringifiedValues = [];
 
@@ -482,8 +482,8 @@ class MySqlHelper
         $diff = ArrayHelper::arrayDiffRecursive($column1AsArray, $column2AsArray);
         $diff1 = ArrayHelper::arrayDiffRecursive($column2AsArray, $column1AsArray);
 
-        unset($diff['autoIncrement']);
-        unset($diff1['autoIncrement']);
+        unset($diff['autoIncrementable']);
+        unset($diff1['autoIncrementable']);
 
         return empty($diff) && empty($diff1);
     }

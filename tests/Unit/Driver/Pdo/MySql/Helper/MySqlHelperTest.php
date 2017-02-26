@@ -10,7 +10,7 @@
 namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Helper;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
-use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnType;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataType;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
 use Calam\Dbal\Driver\Pdo\MySql\Element\IndexType;
@@ -210,14 +210,14 @@ class MySqlHelperTest extends BaseTest
             $exceptionThrown = true;
 
             $this->assertSame(
-                'A column type is required for column "testColumn" from table "testTable".',
+                'A column data type is required for column "testColumn" from table "testTable".',
                 $ex->getMessage()
             );
         }
 
         $this->assertTrue($exceptionThrown);
 
-        $column->setType(ColumnType::TYPE_ENUM);
+        $column->setDataType(ColumnDataType::TYPE_ENUM);
 
         $exceptionThrown = false;
 
@@ -274,8 +274,8 @@ class MySqlHelperTest extends BaseTest
             MySqlHelper::generateColumnSql($column)
         );
 
-        $column->setType(
-            ColumnType::TYPE_INT
+        $column->setDataType(
+            ColumnDataType::TYPE_INT
         )->setParameters(
             [
                 'length' => 11,
@@ -311,8 +311,8 @@ class MySqlHelperTest extends BaseTest
             $table
         )->setNullable(
             false
-        )->setType(
-            ColumnType::TYPE_INT
+        )->setDataType(
+            ColumnDataType::TYPE_INT
         )->setName(
             'col1'
         );
@@ -321,8 +321,8 @@ class MySqlHelperTest extends BaseTest
             $table
         )->setNullable(
             true
-        )->setType(
-            ColumnType::TYPE_VARCHAR
+        )->setDataType(
+            ColumnDataType::TYPE_VARCHAR
         )->setName(
             'col2'
         );
@@ -353,8 +353,8 @@ class MySqlHelperTest extends BaseTest
             $table
         )->setNullable(
             false
-        )->setType(
-            ColumnType::TYPE_INT
+        )->setDataType(
+            ColumnDataType::TYPE_INT
         )->setName(
             'col1'
         );
@@ -378,8 +378,8 @@ class MySqlHelperTest extends BaseTest
             $table
         )->setNullable(
             false
-        )->setType(
-            ColumnType::TYPE_INT
+        )->setDataType(
+            ColumnDataType::TYPE_INT
         )->setName(
             'col1'
         );
@@ -509,8 +509,8 @@ class MySqlHelperTest extends BaseTest
             'testColumn'
         )->setNullable(
             false
-        )->setType(
-            ColumnType::TYPE_INT
+        )->setDataType(
+            ColumnDataType::TYPE_INT
         );
 
         $destinationTable = new Table();
@@ -541,8 +541,8 @@ class MySqlHelperTest extends BaseTest
             'testColumn'
         )->setNullable(
             false
-        )->setType(
-            ColumnType::TYPE_INT
+        )->setDataType(
+            ColumnDataType::TYPE_INT
         );
 
         $destinationTable = new Table();
@@ -602,8 +602,8 @@ class MySqlHelperTest extends BaseTest
 
         $table->setName('testTable');
 
-        $initColumn1->setType(ColumnType::TYPE_INT);
-        $initColumn2->setType(ColumnType::TYPE_INT);
+        $initColumn1->setDataType(ColumnDataType::TYPE_INT);
+        $initColumn2->setDataType(ColumnDataType::TYPE_INT);
 
         $result = MySqlHelper::columnsAreSameIgnoreAutoIncrement($initColumn1, $initColumn2);
 
@@ -612,8 +612,8 @@ class MySqlHelperTest extends BaseTest
         $column1 = clone $initColumn1;
         $column2 = clone $initColumn2;
 
-        $column1->setAutoIncrement(true);
-        $column2->setAutoIncrement(false);
+        $column1->setAutoIncrementable(true);
+        $column2->setAutoIncrementable(false);
 
         $result2 = MySqlHelper::columnsAreSameIgnoreAutoIncrement($column1, $column2);
 

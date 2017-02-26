@@ -9,25 +9,23 @@
 
 namespace Calam\Dbal\Driver\Pdo\MySql\Element;
 
-use Calam\Dbal\Driver\Pdo\MySql\Exception\PdoMySqlDriverException;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Exception\NoElementFoundWithNameInSchemaException;
 
 /**
- * Represents a MySQL database.
+ * MySQL schema / database.
+ *
+ * @see https://dev.mysql.com/doc/refman/5.5/en/glossary.html#glos_schema
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class Schema
+final class Schema
 {
     /**
-     * The schema's tables.
-     *
      * @var array
      */
     private $tables;
 
     /**
-     * The schema's views.
-     *
      * @var array
      */
     private $views;
@@ -42,23 +40,19 @@ class Schema
     }
 
     /**
-     * Gets the schema's tables.
-     *
      * @return array
      */
-    public function getTables()
+    public function getTables(): array
     {
         return $this->tables;
     }
 
     /**
-     * Sets the schema's tables.
-     *
      * @param array $tables
      *
      * @return Schema
      */
-    public function setTables(array $tables)
+    public function setTables(array $tables): Schema
     {
         $this->tables = $tables;
 
@@ -70,7 +64,7 @@ class Schema
      *
      * @return Schema
      */
-    public function addTable(Table $table)
+    public function addTable(Table $table): Schema
     {
         $this->tables[] = $table;
 
@@ -82,7 +76,7 @@ class Schema
      *
      * @return Schema
      */
-    public function removeTableAtIndex($index)
+    public function removeTableAtIndex(int $index): Schema
     {
         unset($this->tables[$index]);
 
@@ -90,23 +84,19 @@ class Schema
     }
 
     /**
-     * Gets the schema's views.
-     *
      * @return array
      */
-    public function getViews()
+    public function getViews(): array
     {
         return $this->views;
     }
 
     /**
-     * Sets the schema's views.
-     *
      * @param array $views
      *
      * @return Schema
      */
-    public function setViews(array $views)
+    public function setViews(array $views): Schema
     {
         $this->views = $views;
 
@@ -118,7 +108,7 @@ class Schema
      *
      * @return Schema
      */
-    public function addView(View $view)
+    public function addView(View $view): Schema
     {
         $this->views[] = $view;
 
@@ -130,7 +120,7 @@ class Schema
      *
      * @return Schema
      */
-    public function removeViewAtIndex($index)
+    public function removeViewAtIndex(int $index): Schema
     {
         unset($this->views[$index]);
 
@@ -138,13 +128,11 @@ class Schema
     }
 
     /**
-     * Converts a Schema into an array.
-     *
-     * @todo Move the toArray responsability away from the Schemas
+     * @todo Move the toArray responsibility away from the Schemas
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $tables = $this->getTables();
         $views = $this->getViews();
@@ -156,83 +144,69 @@ class Schema
 
         foreach ($tables as $table) {
             /* @var $table Table */
+
             $arr['tables'][] = $table->toArray();
+
+            unset($table);
         }
 
         foreach ($views as $view) {
-            /* @var $view Views */
+            /* @var $view View */
+
             $arr['views'][] = $view->toArray();
+
+            unset($view);
         }
 
         return $arr;
     }
 
     /**
-     * Gets the table with given name.
-     *
      * @param string $name
      *
      * @return Table
-     *
-     * @throws PdoMySqlDriverException if no table with given name is found
      */
-    public function getTableWithName($name)
+    public function getTableWithName(string $name): Table
     {
         $tables = $this->getTables();
 
-        $tableWithName = $this->doGetWithName($tables, 'table', $name);
-
-        return $tableWithName;
+        return $this->doGetWithName($tables, 'table', $name);
     }
 
     /**
-     * Whether the schema has a table with given name.
-     *
      * @param string $name
      *
      * @return bool
      */
-    public function hasTableWithName($name)
+    public function hasTableWithName(string $name): bool
     {
         $tables = $this->getTables();
 
-        $has = $this->doHasWithName($tables, $name);
-
-        return $has;
+        return $this->doHasWithName($tables, $name);
     }
 
     /**
-     * Gets the view with given name.
-     *
      * @param string $name
      *
      * @return View
-     *
-     * @throws PdoMySqlDriverException if no view with given name is found
      */
-    public function getViewWithName($name)
+    public function getViewWithName(string $name): View
     {
         $views = $this->getViews();
 
-        $viewWithName = $this->doGetWithName($views, 'view', $name, false);
-
-        return $viewWithName;
+        return $this->doGetWithName($views, 'view', $name, false);
     }
 
     /**
-     * Whether the schema has a view with given name.
-     *
      * @param string $name
      *
      * @return bool
      */
-    public function hasViewWithName($name)
+    public function hasViewWithName(string $name): bool
     {
         $views = $this->getViews();
 
-        $has = $this->doHasWithName($views, $name, false);
-
-        return $has;
+        return $this->doHasWithName($views, $name, false);
     }
 
     /**
@@ -240,43 +214,37 @@ class Schema
      *
      * @param array $collection
      * @param string $elementTypeName
-     * @param string $name
+     * @param string $elementName
      * @param bool $caseSensitive whether the comparison has to be case sensitive or not
      *
      * @return object the searched named element
      *
-     * @throws PdoMySqlDriverException if no element is found
+     * @throws NoElementFoundWithNameInSchemaException if no element is found
      */
-    private function doGetWithName(array $collection, $elementTypeName, $name, $caseSensitive = true)
+    private function doGetWithName(array $collection, string $elementTypeName, string $elementName, bool $caseSensitive = true): object
     {
         $elementWithName = null;
 
         if ($caseSensitive) {
             foreach ($collection as $element) {
-                $elementName = $element->getName();
-
-                if ($elementName === $name) {
+                if ($element->getName() === $elementName) {
                     $elementWithName = $element;
                 }
+
+                unset($element);
             }
         } else {
             foreach ($collection as $element) {
-                $elementName = $element->getName();
-
-                if (strtolower($elementName) === strtolower($name)) {
+                if (strtolower($element->getName()) === strtolower($elementName)) {
                     $elementWithName = $element;
                 }
+
+                unset($element);
             }
         }
 
-        if ($elementWithName === null) {
-            throw new PdoMySqlDriverException(
-                sprintf(
-                    'Found no %s with name "%s" in schema.',
-                    $elementTypeName,
-                    $name
-                )
-            );
+        if (null === $elementWithName) {
+            throw new NoElementFoundWithNameInSchemaException($elementTypeName, $elementName);
         }
 
         return $elementWithName;
@@ -286,30 +254,30 @@ class Schema
      * Whether the given collection has an element with given name.
      *
      * @param array $collection
-     * @param string $name
+     * @param string $elementName
      * @param bool $caseSensitive whether the comparison has to be case sensitive or not
      *
-     * @return boolean
+     * @return bool
      */
-    private function doHasWithName(array $collection, $name, $caseSensitive = true)
+    private function doHasWithName(array $collection, string $elementName, bool $caseSensitive = true): bool
     {
         $has = false;
 
         if ($caseSensitive) {
             foreach ($collection as $element) {
-                $elementName = $element ->getName();
-
-                if ($elementName === $name) {
+                if ($element->getName() === $elementName) {
                     $has = true;
                 }
+
+                unset($element);
             }
         } else {
             foreach ($collection as $element) {
-                $elementName = $element ->getName();
-
-                if (strtolower($elementName) === strtolower($name)) {
+                if (strtolower($element->getName()) === strtolower($elementName)) {
                     $has = true;
                 }
+
+                unset($element);
             }
         }
 

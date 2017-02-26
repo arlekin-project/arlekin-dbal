@@ -879,7 +879,7 @@ class MigrationQueriesBuilder
                             $originalColumn = $originalTable->getColumnWithName($originalColumnName);
 
                             //and the autoincrement value is not the same as the one in the destination schema
-                            $autoIncrement = $originalColumn->isAutoIncrement() !== $destinationColumn ->isAutoIncrement();
+                            $autoIncrement = $originalColumn->isAutoIncrementable() !== $destinationColumn->isAutoIncrement();
 
                             if ($autoIncrement) {
                                 $alterTableSetAutoIncrementQueries[] = MySqlHelper::generateAlterTableSetAutoIncrementSqlQuery(
@@ -938,7 +938,7 @@ class MigrationQueriesBuilder
                             $originalColumn= $originalTable->getColumnWithName($originalColumnName);
 
                             //and the autoincrement value is not the same as the one in the destination schema
-                            $autoIncrement = $originalColumn->isAutoIncrement() !== $destinationColumn ->isAutoIncrement();
+                            $autoIncrement = $originalColumn->isAutoIncrementable() !== $destinationColumn->isAutoIncrement();
 
                             if ($autoIncrement) {
                                 $alterTableUnsetAutoIncrementQueries[] = MySqlHelper::generateAlterTableUnsetAutoIncrementSqlQuery(

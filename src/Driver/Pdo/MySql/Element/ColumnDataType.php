@@ -10,34 +10,65 @@
 namespace Calam\Dbal\Driver\Pdo\MySql\Element;
 
 /**
- * Represents a MySQL column type
+ * MySQL column data type.
+ *
+ * @see https://dev.mysql.com/doc/refman/5.5/en/data-types.html
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class ColumnType
+final class ColumnDataType
 {
+    /**
+     * Integer types
+     */
     const TYPE_TINYINT = 'TINYINT';
     const TYPE_SMALLINT = 'SMALLINT';
     const TYPE_MEDIUMINT = 'MEDIUMINT';
     const TYPE_INT = 'INT';
+    const TYPE_INTEGER = 'INTEGER';
     const TYPE_BIGINT = 'BIGINT';
 
-    const TYPE_FLOAT = 'FLOAT';
+    /**
+     * Fixed-point types
+     */
+    const TYPE_DECIMAL = 'DECIMAL';
+    const TYPE_NUMERIC = 'NUMERIC';
 
+    /**
+     * Floating-point types
+     */
+    const TYPE_FLOAT = 'FLOAT';
+    const TYPE_REAL = 'REAL';
+    const TYPE_DOUBLE_PRECISION = 'DOUBLE PRECISION';
+
+    /**
+     * Bit-value types
+     */
+    const TYPE_BIT = 'BIT';
+
+    /**
+     * Date and time types
+     */
     const TYPE_DATE = 'DATE';
     const TYPE_DATETIME = 'DATETIME';
     const TYPE_TIMESTAMP = 'TIMESTAMP';
     const TYPE_TIME = 'TIME';
     const TYPE_YEAR = 'YEAR';
 
+    /**
+     * String types
+     */
     const TYPE_CHAR = 'CHAR';
     const TYPE_VARCHAR = 'VARCHAR';
+
     const TYPE_BINARY = 'BINARY';
     const TYPE_VARBINARY = 'VARBINARY';
+
     const TYPE_TINYTEXT = 'TINYTEXT';
     const TYPE_TEXT = 'TEXT';
     const TYPE_MEDIUMTEXT = 'MEDIUMTEXT';
     const TYPE_LONGTEXT = 'LONGTEXT';
+
     const TYPE_TINYBLOB = 'TINYBLOB';
     const TYPE_BLOB = 'BLOB';
     const TYPE_MEDIUMBLOB = 'MEDIUMBLOB';
@@ -48,21 +79,60 @@ class ColumnType
     const TYPE_SET = 'SET';
 
     /**
-     * The MySQL column types representing integers.
-     *
      * @var array
      */
-    public static $EXACT_TYPES = [
+    public static $INTEGER_TYPES = [
         self::TYPE_TINYINT,
         self::TYPE_SMALLINT,
         self::TYPE_MEDIUMINT,
         self::TYPE_INT,
+        self::TYPE_INTEGER,
         self::TYPE_BIGINT,
     ];
 
     /**
-     * The MySQL column types representing dates and times.
-     *
+     * @var array
+     */
+    public static $FIXED_POINT_TYPES = [
+        self::TYPE_DECIMAL,
+        self::TYPE_NUMERIC,
+    ];
+
+    /**
+     * @var array
+     */
+    public static $FLOATING_POINT_TYPES = [
+        self::TYPE_FLOAT,
+        self::TYPE_REAL,
+        self::TYPE_DOUBLE_PRECISION,
+    ];
+
+    /**
+     * @var array
+     */
+    public static $BIT_TYPES = [
+        self::TYPE_BIT,
+    ];
+
+    /**
+     * @var array
+     */
+    public static $NUMERIC_TYPES = [
+        self::TYPE_TINYINT,
+        self::TYPE_SMALLINT,
+        self::TYPE_MEDIUMINT,
+        self::TYPE_INT,
+        self::TYPE_INTEGER,
+        self::TYPE_BIGINT,
+        self::TYPE_DECIMAL,
+        self::TYPE_NUMERIC,
+        self::TYPE_FLOAT,
+        self::TYPE_REAL,
+        self::TYPE_DOUBLE_PRECISION,
+        self::TYPE_BIT,
+    ];
+
+    /**
      * @var array
      */
     public static $DATE_AND_TIME_TYPES = [
@@ -74,7 +144,7 @@ class ColumnType
     ];
 
     /**
-     * The MySQL column types representing strings.
+     * @see https://dev.mysql.com/doc/refman/5.5/en/string-types.html
      *
      * @var array
      */
@@ -83,18 +153,20 @@ class ColumnType
         self::TYPE_VARCHAR,
         self::TYPE_BINARY,
         self::TYPE_VARBINARY,
-        self::TYPE_TINYTEXT,
-        self::TYPE_TEXT,
-        self::TYPE_MEDIUMTEXT,
-        self::TYPE_LONGTEXT,
         self::TYPE_TINYBLOB,
         self::TYPE_BLOB,
         self::TYPE_MEDIUMBLOB,
         self::TYPE_LONGBLOB,
+        self::TYPE_TINYTEXT,
+        self::TYPE_TEXT,
+        self::TYPE_MEDIUMTEXT,
+        self::TYPE_LONGTEXT,
+        self::TYPE_ENUM,
+        self::TYPE_SET,
     ];
 
     /**
-     * The MySQL column types for which a length can be specified.
+     * Column types for which a length can be specified.
      *
      * @var array
      */

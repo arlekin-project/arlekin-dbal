@@ -10,26 +10,26 @@
 namespace Calam\Dbal\Driver\Pdo\MySql\Element;
 
 /**
- * Represents a MySQL foreign key on delete constraint.
+ * MySQL foreign key on delete reference options.
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class ForeignKeyOnDeleteConstraint
+final class ForeignKeyOnDeleteReferenceOptions
 {
+    const ON_DELETE_RESTRICT = 'RESTRICT';
     const ON_DELETE_CASCADE = 'CASCADE';
     const ON_DELETE_SET_NULL = 'SET NULL';
     const ON_DELETE_NO_ACTION = 'NO ACTION';
-    const ON_DELETE_RESTRICT = 'RESTRICT';
+    const ON_DELETE_SET_DEFAULT = 'SET DEFAULT';
 
     /**
-     * The allowed on delete constraints.
-     *
      * @var array
      */
-    public static $authorizedOnDelete = [
+    public static $KNOWN = [
+        self::ON_DELETE_RESTRICT,
         self::ON_DELETE_CASCADE,
         self::ON_DELETE_SET_NULL,
         self::ON_DELETE_NO_ACTION,
-        self::ON_DELETE_RESTRICT,
+        self::ON_DELETE_SET_DEFAULT,
     ];
 }

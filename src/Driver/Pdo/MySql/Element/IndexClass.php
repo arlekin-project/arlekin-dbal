@@ -16,18 +16,18 @@ namespace Calam\Dbal\Driver\Pdo\MySql\Element;
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class IndexClass
+final class IndexClass
 {
     const UNIQUE = 'UNIQUE';
     const FULLTEXT = 'FULLTEXT';
     const SPATIAL = 'SPATIAL';
 
     /**
-     * Allowed index classes.
+     * Known index classes.
      *
      * @var array
      */
-    public static $known = [
+    public static $KNOWN = [
         self::UNIQUE,
         self::FULLTEXT,
         self::SPATIAL,

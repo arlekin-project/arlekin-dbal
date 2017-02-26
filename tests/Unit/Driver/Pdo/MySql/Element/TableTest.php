@@ -11,8 +11,8 @@ namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
-use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteConstraint;
-use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnUpdateConstraint;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteReferenceOptions;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnUpdateReferenceOptions;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
 use Calam\Dbal\Driver\Pdo\MySql\Element\PrimaryKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
@@ -188,7 +188,7 @@ class TableTest extends BaseTest
 
         $columnDeptNo->setName(
             'deptNo'
-        )->setType(
+        )->setDataType(
             'VARCHAR'
         )->setNullable(
             false
@@ -202,7 +202,7 @@ class TableTest extends BaseTest
 
         $columnDeptName->setName(
             'deptName'
-        )->setType(
+        )->setDataType(
             'VARCHAR'
         )->setNullable(
             false
@@ -216,7 +216,7 @@ class TableTest extends BaseTest
 
         $table2ReferencedIdColumn->setName(
             'table2_id'
-        )->setType(
+        )->setDataType(
             'INT'
         )->setNullable(
             false
@@ -287,30 +287,30 @@ class TableTest extends BaseTest
             'columns' => [
                 [
                     'name' => 'deptNo',
-                    'type' => 'VARCHAR',
+                    'dataType' => 'VARCHAR',
                     'nullable' => false,
                     'parameters' => [
                         'length' => 4,
                     ],
-                    'autoIncrement' => false,
+                    'autoIncrementable' => false,
                 ],
                 [
                     'name' => 'deptName',
-                    'type' => 'VARCHAR',
+                    'dataType' => 'VARCHAR',
                     'nullable' => false,
                     'parameters' => [
                         'length' => 40,
                     ],
-                    'autoIncrement' => false,
+                    'autoIncrementable' => false,
                 ],
                 [
                     'name' => 'table2_id',
-                    'type' => 'INT',
+                    'dataType' => 'INT',
                     'nullable' => false,
                     'parameters' => [
                         'length' => 11,
                     ],
-                    'autoIncrement' => false,
+                    'autoIncrementable' => false,
                 ],
             ],
             'primaryKey' => [
@@ -336,8 +336,8 @@ class TableTest extends BaseTest
                     'referencedColumns' => [
                         'id',
                     ],
-                    'onDelete' => ForeignKeyOnDeleteConstraint::ON_DELETE_RESTRICT,
-                    'onUpdate' => ForeignKeyOnUpdateConstraint::ON_UPDATE_RESTRICT,
+                    'onDelete' => ForeignKeyOnDeleteReferenceOptions::ON_DELETE_RESTRICT,
+                    'onUpdate' => ForeignKeyOnUpdateReferenceOptions::ON_UPDATE_RESTRICT,
                 ]
             ]
         ];

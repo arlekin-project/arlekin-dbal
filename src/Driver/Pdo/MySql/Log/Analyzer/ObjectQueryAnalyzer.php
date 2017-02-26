@@ -227,7 +227,7 @@ class ObjectQueryAnalyzer
                 }
             } else {
                 throw new DbalException(
-                    sprintf('Unsupported expression type: %s', $exprType)
+                    sprintf('Unsupported expression data type: %s', $exprType)
                 );
             }
 
@@ -252,7 +252,7 @@ class ObjectQueryAnalyzer
                 $this->addColumnFromColRef($parsedSelect);
             } else {
                 throw new DbalException(
-                    sprintf('Unsupported expression type: %s', $exprType)
+                    sprintf('Unsupported expression data type: %s', $exprType)
                 );
             }
 

@@ -10,50 +10,40 @@
 namespace Calam\Dbal\Driver\Pdo\MySql\Element;
 
 /**
- * Represents a MySQL foreign key.
+ * MySQL foreign key.
+ *
+ * @see https://dev.mysql.com/doc/refman/5.5/en/create-table-foreign-keys.html
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class ForeignKey
+final class ForeignKey
 {
     /**
-     * The table the foreign key belongs to.
-     *
      * @var Table
      */
     private $table;
 
     /**
-     * The columns that the foreign key uses from the table it belongs to.
-     *
      * @var array
      */
     private $columns;
 
     /**
-     * The table the foreign key references.
-     *
      * @var Table
      */
     private $referencedTable;
 
     /**
-     * The columns from the referenced table that the foreign key references.
-     *
      * @var array
      */
     private $referencedColumns;
 
     /**
-     * The constraint to be applied on delete on the foreign key.
-     *
      * @var string
      */
     private $onDelete;
 
     /**
-     * The constraint to be applied on update on the foreign key.
-     *
      * @var string
      */
     private $onUpdate;
@@ -66,28 +56,24 @@ class ForeignKey
         $this->columns = [];
         $this->referencedColumns = [];
 
-        $this->onDelete = ForeignKeyOnDeleteConstraint::ON_DELETE_RESTRICT;
-        $this->onUpdate = ForeignKeyOnUpdateConstraint::ON_UPDATE_RESTRICT;
+        $this->onDelete = ForeignKeyOnDeleteReferenceOptions::ON_DELETE_RESTRICT;
+        $this->onUpdate = ForeignKeyOnUpdateReferenceOptions::ON_UPDATE_RESTRICT;
     }
 
     /**
-     * Gets the table.
-     *
      * @return Table
      */
-    public function getTable()
+    public function getTable(): Table
     {
         return $this->table;
     }
 
     /**
-     * Sets the table.
-     *
      * @param Table $table
      *
      * @return ForeignKey
      */
-    public function setTable(Table $table)
+    public function setTable(Table $table): ForeignKey
     {
         $this->table = $table;
 
@@ -95,23 +81,19 @@ class ForeignKey
     }
 
     /**
-     * Gets the columns.
-     *
      * @return array
      */
-    public function getColumns()
+    public function getColumns(): array
     {
         return $this->columns;
     }
 
     /**
-     * Sets the columns.
-     *
      * @param array $columns
      *
      * @return ForeignKey
      */
-    public function setColumns(array $columns)
+    public function setColumns(array $columns): ForeignKey
     {
         $this->columns = $columns;
 
@@ -119,13 +101,11 @@ class ForeignKey
     }
 
     /**
-     * Adds a column to the foreign key columns.
-     *
      * @param Column $column
      *
      * @return ForeignKey
      */
-    public function addColumn(Column $column)
+    public function addColumn(Column $column): ForeignKey
     {
         $this->columns[] = $column;
 
@@ -133,13 +113,13 @@ class ForeignKey
     }
 
     /**
-     * Removes at column at given index.
+     * TODO See if it can be removed?
      *
      * @param int $index
      *
      * @return ForeignKey
      */
-    public function removeColumnAtIndex($index)
+    public function removeColumnAtIndex(int $index): ForeignKey
     {
         unset($this->columns[$index]);
 
@@ -147,23 +127,19 @@ class ForeignKey
     }
 
     /**
-     * Gets the referenced table.
-     *
      * @return Table
      */
-    public function getReferencedTable()
+    public function getReferencedTable(): Table
     {
         return $this->referencedTable;
     }
 
     /**
-     * Sets the referenced table.
-     *
      * @param Table $referencedTable
      *
      * @return ForeignKey
      */
-    public function setReferencedTable(Table $referencedTable)
+    public function setReferencedTable(Table $referencedTable): ForeignKey
     {
         $this->referencedTable = $referencedTable;
 
@@ -171,37 +147,45 @@ class ForeignKey
     }
 
     /**
-     * Gets the referenced columns.
-     *
      * @return array
      */
-    public function getReferencedColumns()
+    public function getReferencedColumns(): array
     {
         return $this->referencedColumns;
     }
 
     /**
-     * Sets the referenced columns.
-     *
      * @param array $referencedColumns
      *
      * @return ForeignKey
      */
-    public function setReferencedColumns(array $referencedColumns)
+    public function setReferencedColumns(array $referencedColumns): ForeignKey
     {
         $this->referencedColumns = $referencedColumns;
 
         return $this;
     }
 
-    public function addReferencedColumn(Column $referencedColumn)
+    /**
+     * @param Column $referencedColumn
+     *
+     * @return ForeignKey
+     */
+    public function addReferencedColumn(Column $referencedColumn): ForeignKey
     {
         $this->referencedColumns[] = $referencedColumn;
 
         return $this;
     }
 
-    public function removeReferencedColumnAtIndex($index)
+    /**
+     * TODO See if it can be removed?
+     *
+     * @param int $index
+     *
+     * @return ForeignKey
+     */
+    public function removeReferencedColumnAtIndex(int $index): ForeignKey
     {
         unset($this->referencedColumns[$index]);
 
@@ -209,23 +193,19 @@ class ForeignKey
     }
 
     /**
-     * Get the foreign key on delete constraint.
-     *
      * @return string
      */
-    public function getOnDelete()
+    public function getOnDelete(): string
     {
         return $this->onDelete;
     }
 
     /**
-     * Sets the foreign key on delete constraint.
-     *
      * @param string $onDelete
      *
      * @return ForeignKey
      */
-    public function setOnDelete($onDelete)
+    public function setOnDelete(string $onDelete): ForeignKey
     {
         $this->onDelete = $onDelete;
 
@@ -233,23 +213,19 @@ class ForeignKey
     }
 
     /**
-     * Gets the foreign key on update constraint.
-     *
      * @return string
      */
-    public function getOnUpdate()
+    public function getOnUpdate(): string
     {
         return $this->onUpdate;
     }
 
     /**
-     * Sets the foreign key on update constraint.
-     *
      * @param string $onUpdate
      *
      * @return ForeignKey
      */
-    public function setOnUpdate($onUpdate)
+    public function setOnUpdate(string $onUpdate): ForeignKey
     {
         $this->onUpdate = $onUpdate;
 
@@ -259,11 +235,11 @@ class ForeignKey
     /**
      * Converts the foreign key to array.
      *
-     * @todo Move the toArray responsability away from the ForeignKey
+     * @todo Move the toArray responsibility away from the ForeignKey
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $table = $this->getTable();
         $tableName = $table->getName();

@@ -12,50 +12,38 @@ namespace Calam\Dbal\Driver\Pdo\MySql\Element;
 use Calam\Dbal\Exception\DbalException;
 
 /**
- * Represents a MySQL column.
+ * MySQL column.
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class Column
+final class Column
 {
     /**
-     * The column's name.
-     *
      * @var string
      */
     private $name;
 
     /**
-     * The column's type.
-     *
      * @var string
      */
-    private $type;
+    private $dataType;
 
     /**
-     * Whether the column is nullable.
-     *
      * @var bool
      */
     private $nullable;
 
     /**
-     * Whether the column is autoincrementable.
-     *
      * @var bool
      */
-    private $autoIncrement;
+    private $autoIncrementable;
 
     /**
-     * The column's parameters.
-     *
      * @var array
      */
     private $parameters;
 
     /**
-     * The table the column belongs to.
-     *
      * @var Table
      */
     private $table;
@@ -65,123 +53,104 @@ class Column
      */
     public function __construct()
     {
-        $this->autoIncrement = false;
+        $this->autoIncrementable = false;
         $this->parameters = [];
     }
 
     /**
-     * Gets the name.
-     *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * Sets the name.
-     *
      * @param string $name
      *
      * @return Column
      */
-    public function setName($name)
+    public function setName(string $name): Column
     {
         $this->name = $name;
+
         return $this;
     }
 
     /**
-     * Gets the type.
-     *
      * @return string
      */
-    public function getType()
+    public function getDataType(): string
     {
-        return $this->type;
+        return $this->dataType;
     }
 
     /**
-     * Sets the type.
-     *
-     * @param ColumnType $type
+     * @param string $dataType
      *
      * @return Column
      */
-    public function setType($type)
+    public function setDataType(string $dataType): Column
     {
-        $this->type = $type;
+        $this->dataType = $dataType;
 
         return $this;
     }
 
     /**
-     * Gets whether the column is nullable.
-     *
      * @return bool
      */
-    public function isNullable()
+    public function isNullable(): bool
     {
         return $this->nullable;
     }
 
     /**
-     * Sets whether the column is nullable.
-     *
      * @param bool $nullable
      *
      * @return Column
      */
-    public function setNullable($nullable)
+    public function setNullable(bool $nullable): Column
     {
-        $this->nullable = (bool)$nullable;
+        $this->nullable = $nullable;
 
         return $this;
     }
 
     /**
-     * Gets whether the column is autoincrementable.
-     *
      * @return bool
      */
-    public function isAutoIncrement()
+    public function isAutoIncrementable(): bool
     {
-        return $this->autoIncrement;
+        return $this->autoIncrementable;
     }
 
     /**
-     * Sets whether the column is autoincrementable.
-     *
-     * @param bool $autoIncrement
+     * @param bool $autoIncrementable
      *
      * @return Column
      */
-    public function setAutoIncrement($autoIncrement)
+    public function setAutoIncrementable(bool $autoIncrementable): Column
     {
-        $this->autoIncrement = (bool)$autoIncrement;
+        $this->autoIncrementable = $autoIncrementable;
 
         return $this;
     }
 
     /**
-     * Gets the column's parameters.
-     *
      * @return array
      */
-    public function getParameters()
+    public function getParameters(): array
     {
         return $this->parameters;
     }
 
     /**
-     * Sets the column's parameters.
-     *
      * @param array $parameters
      *
      * @return Column
      */
-    public function setParameters(array $parameters)
+    public function setParameters(array $parameters): Column
     {
         $this->parameters = $parameters;
 
@@ -194,7 +163,7 @@ class Column
      *
      * @return Column
      */
-    public function setParameter($parameterName, $value)
+    public function setParameter(string $parameterName, $value): Column
     {
         $this->parameters[$parameterName] = $value;
 
@@ -202,23 +171,19 @@ class Column
     }
 
     /**
-     * Gets the column's table.
-     *
      * @return Table
      */
-    public function getTable()
+    public function getTable(): Table
     {
         return $this->table;
     }
 
     /**
-     * Sets the column's table.
-     *
      * @param Table $table
      *
      * @return Column
      */
-    public function setTable(Table $table)
+    public function setTable(Table $table): Column
     {
         $this->table = $table;
 
@@ -234,7 +199,7 @@ class Column
      *
      * @throws DbalException if the column has no Table
      */
-    public function toArray()
+    public function toArray(): array
     {
         $table = $this->getTable();
         $columnName = $this->getName();
@@ -252,10 +217,10 @@ class Column
 
         $arr = [
             'name' => $this->getName(),
-            'type' => $this->getType(),
+            'dataType' => $this->getDataType(),
             'nullable' => $this->isNullable(),
             'parameters' => $parameters,
-            'autoIncrement' => $this->isAutoIncrement(),
+            'autoIncrementable' => $this->isAutoIncrementable(),
             'table' => $table->getName(),
         ];
 

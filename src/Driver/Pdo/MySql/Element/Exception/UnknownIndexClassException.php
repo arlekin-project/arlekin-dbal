@@ -35,7 +35,7 @@ final class UnknownIndexClassException extends PdoMySqlDriverException
             sprintf(
                 'Unknown index class "%s". Known index classes are %s.',
                 $indexClass,
-                IndexClass::$known
+                IndexClass::$KNOWN
             )
         );
 
@@ -43,8 +43,6 @@ final class UnknownIndexClassException extends PdoMySqlDriverException
     }
 
     /**
-     * Gets index class.
-     *
      * @return string
      */
     public function getIndexClass(): string

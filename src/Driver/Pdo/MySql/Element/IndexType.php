@@ -16,17 +16,17 @@ namespace Calam\Dbal\Driver\Pdo\MySql\Element;
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class IndexType
+final class IndexType
 {
     const BTREE = 'BTREE';
     const HASH = 'HASH';
 
     /**
-     * Allowed index types.
+     * Known index types.
      *
      * @var array
      */
-    public static $known = [
+    public static $KNOWN = [
         self::BTREE,
         self::HASH
     ];

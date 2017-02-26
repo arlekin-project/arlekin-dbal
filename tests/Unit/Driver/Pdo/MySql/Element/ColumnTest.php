@@ -27,7 +27,7 @@ class ColumnTest extends BaseTest
     {
         $column = $this->createBaseNewColumn();
 
-        $this->assertAttributeSame(false, 'autoIncrement', $column);
+        $this->assertAttributeSame(false, 'autoIncrementable', $column);
         $this->assertAttributeSame([], 'parameters', $column);
     }
 
@@ -44,7 +44,7 @@ class ColumnTest extends BaseTest
         );
         $this->assertEquals(
             null,
-            $column->getType()
+            $column->getDataType()
         );
         $this->assertEquals(
             null,
@@ -67,15 +67,15 @@ class ColumnTest extends BaseTest
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\Column::getType
-     * @covers Calam\Dbal\SqlBased\Element\Column::setType
+     * @covers Calam\Dbal\SqlBased\Element\Column::getDataType
+     * @covers Calam\Dbal\SqlBased\Element\Column::setDataType
      */
     public function testGetAndSetType()
     {
         CommonTestHelper::testBasicGetAndSetForProperty(
             $this,
             $this->createBaseNewColumn(),
-            'type',
+            'dataType',
             'TEST'
         );
     }
@@ -95,15 +95,15 @@ class ColumnTest extends BaseTest
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\Column::isAutoIncrement
-     * @covers Calam\Dbal\SqlBased\Element\Column::setAutoIncrement
+     * @covers Calam\Dbal\SqlBased\Element\Column::isAutoIncrementable
+     * @covers Calam\Dbal\SqlBased\Element\Column::setAutoIncrementable
      */
     public function testIsAndSetAutoIncrement()
     {
         CommonTestHelper::testBasicIsAndSetForProperty(
             $this,
             $this->createBaseNewColumn(),
-            'autoIncrement',
+            'autoIncrementable',
             true
         );
     }
@@ -168,19 +168,19 @@ class ColumnTest extends BaseTest
             $column
         );
 
-        $column->setType('VARCHAR');
+        $column->setDataType('VARCHAR');
 
         $arr = $column->toArray();
 
         $expected = [
             'name' => 'testName',
-            'type' => 'VARCHAR',
+            'dataType' => 'VARCHAR',
             'nullable' => false,
             'parameters' => [
                 'testParameterKey' => 'testParameterName',
             ],
             'table' => 'testTableName',
-            'autoIncrement' => false,
+            'autoIncrementable' => false,
         ];
 
         $this->assertEquals($expected, $arr);

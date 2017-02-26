@@ -9,16 +9,17 @@
 
 namespace Calam\Dbal\Driver\Pdo\MySql\Element;
 
+use Calam\Dbal\Driver\Pdo\MySql\Element\Exception\UnknownIndexClassException;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Exception\UnknownIndexTypeException;
+
 /**
- * Represents a MySQL index.
+ * MySQL index.
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
 final class Index
 {
     /**
-     * Index class.
-     *
      * Must be one of the values defined as a const in @see IndexClass
      *
      * @var string
@@ -26,29 +27,23 @@ final class Index
     private $class;
 
     /**
-     * Index type.
+     * Must be one of the values defined as a const in @see IndexType
      *
      * @var string
      */
     private $type;
 
     /**
-     * Index name.
-     *
      * @var string
      */
     private $name;
 
     /**
-     * Table the index belongs to.
-     *
      * @var Table
      */
     private $table;
 
     /**
-     * Index columns.
-     *
      * @var array
      */
     private $columns;
@@ -62,8 +57,6 @@ final class Index
     }
 
     /**
-     * Gets index class.
-     *
      * @return string
      */
     public function getClass(): string
@@ -72,8 +65,6 @@ final class Index
     }
 
     /**
-     * Sets index class.
-     *
      * @param string $class one of the values defined as a const in @see IndexClass
      *
      * @return Index
@@ -83,7 +74,7 @@ final class Index
      */
     public function setClass(string $class): Index
     {
-        if (!in_array($class, IndexClass::$known)) {
+        if (!in_array($class, IndexClass::$KNOWN)) {
             throw new UnknownIndexClassException($class);
         }
 
@@ -93,8 +84,6 @@ final class Index
     }
 
     /**
-     * Gets index type.
-     *
      * @return string one of the values defined as a const in @see IndexClass
      */
     public function getType(): string
@@ -103,22 +92,25 @@ final class Index
     }
 
     /**
-     * Sets index type.
-     *
-     * @param string $type
+     * @param string $type one of the values defined as a const in @see IndexType
      *
      * @return Index
+     *
+     * @throws UnknownIndexTypeException if given index type is not one of the values
+     * defined as a const in @see IndexType
      */
     public function setType(string $type): Index
     {
+        if (!in_array($type, IndexType::$KNOWN)) {
+            throw new UnknownIndexTypeException($type);
+        }
+
         $this->type = $type;
 
         return $this;
     }
 
     /**
-     * Gets the index's name.
-     *
      * @return string
      */
     public function getName(): string
@@ -127,8 +119,6 @@ final class Index
     }
 
     /**
-     * Sets the index's name.
-     *
      * @param string $name
      *
      * @return Index
@@ -141,8 +131,6 @@ final class Index
     }
 
     /**
-     * Gets the index's table.
-     *
      * @return Table
      */
     public function getTable(): Table
@@ -151,8 +139,6 @@ final class Index
     }
 
     /**
-     * Sets the index's table.
-     *
      * @param Table $table
      *
      * @return Index
@@ -165,8 +151,6 @@ final class Index
     }
 
     /**
-     * Gets the index's columns.
-     *
      * @return array
      */
     public function getColumns(): array
@@ -175,8 +159,6 @@ final class Index
     }
 
     /**
-     * Sets the index's columns.
-     *
      * @param array $columns
      *
      * @return Index
