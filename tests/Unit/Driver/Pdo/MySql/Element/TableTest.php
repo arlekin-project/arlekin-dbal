@@ -24,36 +24,19 @@ class TableTest extends BaseTest
      */
     public function testConstruct()
     {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
-
-        $table = new Table('foo', [ $column ]);
+        $table = new Table('foo');
 
         $this->assertAttributeSame('foo', 'name', $table);
-        $this->assertAttributeSame([ $column ], 'columns', $table);
     }
 
     /**
      * @covers Table::getName
      */
-    public function testGetAndSetName()
+    public function testGetName()
     {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
-
-        $table = new Table('foo', [ $column ]);
+        $table = new Table('foo');
 
         $this->assertSame('foo', $table->getName());
-    }
-
-    /**
-     * @covers Table::getColumns
-     */
-    public function testGetColumns()
-    {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
-
-        $table = new Table('foo', [ $column ]);
-
-        $this->assertSame([ $column ], $table->getColumns());
     }
 
 //
