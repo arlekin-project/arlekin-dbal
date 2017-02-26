@@ -57,40 +57,6 @@ final class Schema
     }
 
     /**
-     * @todo Move the toArray responsibility away from the Schemas
-     *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        $tables = $this->getTables();
-        $views = $this->getViews();
-
-        $arr = [
-            'tables' => [],
-            'views' => [],
-        ];
-
-        foreach ($tables as $table) {
-            /* @var $table Table */
-
-            $arr['tables'][] = $table->toArray();
-
-            unset($table);
-        }
-
-        foreach ($views as $view) {
-            /* @var $view View */
-
-            $arr['views'][] = $view->toArray();
-
-            unset($view);
-        }
-
-        return $arr;
-    }
-
-    /**
      * @param string $name
      *
      * @return Table

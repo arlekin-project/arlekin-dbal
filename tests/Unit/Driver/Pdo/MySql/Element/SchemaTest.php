@@ -21,103 +21,52 @@ use Calam\Dbal\Tests\Helper\CommonTestHelper;
 class SchemaTest extends BaseTest
 {
     /**
-     * @covers Calam\Dbal\SqlBased\Element\Schema::__construct
+     * @covers Schema::__construct
      */
     public function testConstruct()
     {
-        $schema = $this->createBaseNewSchema();
+        $table = new Table('foo');
+        $view = new View('bar', 'SELECT 1');
 
-        $this->assertAttributeSame([], 'tables', $schema);
-        $this->assertAttributeSame([], 'views', $schema);
+        $schema = new Schema([ $table ], [ $view ]);
+
+        $this->assertAttributeSame([ $table ], 'tables', $schema);
+        $this->assertAttributeSame([ $view ], 'views', $schema);
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\Schema::getTables
-     * @covers Calam\Dbal\SqlBased\Element\Schema::setTables
+     * @covers Schema::getTables
      */
-    public function testGetAndSetTables()
+    public function testGetTables()
     {
-        CommonTestHelper::testBasicGetAndSetCollectionForProperty(
-            $this,
-            $this->createBaseNewSchema(),
-            'tables',
-            [
-                $this->createBaseNewTable(),
-            ]
-        );
+        $table = new Table('foo');
+
+        $schema = new Schema([ $table ], []);
+
+        $this->assertSame([ $table ], $schema->getTables());
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\Schema::getViews
-     * @covers Calam\Dbal\SqlBased\Element\Schema::setViews
+     * @covers Schema::getViews
      */
-    public function testGetAndSetViews()
+    public function testGetViews()
     {
-        CommonTestHelper::testBasicGetAndSetCollectionForProperty(
-            $this,
-            $this->createBaseNewSchema(),
-            'views',
-            [
-                $this->createBaseNewView(),
-            ]
-        );
-    }
+        $view = new View('bar', 'SELECT 1');
 
-    /**
-     * @covers Calam\Dbal\SqlBased\Element\Schema::toArray
-     */
-    public function testToArray()
-    {
-        $table = $this->createBaseNewTable();
-        $view = $this->createBaseNewView();
+        $schema = new Schema([], [ $view ]);
 
-        $schema = $this->createBaseNewSchema();
-
-        $schema->setTables(
-            [
-                $table,
-            ]
-        )->setViews(
-            [
-                $view,
-            ]
-        );
-
-        $this->assertSame(
-            $schema->toArray(),
-            [
-                'tables' => [
-                    [
-                        'name' => null,
-                        'columns' => [],
-                        'primaryKey' => null,
-                        'indexes' => [],
-                        'foreignKeys' => [],
-                    ],
-                ],
-                'views' => [
-                    [
-                        'name' => null,
-                        'definition' => null,
-                    ],
-                ],
-            ]
-        );
+        $this->assertSame([ $view ], $schema->getViews());
     }
     
     /**
-     * @covers Calam\Dbal\SqlBased\Element\Schema::getTableWithName
-     * @covers Calam\Dbal\SqlBased\Element\Schema::doGetWithName
+     * @covers Schema::getTableWithName
+     * @covers Schema::doGetWithName
      */
     public function testGetTableWithName()
     {
-        $schema = new Schema();
+        $table = new Table('testTable');
 
-        $table = new Table();
-
-        $table->setName('testTable');
-
-        $schema->addTable($table);
+        $schema = new Schema([ $table ]);
 
         $retrievedTable = $schema->getTableWithName('testTable');
 
@@ -125,8 +74,8 @@ class SchemaTest extends BaseTest
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\Schema::getTableWithName
-     * @covers Calam\Dbal\SqlBased\Element\Schema::doGetWithName
+     * @covers Schema::getTableWithName
+     * @covers Schema::doGetWithName
      */
     public function testGetTableWithNameExceptionThrownIfNoTableWithName()
     {
@@ -142,22 +91,20 @@ class SchemaTest extends BaseTest
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\Schema::hasTableWithName
-     * @covers Calam\Dbal\SqlBased\Element\Schema::doHasWithName
+     * @covers Schema::hasTableWithName
+     * @covers Schema::doHasWithName
      */
     public function testHasTableWithName()
     {
+        $table = new Table('testTable');
+
         $schema = new Schema();
-
-        $table = new Table();
-
-        $table->setName('testTable');
 
         $this->assertFalse(
             $schema->hasTableWithName('testTable')
         );
 
-        $schema->addTable($table);
+        $schema = new Schema([ $table ]);
 
         $this->assertTrue(
             $schema->hasTableWithName('testTable')
@@ -165,18 +112,14 @@ class SchemaTest extends BaseTest
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\Schema::getViewWithName
-     * @covers Calam\Dbal\SqlBased\Element\Schema::doGetWithName
+     * @covers Schema::getViewWithName
+     * @covers Schema::doGetWithName
      */
     public function testGetViewWithName()
     {
-        $schema = new Schema();
+        $view = new View('testView', 'SELECT 1');
 
-        $view = new View();
-
-        $view->setName('testView');
-
-        $schema->addView($view);
+        $schema = new Schema([], [ $view ]);
 
         $this->assertSame(
             $view,
@@ -185,8 +128,8 @@ class SchemaTest extends BaseTest
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\Schema::getViewWithName
-     * @covers Calam\Dbal\SqlBased\Element\Schema::doGetWithName
+     * @covers Schema::getViewWithName
+     * @covers Schema::doGetWithName
      */
     public function testGetViewWithNameExceptionThrownIfNoViewWithName()
     {
@@ -202,55 +145,23 @@ class SchemaTest extends BaseTest
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\Schema::hasViewWithName
-     * @covers Calam\Dbal\SqlBased\Element\Schema::doHasWithName
+     * @covers Schema::hasViewWithName
+     * @covers Schema::doHasWithName
      */
     public function testHasViewWithName()
     {
+        $view = new View('testView', 'SELECT 1');
+
         $schema = new Schema();
-
-        $view = new View();
-
-        $view->setName('testView');
 
         $this->assertFalse(
             $schema->hasViewWithName('testView')
         );
 
-        $schema->addView($view);
+        $schema = new Schema([], [ $view ]);
 
         $this->assertTrue(
             $schema->hasViewWithName('testView')
-        );
-    }
-
-    /**
-     * @return Table
-     */
-    protected function createBaseNewTable()
-    {
-        return $this->getMockForAbstractClass(
-            Table::class
-        );
-    }
-
-    /**
-     * @return View
-     */
-    protected function createBaseNewView()
-    {
-        return $this->getMockForAbstractClass(
-            View::class
-        );
-    }
-
-    /**
-     * @return Schema
-     */
-    protected function createBaseNewSchema()
-    {
-        return $this->getMockForAbstractClass(
-            Schema::class
         );
     }
 }
