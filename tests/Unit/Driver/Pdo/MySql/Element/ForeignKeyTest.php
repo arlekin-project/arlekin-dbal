@@ -24,13 +24,13 @@ class ForeignKeyTest extends BaseTest
      */
     public function testConstruct()
     {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
 
-        $referencedColumn = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $referenceTable = new Table('bar');
 
-        $table = new Table('foo', [ $column ]);
+        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
 
-        $referenceTable = new Table('bar', [ $referencedColumn ]);
+        $referencedColumn = new Column($referenceTable, 'id', ColumnDataTypes::TYPE_INT, false);
 
         $foreignKey = new ForeignKey(
             $table,
@@ -64,13 +64,13 @@ class ForeignKeyTest extends BaseTest
      */
     public function testConstructDefaultValue()
     {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
 
-        $referencedColumn = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $referenceTable = new Table('bar');
 
-        $table = new Table('foo', [ $column ]);
+        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
 
-        $referenceTable = new Table('bar', [ $referencedColumn ]);
+        $referencedColumn = new Column($referenceTable, 'id', ColumnDataTypes::TYPE_INT, false);
 
         $foreignKey = new ForeignKey($table, [ $column ], $referenceTable, [ $referencedColumn ]);
 
@@ -92,13 +92,13 @@ class ForeignKeyTest extends BaseTest
      */
     public function testGetTable()
     {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
 
-        $referencedColumn = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $referenceTable = new Table('bar');
 
-        $table = new Table('foo', [ $column ]);
+        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
 
-        $referenceTable = new Table('bar', [ $referencedColumn ]);
+        $referencedColumn = new Column($referenceTable, 'id', ColumnDataTypes::TYPE_INT, false);
 
         $foreignKey = new ForeignKey(
             $table,
@@ -115,13 +115,13 @@ class ForeignKeyTest extends BaseTest
      */
     public function testGetColumns()
     {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
 
-        $referencedColumn = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $referenceTable = new Table('bar');
 
-        $table = new Table('foo', [ $column ]);
+        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
 
-        $referenceTable = new Table('bar', [ $referencedColumn ]);
+        $referencedColumn = new Column($referenceTable, 'id', ColumnDataTypes::TYPE_INT, false);
 
         $foreignKey = new ForeignKey(
             $table,
@@ -138,13 +138,13 @@ class ForeignKeyTest extends BaseTest
      */
     public function testGetReferencedTable()
     {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
 
-        $referencedColumn = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $referenceTable = new Table('bar');
 
-        $table = new Table('foo', [ $column ]);
+        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
 
-        $referenceTable = new Table('bar', [ $referencedColumn ]);
+        $referencedColumn = new Column($referenceTable, 'id', ColumnDataTypes::TYPE_INT, false);
 
         $foreignKey = new ForeignKey(
             $table,
@@ -161,13 +161,13 @@ class ForeignKeyTest extends BaseTest
      */
     public function testGetReferencedColumns()
     {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
 
-        $referencedColumn = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $referenceTable = new Table('bar');
 
-        $table = new Table('foo', [ $column ]);
+        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
 
-        $referenceTable = new Table('bar', [ $referencedColumn ]);
+        $referencedColumn = new Column($referenceTable, 'id', ColumnDataTypes::TYPE_INT, false);
 
         $foreignKey = new ForeignKey(
             $table,
@@ -184,13 +184,13 @@ class ForeignKeyTest extends BaseTest
      */
     public function testGetOnDelete()
     {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
 
-        $referencedColumn = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $referenceTable = new Table('bar');
 
-        $table = new Table('foo', [ $column ]);
+        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
 
-        $referenceTable = new Table('bar', [ $referencedColumn ]);
+        $referencedColumn = new Column($referenceTable, 'id', ColumnDataTypes::TYPE_INT, false);
 
         $foreignKey = new ForeignKey(
             $table,
@@ -208,13 +208,13 @@ class ForeignKeyTest extends BaseTest
      */
     public function testGetOnUpdate()
     {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
 
-        $referencedColumn = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $referenceTable = new Table('bar');
 
-        $table = new Table('foo', [ $column ]);
+        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
 
-        $referenceTable = new Table('bar', [ $referencedColumn ]);
+        $referencedColumn = new Column($referenceTable, 'id', ColumnDataTypes::TYPE_INT, false);
 
         $foreignKey = new ForeignKey(
             $table,
@@ -226,45 +226,5 @@ class ForeignKeyTest extends BaseTest
         );
 
         $this->assertSame(ForeignKeyOnDeleteReferenceOptions::ON_DELETE_SET_DEFAULT, $foreignKey->getOnUpdate());
-    }
-
-    /**
-     * @covers ForeignKey::toArray
-     */
-    public function testToArray()
-    {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
-
-        $referencedColumn = new Column('id', ColumnDataTypes::TYPE_INT, false);
-
-        $table = new Table('foo', [ $column ]);
-
-        $referenceTable = new Table('bar', [ $referencedColumn ]);
-
-        $foreignKey = new ForeignKey(
-            $table,
-            [ $column ],
-            $referenceTable,
-            [ $referencedColumn ],
-            ForeignKeyOnDeleteReferenceOptions::ON_DELETE_CASCADE,
-            ForeignKeyOnUpdateReferenceOptions::ON_UPDATE_SET_DEFAULT
-        );
-
-        $arr = $foreignKey->toArray();
-
-        $expected = [
-            'table' => 'foo',
-            'columns' => [
-                'id',
-            ],
-            'referencedTable' => 'bar',
-            'referencedColumns' => [
-                'id',
-            ],
-            'onDelete' => ForeignKeyOnDeleteReferenceOptions::ON_DELETE_CASCADE,
-            'onUpdate' => ForeignKeyOnUpdateReferenceOptions::ON_UPDATE_SET_DEFAULT,
-        ];
-
-        $this->assertEquals($expected, $arr);
     }
 }

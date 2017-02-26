@@ -24,7 +24,7 @@ final class ForeignKey
     private $table;
 
     /**
-     * @var array
+     * @var Column[]
      */
     private $columns;
 
@@ -34,7 +34,7 @@ final class ForeignKey
     private $referencedTable;
 
     /**
-     * @var array
+     * @var Column[]
      */
     private $referencedColumns;
 
@@ -50,9 +50,9 @@ final class ForeignKey
 
     /**
      * @param Table $table
-     * @param array $columns
+     * @param Column[] $columns
      * @param Table $referencedTable
-     * @param array $referencedColumns
+     * @param Column[] $referencedColumns
      * @param string $onDelete
      * @param string $onUpdate
      */
@@ -81,7 +81,7 @@ final class ForeignKey
     }
 
     /**
-     * @return array
+     * @return Column[]
      */
     public function getColumns(): array
     {
@@ -97,7 +97,7 @@ final class ForeignKey
     }
 
     /**
-     * @return array
+     * @return Column[]
      */
     public function getReferencedColumns(): array
     {
@@ -118,43 +118,5 @@ final class ForeignKey
     public function getOnUpdate(): string
     {
         return $this->onUpdate;
-    }
-
-    /**
-     * Converts the foreign key to array.
-     *
-     * @todo Move the toArray responsibility away from the ForeignKey
-     *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        $table = $this->getTable();
-        $tableName = $table->getName();
-        $referencedTable = $this->getReferencedTable();
-        $referencedTableName = $referencedTable->getName();
-
-        $columnsAsArray = [];
-
-        foreach ($this->columns as $column) {
-            $columnsAsArray[] = $column->getName();
-        }
-
-        $referencedColumnsAsArray = [];
-
-        foreach ($this->referencedColumns as $column) {
-            $referencedColumnsAsArray[] = $column->getName();
-        }
-
-        $arr = [
-            'table' => $tableName,
-            'columns' => $columnsAsArray,
-            'referencedTable' => $referencedTableName,
-            'referencedColumns' => $referencedColumnsAsArray,
-            'onDelete' => $this->getOnDelete(),
-            'onUpdate' => $this->getOnUpdate(),
-        ];
-
-        return $arr;
     }
 }
