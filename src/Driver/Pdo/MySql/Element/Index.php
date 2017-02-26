@@ -30,7 +30,7 @@ final class Index
     private $table;
 
     /**
-     * @var array
+     * @var Column[]
      */
     private $columns;
 
@@ -51,7 +51,7 @@ final class Index
     /**
      * @param Table $table
      * @param string $name
-     * @param array $columns
+     * @param Column[] $columns
      * @param string $class  one of the values defined as a const in @see IndexClass
      * @param string $type   one of the values defined as a const in @see IndexType
      *
@@ -99,7 +99,7 @@ final class Index
     }
 
     /**
-     * @return array
+     * @return Column[]
      */
     public function getColumns(): array
     {
@@ -120,35 +120,5 @@ final class Index
     public function getType(): string
     {
         return $this->type;
-    }
-
-    /**
-     * Converts the index into an array.
-     *
-     * @todo Move the toArray responsibility away from the Index
-     *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        $table = $this->getTable();
-        $tableName = $table->getName();
-        $indexName = $this->getName();
-
-        $columnsAsArray = [];
-
-        foreach ($this->columns as $column) {
-            $columnsAsArray[] = $column->getName();
-        }
-
-        $arr = [
-            'name' => $indexName,
-            'columns' => $columnsAsArray,
-            'table' => $tableName,
-            'class' => $this->getClass(),
-            'type' => $this->getType(),
-        ];
-
-        return $arr;
     }
 }

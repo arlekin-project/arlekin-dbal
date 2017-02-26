@@ -29,9 +29,9 @@ class IndexTest extends BaseTest
      */
     public function testConstruct()
     {
-        $column = new Column('uniqueValue', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
 
-        $table = new Table('foo', [ $column ]);
+        $column = new Column($table, 'uniqueValue', ColumnDataTypes::TYPE_INT, false);
 
         $index = new Index(
             $table,
@@ -60,11 +60,11 @@ class IndexTest extends BaseTest
             '/^'.preg_quote('Unknown index class "foo". Known index classes are ["').'.*'.preg_quote('"].').'$/'
         );
 
-        $column = new Column('uniqueValue', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
 
-        $table = new Table('foo', [ $column ]);
+        $column = new Column($table, 'uniqueValue', ColumnDataTypes::TYPE_INT, false);
 
-        new Index(
+        (new Index(
             $table,
             'foo',
             [
@@ -72,7 +72,7 @@ class IndexTest extends BaseTest
             ],
             'foo',
             IndexTypes::BTREE
-        );
+        ));
     }
 
     /**
@@ -85,11 +85,11 @@ class IndexTest extends BaseTest
             '/^'.preg_quote('Unknown index type "foo". Known index types are ["').'.*'.preg_quote('"].').'$/'
         );
 
-        $column = new Column('uniqueValue', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
 
-        $table = new Table('foo', [ $column ]);
+        $column = new Column($table, 'uniqueValue', ColumnDataTypes::TYPE_INT, false);
 
-        new Index(
+        (new Index(
             $table,
             'foo',
             [
@@ -97,7 +97,7 @@ class IndexTest extends BaseTest
             ],
             IndexClasses::UNIQUE,
             'foo'
-        );
+        ));
     }
 
     /**
@@ -105,9 +105,9 @@ class IndexTest extends BaseTest
      */
     public function testGetTable()
     {
-        $column = new Column('uniqueValue', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
 
-        $table = new Table('foo', [ $column ]);
+        $column = new Column($table, 'uniqueValue', ColumnDataTypes::TYPE_INT, false);
 
         $index = new Index(
             $table,
@@ -127,9 +127,9 @@ class IndexTest extends BaseTest
      */
     public function testGetName()
     {
-        $column = new Column('uniqueValue', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
 
-        $table = new Table('foo', [ $column ]);
+        $column = new Column($table, 'uniqueValue', ColumnDataTypes::TYPE_INT, false);
 
         $index = new Index(
             $table,
@@ -149,9 +149,9 @@ class IndexTest extends BaseTest
      */
     public function testGetColumns()
     {
-        $column = new Column('uniqueValue', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
 
-        $table = new Table('foo', [ $column ]);
+        $column = new Column($table, 'uniqueValue', ColumnDataTypes::TYPE_INT, false);
 
         $index = new Index(
             $table,
@@ -164,39 +164,5 @@ class IndexTest extends BaseTest
         );
 
         $this->assertSame([$column ], $index->getColumns());
-    }
-
-    /**
-     * @covers Index::toArray
-     */
-    public function testToArray()
-    {
-        $column = new Column('uniqueValue', ColumnDataTypes::TYPE_INT, false);
-
-        $table = new Table('foo', [ $column ]);
-
-        $index = new Index(
-            $table,
-            'fooIndex',
-            [
-                $column
-            ],
-            IndexClasses::UNIQUE,
-            IndexTypes::BTREE
-        );
-
-        $arr = $index->toArray();
-
-        $expected = [
-            'name' => 'fooIndex',
-            'class' => IndexClasses::UNIQUE,
-            'type' => IndexTypes::BTREE,
-            'columns' => [
-                'uniqueValue',
-            ],
-            'table' => 'foo',
-        ];
-
-        $this->assertEquals($expected, $arr);
     }
 }
