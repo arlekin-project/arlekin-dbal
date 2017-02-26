@@ -9,7 +9,7 @@
 
 namespace Calam\Dbal\Driver\Pdo\MySql\Element\Exception;
 
-use Calam\Dbal\Driver\Pdo\MySql\Element\IndexType;
+use Calam\Dbal\Driver\Pdo\MySql\Element\IndexTypes;
 use Calam\Dbal\Driver\Pdo\MySql\Exception\PdoMySqlDriverException;
 
 /**
@@ -35,7 +35,7 @@ final class UnknownIndexTypeException extends PdoMySqlDriverException
             sprintf(
                 'Unknown index type "%s". Known index types are %s.',
                 $indexType,
-                IndexType::$KNOWN
+                IndexTypes::$KNOWN
             )
         );
 

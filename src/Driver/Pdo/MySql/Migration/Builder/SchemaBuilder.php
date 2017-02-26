@@ -14,7 +14,7 @@ use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataType;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
-use Calam\Dbal\Driver\Pdo\MySql\Element\IndexType;
+use Calam\Dbal\Driver\Pdo\MySql\Element\IndexTypes;
 use Calam\Dbal\Driver\Pdo\MySql\Element\PrimaryKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Schema;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
@@ -275,7 +275,7 @@ class SchemaBuilder
                     }
 
                     if ($arrIndex['unique']) {
-                        $index->setType(IndexType::KIND_UNIQUE);
+                        $index->setType(IndexTypes::KIND_UNIQUE);
                     } else {
                         $index->setType($arrIndex['kind']);
                     }

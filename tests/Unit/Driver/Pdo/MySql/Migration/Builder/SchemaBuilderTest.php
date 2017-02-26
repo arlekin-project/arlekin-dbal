@@ -16,7 +16,7 @@ use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteReferenceOptions;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnUpdateReferenceOptions;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
-use Calam\Dbal\Driver\Pdo\MySql\Element\IndexType;
+use Calam\Dbal\Driver\Pdo\MySql\Element\IndexTypes;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
 use Calam\Dbal\Driver\Pdo\MySql\Migration\Builder\SchemaBuilder;
 use Calam\Dbal\Tests\BaseTest;
@@ -498,7 +498,7 @@ class SchemaBuilderTest extends BaseTest
         );
 
         $this->assertSame(
-            IndexType::KIND_UNIQUE,
+            IndexTypes::KIND_UNIQUE,
             $index->getType()
         );
 
@@ -621,7 +621,7 @@ class SchemaBuilderTest extends BaseTest
         );
 
         $this->assertSame(
-            IndexType::BTREE,
+            IndexTypes::BTREE,
             $index->getType()
         );
 

@@ -16,18 +16,20 @@ namespace Calam\Dbal\Driver\Pdo\MySql\Element;
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-final class IndexType
+final class IndexClasses
 {
-    const BTREE = 'BTREE';
-    const HASH = 'HASH';
+    const UNIQUE = 'UNIQUE';
+    const FULLTEXT = 'FULLTEXT';
+    const SPATIAL = 'SPATIAL';
 
     /**
-     * Known index types.
+     * Known index classes.
      *
      * @var array
      */
     public static $KNOWN = [
-        self::BTREE,
-        self::HASH
+        self::UNIQUE,
+        self::FULLTEXT,
+        self::SPATIAL,
     ];
 }

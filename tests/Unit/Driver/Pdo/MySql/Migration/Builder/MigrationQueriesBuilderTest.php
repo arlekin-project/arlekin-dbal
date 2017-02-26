@@ -14,7 +14,7 @@ use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataType;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteReferenceOptions;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
-use Calam\Dbal\Driver\Pdo\MySql\Element\IndexType;
+use Calam\Dbal\Driver\Pdo\MySql\Element\IndexTypes;
 use Calam\Dbal\Driver\Pdo\MySql\Element\PrimaryKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Schema;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
@@ -234,7 +234,7 @@ class MigrationQueriesBuilderTest extends BaseTest
                 $fooColumn,
             ]
         )->setType(
-            IndexType::BTREE
+            IndexTypes::BTREE
         );
 
         $commonTable->addIndex($index);
@@ -334,7 +334,7 @@ class MigrationQueriesBuilderTest extends BaseTest
         $destinationIndex->setName(
             'testIndexName'
         )->setType(
-            IndexType::BTREE
+            IndexTypes::BTREE
         )->addColumn(
             $column
         );
@@ -903,7 +903,7 @@ class MigrationQueriesBuilderTest extends BaseTest
         $destinationIndex->addColumn(
             $column
         )->setType(
-            IndexType::KIND_UNIQUE
+            IndexTypes::KIND_UNIQUE
         )->setName(
             'unique_testColumn'
         );
@@ -952,7 +952,7 @@ class MigrationQueriesBuilderTest extends BaseTest
         $index->setName(
             'unique_testColumn'
         )->setType(
-            IndexType::KIND_UNIQUE
+            IndexTypes::KIND_UNIQUE
         )->setColumns(
             [
                 $testColumn,

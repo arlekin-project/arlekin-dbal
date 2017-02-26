@@ -20,14 +20,14 @@ use Calam\Dbal\Driver\Pdo\MySql\Element\Exception\UnknownIndexTypeException;
 final class Index
 {
     /**
-     * Must be one of the values defined as a const in @see IndexClass
+     * Must be one of the values defined as a const in @see IndexClasses
      *
      * @var string
      */
     private $class;
 
     /**
-     * Must be one of the values defined as a const in @see IndexType
+     * Must be one of the values defined as a const in @see IndexTypes
      *
      * @var string
      */
@@ -70,11 +70,11 @@ final class Index
      * @return Index
      *
      * @throws UnknownIndexClassException if given index class is not one of the values
-     * defined as a const in @see IndexClass
+     * defined as a const in @see IndexClasses
      */
     public function setClass(string $class): Index
     {
-        if (!in_array($class, IndexClass::$KNOWN)) {
+        if (!in_array($class, IndexClasses::$KNOWN)) {
             throw new UnknownIndexClassException($class);
         }
 
@@ -97,11 +97,11 @@ final class Index
      * @return Index
      *
      * @throws UnknownIndexTypeException if given index type is not one of the values
-     * defined as a const in @see IndexType
+     * defined as a const in @see IndexTypes
      */
     public function setType(string $type): Index
     {
-        if (!in_array($type, IndexType::$KNOWN)) {
+        if (!in_array($type, IndexTypes::$KNOWN)) {
             throw new UnknownIndexTypeException($type);
         }
 
