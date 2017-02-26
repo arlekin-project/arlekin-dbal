@@ -10,7 +10,12 @@
 namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataTypes;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Exception\UnknownIndexClassException;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Exception\UnknownIndexTypeException;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
+use Calam\Dbal\Driver\Pdo\MySql\Element\IndexClasses;
+use Calam\Dbal\Driver\Pdo\MySql\Element\IndexTypes;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
 use Calam\Dbal\Tests\BaseTest;
 use Calam\Dbal\Tests\Helper\CommonTestHelper;
@@ -21,175 +26,178 @@ use Calam\Dbal\Tests\Helper\CommonTestHelper;
 class IndexTest extends BaseTest
 {
     /**
-     * @covers Calam\Dbal\SqlBased\Element\Index::__construct
+     * @covers Index::__construct
      */
     public function testConstruct()
     {
-        $index = $this->createBaseNewIndex();
+        $column = new Column('uniqueValue', ColumnDataTypes::TYPE_INT, false);
 
-        $this->assertAttributeSame(null, 'kind', $index);
-        $this->assertAttributeSame(null, 'name', $index);
-        $this->assertAttributeSame(null, 'table', $index);
-        $this->assertAttributeSame([], 'columns', $index);
+        $table = new Table('foo', [ $column ]);
+
+        $index = new Index(
+            $table,
+            'foo',
+            [
+                $column
+            ],
+            IndexClasses::UNIQUE,
+            IndexTypes::BTREE
+        );
+
+        $this->assertAttributeSame($table, 'table', $index);
+        $this->assertAttributeSame('foo', 'name', $index);
+        $this->assertAttributeSame([ $column ], 'columns', $index);
+        $this->assertAttributeSame(IndexClasses::UNIQUE, 'class', $index);
+        $this->assertAttributeSame(IndexTypes::BTREE, 'type', $index);
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\Index::getKind
-     * @covers Calam\Dbal\SqlBased\Element\Index::setKind
+     * @covers Index::__construct
      */
-    public function testGetAndSetKind()
+    public function testConstructUnknownIndexClassException()
     {
-        CommonTestHelper::testBasicGetAndSetForProperty(
-            $this,
-            $index = $this->createBaseNewIndex(),
-            'kind',
-            'BTREE'
+        $this->expectException(UnknownIndexClassException::class);
+        $this->expectExceptionMessageRegExp(
+            '/^'.preg_quote('Unknown index class "foo". Known index classes are ["').'.*'.preg_quote('"].').'$/'
+        );
+
+        $column = new Column('uniqueValue', ColumnDataTypes::TYPE_INT, false);
+
+        $table = new Table('foo', [ $column ]);
+
+        new Index(
+            $table,
+            'foo',
+            [
+                $column
+            ],
+            'foo',
+            IndexTypes::BTREE
         );
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\Index::getName
-     * @covers Calam\Dbal\SqlBased\Element\Index::setName
+     * @covers Index::__construct
+     */
+    public function testConstructUnknownIndexTypeException()
+    {
+        $this->expectException(UnknownIndexTypeException::class);
+        $this->expectExceptionMessageRegExp(
+            '/^'.preg_quote('Unknown index type "foo". Known index types are ["').'.*'.preg_quote('"].').'$/'
+        );
+
+        $column = new Column('uniqueValue', ColumnDataTypes::TYPE_INT, false);
+
+        $table = new Table('foo', [ $column ]);
+
+        new Index(
+            $table,
+            'foo',
+            [
+                $column
+            ],
+            IndexClasses::UNIQUE,
+            'foo'
+        );
+    }
+
+    /**
+     * @covers Index::getTable
+     */
+    public function testGetTable()
+    {
+        $column = new Column('uniqueValue', ColumnDataTypes::TYPE_INT, false);
+
+        $table = new Table('foo', [ $column ]);
+
+        $index = new Index(
+            $table,
+            'foo',
+            [
+                $column
+            ],
+            IndexClasses::UNIQUE,
+            IndexTypes::BTREE
+        );
+
+        $this->assertSame($table, $index->getTable());
+    }
+
+    /**
+     * @covers Index::getName
      */
     public function testGetAndSetName()
     {
-        CommonTestHelper::testBasicGetAndSetForProperty(
-            $this,
-            $index = $this->createBaseNewIndex(),
-            'name',
-            uniqid('test_name_', true)
-        );
-    }
+        $column = new Column('uniqueValue', ColumnDataTypes::TYPE_INT, false);
 
-    /**
-     * @covers Calam\Dbal\SqlBased\Element\Index::getTable
-     * @covers Calam\Dbal\SqlBased\Element\Index::setTable
-     */
-    public function testGetAndSetTable()
-    {
-        CommonTestHelper::testBasicGetAndSetForProperty(
-            $this,
-            $this->createBaseNewIndex(),
-            'table',
-            $this->createBaseNewTable()
-        );
-    }
+        $table = new Table('foo', [ $column ]);
 
-    /**
-     * @covers Calam\Dbal\SqlBased\Element\Index::getColumns
-     * @covers Calam\Dbal\SqlBased\Element\Index::setColumns
-     */
-    public function testGetAndSetColumns()
-    {
-        CommonTestHelper::testBasicGetAndSetCollectionForProperty(
-            $this,
-            $this->createBaseNewIndex(),
-            'columns',
+        $index = new Index(
+            $table,
+            'foo',
             [
-                $this->createBaseNewColumn(),
-            ]
+                $column
+            ],
+            IndexClasses::UNIQUE,
+            IndexTypes::BTREE
         );
+
+        $this->assertSame('foo', $index->getName());
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\Index::toArray
+     * @covers Index::getColumns
      */
-    public function testToArrayNoTable()
+    public function testGetColumns()
     {
-        $index = $this->createBaseTestIndexWithTable();
+        $column = new Column('uniqueValue', ColumnDataTypes::TYPE_INT, false);
+
+        $table = new Table('foo', [ $column ]);
+
+        $index = new Index(
+            $table,
+            'foo',
+            [
+                $column
+            ],
+            IndexClasses::UNIQUE,
+            IndexTypes::BTREE
+        );
+
+        $this->assertSame([$column ], $index->getColumns());
+    }
+
+    /**
+     * @covers Index::toArray
+     */
+    public function testToArray()
+    {
+        $column = new Column('uniqueValue', ColumnDataTypes::TYPE_INT, false);
+
+        $table = new Table('foo', [ $column ]);
+
+        $index = new Index(
+            $table,
+            'fooIndex',
+            [
+                $column
+            ],
+            IndexClasses::UNIQUE,
+            IndexTypes::BTREE
+        );
 
         $arr = $index->toArray();
 
         $expected = [
-            'name' => 'unique_deptName',
-            'kind' => 'UNIQUE',
+            'name' => 'fooIndex',
+            'class' => IndexClasses::UNIQUE,
+            'type' => IndexTypes::BTREE,
             'columns' => [
-                'deptName',
+                'uniqueValue',
             ],
-            'table' => 'testTableName',
+            'table' => 'foo',
         ];
 
         $this->assertEquals($expected, $arr);
-    }
-
-    /**
-     * @return Index
-     */
-    protected function createBaseTestIndex()
-    {
-        $index = $this->createBaseNewIndex();
-
-        $index->setName(
-            'unique_deptName'
-        )->setType(
-            'UNIQUE'
-        );
-
-        $column = $this->createBaseNewColumn();
-
-        $column->setName('deptName');
-
-        $index->setColumns(
-            [
-                $column,
-            ]
-        );
-
-        return [
-            'index' => $index,
-            'column' => $column,
-        ];
-    }
-
-    /**
-     * @return Index
-     */
-    protected function createBaseTestIndexWithTable()
-    {
-        $result = $this->createBaseTestIndex();
-
-        $index = $result['index'];
-
-        $column = $result['column'];
-
-        $table = $this->createBaseNewTable();
-
-        $table->setName('testTableName');
-
-        $column->setTable($table);
-
-        $index->setTable($table);
-
-        return $index;
-    }
-
-    /**
-     * @return Table
-     */
-    protected function createBaseNewTable()
-    {
-        return $this->getMockForAbstractClass(
-            Table::class
-        );
-    }
-
-    /**
-     * @return Column
-     */
-    protected function createBaseNewColumn()
-    {
-        return $this->getMockForAbstractClass(
-            Column::class
-        );
-    }
-
-    /**
-     * @return Index
-     */
-    protected function createBaseNewIndex()
-    {
-        return $this->getMockForAbstractClass(
-            Index::class
-        );
     }
 }

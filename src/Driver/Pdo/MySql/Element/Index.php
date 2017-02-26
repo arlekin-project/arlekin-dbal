@@ -20,20 +20,6 @@ use Calam\Dbal\Driver\Pdo\MySql\Element\Exception\UnknownIndexTypeException;
 final class Index
 {
     /**
-     * Must be one of the values defined as a const in @see IndexClasses
-     *
-     * @var string
-     */
-    private $class;
-
-    /**
-     * Must be one of the values defined as a const in @see IndexTypes
-     *
-     * @var string
-     */
-    private $type;
-
-    /**
      * @var string
      */
     private $name;
@@ -49,11 +35,25 @@ final class Index
     private $columns;
 
     /**
+     * Must be one of the values defined as a const in @see IndexClasses
+     *
+     * @var string
+     */
+    private $class;
+
+    /**
+     * Must be one of the values defined as a const in @see IndexTypes
+     *
+     * @var string
+     */
+    private $type;
+
+    /**
      * @param Table $table
-     * @param string $class  one of the values defined as a const in @see IndexClass
-     * @param string $type   one of the values defined as a const in @see IndexType
      * @param string $name
      * @param array $columns
+     * @param string $class  one of the values defined as a const in @see IndexClass
+     * @param string $type   one of the values defined as a const in @see IndexType
      *
      * @throws UnknownIndexClassException if given index class is not one of the values
      * defined as a const in @see IndexClasses
@@ -62,10 +62,10 @@ final class Index
      */
     public function __construct(
         Table $table,
-        string $class,
-        string $type,
         string $name,
-        array $columns
+        array $columns,
+        string $class,
+        string $type
     ) {
         if (!in_array($class, IndexClasses::$KNOWN)) {
             throw new UnknownIndexClassException($class);
@@ -76,26 +76,10 @@ final class Index
         }
 
         $this->table = $table;
-        $this->class = $class;
-        $this->type = $type;
         $this->name = $name;
         $this->columns = $columns;
-    }
-
-    /**
-     * @return string one of the values defined as a const in @see IndexClass
-     */
-    public function getType(): string
-    {
-        return $this->type;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
+        $this->class = $class;
+        $this->type = $type;
     }
 
     /**
@@ -107,6 +91,14 @@ final class Index
     }
 
     /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
      * @return array
      */
     public function getColumns(): array
@@ -115,9 +107,25 @@ final class Index
     }
 
     /**
+     * @return string one of the values defined as a const in @see IndexClass
+     */
+    public function getClass(): string
+    {
+        return $this->class;
+    }
+
+    /**
+     * @return string one of the values defined as a const in @see IndexType
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
      * Converts the index into an array.
      *
-     * @todo Move the toArray responsability away from the Index
+     * @todo Move the toArray responsibility away from the Index
      *
      * @return array
      */
@@ -135,9 +143,10 @@ final class Index
 
         $arr = [
             'name' => $indexName,
-            'kind' => $this->getType(),
             'columns' => $columnsAsArray,
             'table' => $tableName,
+            'class' => $this->getClass(),
+            'type' => $this->getType(),
         ];
 
         return $arr;
