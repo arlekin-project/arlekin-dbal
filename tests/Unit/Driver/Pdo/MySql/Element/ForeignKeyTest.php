@@ -10,26 +10,69 @@
 namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataTypes;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteReferenceOptions;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnUpdateReferenceOptions;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
 use Calam\Dbal\Tests\BaseTest;
-use Calam\Dbal\Tests\Helper\CommonTestHelper;
 
 class ForeignKeyTest extends BaseTest
 {
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::__construct
+     * @covers ForeignKey::__construct
      */
     public function testConstruct()
     {
-        $foreignKey = $this->createBaseNewForeignKey();
+        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
 
-        $this->assertAttributeSame(null, 'table', $foreignKey);
-        $this->assertAttributeSame([], 'columns', $foreignKey);
-        $this->assertAttributeSame(null, 'referencedTable', $foreignKey);
-        $this->assertAttributeSame([], 'referencedColumns', $foreignKey);
+        $referencedColumn = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $table = new Table('foo', [ $column ]);
+
+        $referenceTable = new Table('bar', [ $referencedColumn ]);
+
+        $foreignKey = new ForeignKey(
+            $table,
+            [ $column ],
+            $referenceTable,
+            [ $referencedColumn ],
+            ForeignKeyOnDeleteReferenceOptions::ON_DELETE_CASCADE,
+            ForeignKeyOnUpdateReferenceOptions::ON_UPDATE_SET_DEFAULT
+        );
+
+        $this->assertAttributeSame($table, 'table', $foreignKey);
+        $this->assertAttributeSame([ $column ], 'columns', $foreignKey);
+        $this->assertAttributeSame($referenceTable, 'referencedTable', $foreignKey);
+        $this->assertAttributeSame([ $referencedColumn ], 'referencedColumns', $foreignKey);
+
+        $this->assertAttributeSame(
+            ForeignKeyOnDeleteReferenceOptions::ON_DELETE_CASCADE,
+            'onDelete',
+            $foreignKey
+        );
+
+        $this->assertAttributeSame(
+            ForeignKeyOnUpdateReferenceOptions::ON_UPDATE_SET_DEFAULT,
+            'onUpdate',
+            $foreignKey
+        );
+    }
+
+    /**
+     * @covers ForeignKey::__construct
+     */
+    public function testConstructDefaultValue()
+    {
+        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $referencedColumn = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $table = new Table('foo', [ $column ]);
+
+        $referenceTable = new Table('bar', [ $referencedColumn ]);
+
+        $foreignKey = new ForeignKey($table, [ $column ], $referenceTable, [ $referencedColumn ]);
 
         $this->assertAttributeSame(
             ForeignKeyOnDeleteReferenceOptions::ON_DELETE_RESTRICT,
@@ -45,189 +88,183 @@ class ForeignKeyTest extends BaseTest
     }
 
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::getTable
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::setTable
+     * @covers ForeignKey::getTable
      */
-    public function testGetAndSetTable()
+    public function testGetTable()
     {
-        CommonTestHelper::testBasicGetAndSetForProperty(
-            $this,
-            $this->createBaseNewForeignKey(),
-            'table',
-            $this->createBaseNewTable()
+        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $referencedColumn = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $table = new Table('foo', [ $column ]);
+
+        $referenceTable = new Table('bar', [ $referencedColumn ]);
+
+        $foreignKey = new ForeignKey(
+            $table,
+            [ $column ],
+            $referenceTable,
+            [ $referencedColumn ]
         );
+
+        $this->assertSame($table, $foreignKey->getTable());
     }
 
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::getColumns
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::setColumns
+     * @covers ForeignKey::getColumns
      */
-    public function testGetAndSetColumns()
+    public function testGetColumns()
     {
-        CommonTestHelper::testBasicGetAndSetCollectionForProperty(
-            $this,
-            $this->createBaseNewForeignKey(),
-            'columns',
-            [
-                $this->createBaseNewColumn(),
-            ]
+        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $referencedColumn = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $table = new Table('foo', [ $column ]);
+
+        $referenceTable = new Table('bar', [ $referencedColumn ]);
+
+        $foreignKey = new ForeignKey(
+            $table,
+            [ $column ],
+            $referenceTable,
+            [ $referencedColumn ]
         );
+
+        $this->assertSame([ $column ], $foreignKey->getColumns());
     }
 
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::getReferencedTable
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::setReferencedTable
+     * @covers ForeignKey::getReferencedTable
      */
-    public function testGetAndSetReferencedTable()
+    public function testGetReferencedTable()
     {
-        CommonTestHelper::testBasicGetAndSetForProperty(
-            $this,
-            $this->createBaseNewForeignKey(),
-            'referencedTable',
-            $this->createBaseNewTable()
+        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $referencedColumn = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $table = new Table('foo', [ $column ]);
+
+        $referenceTable = new Table('bar', [ $referencedColumn ]);
+
+        $foreignKey = new ForeignKey(
+            $table,
+            [ $column ],
+            $referenceTable,
+            [ $referencedColumn ]
         );
+
+        $this->assertSame($referenceTable, $foreignKey->getReferencedTable());
     }
 
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::getReferencedColumns
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::setReferencedColumns
+     * @covers ForeignKey::getReferencedColumns
      */
-    public function testGetAndSetReferencedColumns()
+    public function testGetReferencedColumns()
     {
-        CommonTestHelper::testBasicGetAndSetCollectionForProperty(
-            $this,
-            $this->createBaseNewForeignKey(),
-            'referencedcolumns',
-            [
-                $this->createBaseNewColumn(),
-            ]
+        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $referencedColumn = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $table = new Table('foo', [ $column ]);
+
+        $referenceTable = new Table('bar', [ $referencedColumn ]);
+
+        $foreignKey = new ForeignKey(
+            $table,
+            [ $column ],
+            $referenceTable,
+            [ $referencedColumn ]
         );
+
+        $this->assertSame([ $referencedColumn ], $foreignKey->getReferencedColumns());
     }
 
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::getOnDelete
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::setOnDelete
+     * @covers ForeignKey::getOnDelete
      */
-    public function testGetAndSetOnDelete()
+    public function testGetOnDelete()
     {
-        CommonTestHelper::testBasicGetAndSetForProperty(
-            $this,
-            $this->createBaseNewForeignKey(),
-            'onDelete',
-            $this->createBaseNewTable()
+        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $referencedColumn = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $table = new Table('foo', [ $column ]);
+
+        $referenceTable = new Table('bar', [ $referencedColumn ]);
+
+        $foreignKey = new ForeignKey(
+            $table,
+            [ $column ],
+            $referenceTable,
+            [ $referencedColumn ],
+            ForeignKeyOnDeleteReferenceOptions::ON_DELETE_CASCADE
         );
+
+        $this->assertSame(ForeignKeyOnDeleteReferenceOptions::ON_DELETE_CASCADE, $foreignKey->getOnDelete());
     }
 
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::getOnUpdate
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::setOnUpdate
+     * @covers ForeignKey::getOnUpdate
      */
-    public function testGetAndSetOnUpdate()
+    public function testGetOnUpdate()
     {
-        CommonTestHelper::testBasicGetAndSetForProperty(
-            $this,
-            $this->createBaseNewForeignKey(),
-            'onUpdate',
-            $this->createBaseNewTable()
+        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $referencedColumn = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $table = new Table('foo', [ $column ]);
+
+        $referenceTable = new Table('bar', [ $referencedColumn ]);
+
+        $foreignKey = new ForeignKey(
+            $table,
+            [ $column ],
+            $referenceTable,
+            [ $referencedColumn ],
+            ForeignKeyOnDeleteReferenceOptions::ON_DELETE_CASCADE,
+            ForeignKeyOnUpdateReferenceOptions::ON_UPDATE_SET_DEFAULT
         );
+
+        $this->assertSame(ForeignKeyOnDeleteReferenceOptions::ON_DELETE_SET_DEFAULT, $foreignKey->getOnUpdate());
     }
 
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey::toArray
+     * @covers ForeignKey::toArray
      */
     public function testToArray()
     {
-        $foreignKey = $this->createBaseTestForeignKey();
+        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $referencedColumn = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $table = new Table('foo', [ $column ]);
+
+        $referenceTable = new Table('bar', [ $referencedColumn ]);
+
+        $foreignKey = new ForeignKey(
+            $table,
+            [ $column ],
+            $referenceTable,
+            [ $referencedColumn ],
+            ForeignKeyOnDeleteReferenceOptions::ON_DELETE_CASCADE,
+            ForeignKeyOnUpdateReferenceOptions::ON_UPDATE_SET_DEFAULT
+        );
 
         $arr = $foreignKey->toArray();
 
         $expected = [
-            'table' => 'testTable',
+            'table' => 'foo',
             'columns' => [
-                'deptNo',
+                'id',
             ],
-            'referencedTable' => 'departments',
+            'referencedTable' => 'bar',
             'referencedColumns' => [
-                'deptNo1',
+                'id',
             ],
-            'onDelete' => ForeignKeyOnDeleteReferenceOptions::ON_DELETE_RESTRICT,
-            'onUpdate' => ForeignKeyOnUpdateReferenceOptions::ON_UPDATE_RESTRICT,
+            'onDelete' => ForeignKeyOnDeleteReferenceOptions::ON_DELETE_CASCADE,
+            'onUpdate' => ForeignKeyOnUpdateReferenceOptions::ON_UPDATE_SET_DEFAULT,
         ];
 
         $this->assertEquals($expected, $arr);
-    }
-
-    /**
-     * @return ForeignKey
-     */
-    protected function createBaseTestForeignKey()
-    {
-        $table = $this->createBaseNewTable();
-
-        $table->setName('testTable');
-
-        $referencedTable = $this->createBaseNewTable();
-
-        $referencedTable->setName('departments');
-
-        $column = $this->createBaseNewColumn();
-
-        $column->setName(
-            'deptNo'
-        )->setTable(
-            $table
-        );
-
-        $referencedColumn = $this->createBaseNewColumn();
-
-        $referencedColumn->setName(
-            'deptNo1'
-        )->setTable(
-            $referencedTable
-        );
-
-        $foreignKey = $this->createBaseNewForeignKey();
-
-        $foreignKey->addColumn(
-            $column
-        )->addReferencedColumn(
-            $referencedColumn
-        )->setReferencedTable(
-            $referencedTable
-        )->setTable(
-            $table
-        );
-
-        return $foreignKey;
-    }
-
-    /**
-     * @return Table
-     */
-    protected function createBaseNewTable()
-    {
-        return $this->getMockForAbstractClass(
-            Table::class
-        );
-    }
-
-    /**
-     * @return Column
-     */
-    protected function createBaseNewColumn()
-    {
-        return $this->getMockForAbstractClass(
-            Column::class
-        );
-    }
-
-    /**
-     * @return ForeignKey
-     */
-    protected function createBaseNewForeignKey()
-    {
-        return $this->getMockForAbstractClass(
-            ForeignKey::class
-        );
     }
 }
