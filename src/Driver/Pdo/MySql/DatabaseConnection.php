@@ -9,10 +9,14 @@
 
 namespace Calam\Dbal\Driver\Pdo\MySql;
 
-use Calam\Dbal\Driver\Pdo\MySql\Exception\DriverException;
+use Calam\Dbal\Driver\Pdo\MySql\Exception\ConnectionAlreadyClosedException;
+use Calam\Dbal\Driver\Pdo\MySql\Exception\ConnectionAlreadyEstablishedException;
+use Calam\Dbal\Driver\Pdo\MySql\Exception\MultipleQueriesQueryException;
+use Calam\Dbal\Driver\Pdo\MySql\Exception\QueryException;
+use Calam\Dbal\Driver\Pdo\MySql\Exception\QueryWithNotEstablishedConnectionException;
 
 /**
- * A MySQL database connection.
+ * MySQL database connection.
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
@@ -52,14 +56,20 @@ class DatabaseConnection
      * Constructor.
      *
      * @param string $host
-     * @param integer $port
+     * @param int $port
      * @param string $database
      * @param string $user
      * @param string $password
      * @param array $options
      */
-    public function __construct($host, $port, $database, $user, $password, array $options = [])
-    {
+    public function __construct(
+        string $host,
+        int $port,
+        string $database,
+        string $user,
+        string $password,
+        array $options = []
+    ) {
         $this->host = $host;
         $this->port = $port;
         $this->database = $database;
@@ -76,9 +86,9 @@ class DatabaseConnection
     /**
      * True if connected to the database, false otherwise.
      *
-     * @return boolean
+     * @return bool
      */
-    public function isConnected()
+    public function isConnected(): bool
     {
         return $this->connection !== null;
     }
@@ -86,14 +96,14 @@ class DatabaseConnection
     /**
      * Connects with the database.
      *
-     * @throws DriverException if already connected
+     * @throws ConnectionAlreadyEstablishedException if already connected
      *
      * @return DatabaseConnection
      */
-    public function connect()
+    public function connect(): DatabaseConnection
     {
         if ($this->isConnected()) {
-            throw new DriverException('Connection already established.');
+            throw new ConnectionAlreadyEstablishedException();
         }
 
         $dsn = sprintf(
@@ -118,12 +128,13 @@ class DatabaseConnection
 
     /**
      * Connects with the database if not already connected.
+     *
      * It should not fail if already connected, as it does check
      * if already connected before trying to connect.
      *
      * @return DatabaseConnection
      */
-    public function connectIfNotConnected()
+    public function connectIfNotConnected(): DatabaseConnection
     {
         if (!$this->isConnected()) {
             $this->connect();
@@ -135,33 +146,34 @@ class DatabaseConnection
     /**
      * Disconnects from the database.
      *
-     * @throws DriverException if already disconnected
+     * @throws ConnectionAlreadyClosedException if already disconnected
      *
      * @return DatabaseConnection
      */
-    public function disconnect()
+    public function disconnect(): DatabaseConnection
     {
         if (!$this->isConnected()) {
-            throw new DriverException('Connection already closed.');
+            throw new ConnectionAlreadyClosedException();
         }
+
         $this->connection = null;
 
         return $this;
     }
 
     /**
-     * Executes a given query.
-     *
-     * @param mixed $query
+     * @param string $query
      * @param array $queryParameters
-     * @param array $otherParameters
      *
      * @return array
+     *
+     * @throws QueryWithNotEstablishedConnectionException
+     * @throws QueryException
      */
-    public function executeQuery($query, array $queryParameters = [], array $otherParameters = [])
+    public function executeQuery(string $query, array $queryParameters = []): array
     {
         if ($this->connection === null) {
-            throw new DriverException('Trying to execute a query using a non-connected connection.');
+            throw new QueryWithNotEstablishedConnectionException();
         }
 
         $arrayParametersToReplace = [];
@@ -209,20 +221,11 @@ class DatabaseConnection
 
         if (!$executeResult) {
             $errorInfo = $preparedStatement->errorInfo();
-            $sqlStateErrorError = $errorInfo[0];
-            $driverSpecificError = $errorInfo[1];
-            $driverSpecificMessage = $errorInfo[2];
+            $sqlStateErrorCode = $errorInfo[0];
+            $driverSpecificErrorCode = $errorInfo[1];
+            $driverSpecificErrorMessage = $errorInfo[2];
 
-            throw new DriverException(
-                sprintf(
-                    'Error querying: SQLSTATE error code %s'
-                    ." / MySQL error code %s"
-                    .": %s",
-                    $sqlStateErrorError,
-                    $driverSpecificError,
-                    $driverSpecificMessage
-                )
-            );
+            throw new QueryException($sqlStateErrorCode, $driverSpecificErrorCode, $driverSpecificErrorMessage);
         }
 
         $rawRows = [];
@@ -237,13 +240,13 @@ class DatabaseConnection
     }
 
     /**
-     * Executes given query.
-     *
      * @param array $queries
      *
      * @return array
+     *
+     * @throws MultipleQueriesQueryException
      */
-    public function executeMultipleQueries(array $queries)
+    public function executeMultipleQueries(array $queries): array
     {
         $resultSets = [];
 
@@ -257,14 +260,7 @@ class DatabaseConnection
 
                 $resultSets[] = $resultSet;
             } catch (\Exception $ex) {
-                throw new DriverException(
-                    sprintf(
-                        'Error executing query: %s',
-                        (string)$query
-                    ),
-                    null,
-                    $ex
-                );
+                throw new MultipleQueriesQueryException($query, $ex);
             }
         }
 
@@ -274,9 +270,9 @@ class DatabaseConnection
     /**
      * Drops all the tables from the database.
      *
-     * @return DatabaseConnection the current DatabaseConnection instance
+     * @return DatabaseConnection
      */
-    public function dropAllTables()
+    public function dropAllTables(): DatabaseConnection
     {
         $queries =  [
             'SET FOREIGN_KEY_CHECKS = 0',
@@ -301,9 +297,9 @@ class DatabaseConnection
     /**
      * Drops all the views from the database.
      *
-     * @return DatabaseConnection the current DatabaseConnection instance
+     * @return DatabaseConnection
      */
-    public function dropAllViews()
+    public function dropAllViews(): DatabaseConnection
     {
         $queries = [
             'SET FOREIGN_KEY_CHECKS = 0',
@@ -328,12 +324,14 @@ class DatabaseConnection
     /**
      * Drops all the views and tables from the database.
      *
-     * @return DatabaseConnection the current DatabaseConnection instance
+     * @return DatabaseConnection
      */
-    public function dropAllDatabaseStructure()
+    public function dropAllDatabaseStructure(): DatabaseConnection
     {
-        $this->dropAllViews()
-            ->dropAllTables();
+        $this
+            ->dropAllViews()
+            ->dropAllTables()
+        ;
 
         return $this;
     }
