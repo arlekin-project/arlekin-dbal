@@ -11,12 +11,19 @@ namespace Calam\Dbal\Driver\Pdo\MySql;
 
 use Calam\Dbal\DriverInterface;
 
-class Driver implements DriverInterface
+/**
+ * @author Benjamin Michalski <benjamin.michalski@gmail.com>
+ */
+final class Driver implements DriverInterface
 {
     /**
-     * {@inheritdoc}
+     * @param array $parameters
+     *
+     * @return LoggedDatabaseConnection|DatabaseConnection
+     * - LoggedDatabaseConnection if a logger is defined
+     * - DatabaseConnection otherwise
      */
-    public function instanciateDatabaseConnection(array $parameters)
+    public function instantiateDatabaseConnection(array $parameters)
     {
         if (isset($parameters['logger'])) {
             return new LoggedDatabaseConnection(

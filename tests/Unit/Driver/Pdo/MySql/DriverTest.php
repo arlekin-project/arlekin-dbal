@@ -24,7 +24,7 @@ class DriverTest extends BaseTest
     {
         $driver = $this->getDriver();
 
-        $connection = $driver->instanciateDatabaseConnection(
+        $connection = $driver->instantiateDatabaseConnection(
             [
                 'host' => 'test_host',
                 'port' => 4242,
@@ -50,7 +50,7 @@ class DriverTest extends BaseTest
     {
         $driver = $this->getDriver();
 
-        $connection = $driver->instanciateDatabaseConnection(
+        $connection = $driver->instantiateDatabaseConnection(
             [
                 'host' => 'test_host',
                 'port' => 4242,
