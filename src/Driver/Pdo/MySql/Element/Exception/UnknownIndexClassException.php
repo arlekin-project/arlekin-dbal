@@ -35,7 +35,7 @@ final class UnknownIndexClassException extends DriverException
             sprintf(
                 'Unknown index class "%s". Known index classes are %s.',
                 $indexClass,
-                IndexClasses::$KNOWN
+                json_encode(IndexClasses::$KNOWN)
             )
         );
 
