@@ -31,39 +31,13 @@ final class Table
     private $columns;
 
     /**
-     * @var ForeignKey[]
-     */
-    private $foreignKeys;
-
-    /**
-     * @var PrimaryKey|null
-     */
-    private $primaryKey;
-
-    /**
-     * @var Index[]
-     */
-    private $indexes;
-
-    /**
      * @param string $name
      * @param Column[] $columns
-     * @param ForeignKey[] $foreignKeys
-     * @param Index[] $indexes
-     * @param PrimaryKey|null $primaryKey
      */
-    public function __construct(
-        string $name,
-        array $columns,
-        array $foreignKeys = [],
-        array $indexes = [],
-        PrimaryKey $primaryKey = null
-    ) {
+    public function __construct(string $name, array $columns)
+    {
         $this->name = $name;
         $this->columns = $columns;
-        $this->foreignKeys = $foreignKeys;
-        $this->indexes = $indexes;
-        $this->primaryKey = $primaryKey;
     }
 
     /**
@@ -75,83 +49,11 @@ final class Table
     }
 
     /**
-     * @return PrimaryKey|null
-     */
-    public function getPrimaryKey()
-    {
-        return $this->primaryKey;
-    }
-
-    /**
-     * @return array
+     * @return Column[]
      */
     public function getColumns(): array
     {
         return $this->columns;
-    }
-
-    /**
-     * @return array
-     */
-    public function getForeignKeys(): array
-    {
-        return $this->foreignKeys;
-    }
-
-    /**
-     * @return array
-     */
-    public function getIndexes(): array
-    {
-        return $this->indexes;
-    }
-
-    /**
-     * @todo Move the toArray responsibility away from the table.
-     *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        $columnsAsArray = [];
-        $indexesAsArray = [];
-        $foreignKeysAsArray = [];
-
-        foreach ($this->columns as $column) {
-            $columnAsArray = $column->toArray();
-            unset($columnAsArray['table']);
-            $columnsAsArray[] = $columnAsArray;
-        }
-
-        foreach ($this->indexes as $index) {
-            $indexAsArray = $index->toArray();
-            unset($indexAsArray['table']);
-            $indexesAsArray[] = $indexAsArray;
-        }
-
-        if (isset($this->primaryKey)) {
-            $primaryKeyAsArray = $this->primaryKey->toArray();
-        } else {
-            $primaryKeyAsArray = null;
-        }
-
-        unset($primaryKeyAsArray['table']);
-
-        foreach ($this->foreignKeys as $foreignKey) {
-            $foreignKeyAsArray = $foreignKey->toArray();
-            unset($foreignKeyAsArray['table']);
-            $foreignKeysAsArray[] = $foreignKeyAsArray;
-        }
-
-        $arr = [
-            'name' => $this->getName(),
-            'columns' => $columnsAsArray,
-            'primaryKey' => $primaryKeyAsArray,
-            'indexes' => $indexesAsArray,
-            'foreignKeys' => $foreignKeysAsArray,
-        ];
-
-        return $arr;
     }
 
     /**
