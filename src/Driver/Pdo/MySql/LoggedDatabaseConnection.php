@@ -12,7 +12,7 @@ namespace Calam\Dbal\Driver\Pdo\MySql;
 use Calam\Dbal\Driver\Pdo\MySql\Log\QueryLoggerInterface;
 
 /**
- * A MySQL database connection which logs its queries.
+ * MySQL database connection which logs queries and performance.
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
@@ -24,15 +24,23 @@ class LoggedDatabaseConnection extends DatabaseConnection
     private $logger;
 
     /**
+     * @param QueryLoggerInterface $logger
      * @param string $host
      * @param int $port
      * @param string $database
      * @param string $user
      * @param string $password
-     * @param QueryLoggerInterface $logger
      * @param array $options
      */
-    public function __construct($host, $port, $database, $user, $password, QueryLoggerInterface $logger, array $options = []) {
+    public function __construct(
+        QueryLoggerInterface $logger,
+        string $host,
+        int $port,
+        string $database,
+        string $user,
+        string $password,
+        array $options = []
+    ) {
         $this->logger = $logger;
 
         parent::__construct($host, $port, $database, $user, $password, $options);
@@ -41,7 +49,7 @@ class LoggedDatabaseConnection extends DatabaseConnection
     /**
      * {@inheritdoc}
      */
-    public function executeQuery($query, array $parameters = [], array $otherParameters = [])
+    public function executeQuery(string $query, array $parameters = []): array
     {
         $start = microtime(true);
 
@@ -60,10 +68,15 @@ class LoggedDatabaseConnection extends DatabaseConnection
         return $result;
     }
 
-    public function disconnect()
+    /**
+     * {@inheritdoc}
+     */
+    public function disconnect(): DatabaseConnection
     {
         parent::disconnect();
 
         $this->logger->end();
+
+        return $this;
     }
 }
