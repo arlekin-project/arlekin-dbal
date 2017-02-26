@@ -49,15 +49,27 @@ final class ForeignKey
     private $onUpdate;
 
     /**
-     * Constructor.
+     * @param Table $table
+     * @param array $columns
+     * @param Table $referencedTable
+     * @param array $referencedColumns
+     * @param string $onDelete
+     * @param string $onUpdate
      */
-    public function __construct()
-    {
-        $this->columns = [];
-        $this->referencedColumns = [];
-
-        $this->onDelete = ForeignKeyOnDeleteReferenceOptions::ON_DELETE_RESTRICT;
-        $this->onUpdate = ForeignKeyOnUpdateReferenceOptions::ON_UPDATE_RESTRICT;
+    public function __construct(
+        Table $table,
+        array $columns,
+        Table $referencedTable,
+        array $referencedColumns,
+        string $onDelete = ForeignKeyOnDeleteReferenceOptions::ON_DELETE_RESTRICT,
+        string $onUpdate = ForeignKeyOnUpdateReferenceOptions::ON_UPDATE_RESTRICT
+    ) {
+        $this->table = $table;
+        $this->columns = $columns;
+        $this->referencedTable = $referencedTable;
+        $this->referencedColumns = $referencedColumns;
+        $this->onDelete = $onDelete;
+        $this->onUpdate = $onUpdate;
     }
 
     /**
@@ -69,61 +81,11 @@ final class ForeignKey
     }
 
     /**
-     * @param Table $table
-     *
-     * @return ForeignKey
-     */
-    public function setTable(Table $table): ForeignKey
-    {
-        $this->table = $table;
-
-        return $this;
-    }
-
-    /**
      * @return array
      */
     public function getColumns(): array
     {
         return $this->columns;
-    }
-
-    /**
-     * @param array $columns
-     *
-     * @return ForeignKey
-     */
-    public function setColumns(array $columns): ForeignKey
-    {
-        $this->columns = $columns;
-
-        return $this;
-    }
-
-    /**
-     * @param Column $column
-     *
-     * @return ForeignKey
-     */
-    public function addColumn(Column $column): ForeignKey
-    {
-        $this->columns[] = $column;
-
-        return $this;
-    }
-
-    /**
-     * TODO See if it can be removed?
-     *
-     * @param int $index
-     *
-     * @return ForeignKey
-     */
-    public function removeColumnAtIndex(int $index): ForeignKey
-    {
-        unset($this->columns[$index]);
-
-        return $this;
     }
 
     /**
@@ -135,61 +97,11 @@ final class ForeignKey
     }
 
     /**
-     * @param Table $referencedTable
-     *
-     * @return ForeignKey
-     */
-    public function setReferencedTable(Table $referencedTable): ForeignKey
-    {
-        $this->referencedTable = $referencedTable;
-
-        return $this;
-    }
-
-    /**
      * @return array
      */
     public function getReferencedColumns(): array
     {
         return $this->referencedColumns;
-    }
-
-    /**
-     * @param array $referencedColumns
-     *
-     * @return ForeignKey
-     */
-    public function setReferencedColumns(array $referencedColumns): ForeignKey
-    {
-        $this->referencedColumns = $referencedColumns;
-
-        return $this;
-    }
-
-    /**
-     * @param Column $referencedColumn
-     *
-     * @return ForeignKey
-     */
-    public function addReferencedColumn(Column $referencedColumn): ForeignKey
-    {
-        $this->referencedColumns[] = $referencedColumn;
-
-        return $this;
-    }
-
-    /**
-     * TODO See if it can be removed?
-     *
-     * @param int $index
-     *
-     * @return ForeignKey
-     */
-    public function removeReferencedColumnAtIndex(int $index): ForeignKey
-    {
-        unset($this->referencedColumns[$index]);
-
-        return $this;
     }
 
     /**
@@ -201,35 +113,11 @@ final class ForeignKey
     }
 
     /**
-     * @param string $onDelete
-     *
-     * @return ForeignKey
-     */
-    public function setOnDelete(string $onDelete): ForeignKey
-    {
-        $this->onDelete = $onDelete;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getOnUpdate(): string
     {
         return $this->onUpdate;
-    }
-
-    /**
-     * @param string $onUpdate
-     *
-     * @return ForeignKey
-     */
-    public function setOnUpdate(string $onUpdate): ForeignKey
-    {
-        $this->onUpdate = $onUpdate;
-
-        return $this;
     }
 
     /**

@@ -27,11 +27,13 @@ final class PrimaryKey
     private $columns;
 
     /**
-     * Constructor.
+     * @param Table $table
+     * @param array $columns
      */
-    public function __construct()
+    public function __construct(Table $table, array $columns)
     {
-        $this->columns = [];
+        $this->table = $table;
+        $this->columns = $columns;
     }
 
     /**
@@ -43,61 +45,11 @@ final class PrimaryKey
     }
 
     /**
-     * @param Table $table
-     *
-     * @return PrimaryKey
-     */
-    public function setTable(Table $table = null): PrimaryKey
-    {
-        $this->table = $table;
-
-        return $this;
-    }
-
-    /**
      * @return array
      */
     public function getColumns(): array
     {
         return $this->columns;
-    }
-
-    /**
-     * @param array $columns
-     *
-     * @return PrimaryKey
-     */
-    public function setColumns(array $columns): PrimaryKey
-    {
-        $this->columns = $columns;
-
-        return $this;
-    }
-
-    /**
-     * @param Column $column
-     *
-     * @return PrimaryKey
-     */
-    public function addColumn(Column $column): PrimaryKey
-    {
-        $this->columns[] = $column;
-
-        return $this;
-    }
-
-    /**
-     * TODO See if it can be removed?
-     *
-     * @param int $index
-     *
-     * @return PrimaryKey
-     */
-    public function removeColumnAtIndex($index): PrimaryKey
-    {
-        unset($this->columns[$index]);
-
-        return $this;
     }
 
     /**

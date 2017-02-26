@@ -26,12 +26,12 @@ final class Table
     private $name;
 
     /**
-     * @var array
+     * @var Column[]
      */
     private $columns;
 
     /**
-     * @var array
+     * @var ForeignKey[]
      */
     private $foreignKeys;
 
@@ -41,18 +41,29 @@ final class Table
     private $primaryKey;
 
     /**
-     * @var array
+     * @var Index[]
      */
     private $indexes;
 
     /**
-     * Constructor.
+     * @param string $name
+     * @param Column[] $columns
+     * @param ForeignKey[] $foreignKeys
+     * @param Index[] $indexes
+     * @param PrimaryKey|null $primaryKey
      */
-    public function __construct()
-    {
-        $this->columns = [];
-        $this->foreignKeys = [];
-        $this->indexes = [];
+    public function __construct(
+        string $name,
+        array $columns,
+        array $foreignKeys = [],
+        array $indexes = [],
+        PrimaryKey $primaryKey = null
+    ) {
+        $this->name = $name;
+        $this->columns = $columns;
+        $this->foreignKeys = $foreignKeys;
+        $this->indexes = $indexes;
+        $this->primaryKey = $primaryKey;
     }
 
     /**
@@ -64,41 +75,11 @@ final class Table
     }
 
     /**
-     * @param string $name
-     *
-     * @return Table
-     */
-    public function setName(string $name): Table
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
      * @return PrimaryKey|null
      */
     public function getPrimaryKey()
     {
         return $this->primaryKey;
-    }
-
-    /**
-     * @param PrimaryKey $primaryKey
-     *
-     * @return Table
-     */
-    public function setPrimaryKey(PrimaryKey $primaryKey = null): Table
-    {
-        if ($primaryKey === null) {
-            $this->primaryKey->setTable(null);
-        } else {
-            $primaryKey->setTable($this);
-        }
-
-        $this->primaryKey = $primaryKey;
-
-        return $this;
     }
 
     /**
@@ -110,50 +91,6 @@ final class Table
     }
 
     /**
-     * @param array $columns
-     *
-     * @return Table
-     */
-    public function setColumns(array $columns): Table
-    {
-        $this->columns = $columns;
-
-        foreach ($this->columns as $column) {
-            $column->setTable($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Column $column
-     *
-     * @return Table
-     */
-    public function addColumn(Column $column): Table
-    {
-        $this->columns[] = $column;
-
-        $column->setTable($this);
-
-        return $this;
-    }
-
-    /**
-     * TODO See if it can be removed?
-     *
-     * @param int $index
-     *
-     * @return Table
-     */
-    public function removeColumnAtIndex(int $index): Table
-    {
-        unset($this->columns[$index]);
-
-        return $this;
-    }
-
-    /**
      * @return array
      */
     public function getForeignKeys(): array
@@ -162,99 +99,11 @@ final class Table
     }
 
     /**
-     * @param array $foreignKeys
-     *
-     * @return Table
-     */
-    public function setForeignKeys(array $foreignKeys): Table
-    {
-        $this->foreignKeys = $foreignKeys;
-
-        foreach ($this->foreignKeys as $foreignKey) {
-            $foreignKey->setTable($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param ForeignKey $foreignKey
-     *
-     * @return Table
-     */
-    public function addForeignKey(ForeignKey $foreignKey): Table
-    {
-        $this->foreignKeys[] = $foreignKey;
-
-        $foreignKey->setTable($this);
-
-        return $this;
-    }
-
-    /**
-     * TODO See if it can be removed?
-     *
-     * @param int $index
-     *
-     * @return Table
-     */
-    public function removeForeignKeyAtIndex(int $index): Table
-    {
-        unset($this->foreignKeys[$index]);
-
-        return $this;
-    }
-
-    /**
      * @return array
      */
     public function getIndexes(): array
     {
         return $this->indexes;
-    }
-
-    /**
-     * @param array $indexes
-     *
-     * @return Table
-     */
-    public function setIndexes(array $indexes): Table
-    {
-        $this->indexes = $indexes;
-
-        foreach ($this->indexes as $index) {
-            $index->setTable($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Index $index
-     *
-     * @return Table
-     */
-    public function addIndex(Index $index): Table
-    {
-        $this->indexes[] = $index;
-
-        $index->setTable($this);
-
-        return $this;
-    }
-
-    /**
-     * TODO See if it can be removed?
-     *
-     * @param int $index
-     *
-     * @return Table
-     */
-    public function removeIndexAtIndex(int $index): Table
-    {
-        unset($this->indexes[$index]);
-
-        return $this;
     }
 
     /**

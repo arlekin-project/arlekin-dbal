@@ -49,38 +49,37 @@ final class Index
     private $columns;
 
     /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        $this->columns = [];
-    }
-
-    /**
-     * @return string
-     */
-    public function getClass(): string
-    {
-        return $this->class;
-    }
-
-    /**
-     * @param string $class one of the values defined as a const in @see IndexClass
-     *
-     * @return Index
+     * @param Table $table
+     * @param string $class  one of the values defined as a const in @see IndexClass
+     * @param string $type   one of the values defined as a const in @see IndexType
+     * @param string $name
+     * @param array $columns
      *
      * @throws UnknownIndexClassException if given index class is not one of the values
      * defined as a const in @see IndexClasses
+     * @throws UnknownIndexTypeException  if given index type is not one of the values
+     * defined as a const in @see IndexTypes
      */
-    public function setClass(string $class): Index
-    {
+    public function __construct(
+        Table $table,
+        string $class,
+        string $type,
+        string $name,
+        array $columns
+    ) {
         if (!in_array($class, IndexClasses::$KNOWN)) {
             throw new UnknownIndexClassException($class);
         }
 
-        $this->class = $class;
+        if (!in_array($type, IndexTypes::$KNOWN)) {
+            throw new UnknownIndexTypeException($type);
+        }
 
-        return $this;
+        $this->table = $table;
+        $this->class = $class;
+        $this->type = $type;
+        $this->name = $name;
+        $this->columns = $columns;
     }
 
     /**
@@ -92,42 +91,11 @@ final class Index
     }
 
     /**
-     * @param string $type one of the values defined as a const in @see IndexType
-     *
-     * @return Index
-     *
-     * @throws UnknownIndexTypeException if given index type is not one of the values
-     * defined as a const in @see IndexTypes
-     */
-    public function setType(string $type): Index
-    {
-        if (!in_array($type, IndexTypes::$KNOWN)) {
-            throw new UnknownIndexTypeException($type);
-        }
-
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getName(): string
     {
         return $this->name;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return Index
-     */
-    public function setName(string $name): Index
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     /**
@@ -139,59 +107,11 @@ final class Index
     }
 
     /**
-     * @param Table $table
-     *
-     * @return Index
-     */
-    public function setTable(Table $table): Index
-    {
-        $this->table = $table;
-
-        return $this;
-    }
-
-    /**
      * @return array
      */
     public function getColumns(): array
     {
         return $this->columns;
-    }
-
-    /**
-     * @param array $columns
-     *
-     * @return Index
-     */
-    public function setColumns(array $columns): Index
-    {
-        $this->columns = $columns;
-
-        return $this;
-    }
-
-    /**
-     * @param Column $column
-     *
-     * @return Index
-     */
-    public function addColumn(Column $column): Index
-    {
-        $this->columns[] = $column;
-
-        return $this;
-    }
-
-    /**
-     * @param int $index
-     *
-     * @return Index
-     */
-    public function removeColumnAtIndex(int $index): Index
-    {
-        unset($this->columns[$index]);
-
-        return $this;
     }
 
     /**

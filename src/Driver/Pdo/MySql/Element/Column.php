@@ -49,12 +49,27 @@ final class Column
     private $table;
 
     /**
-     * Constructor.
+     * @param Table $table
+     * @param string $name
+     * @param string $dataType
+     * @param bool $nullable
+     * @param bool $autoIncrementable
+     * @param array $parameters
      */
-    public function __construct()
-    {
-        $this->autoIncrementable = false;
-        $this->parameters = [];
+    public function __construct(
+        Table $table,
+        string $name,
+        string $dataType,
+        bool $nullable,
+        bool $autoIncrementable = false,
+        array $parameters = []
+    ) {
+        $this->table = $table;
+        $this->name = $name;
+        $this->dataType = $dataType;
+        $this->nullable = $nullable;
+        $this->autoIncrementable = $autoIncrementable;
+        $this->parameters = $parameters;
     }
 
     /**
@@ -66,35 +81,11 @@ final class Column
     }
 
     /**
-     * @param string $name
-     *
-     * @return Column
-     */
-    public function setName(string $name): Column
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getDataType(): string
     {
         return $this->dataType;
-    }
-
-    /**
-     * @param string $dataType
-     *
-     * @return Column
-     */
-    public function setDataType(string $dataType): Column
-    {
-        $this->dataType = $dataType;
-
-        return $this;
     }
 
     /**
@@ -106,35 +97,11 @@ final class Column
     }
 
     /**
-     * @param bool $nullable
-     *
-     * @return Column
-     */
-    public function setNullable(bool $nullable): Column
-    {
-        $this->nullable = $nullable;
-
-        return $this;
-    }
-
-    /**
      * @return bool
      */
     public function isAutoIncrementable(): bool
     {
         return $this->autoIncrementable;
-    }
-
-    /**
-     * @param bool $autoIncrementable
-     *
-     * @return Column
-     */
-    public function setAutoIncrementable(bool $autoIncrementable): Column
-    {
-        $this->autoIncrementable = $autoIncrementable;
-
-        return $this;
     }
 
     /**
@@ -146,48 +113,11 @@ final class Column
     }
 
     /**
-     * @param array $parameters
-     *
-     * @return Column
-     */
-    public function setParameters(array $parameters): Column
-    {
-        $this->parameters = $parameters;
-
-        return $this;
-    }
-
-    /**
-     * @param string $parameterName
-     * @param mixed $value
-     *
-     * @return Column
-     */
-    public function setParameter(string $parameterName, $value): Column
-    {
-        $this->parameters[$parameterName] = $value;
-
-        return $this;
-    }
-
-    /**
      * @return Table
      */
     public function getTable(): Table
     {
         return $this->table;
-    }
-
-    /**
-     * @param Table $table
-     *
-     * @return Column
-     */
-    public function setTable(Table $table): Column
-    {
-        $this->table = $table;
-
-        return $this;
     }
 
     /**
@@ -219,8 +149,8 @@ final class Column
             'name' => $this->getName(),
             'dataType' => $this->getDataType(),
             'nullable' => $this->isNullable(),
-            'parameters' => $parameters,
             'autoIncrementable' => $this->isAutoIncrementable(),
+            'parameters' => $parameters,
             'table' => $table->getName(),
         ];
 

@@ -31,12 +31,13 @@ final class Schema
     private $views;
 
     /**
-     * Constructor.
+     * @param array $tables
+     * @param array $views
      */
-    public function __construct()
+    public function __construct(array $tables = [], array $views = [])
     {
-        $this->tables = [];
-        $this->views = [];
+        $this->tables = $tables;
+        $this->views = $views;
     }
 
     /**
@@ -48,83 +49,11 @@ final class Schema
     }
 
     /**
-     * @param array $tables
-     *
-     * @return Schema
-     */
-    public function setTables(array $tables): Schema
-    {
-        $this->tables = $tables;
-
-        return $this;
-    }
-
-    /**
-     * @param Table $table
-     *
-     * @return Schema
-     */
-    public function addTable(Table $table): Schema
-    {
-        $this->tables[] = $table;
-
-        return $this;
-    }
-
-    /**
-     * @param int $index
-     *
-     * @return Schema
-     */
-    public function removeTableAtIndex(int $index): Schema
-    {
-        unset($this->tables[$index]);
-
-        return $this;
-    }
-
-    /**
      * @return array
      */
     public function getViews(): array
     {
         return $this->views;
-    }
-
-    /**
-     * @param array $views
-     *
-     * @return Schema
-     */
-    public function setViews(array $views): Schema
-    {
-        $this->views = $views;
-
-        return $this;
-    }
-
-    /**
-     * @param View $view
-     *
-     * @return Schema
-     */
-    public function addView(View $view): Schema
-    {
-        $this->views[] = $view;
-
-        return $this;
-    }
-
-    /**
-     * @param int $index
-     *
-     * @return Schema
-     */
-    public function removeViewAtIndex(int $index): Schema
-    {
-        unset($this->views[$index]);
-
-        return $this;
     }
 
     /**

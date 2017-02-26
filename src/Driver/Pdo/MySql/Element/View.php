@@ -27,6 +27,16 @@ final class View
     private $definition;
 
     /**
+     * @param string $name
+     * @param string $definition
+     */
+    public function __construct(string $name, string $definition)
+    {
+        $this->name = $name;
+        $this->definition = $definition;
+    }
+
+    /**
      * @return string
      */
     public function getName(): string
@@ -35,35 +45,11 @@ final class View
     }
 
     /**
-     * @param string $name
-     *
-     * @return View
-     */
-    public function setName(string $name): View
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getDefinition(): string
     {
         return $this->definition;
-    }
-
-    /**
-     * @param string $definition
-     *
-     * @return View
-     */
-    public function setDefinition(string $definition): View
-    {
-        $this->definition = $definition;
-
-        return $this;
     }
 
     /**
