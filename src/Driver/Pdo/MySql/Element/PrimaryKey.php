@@ -22,13 +22,13 @@ final class PrimaryKey
     private $table;
 
     /**
-     * @var array
+     * @var Column[]
      */
     private $columns;
 
     /**
      * @param Table $table
-     * @param array $columns
+     * @param Column[] $columns
      */
     public function __construct(Table $table, array $columns)
     {
@@ -45,34 +45,10 @@ final class PrimaryKey
     }
 
     /**
-     * @return array
+     * @return Column[]
      */
     public function getColumns(): array
     {
         return $this->columns;
-    }
-
-    /**
-     * @todo Move the toArray responsibility away from the primary key.
-     *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        $table = $this->getTable();
-        $tableName = $table->getName();
-
-        $columnsAsArray = [];
-
-        foreach ($this->columns as $column) {
-            $columnsAsArray[] = $column->getName();
-        }
-
-        $arr = [
-            'columns' => $columnsAsArray,
-            'table' => $tableName,
-        ];
-
-        return $arr;
     }
 }

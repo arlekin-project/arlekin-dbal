@@ -25,9 +25,9 @@ class PrimaryKeyTest extends BaseTest
      */
     public function testConstruct()
     {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
 
-        $table = new Table('foo', [ $column ]);
+        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
 
         $primaryKey = new PrimaryKey($table, [ $column ]);
 
@@ -40,9 +40,9 @@ class PrimaryKeyTest extends BaseTest
      */
     public function testGetTable()
     {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
 
-        $table = new Table('foo', [ $column ]);
+        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
 
         $primaryKey = new PrimaryKey($table, [ $column ]);
 
@@ -54,36 +54,12 @@ class PrimaryKeyTest extends BaseTest
      */
     public function testGetColumns()
     {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
 
-        $table = new Table('foo', [ $column ]);
+        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
 
         $primaryKey = new PrimaryKey($table, [ $column ]);
 
         $this->assertSame([ $column ], $primaryKey->getColumns());
-    }
-
-    /**
-     * @covers PrimaryKey::toArray
-     */
-    public function testToArray()
-    {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
-
-        $table = new Table('foo', [ $column ]);
-
-        $primaryKey = new PrimaryKey($table, [ $column ]);
-
-        $arr = $primaryKey->toArray();
-
-        $this->assertEquals(
-            [
-                'table' => 'foo',
-                'columns' => [
-                    'id',
-                ],
-            ],
-            $arr
-        );
     }
 }
