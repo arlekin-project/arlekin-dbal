@@ -11,7 +11,7 @@ namespace Calam\Dbal\Driver\Pdo\MySql\Element;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\Exception\MissingTableColumnException;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Exception\MissingTableIndexException;
-use Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper;
+use Calam\Dbal\Driver\Pdo\MySql\Util\Util;
 
 /**
  * MySQL table.
@@ -328,13 +328,13 @@ final class Table
             'referencedColumns' => $referencedColumnsNames,
         ];
 
-        $foreignKeyToRemoveHash = MySqlHelper::getForeignKeyUniqueNameFromForeignKeyAsArray($foreignKeyAsArray);
+        $foreignKeyToRemoveHash = Util::getForeignKeyUniqueNameFromForeignKeyAsArray($foreignKeyAsArray);
 
         $has = false;
         $foreignKeys = $this->getForeignKeys();
 
         foreach ($foreignKeys as $tableForeignKey) {
-            $tableForeignKeyHash = MySqlHelper::getForeignKeyUniqueNameFromForeignKey($tableForeignKey);
+            $tableForeignKeyHash = Util::getForeignKeyUniqueNameFromForeignKey($tableForeignKey);
 
             if ($tableForeignKeyHash === $foreignKeyToRemoveHash) {
                 $has = true;

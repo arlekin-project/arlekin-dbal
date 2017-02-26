@@ -14,7 +14,7 @@ use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Schema;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
 use Calam\Dbal\Driver\Pdo\MySql\Element\View;
-use Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper;
+use Calam\Dbal\Driver\Pdo\MySql\Util\Util;
 use Calam\Dbal\Helper\ArrayHelper;
 
 /**
@@ -156,7 +156,7 @@ class MigrationQueriesBuilder
 
             if (!$destinationSchema->hasTableWithName($originTableName)) {
                 $dropTableQuery = 'DROP TABLE '
-                    .MySqlHelper::backquoteTableOrColumnName($originTableName);
+                    .Util::backquoteTableOrColumnName($originTableName);
 
                 $dropTablesQueries[] = $dropTableQuery;
             }
@@ -208,7 +208,7 @@ class MigrationQueriesBuilder
                             //have the same definition
                             $destinationColumn = $destinationTable->getColumnWithName($columnName);
 
-                            $areSameIgnoreAutoIncrement = MySqlHelper::columnsAreSameIgnoreAutoIncrement(
+                            $areSameIgnoreAutoIncrement = Util::columnsAreSameIgnoreAutoIncrement(
                                 $destinationColumn,
                                 $originalColumn
                             );
@@ -216,7 +216,7 @@ class MigrationQueriesBuilder
                             if (!$areSameIgnoreAutoIncrement) {
                                 $doDropColumn = true;
 
-                                $createColumnsQueries[] = MySqlHelper::generateCreateAlterTableCreateColumnSql($destinationColumn);
+                                $createColumnsQueries[] = Util::generateCreateAlterTableCreateColumnSql($destinationColumn);
                             } else {
                                 $doDropColumn = false;
                             }
@@ -224,11 +224,11 @@ class MigrationQueriesBuilder
 
                         if ($doDropColumn) {
                             $dropColumnQuery = 'ALTER TABLE '
-                                .MySqlHelper::backquoteTableOrColumnName(
+                                .Util::backquoteTableOrColumnName(
                                     $originalTableName
                                 )
                                 .' DROP COLUMN '
-                                .MySqlHelper::backquoteTableOrColumnName(
+                                .Util::backquoteTableOrColumnName(
                                     $columnName
                                 );
 
@@ -295,7 +295,7 @@ class MigrationQueriesBuilder
                         if (!$areSame) {
                             $doDropIndex = true;
 
-                            $createIndexesSqlQueries[] = MySqlHelper::generateCreateAlterTableCreateIndexSql($schemaIndex);
+                            $createIndexesSqlQueries[] = Util::generateCreateAlterTableCreateIndexSql($schemaIndex);
                         } else {
                             $doDropIndex = false;
                         }
@@ -305,7 +305,7 @@ class MigrationQueriesBuilder
                         $dropIndex = 'DROP INDEX '
                             .$originalIndexName
                             .' ON '
-                            .MySqlHelper::backquoteTableOrColumnName(
+                            .Util::backquoteTableOrColumnName(
                                 $originalTableName
                             );
 
@@ -351,14 +351,14 @@ class MigrationQueriesBuilder
                     //but the
                     //the foreign key does not
                     if (!$destinationTable->hasForeignKeyWithColumnsAndReferencedColumnsNamed($originalColumnsNames, $originalReferencedTableName, $originalReferencedColumnsNames)) {
-                        $stringId = MySqlHelper::getForeignKeyUniqueNameFromForeignKeyAsArray($originalForeignKeyAsArray);
+                        $stringId = Util::getForeignKeyUniqueNameFromForeignKeyAsArray($originalForeignKeyAsArray);
 
                         $dropIndex = 'ALTER TABLE '
-                            .MySqlHelper::backquoteTableOrColumnName(
+                            .Util::backquoteTableOrColumnName(
                                 $originalTableName
                             )
                             .' DROP FOREIGN KEY '
-                            .MySqlHelper::backquoteTableOrColumnName(
+                            .Util::backquoteTableOrColumnName(
                                 $stringId
                             );
 
@@ -383,12 +383,12 @@ class MigrationQueriesBuilder
     private function makeAlterTableAddPrimaryKeyQuery(array &$createPrimaryKeysSqlQueries, $tableName, array $columnsNames)
     {
         $sqlPrimaryKey = 'ALTER TABLE '
-            .MySqlHelper::backquoteTableOrColumnName(
+            .Util::backquoteTableOrColumnName(
                 $tableName
             )
             .' ADD PRIMARY KEY '
-            .MySqlHelper::generateSqlCollectionBetweenParentheses(
-                MySqlHelper::backquoteArrayOfTableOrColumnNames(
+            .Util::generateSqlCollectionBetweenParentheses(
+                Util::backquoteArrayOfTableOrColumnNames(
                     $columnsNames
                 )
             );
@@ -436,7 +436,7 @@ class MigrationQueriesBuilder
 
                 if (!$destinationTable->hasPrimaryKeyWithColumnsNamed($originalPrimaryKeyAsArray['columns'])) {
                     $dropPrimaryKeyQuery = 'ALTER TABLE '
-                        .MySqlHelper::backquoteTableOrColumnName(
+                        .Util::backquoteTableOrColumnName(
                             $originalTableName
                         )
                         .' DROP PRIMARY KEY';
@@ -489,9 +489,9 @@ class MigrationQueriesBuilder
 
                 $sqlTableBases = 'CREATE TABLE ';
 
-                $sqlTableBases .= MySqlHelper::backquoteTableOrColumnName($destinationTableName);
+                $sqlTableBases .= Util::backquoteTableOrColumnName($destinationTableName);
 
-                $sqlTableBases .= ' '.MySqlHelper::generateCreateTableColumnsSql($destinationColumns);
+                $sqlTableBases .= ' '.Util::generateCreateTableColumnsSql($destinationColumns);
 
                 $sqlTableBases .= ' DEFAULT CHARACTER SET utf8 COLLATE utf8_bin';
 
@@ -582,7 +582,7 @@ class MigrationQueriesBuilder
                 $indexes = $destinationTable->getIndexes();
 
                 foreach ($indexes as $index) {
-                    $query = MySqlHelper::generateCreateAlterTableCreateIndexSql($index);
+                    $query = Util::generateCreateAlterTableCreateIndexSql($index);
 
                     $createIndexesSqlQueries[] = $query;
                 }
@@ -596,7 +596,7 @@ class MigrationQueriesBuilder
                     $indexName = $index->getName();
 
                     if (!$originalTable->hasIndexWithName($indexName)) {
-                        $query = MySqlHelper::generateCreateAlterTableCreateIndexSql($index);
+                        $query = Util::generateCreateAlterTableCreateIndexSql($index);
 
                         $createIndexesSqlQueries[] = $query;
                     }
@@ -631,7 +631,7 @@ class MigrationQueriesBuilder
                     $destinationColumnName = $destinationColumn->getName();
 
                     if (!$originalTable->hasColumnWithName($destinationColumnName)) {
-                        $createColumnQuery = MySqlHelper::generateCreateAlterTableCreateColumnSql(
+                        $createColumnQuery = Util::generateCreateAlterTableCreateColumnSql(
                             $destinationColumn
                         );
 
@@ -719,36 +719,36 @@ class MigrationQueriesBuilder
         $onDelete = $foreignKey->getOnDelete();
         $onUpdate = $foreignKey->getOnUpdate();
 
-        $foreignKeyHash = MySqlHelper::getForeignKeyUniqueNameFromForeignKey($foreignKey);
+        $foreignKeyHash = Util::getForeignKeyUniqueNameFromForeignKey($foreignKey);
 
         $query = 'ALTER TABLE ';
 
-        $query .= MySqlHelper::backquoteTableOrColumnName(
+        $query .= Util::backquoteTableOrColumnName(
             $tableName
         );
 
         $query .= ' ADD CONSTRAINT ';
 
-        $query .= MySqlHelper::backquoteTableOrColumnName(
+        $query .= Util::backquoteTableOrColumnName(
             $foreignKeyHash
         );
 
         $query .= ' FOREIGN KEY ';
 
-        $query .= MySqlHelper::generateSqlCollectionBetweenParentheses(
-            MySqlHelper::backquoteArrayOfTableOrColumnNames(
+        $query .= Util::generateSqlCollectionBetweenParentheses(
+            Util::backquoteArrayOfTableOrColumnNames(
                 $columnsNames
             )
         );
 
         $query.= ' REFERENCES '
-            .MySqlHelper::backquoteTableOrColumnName(
+            .Util::backquoteTableOrColumnName(
                 $referencedTableName
             )
             .' ';
 
-        $query .= MySqlHelper::generateSqlCollectionBetweenParentheses(
-            MySqlHelper::backquoteArrayOfTableOrColumnNames(
+        $query .= Util::generateSqlCollectionBetweenParentheses(
+            Util::backquoteArrayOfTableOrColumnNames(
                 $referencedColumnsNames
             )
         );
@@ -882,7 +882,7 @@ class MigrationQueriesBuilder
                             $autoIncrement = $originalColumn->isAutoIncrementable() !== $destinationColumn->isAutoIncrement();
 
                             if ($autoIncrement) {
-                                $alterTableSetAutoIncrementQueries[] = MySqlHelper::generateAlterTableSetAutoIncrementSqlQuery(
+                                $alterTableSetAutoIncrementQueries[] = Util::generateAlterTableSetAutoIncrementSqlQuery(
                                     $destinationColumn,
                                     $destinationTable
                                 );
@@ -894,7 +894,7 @@ class MigrationQueriesBuilder
                 //if the original table does not exists
                 foreach ($destinationColumns as $destinationColumn) {
                     if ($destinationColumn ->isAutoIncrement()) {
-                        $alterTableSetAutoIncrementQueries[] = MySqlHelper::generateAlterTableSetAutoIncrementSqlQuery(
+                        $alterTableSetAutoIncrementQueries[] = Util::generateAlterTableSetAutoIncrementSqlQuery(
                             $destinationColumn,
                             $destinationTable
                         );
@@ -941,7 +941,7 @@ class MigrationQueriesBuilder
                             $autoIncrement = $originalColumn->isAutoIncrementable() !== $destinationColumn->isAutoIncrement();
 
                             if ($autoIncrement) {
-                                $alterTableUnsetAutoIncrementQueries[] = MySqlHelper::generateAlterTableUnsetAutoIncrementSqlQuery(
+                                $alterTableUnsetAutoIncrementQueries[] = Util::generateAlterTableUnsetAutoIncrementSqlQuery(
                                     $destinationColumn,
                                     $destinationTable
                                 );

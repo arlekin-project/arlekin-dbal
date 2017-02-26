@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Helper;
+namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Util;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataType;
@@ -15,33 +15,33 @@ use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
 use Calam\Dbal\Driver\Pdo\MySql\Element\IndexTypes;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
-use Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper;
+use Calam\Dbal\Driver\Pdo\MySql\Util\Util;
 use Calam\Dbal\Tests\BaseTest;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class MySqlHelperTest extends BaseTest
+final class UtilTest extends BaseTest
 {
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::betweenParentheses
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::betweenParentheses
      */
     public function testBetweenParentheses()
     {
         $this->assertSame(
             '(test)',
-            MySqlHelper::betweenParentheses('test')
+            Util::betweenParentheses('test')
         );
     }
 
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateSqlCollection
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::generateSqlCollection
      */
     public function testGenerateSqlCollection()
     {
         $this->assertSame(
             'test, test1',
-            MySqlHelper::generateSqlCollection(
+            Util::generateSqlCollection(
                 [
                     'test',
                     'test1',
@@ -51,13 +51,13 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateSqlCollectionBetweenParentheses
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::generateSqlCollectionBetweenParentheses
      */
     public function testGenerateSqlCollectionBetweenParentheses()
     {
         $this->assertSame(
             '(test, test1)',
-            MySqlHelper::generateSqlCollectionBetweenParentheses(
+            Util::generateSqlCollectionBetweenParentheses(
                 [
                     'test',
                     'test1',
@@ -67,19 +67,19 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::wrapString
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::doWrap
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::wrapString
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::doWrap
      */
     public function testWrapString()
     {
         $this->assertSame(
             "'test'",
-            MySqlHelper::wrapString('test')
+            Util::wrapString('test')
         );
     }
 
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::wrapStringCollection
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::wrapStringCollection
      */
     public function testWrapStringCollection()
     {
@@ -88,7 +88,7 @@ class MySqlHelperTest extends BaseTest
                 "'test'",
                 "'test1'",
             ],
-            MySqlHelper::wrapStringCollection(
+            Util::wrapStringCollection(
                 [
                     'test',
                     'test1',
@@ -98,19 +98,19 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::backquoteTableOrColumnName
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::doWrap
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::backquoteTableOrColumnName
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::doWrap
      */
     public function testBackquoteTableOrColumnName()
     {
         $this->assertSame(
             '`test`',
-            MySqlHelper::backquoteTableOrColumnName('test')
+            Util::backquoteTableOrColumnName('test')
         );
     }
 
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::backquoteArrayOfTableOrColumnNames
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::backquoteArrayOfTableOrColumnNames
      */
     public function testBackquoteArrayOfTableOrColumnNames()
     {
@@ -119,7 +119,7 @@ class MySqlHelperTest extends BaseTest
                 '`test`',
                 '`test1`',
             ],
-            MySqlHelper::backquoteArrayOfTableOrColumnNames(
+            Util::backquoteArrayOfTableOrColumnNames(
                 [
                     'test',
                     'test1',
@@ -129,36 +129,36 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::getForeignKeyUniqueNameFromForeignKey
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::getForeignKeyUniqueStringIdFromForeignKeyAsArray
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::getForeignKeyUniqStringIdFromForeignKey
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::getForeignKeyUniqueNameFromForeignKey
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::getForeignKeyUniqueStringIdFromForeignKeyAsArray
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::getForeignKeyUniqStringIdFromForeignKey
      */
     public function testGetForeignKeyUniqueNameFromForeignKey()
     {
         $this->assertSame(
             'fk_d80ae8083ad72f784e2008c1ab87ee6d79e583ef',
-            MySqlHelper::getForeignKeyUniqueNameFromForeignKey(
+            Util::getForeignKeyUniqueNameFromForeignKey(
                 $this->getBasicForeignKey()
             )
         );
     }
 
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::getForeignKeyUniqueNameFromForeignKeyAsArray
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::getForeignKeyUniqueStringIdFromForeignKeyAsArray
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::getForeignKeyUniqueNameFromForeignKeyAsArray
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::getForeignKeyUniqueStringIdFromForeignKeyAsArray
      */
     public function testGetForeignKeyUniqueNameFromForeignKeyAsArray()
     {
         $this->assertSame(
             'fk_d80ae8083ad72f784e2008c1ab87ee6d79e583ef',
-            MySqlHelper::getForeignKeyUniqueNameFromForeignKeyAsArray(
+            Util::getForeignKeyUniqueNameFromForeignKeyAsArray(
                 $this->getBasicForeignKeyAsArray()
             )
         );
     }
 
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateColumnSql
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::generateColumnSql
      */
     public function testGenerateColumnSql()
     {
@@ -167,7 +167,7 @@ class MySqlHelperTest extends BaseTest
         $exceptionThrown = false;
 
         try {
-            MySqlHelper::generateColumnSql($column);
+            Util::generateColumnSql($column);
         } catch (\Exception $ex) {
             $exceptionThrown = true;
 
@@ -188,7 +188,7 @@ class MySqlHelperTest extends BaseTest
         $exceptionThrown = false;
 
         try {
-            MySqlHelper::generateColumnSql($column);
+            Util::generateColumnSql($column);
         } catch (\Exception $ex) {
             $exceptionThrown = true;
 
@@ -205,7 +205,7 @@ class MySqlHelperTest extends BaseTest
         $exceptionThrown = false;
 
         try {
-            MySqlHelper::generateColumnSql($column);
+            Util::generateColumnSql($column);
         } catch (\Exception $ex) {
             $exceptionThrown = true;
 
@@ -222,7 +222,7 @@ class MySqlHelperTest extends BaseTest
         $exceptionThrown = false;
 
         try {
-            MySqlHelper::generateColumnSql($column);
+            Util::generateColumnSql($column);
         } catch (\Exception $ex) {
             $exceptionThrown = true;
 
@@ -239,7 +239,7 @@ class MySqlHelperTest extends BaseTest
         $exceptionThrown = false;
 
         try {
-            MySqlHelper::generateColumnSql($column);
+            Util::generateColumnSql($column);
         } catch (\Exception $ex) {
             $exceptionThrown = true;
 
@@ -264,14 +264,14 @@ class MySqlHelperTest extends BaseTest
 
         $this->assertSame(
             "`testColumn` ENUM('a', 'b') DEFAULT NULL",
-            MySqlHelper::generateColumnSql($column)
+            Util::generateColumnSql($column)
         );
 
         $column->setNullable(false);
 
         $this->assertSame(
             "`testColumn` ENUM('a', 'b') NOT NULL",
-            MySqlHelper::generateColumnSql($column)
+            Util::generateColumnSql($column)
         );
 
         $column->setDataType(
@@ -284,19 +284,19 @@ class MySqlHelperTest extends BaseTest
 
         $this->assertSame(
             '`testColumn` INT(11) NOT NULL',
-            MySqlHelper::generateColumnSql($column)
+            Util::generateColumnSql($column)
         );
 
         $column->setParameter('unsigned', true);
 
         $this->assertSame(
             '`testColumn` INT(11) UNSIGNED NOT NULL',
-            MySqlHelper::generateColumnSql($column)
+            Util::generateColumnSql($column)
         );
     }
 
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateCreateTableColumnsSql
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::generateCreateTableColumnsSql
      */
     public function testGenerateCreateTableColumnsSql()
     {
@@ -334,12 +334,12 @@ class MySqlHelperTest extends BaseTest
 
         $this->assertSame(
             '(`col1` INT NOT NULL, `col2` VARCHAR DEFAULT NULL)',
-            MySqlHelper::generateCreateTableColumnsSql($columns)
+            Util::generateCreateTableColumnsSql($columns)
         );
     }
 
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateCreateAlterTableCreateColumnSql
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::generateCreateAlterTableCreateColumnSql
      */
     public function testGenerateCreateAlterTableCreateColumnSql()
     {
@@ -361,12 +361,12 @@ class MySqlHelperTest extends BaseTest
 
         $this->assertSame(
             'ALTER TABLE `testTable` ADD COLUMN `col1` INT NOT NULL',
-            MySqlHelper::generateCreateAlterTableCreateColumnSql($column)
+            Util::generateCreateAlterTableCreateColumnSql($column)
         );
     }
 
     /**
-     * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateCreateAlterTableCreateIndexSql
+     * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::generateCreateAlterTableCreateIndexSql
      */
     public function testGenerateCreateAlterTableCreateIndexSql()
     {
@@ -389,7 +389,7 @@ class MySqlHelperTest extends BaseTest
         $exceptionThrown = false;
 
         try {
-            MySqlHelper::generateCreateAlterTableCreateIndexSql($index);
+            Util::generateCreateAlterTableCreateIndexSql($index);
         } catch (\Exception $ex) {
             $exceptionThrown = true;
 
@@ -410,7 +410,7 @@ class MySqlHelperTest extends BaseTest
         $exceptionThrown = false;
 
         try {
-            MySqlHelper::generateCreateAlterTableCreateIndexSql(
+            Util::generateCreateAlterTableCreateIndexSql(
                 $index
             );
         } catch (\Exception $ex) {
@@ -429,7 +429,7 @@ class MySqlHelperTest extends BaseTest
         $exceptionThrown = false;
 
         try {
-            MySqlHelper::generateCreateAlterTableCreateIndexSql($index);
+            Util::generateCreateAlterTableCreateIndexSql($index);
         } catch (\Exception $ex) {
             $exceptionThrown = true;
 
@@ -449,7 +449,7 @@ class MySqlHelperTest extends BaseTest
 
         $this->assertSame(
             'ALTER TABLE `testTable` ADD INDEX `testIndex` (`col1`)',
-            MySqlHelper::generateCreateAlterTableCreateIndexSql($index)
+            Util::generateCreateAlterTableCreateIndexSql($index)
         );
 
         $index->setType(
@@ -458,7 +458,7 @@ class MySqlHelperTest extends BaseTest
 
         $this->assertSame(
             'ALTER TABLE `testTable` ADD INDEX `testIndex` (`col1`) USING BTREE',
-            MySqlHelper::generateCreateAlterTableCreateIndexSql($index)
+            Util::generateCreateAlterTableCreateIndexSql($index)
         );
 
         $index->setType(
@@ -467,7 +467,7 @@ class MySqlHelperTest extends BaseTest
 
         $this->assertSame(
             'ALTER TABLE `testTable` ADD INDEX `testIndex` (`col1`) USING HASH',
-            MySqlHelper::generateCreateAlterTableCreateIndexSql($index)
+            Util::generateCreateAlterTableCreateIndexSql($index)
         );
 
         $index->setType(
@@ -476,7 +476,7 @@ class MySqlHelperTest extends BaseTest
 
         $this->assertSame(
             'ALTER TABLE `testTable` ADD UNIQUE INDEX `testIndex` (`col1`)',
-            MySqlHelper::generateCreateAlterTableCreateIndexSql($index)
+            Util::generateCreateAlterTableCreateIndexSql($index)
         );
 
         $index->setType(
@@ -485,7 +485,7 @@ class MySqlHelperTest extends BaseTest
 
         $this->assertSame(
             'ALTER TABLE `testTable` ADD INDEX FULLTEXT `testIndex` (`col1`)',
-            MySqlHelper::generateCreateAlterTableCreateIndexSql($index)
+            Util::generateCreateAlterTableCreateIndexSql($index)
         );
 
         $index->setType(
@@ -494,12 +494,12 @@ class MySqlHelperTest extends BaseTest
 
         $this->assertSame(
             'ALTER TABLE `testTable` ADD INDEX SPATIAL `testIndex` (`col1`)',
-            MySqlHelper::generateCreateAlterTableCreateIndexSql($index)
+            Util::generateCreateAlterTableCreateIndexSql($index)
         );
     }
 
     /**
-    * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateAlterTableSetAutoIncrementSqlQuery
+    * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::generateAlterTableSetAutoIncrementSqlQuery
     */
     public function testGenerateAlterTableSetAutoIncrementSqlQuery()
     {
@@ -523,7 +523,7 @@ class MySqlHelperTest extends BaseTest
 
         $this->assertSame(
             'ALTER TABLE `testTable` CHANGE `testColumn` `testColumn` INT NOT NULL AUTO_INCREMENT',
-            MySqlHelper::generateAlterTableSetAutoIncrementSqlQuery(
+            Util::generateAlterTableSetAutoIncrementSqlQuery(
                 $destinationColumn,
                 $destinationTable
             )
@@ -531,7 +531,7 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-    * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateAlterTableUnsetAutoIncrementSqlQuery
+    * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::generateAlterTableUnsetAutoIncrementSqlQuery
     */
     public function testGenerateAlterTableUnsetAutoIncrementSqlQuery()
     {
@@ -555,7 +555,7 @@ class MySqlHelperTest extends BaseTest
 
         $this->assertSame(
             'ALTER TABLE `testTable` CHANGE `testColumn` `testColumn` INT NOT NULL',
-            MySqlHelper::generateAlterTableUnsetAutoIncrementSqlQuery(
+            Util::generateAlterTableUnsetAutoIncrementSqlQuery(
                 $destinationColumn,
                 $destinationTable
             )
@@ -563,24 +563,24 @@ class MySqlHelperTest extends BaseTest
     }
 
     /**
-    * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateMySqlStartTransactionQuery
+    * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::generateMySqlStartTransactionQuery
     */
     public function testGenerateMySqlStartTransactionQuery()
     {
         $this->assertSame(
             'START TRANSACTION',
-            MySqlHelper::generateMySqlStartTransactionQuery()
+            Util::generateMySqlStartTransactionQuery()
         );
     }
 
     /**
-    * @covers Calam\Dbal\Driver\Pdo\MySql\Helper\MySqlHelper::generateMySqlCommitQuery
+    * @covers Calam\Dbal\Driver\Pdo\MySql\Util\Util::generateMySqlCommitQuery
     */
     public function testGenerateMySqlCommitQuery()
     {
         $this->assertSame(
             'COMMIT',
-            MySqlHelper::generateMySqlCommitQuery()
+            Util::generateMySqlCommitQuery()
         );
     }
     
@@ -605,7 +605,7 @@ class MySqlHelperTest extends BaseTest
         $initColumn1->setDataType(ColumnDataType::TYPE_INT);
         $initColumn2->setDataType(ColumnDataType::TYPE_INT);
 
-        $result = MySqlHelper::columnsAreSameIgnoreAutoIncrement($initColumn1, $initColumn2);
+        $result = Util::columnsAreSameIgnoreAutoIncrement($initColumn1, $initColumn2);
 
         $this->assertTrue($result);
 
@@ -615,7 +615,7 @@ class MySqlHelperTest extends BaseTest
         $column1->setAutoIncrementable(true);
         $column2->setAutoIncrementable(false);
 
-        $result2 = MySqlHelper::columnsAreSameIgnoreAutoIncrement($column1, $column2);
+        $result2 = Util::columnsAreSameIgnoreAutoIncrement($column1, $column2);
 
         $this->assertTrue($result2);
 
@@ -625,7 +625,7 @@ class MySqlHelperTest extends BaseTest
         $column1->setName('test');
         $column2->setName('test2');
 
-        $result3 = MySqlHelper::columnsAreSameIgnoreAutoIncrement($column1, $column2);
+        $result3 = Util::columnsAreSameIgnoreAutoIncrement($column1, $column2);
 
         $this->assertFalse($result3);
     }

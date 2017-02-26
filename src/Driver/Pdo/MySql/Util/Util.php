@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Calam\Dbal\Driver\Pdo\MySql\Helper;
+namespace Calam\Dbal\Driver\Pdo\MySql\Util;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataType;
@@ -19,11 +19,11 @@ use Calam\Dbal\Driver\Pdo\MySql\Exception\DriverException;
 use Calam\Dbal\Helper\ArrayHelper;
 
 /**
- * To help dealing with MySQL database related operations.
+ * To help dealing with MySQL.
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class MySqlHelper
+final class Util
 {
     /**
      * Returns the given string wrapped in parentheses.
@@ -232,7 +232,7 @@ class MySqlHelper
             );
         }
 
-        $columnSql = MySqlHelper::backquoteTableOrColumnName($columnName);
+        $columnSql = Util::backquoteTableOrColumnName($columnName);
 
         $columnSql .= " $columnType";
 
@@ -241,13 +241,13 @@ class MySqlHelper
             $stringifiedValues = [];
 
             foreach ($allowedValues as $allowedValue) {
-                $stringifiedValues[] = MySqlHelper::wrapString($allowedValue);
+                $stringifiedValues[] = Util::wrapString($allowedValue);
             }
 
-            $columnSql .= MySqlHelper::generateSqlCollectionBetweenParentheses($stringifiedValues);
+            $columnSql .= Util::generateSqlCollectionBetweenParentheses($stringifiedValues);
         } elseif (array_key_exists('length', $parameters)) {
             $length = $parameters['length'];
-            $columnSql .= MySqlHelper::betweenParentheses($length);
+            $columnSql .= Util::betweenParentheses($length);
         }
 
         if (array_key_exists('unsigned', $parameters) && $parameters['unsigned']) {
@@ -276,10 +276,10 @@ class MySqlHelper
         $columnsSqlParts = [];
 
         foreach ($columns as $column) {
-            $columnsSqlParts[] = MySqlHelper::generateColumnSql($column);
+            $columnsSqlParts[] = Util::generateColumnSql($column);
         }
 
-        $columnsSql = MySqlHelper::generateSqlCollectionBetweenParentheses($columnsSqlParts);
+        $columnsSql = Util::generateSqlCollectionBetweenParentheses($columnsSqlParts);
 
         return $columnsSql;
     }
@@ -299,9 +299,9 @@ class MySqlHelper
             ->getName();
 
         $sql = 'ALTER TABLE '
-            .MySqlHelper::backquoteTableOrColumnName($tableName)
+            .Util::backquoteTableOrColumnName($tableName)
             .' ADD COLUMN '
-            .MySqlHelper::generateColumnSql($column);
+            .Util::generateColumnSql($column);
 
         return $sql;
     }
@@ -355,7 +355,7 @@ class MySqlHelper
         $kind = $index->getType();
 
         $query = 'ALTER TABLE '
-            .MySqlHelper::backquoteTableOrColumnName($tableName);
+            .Util::backquoteTableOrColumnName($tableName);
 
         $query .= ' ADD';
 
@@ -371,17 +371,17 @@ class MySqlHelper
             $query .= "$kind ";
         }
 
-        $query .= MySqlHelper::backquoteTableOrColumnName($indexName);
+        $query .= Util::backquoteTableOrColumnName($indexName);
 
         $columnsNames = [];
 
         foreach ($columns as $column) {
             $columnName = $column->getName();
-            $columnsNames[] = MySqlHelper::backquoteTableOrColumnName($columnName);
+            $columnsNames[] = Util::backquoteTableOrColumnName($columnName);
         }
 
         $query .= ' '
-            .MySqlHelper::generateSqlCollectionBetweenParentheses($columnsNames);
+            .Util::generateSqlCollectionBetweenParentheses($columnsNames);
 
         if ($kind === IndexTypes::BTREE || $kind === IndexTypes::HASH) {
             $query .= " USING $kind";
