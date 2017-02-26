@@ -16,7 +16,7 @@ namespace Calam\Dbal\Driver\Pdo\MySql\Element;
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-final class ColumnDataType
+final class ColumnDataTypes
 {
     /**
      * Integer types
