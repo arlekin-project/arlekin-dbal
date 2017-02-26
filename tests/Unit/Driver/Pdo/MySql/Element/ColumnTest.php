@@ -10,7 +10,6 @@
 namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
-use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataTypes;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
 use Calam\Dbal\Tests\BaseTest;
 
@@ -26,13 +25,10 @@ final class ColumnTest extends BaseTest
     {
         $table = new Table('foo');
 
-        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false, true, [ 'foo' => 'bar', ]);
+        $column = new Column($table, 'id', [ 'foo' => 'bar' ]);
 
         $this->assertAttributeSame($table, 'table', $column);
         $this->assertAttributeSame('id', 'name', $column);
-        $this->assertAttributeSame(ColumnDataTypes::TYPE_INT, 'dataType', $column);
-        $this->assertAttributeSame(false, 'nullable', $column);
-        $this->assertAttributeSame(true, 'autoIncrementable', $column);
         $this->assertAttributeSame([ 'foo' => 'bar', ], 'parameters', $column);
     }
 
@@ -43,12 +39,9 @@ final class ColumnTest extends BaseTest
     {
         $table = new Table('foo');
 
-        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
+        $column = new Column($table, 'id');
 
         $this->assertAttributeSame('id', 'name', $column);
-        $this->assertAttributeSame(ColumnDataTypes::TYPE_INT, 'dataType', $column);
-        $this->assertAttributeSame(false, 'nullable', $column);
-        $this->assertAttributeSame(false, 'autoIncrementable', $column);
         $this->assertAttributeSame([], 'parameters', $column);
     }
 
@@ -59,51 +52,12 @@ final class ColumnTest extends BaseTest
     {
         $table = new Table('foo');
 
-        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
+        $column = new Column($table, 'id');
 
         $this->assertSame(
             'id',
             $column->getName()
         );
-    }
-
-    /**
-     * @covers Column::getDataType
-     */
-    public function testGetDataType()
-    {
-        $table = new Table('foo');
-
-        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
-
-        $this->assertSame(
-            ColumnDataTypes::TYPE_INT,
-            $column->getDataType()
-        );
-    }
-
-    /**
-     * @covers Column::isNullable
-     */
-    public function testIsNullable()
-    {
-        $table = new Table('foo');
-
-        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
-
-        $this->assertFalse($column->isNullable());
-    }
-
-    /**
-     * @covers Column::isAutoIncrementable
-     */
-    public function testIsAutoIncrementable()
-    {
-        $table = new Table('foo');
-
-        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false, true);
-
-        $this->assertTrue($column->isAutoIncrementable());
     }
 
     /**
@@ -113,7 +67,7 @@ final class ColumnTest extends BaseTest
     {
         $table = new Table('foo');
 
-        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false, true, [ 'foo' => 'bar' ]);
+        $column = new Column($table, 'id', [ 'foo' => 'bar' ]);
 
         $this->assertSame([ 'foo' => 'bar' ], $column->getParameters());
     }
