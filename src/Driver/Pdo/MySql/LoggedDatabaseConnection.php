@@ -16,7 +16,7 @@ use Calam\Dbal\Driver\Pdo\MySql\Log\QueryLoggerInterface;
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class LoggedDatabaseConnection extends DatabaseConnection
+final class LoggedDatabaseConnection extends DatabaseConnection
 {
     /**
      * @var QueryLoggerInterface
