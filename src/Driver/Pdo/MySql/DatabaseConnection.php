@@ -9,7 +9,7 @@
 
 namespace Calam\Dbal\Driver\Pdo\MySql;
 
-use Calam\Dbal\Driver\Pdo\MySql\Exception\PdoMySqlDriverException;
+use Calam\Dbal\Driver\Pdo\MySql\Exception\DriverException;
 
 /**
  * A MySQL database connection.
@@ -86,14 +86,14 @@ class DatabaseConnection
     /**
      * Connects with the database.
      *
-     * @throws PdoMySqlDriverException if already connected
+     * @throws DriverException if already connected
      *
      * @return DatabaseConnection
      */
     public function connect()
     {
         if ($this->isConnected()) {
-            throw new PdoMySqlDriverException('Connection already established.');
+            throw new DriverException('Connection already established.');
         }
 
         $dsn = sprintf(
@@ -135,14 +135,14 @@ class DatabaseConnection
     /**
      * Disconnects from the database.
      *
-     * @throws PdoMySqlDriverException if already disconnected
+     * @throws DriverException if already disconnected
      *
      * @return DatabaseConnection
      */
     public function disconnect()
     {
         if (!$this->isConnected()) {
-            throw new PdoMySqlDriverException('Connection already closed.');
+            throw new DriverException('Connection already closed.');
         }
         $this->connection = null;
 
@@ -161,7 +161,7 @@ class DatabaseConnection
     public function executeQuery($query, array $queryParameters = [], array $otherParameters = [])
     {
         if ($this->connection === null) {
-            throw new PdoMySqlDriverException('Trying to execute a query using a non-connected connection.');
+            throw new DriverException('Trying to execute a query using a non-connected connection.');
         }
 
         $arrayParametersToReplace = [];
@@ -213,7 +213,7 @@ class DatabaseConnection
             $driverSpecificError = $errorInfo[1];
             $driverSpecificMessage = $errorInfo[2];
 
-            throw new PdoMySqlDriverException(
+            throw new DriverException(
                 sprintf(
                     'Error querying: SQLSTATE error code %s'
                     ." / MySQL error code %s"
@@ -257,7 +257,7 @@ class DatabaseConnection
 
                 $resultSets[] = $resultSet;
             } catch (\Exception $ex) {
-                throw new PdoMySqlDriverException(
+                throw new DriverException(
                     sprintf(
                         'Error executing query: %s',
                         (string)$query

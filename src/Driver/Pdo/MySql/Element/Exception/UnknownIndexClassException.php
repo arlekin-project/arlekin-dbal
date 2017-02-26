@@ -10,14 +10,14 @@
 namespace Calam\Dbal\Driver\Pdo\MySql\Element\Exception;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\IndexClasses;
-use Calam\Dbal\Driver\Pdo\MySql\Exception\PdoMySqlDriverException;
+use Calam\Dbal\Driver\Pdo\MySql\Exception\DriverException;
 
 /**
  * Exception to be thrown when an unknown index class is used.
  *
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-final class UnknownIndexClassException extends PdoMySqlDriverException
+final class UnknownIndexClassException extends DriverException
 {
     /**
      * @var string

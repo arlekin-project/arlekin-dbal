@@ -9,12 +9,12 @@
 
 namespace Calam\Dbal\Driver\Pdo\MySql\Element\Exception;
 
-use Calam\Dbal\Driver\Pdo\MySql\Exception\PdoMySqlDriverException;
+use Calam\Dbal\Driver\Pdo\MySql\Exception\DriverException;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-final class MissingTableColumnException extends PdoMySqlDriverException
+final class MissingTableColumnException extends DriverException
 {
     /**
      * @var string

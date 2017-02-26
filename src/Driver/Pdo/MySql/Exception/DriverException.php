@@ -7,6 +7,6 @@ use Calam\Dbal\Exception\DbalException;
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class PdoMySqlDriverException extends DbalException
+class DriverException extends DbalException
 {
 }

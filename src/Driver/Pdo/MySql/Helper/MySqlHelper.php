@@ -15,7 +15,7 @@ use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
 use Calam\Dbal\Driver\Pdo\MySql\Element\IndexTypes;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
-use Calam\Dbal\Driver\Pdo\MySql\Exception\PdoMySqlDriverException;
+use Calam\Dbal\Driver\Pdo\MySql\Exception\DriverException;
 use Calam\Dbal\Helper\ArrayHelper;
 
 /**
@@ -174,7 +174,7 @@ class MySqlHelper
      *
      * @return string
      *
-     * @throws PdoMySqlDriverException either if:
+     * @throws DriverException either if:
      * - the column has no table
      * - the column has no name
      * - the column has no data type
@@ -190,13 +190,13 @@ class MySqlHelper
         $table = $column->getTable();
 
         if (!isset($table)) {
-            throw new PdoMySqlDriverException('A table is required to generate column SQL.');
+            throw new DriverException('A table is required to generate column SQL.');
         }
 
         $tableName = $table->getName();
 
         if (empty($columnName)) {
-            throw new PdoMySqlDriverException(
+            throw new DriverException(
                 sprintf(
                     'A column name is required for column from table "%s".',
                     $tableName
@@ -205,7 +205,7 @@ class MySqlHelper
         }
 
         if (empty($columnType)) {
-            throw new PdoMySqlDriverException(
+            throw new DriverException(
                 sprintf(
                     'A column data type is required for column "%s" from table "%s".',
                     $columnName,
@@ -215,7 +215,7 @@ class MySqlHelper
         }
 
         if ($nullable === null) {
-            throw new PdoMySqlDriverException(
+            throw new DriverException(
                 sprintf(
                     'Nullable is required for column "%s" from table "%s".',
                     $columnName,
@@ -227,7 +227,7 @@ class MySqlHelper
         if ($columnType === ColumnDataType::TYPE_ENUM
             && !array_key_exists('allowedValues', $parameters)
         ) {
-            throw new PdoMySqlDriverException(
+            throw new DriverException(
                 'Parameter allowedValues is required.'
             );
         }
@@ -314,7 +314,7 @@ class MySqlHelper
      *
      * @return string
      *
-     * @throws PdoMySqlDriverException either if:
+     * @throws DriverException either if:
      * - the index has no column
      * - the index has no name
      * - the index has no columns
@@ -324,7 +324,7 @@ class MySqlHelper
         $table = $index->getTable();
         $indexName = $index->getName();
         if (!isset($table)) {
-            throw new PdoMySqlDriverException(
+            throw new DriverException(
                 'A table is required to generate column SQL.'
             );
         }
@@ -332,7 +332,7 @@ class MySqlHelper
         $tableName = $table->getName();
 
         if (empty($indexName)) {
-            throw new PdoMySqlDriverException(
+            throw new DriverException(
                 sprintf(
                     'An index name is required for index from table "%s".',
                     $tableName
@@ -343,7 +343,7 @@ class MySqlHelper
         $columns = $index->getColumns();
 
         if (empty($columns)) {
-            throw new PdoMySqlDriverException(
+            throw new DriverException(
                 sprintf(
                     'Index "%s" from table "%s" requires at least one column.',
                     $indexName,
