@@ -26,18 +26,11 @@ final class Table
     private $name;
 
     /**
-     * @var Column[]
-     */
-    private $columns;
-
-    /**
      * @param string $name
-     * @param Column[] $columns
      */
-    public function __construct(string $name, array $columns)
+    public function __construct(string $name)
     {
         $this->name = $name;
-        $this->columns = $columns;
     }
 
     /**
@@ -46,14 +39,6 @@ final class Table
     public function getName(): string
     {
         return $this->name;
-    }
-
-    /**
-     * @return Column[]
-     */
-    public function getColumns(): array
-    {
-        return $this->columns;
     }
 
     /**

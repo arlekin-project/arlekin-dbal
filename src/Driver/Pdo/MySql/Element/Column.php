@@ -17,6 +17,11 @@ namespace Calam\Dbal\Driver\Pdo\MySql\Element;
 final class Column
 {
     /**
+     * @var Table
+     */
+    private $table;
+
+    /**
      * @var string
      */
     private $name;
@@ -42,6 +47,7 @@ final class Column
     private $parameters;
 
     /**
+     * @param Table $table
      * @param string $name
      * @param string $dataType
      * @param bool $nullable
@@ -49,17 +55,27 @@ final class Column
      * @param array $parameters
      */
     public function __construct(
+        Table $table,
         string $name,
         string $dataType,
         bool $nullable,
         bool $autoIncrementable = false,
         array $parameters = []
     ) {
+        $this->table = $table;
         $this->name = $name;
         $this->dataType = $dataType;
         $this->nullable = $nullable;
         $this->autoIncrementable = $autoIncrementable;
         $this->parameters = $parameters;
+    }
+
+    /**
+     * @return Table
+     */
+    public function getTable(): Table
+    {
+        return $this->table;
     }
 
     /**
@@ -100,25 +116,5 @@ final class Column
     public function getParameters(): array
     {
         return $this->parameters;
-    }
-
-    /**
-     * @todo Move the toArray responsability away from the Column
-     *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        $parameters = $this->getParameters();
-
-        $arr = [
-            'name' => $this->getName(),
-            'dataType' => $this->getDataType(),
-            'nullable' => $this->isNullable(),
-            'autoIncrementable' => $this->isAutoIncrementable(),
-            'parameters' => $parameters,
-        ];
-
-        return $arr;
     }
 }

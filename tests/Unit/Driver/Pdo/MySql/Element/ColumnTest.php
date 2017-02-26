@@ -11,6 +11,7 @@ namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataTypes;
+use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
 use Calam\Dbal\Tests\BaseTest;
 
 /**
@@ -23,8 +24,11 @@ final class ColumnTest extends BaseTest
      */
     public function testConstruct()
     {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false, true, [ 'foo' => 'bar', ]);
+        $table = new Table('foo');
 
+        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false, true, [ 'foo' => 'bar', ]);
+
+        $this->assertAttributeSame($table, 'table', $column);
         $this->assertAttributeSame('id', 'name', $column);
         $this->assertAttributeSame(ColumnDataTypes::TYPE_INT, 'dataType', $column);
         $this->assertAttributeSame(false, 'nullable', $column);
@@ -37,7 +41,9 @@ final class ColumnTest extends BaseTest
      */
     public function testDefaultValues()
     {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
+
+        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
 
         $this->assertAttributeSame('id', 'name', $column);
         $this->assertAttributeSame(ColumnDataTypes::TYPE_INT, 'dataType', $column);
@@ -51,7 +57,9 @@ final class ColumnTest extends BaseTest
      */
     public function testGetName()
     {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
+
+        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
 
         $this->assertSame(
             'id',
@@ -64,7 +72,9 @@ final class ColumnTest extends BaseTest
      */
     public function testGetDataType()
     {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
+
+        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
 
         $this->assertSame(
             ColumnDataTypes::TYPE_INT,
@@ -77,7 +87,9 @@ final class ColumnTest extends BaseTest
      */
     public function testIsNullable()
     {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+        $table = new Table('foo');
+
+        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
 
         $this->assertFalse($column->isNullable());
     }
@@ -87,7 +99,9 @@ final class ColumnTest extends BaseTest
      */
     public function testIsAutoIncrementable()
     {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false, true);
+        $table = new Table('foo');
+
+        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false, true);
 
         $this->assertTrue($column->isAutoIncrementable());
     }
@@ -97,38 +111,10 @@ final class ColumnTest extends BaseTest
      */
     public function testGetParameters()
     {
-        $column = new Column('id', ColumnDataTypes::TYPE_INT, false, true, [ 'foo' => 'bar' ]);
+        $table = new Table('foo');
+
+        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false, true, [ 'foo' => 'bar' ]);
 
         $this->assertSame([ 'foo' => 'bar' ], $column->getParameters());
-    }
-
-    /**
-     * @covers Column::toArray
-     */
-    public function testToArray()
-    {
-        $column = new Column(
-            'testName',
-            ColumnDataTypes::TYPE_VARCHAR,
-            false,
-            true,
-            [
-                'foo' => 'bar',
-            ]
-        );
-
-        $arr = $column->toArray();
-
-        $expected = [
-            'name' => 'testName',
-            'dataType' => 'VARCHAR',
-            'nullable' => false,
-            'autoIncrementable' => true,
-            'parameters' => [
-                'foo' => 'bar',
-            ],
-        ];
-
-        $this->assertEquals($expected, $arr);
     }
 }
