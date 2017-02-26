@@ -10,7 +10,6 @@
 namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
-use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataTypes;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Exception\UnknownIndexClassException;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Exception\UnknownIndexTypeException;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Index;
@@ -31,7 +30,7 @@ class IndexTest extends BaseTest
     {
         $table = new Table('foo');
 
-        $column = new Column($table, 'uniqueValue', ColumnDataTypes::TYPE_INT, false);
+        $column = new Column($table, 'uniqueValue');
 
         $index = new Index(
             $table,
@@ -62,7 +61,7 @@ class IndexTest extends BaseTest
 
         $table = new Table('foo');
 
-        $column = new Column($table, 'uniqueValue', ColumnDataTypes::TYPE_INT, false);
+        $column = new Column($table, 'uniqueValue');
 
         (new Index(
             $table,
@@ -87,7 +86,7 @@ class IndexTest extends BaseTest
 
         $table = new Table('foo');
 
-        $column = new Column($table, 'uniqueValue', ColumnDataTypes::TYPE_INT, false);
+        $column = new Column($table, 'uniqueValue');
 
         (new Index(
             $table,
@@ -107,7 +106,7 @@ class IndexTest extends BaseTest
     {
         $table = new Table('foo');
 
-        $column = new Column($table, 'uniqueValue', ColumnDataTypes::TYPE_INT, false);
+        $column = new Column($table, 'uniqueValue');
 
         $index = new Index(
             $table,
@@ -129,7 +128,7 @@ class IndexTest extends BaseTest
     {
         $table = new Table('foo');
 
-        $column = new Column($table, 'uniqueValue', ColumnDataTypes::TYPE_INT, false);
+        $column = new Column($table, 'uniqueValue');
 
         $index = new Index(
             $table,
@@ -151,7 +150,7 @@ class IndexTest extends BaseTest
     {
         $table = new Table('foo');
 
-        $column = new Column($table, 'uniqueValue', ColumnDataTypes::TYPE_INT, false);
+        $column = new Column($table, 'uniqueValue');
 
         $index = new Index(
             $table,

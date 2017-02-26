@@ -10,7 +10,6 @@
 namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
-use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataTypes;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnDeleteReferenceOptions;
 use Calam\Dbal\Driver\Pdo\MySql\Element\ForeignKeyOnUpdateReferenceOptions;
@@ -28,9 +27,9 @@ class ForeignKeyTest extends BaseTest
 
         $referenceTable = new Table('bar');
 
-        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
+        $column = new Column($table, 'id');
 
-        $referencedColumn = new Column($referenceTable, 'id', ColumnDataTypes::TYPE_INT, false);
+        $referencedColumn = new Column($referenceTable, 'id');
 
         $foreignKey = new ForeignKey(
             $table,
@@ -68,9 +67,9 @@ class ForeignKeyTest extends BaseTest
 
         $referenceTable = new Table('bar');
 
-        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
+        $column = new Column($table, 'id');
 
-        $referencedColumn = new Column($referenceTable, 'id', ColumnDataTypes::TYPE_INT, false);
+        $referencedColumn = new Column($referenceTable, 'id');
 
         $foreignKey = new ForeignKey($table, [ $column ], $referenceTable, [ $referencedColumn ]);
 
@@ -96,9 +95,9 @@ class ForeignKeyTest extends BaseTest
 
         $referenceTable = new Table('bar');
 
-        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
+        $column = new Column($table, 'id');
 
-        $referencedColumn = new Column($referenceTable, 'id', ColumnDataTypes::TYPE_INT, false);
+        $referencedColumn = new Column($referenceTable, 'id');
 
         $foreignKey = new ForeignKey(
             $table,
@@ -119,9 +118,9 @@ class ForeignKeyTest extends BaseTest
 
         $referenceTable = new Table('bar');
 
-        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
+        $column = new Column($table, 'id');
 
-        $referencedColumn = new Column($referenceTable, 'id', ColumnDataTypes::TYPE_INT, false);
+        $referencedColumn = new Column($referenceTable, 'id');
 
         $foreignKey = new ForeignKey(
             $table,
@@ -142,9 +141,9 @@ class ForeignKeyTest extends BaseTest
 
         $referenceTable = new Table('bar');
 
-        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
+        $column = new Column($table, 'id');
 
-        $referencedColumn = new Column($referenceTable, 'id', ColumnDataTypes::TYPE_INT, false);
+        $referencedColumn = new Column($referenceTable, 'id');
 
         $foreignKey = new ForeignKey(
             $table,
@@ -165,9 +164,9 @@ class ForeignKeyTest extends BaseTest
 
         $referenceTable = new Table('bar');
 
-        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
+        $column = new Column($table, 'id');
 
-        $referencedColumn = new Column($referenceTable, 'id', ColumnDataTypes::TYPE_INT, false);
+        $referencedColumn = new Column($referenceTable, 'id');
 
         $foreignKey = new ForeignKey(
             $table,
@@ -188,9 +187,9 @@ class ForeignKeyTest extends BaseTest
 
         $referenceTable = new Table('bar');
 
-        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
+        $column = new Column($table, 'id');
 
-        $referencedColumn = new Column($referenceTable, 'id', ColumnDataTypes::TYPE_INT, false);
+        $referencedColumn = new Column($referenceTable, 'id');
 
         $foreignKey = new ForeignKey(
             $table,
@@ -212,9 +211,9 @@ class ForeignKeyTest extends BaseTest
 
         $referenceTable = new Table('bar');
 
-        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
+        $column = new Column($table, 'id');
 
-        $referencedColumn = new Column($referenceTable, 'id', ColumnDataTypes::TYPE_INT, false);
+        $referencedColumn = new Column($referenceTable, 'id');
 
         $foreignKey = new ForeignKey(
             $table,

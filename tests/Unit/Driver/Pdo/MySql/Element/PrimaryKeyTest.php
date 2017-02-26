@@ -10,7 +10,6 @@
 namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
-use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataTypes;
 use Calam\Dbal\Driver\Pdo\MySql\Element\PrimaryKey;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
 use Calam\Dbal\Tests\BaseTest;
@@ -27,7 +26,7 @@ class PrimaryKeyTest extends BaseTest
     {
         $table = new Table('foo');
 
-        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
+        $column = new Column($table, 'id');
 
         $primaryKey = new PrimaryKey($table, [ $column ]);
 
@@ -42,7 +41,7 @@ class PrimaryKeyTest extends BaseTest
     {
         $table = new Table('foo');
 
-        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
+        $column = new Column($table, 'id');
 
         $primaryKey = new PrimaryKey($table, [ $column ]);
 
@@ -56,7 +55,7 @@ class PrimaryKeyTest extends BaseTest
     {
         $table = new Table('foo');
 
-        $column = new Column($table, 'id', ColumnDataTypes::TYPE_INT, false);
+        $column = new Column($table, 'id');
 
         $primaryKey = new PrimaryKey($table, [ $column ]);
 
