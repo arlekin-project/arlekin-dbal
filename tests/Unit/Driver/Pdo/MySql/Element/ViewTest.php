@@ -11,7 +11,6 @@ namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\View;
 use Calam\Dbal\Tests\BaseTest;
-use Calam\Dbal\Tests\Helper\CommonTestHelper;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
@@ -19,65 +18,49 @@ use Calam\Dbal\Tests\Helper\CommonTestHelper;
 class ViewTest extends BaseTest
 {
     /**
-     * @covers Calam\Dbal\SqlBased\Element\View::getName
-     * @covers Calam\Dbal\SqlBased\Element\View::setName
+     * @covers View::__construct
      */
-    public function testGetAndSetName()
+    public function testConstruct()
     {
-        CommonTestHelper::testBasicGetAndSetForProperty(
-            $this,
-            $this->createBaseNewView(),
-            'name',
-            uniqid('test_name_', true)
-        );
+        $view = new View('foo', 'SELECT 1');
+
+        $this->assertAttributeSame('foo', 'name', $view);
+        $this->assertAttributeSame('SELECT 1', 'definition', $view);
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\View::getDefinition
-     * @covers Calam\Dbal\SqlBased\Element\View::setDefinition
+     * @covers View::getName
      */
-    public function testGetAndSetDefinition()
+    public function testGetName()
     {
-        CommonTestHelper::testBasicGetAndSetForProperty(
-            $this,
-            $this->createBaseNewView(),
-            'definition',
-            uniqid('test_definitin_', true)
-        );
+        $view = new View('foo', 'SELECT 1');
+
+        $this->assertSame('foo', $view->getName());
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\View::toArray
+     * @covers View::getDefinition
+     */
+    public function testGetDefinition()
+    {
+        $view = new View('foo', 'SELECT 1');
+
+        $this->assertSame('SELECT 1', $view->getDefinition());
+    }
+
+    /**
+     * @covers View::toArray
      */
     public function testToArray()
     {
-        $view = $this->createBaseNewView();
-
-        $name = uniqid('test_name_', true);
-        $definition = uniqid('test_definition_', true);
-
-        $view->setName(
-            $name
-        )->setDefinition(
-            $definition
-        );
+        $view = new View('foo', 'SELECT 1');
 
         $this->assertSame(
             [
-                'name' => $name,
-                'definition' => $definition,
+                'name' => 'foo',
+                'definition' => 'SELECT 1',
             ],
             $view->toArray()
-        );
-    }
-
-    /**
-     * @return View
-     */
-    protected function createBaseNewView()
-    {
-        return $this->getMockForAbstractClass(
-            View::class
         );
     }
 }
