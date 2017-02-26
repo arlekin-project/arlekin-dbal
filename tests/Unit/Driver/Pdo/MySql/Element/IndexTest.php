@@ -18,7 +18,6 @@ use Calam\Dbal\Driver\Pdo\MySql\Element\IndexClasses;
 use Calam\Dbal\Driver\Pdo\MySql\Element\IndexTypes;
 use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
 use Calam\Dbal\Tests\BaseTest;
-use Calam\Dbal\Tests\Helper\CommonTestHelper;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
@@ -126,7 +125,7 @@ class IndexTest extends BaseTest
     /**
      * @covers Index::getName
      */
-    public function testGetAndSetName()
+    public function testGetName()
     {
         $column = new Column('uniqueValue', ColumnDataTypes::TYPE_INT, false);
 
