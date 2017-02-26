@@ -44,12 +44,6 @@ final class Column
     private $parameters;
 
     /**
-     * @var Table
-     */
-    private $table;
-
-    /**
-     * @param Table $table
      * @param string $name
      * @param string $dataType
      * @param bool $nullable
@@ -57,14 +51,12 @@ final class Column
      * @param array $parameters
      */
     public function __construct(
-        Table $table,
         string $name,
         string $dataType,
         bool $nullable,
         bool $autoIncrementable = false,
         array $parameters = []
     ) {
-        $this->table = $table;
         $this->name = $name;
         $this->dataType = $dataType;
         $this->nullable = $nullable;
@@ -113,36 +105,12 @@ final class Column
     }
 
     /**
-     * @return Table
-     */
-    public function getTable(): Table
-    {
-        return $this->table;
-    }
-
-    /**
-     * Converts the table to an array.
-     *
      * @todo Move the toArray responsability away from the Column
      *
      * @return array
-     *
-     * @throws DbalException if the column has no Table
      */
     public function toArray(): array
     {
-        $table = $this->getTable();
-        $columnName = $this->getName();
-
-        if ($table === null) {
-            throw new DbalException(
-                sprintf(
-                    'Missing table for column "%s".',
-                    $columnName
-                )
-            );
-        }
-
         $parameters = $this->getParameters();
 
         $arr = [
@@ -151,7 +119,6 @@ final class Column
             'nullable' => $this->isNullable(),
             'autoIncrementable' => $this->isAutoIncrementable(),
             'parameters' => $parameters,
-            'table' => $table->getName(),
         ];
 
         return $arr;
