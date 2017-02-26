@@ -56,18 +56,18 @@ class DatabaseConnection
      * Constructor.
      *
      * @param string $host
-     * @param int $port
+     * @param int|null $port
      * @param string $database
      * @param string $user
-     * @param string $password
+     * @param string|null $password
      * @param array $options
      */
     public function __construct(
         string $host,
-        int $port,
+        ?int $port,
         string $database,
         string $user,
-        string $password,
+        ?string $password,
         array $options = []
     ) {
         $this->host = $host;

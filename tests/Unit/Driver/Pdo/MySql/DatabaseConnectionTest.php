@@ -137,7 +137,7 @@ class DatabaseConnectionTest extends BaseTest
                 $mysqlDatabaseConnection->executeQuery('');
             },
             \Exception::class,
-            'Trying to execute a query using a non-connected connection.'
+            'Trying to execute a query using a non-established connection.'
         );
     }
 
