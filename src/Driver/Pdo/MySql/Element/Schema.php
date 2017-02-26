@@ -221,8 +221,12 @@ final class Schema
      *
      * @throws NoElementFoundWithNameInSchemaException if no element is found
      */
-    private function doGetWithName(array $collection, string $elementTypeName, string $elementName, bool $caseSensitive = true): object
-    {
+    private function doGetWithName(
+        array $collection,
+        string $elementTypeName,
+        string $elementName,
+        bool $caseSensitive = true
+    ) {
         $elementWithName = null;
 
         if ($caseSensitive) {
