@@ -9,10 +9,13 @@
 
 namespace Calam\Dbal;
 
+/**
+ * @author Benjamin Michalski <benjamin.michalski@gmail.com>
+ */
 interface DriverInterface
 {
     /**
      * @param array $parameters
      */
-    public function instanciateDatabaseConnection(array $parameters);
+    public function instantiateDatabaseConnection(array $parameters);
 }
