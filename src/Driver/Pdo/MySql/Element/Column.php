@@ -9,8 +9,6 @@
 
 namespace Calam\Dbal\Driver\Pdo\MySql\Element;
 
-use Calam\Dbal\Exception\DbalException;
-
 /**
  * MySQL column.
  *
