@@ -10,165 +10,112 @@
 namespace Calam\Dbal\Tests\Unit\Driver\Pdo\MySql\Element;
 
 use Calam\Dbal\Driver\Pdo\MySql\Element\Column;
-use Calam\Dbal\Driver\Pdo\MySql\Element\Table;
+use Calam\Dbal\Driver\Pdo\MySql\Element\ColumnDataTypes;
 use Calam\Dbal\Tests\BaseTest;
-use Calam\Dbal\Tests\Helper\CommonTestHelper;
-use Exception;
 
 /**
  * @author Benjamin Michalski <benjamin.michalski@gmail.com>
  */
-class ColumnTest extends BaseTest
+final class ColumnTest extends BaseTest
 {
     /**
-     * @covers Calam\Dbal\SqlBased\Element\Column::__construct
+     * @covers Column::__construct
      */
     public function testConstruct()
     {
-        $column = $this->createBaseNewColumn();
+        $column = new Column('id', ColumnDataTypes::TYPE_INT, false, true, [ 'foo' => 'bar', ]);
 
+        $this->assertAttributeSame('id', 'name', $column);
+        $this->assertAttributeSame(ColumnDataTypes::TYPE_INT, 'dataType', $column);
+        $this->assertAttributeSame(false, 'nullable', $column);
+        $this->assertAttributeSame(true, 'autoIncrementable', $column);
+        $this->assertAttributeSame([ 'foo' => 'bar', ], 'parameters', $column);
+    }
+
+    /**
+     * @covers Column::__construct
+     */
+    public function testDefaultValues()
+    {
+        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $this->assertAttributeSame('id', 'name', $column);
+        $this->assertAttributeSame(ColumnDataTypes::TYPE_INT, 'dataType', $column);
+        $this->assertAttributeSame(false, 'nullable', $column);
         $this->assertAttributeSame(false, 'autoIncrementable', $column);
         $this->assertAttributeSame([], 'parameters', $column);
     }
 
     /**
-     * @coversNothing
+     * @covers Column::getName
      */
-    public function testDefaultValues()
+    public function testGetName()
     {
-        $column = $this->createBaseNewColumn();
+        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
 
-        $this->assertEquals(
-            null,
+        $this->assertSame(
+            'id',
             $column->getName()
         );
-        $this->assertEquals(
-            null,
+    }
+
+    /**
+     * @covers Column::getDataType
+     */
+    public function testGetDataType()
+    {
+        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $this->assertSame(
+            ColumnDataTypes::TYPE_INT,
             $column->getDataType()
         );
-        $this->assertEquals(
-            null,
-            $column->isNullable()
-        );
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\Column::getName
-     * @covers Calam\Dbal\SqlBased\Element\Column::setName
+     * @covers Column::isNullable
      */
-    public function testGetAndSetName()
+    public function testIsNullable()
     {
-        CommonTestHelper::testBasicGetAndSetForProperty(
-            $this,
-            $this->createBaseNewColumn(),
-            'name',
-            uniqid('name_', true)
-        );
+        $column = new Column('id', ColumnDataTypes::TYPE_INT, false);
+
+        $this->assertFalse($column->isNullable());
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\Column::getDataType
-     * @covers Calam\Dbal\SqlBased\Element\Column::setDataType
+     * @covers Column::isAutoIncrementable
      */
-    public function testGetAndSetType()
+    public function testIsAutoIncrementable()
     {
-        CommonTestHelper::testBasicGetAndSetForProperty(
-            $this,
-            $this->createBaseNewColumn(),
-            'dataType',
-            'TEST'
-        );
+        $column = new Column('id', ColumnDataTypes::TYPE_INT, false, true);
+
+        $this->assertTrue($column->isAutoIncrementable());
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\Column::isNullable
-     * @covers Calam\Dbal\SqlBased\Element\Column::setNullable
+     * @covers Column::getParameters
      */
-    public function testIsAndSetNullable()
+    public function testGetParameters()
     {
-        CommonTestHelper::testBasicIsAndSetForProperty(
-            $this,
-            $this->createBaseNewColumn(),
-            'nullable',
-            true
-        );
+        $column = new Column('id', ColumnDataTypes::TYPE_INT, false, true, [ 'foo' => 'bar' ]);
+
+        $this->assertSame([ 'foo' => 'bar' ], $column->getParameters());
     }
 
     /**
-     * @covers Calam\Dbal\SqlBased\Element\Column::isAutoIncrementable
-     * @covers Calam\Dbal\SqlBased\Element\Column::setAutoIncrementable
-     */
-    public function testIsAndSetAutoIncrement()
-    {
-        CommonTestHelper::testBasicIsAndSetForProperty(
-            $this,
-            $this->createBaseNewColumn(),
-            'autoIncrementable',
-            true
-        );
-    }
-
-    /**
-     * @covers Calam\Dbal\SqlBased\Element\Column::getParameters
-     * @covers Calam\Dbal\SqlBased\Element\Column::setParameters
-     */
-    public function testGetAndSetParameters()
-    {
-        CommonTestHelper::testBasicGetAndSetCollectionForProperty(
-            $this,
-            $this->createBaseNewColumn(),
-            'parameters',
-            [
-                'test' => 42,
-            ]
-        );
-    }
-
-    /**
-     * @covers Calam\Dbal\SqlBased\Element\Column::getTable
-     * @covers Calam\Dbal\SqlBased\Element\Column::setTable
-     */
-    public function testGetAndSetTable()
-    {
-        CommonTestHelper::testBasicGetAndSetForProperty(
-            $this,
-            $this->createBaseNewColumn(),
-            'table',
-            $this->createBaseNewTable()
-        );
-    }
-
-    /**
-     * @covers Calam\Dbal\SqlBased\Element\Column::toArray
-     */
-    public function testToArrayNoTableExceptionIfNoTable()
-    {
-        CommonTestHelper::assertExceptionThrown(
-            function () {
-                $column = $this->createBaseTestColumn();
-                $column->toArray();
-            },
-            Exception::class,
-            'Missing table for column "testName".'
-        );
-    }
-
-    /**
-     * @covers Calam\Dbal\SqlBased\Element\Column::toArray
+     * @covers Column::toArray
      */
     public function testToArray()
     {
-        $column = $this->createBaseTestColumn();
-
-        $table = $this->createBaseNewTable();
-
-        $table->setName(
-            'testTableName'
-        )->addColumn(
-            $column
+        $column = new Column(
+            'testName',
+            ColumnDataTypes::TYPE_VARCHAR,
+            false,
+            true,
+            [
+                'foo' => 'bar',
+            ]
         );
-
-        $column->setDataType('VARCHAR');
 
         $arr = $column->toArray();
 
@@ -176,56 +123,12 @@ class ColumnTest extends BaseTest
             'name' => 'testName',
             'dataType' => 'VARCHAR',
             'nullable' => false,
+            'autoIncrementable' => true,
             'parameters' => [
-                'testParameterKey' => 'testParameterName',
+                'foo' => 'bar',
             ],
-            'table' => 'testTableName',
-            'autoIncrementable' => false,
         ];
 
         $this->assertEquals($expected, $arr);
-    }
-
-    /**
-     * @return Column
-     */
-    protected function createBaseNewColumn()
-    {
-        return $this->getMockForAbstractClass(
-            Column::class
-        );
-    }
-
-    /**
-     * @return Table
-     */
-    protected function createBaseNewTable()
-    {
-        return $this->getMockForAbstractClass(
-            Table::class
-        );
-    }
-
-    /**
-     * @return Column
-     */
-    protected function createBaseTestColumn()
-    {
-        $columnName = 'testName';
-        $nullable = false;
-
-        $column = $this->createBaseNewColumn();
-
-        $column->setName(
-            $columnName
-        )->setNullable(
-            $nullable
-        )->setParameters(
-            [
-                'testParameterKey' => 'testParameterName',
-            ]
-        );
-
-        return $column;
     }
 }
