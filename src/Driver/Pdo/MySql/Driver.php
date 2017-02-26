@@ -27,12 +27,12 @@ final class Driver implements DriverInterface
     {
         if (isset($parameters['logger'])) {
             return new LoggedDatabaseConnection(
+                $parameters['logger'],
                 $parameters['host'],
                 $parameters['port'],
                 $parameters['database'],
                 $parameters['user'],
-                $parameters['password'],
-                $parameters['logger']
+                $parameters['password']
             );
         } else {
             return new DatabaseConnection(
